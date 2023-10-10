@@ -8,11 +8,11 @@ import lombok.Setter;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 public class Version {
-    private long id;
+    private int id;
     private String name;
     private String startDate;
     private String startTime;
     private String finishDate;
     private String finishTime;
-    private long parentSegmentId;
+    private int parentSegmentId;
 }

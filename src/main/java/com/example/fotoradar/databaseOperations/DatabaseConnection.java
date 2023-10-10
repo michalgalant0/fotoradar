@@ -1,4 +1,4 @@
-package com.example.fotoradar;
+package com.example.fotoradar.databaseOperations;
 
 import lombok.Getter;
 
@@ -7,11 +7,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-@Getter
 /**
  Klasa realizująca połączenie z bazą danych.
  Na zasadzie singleton - jedna instancja dla całej aplikacji.
  */
+@Getter
 public class DatabaseConnection {
     private static final String CONNECTION_STRING = "jdbc:sqlite:" + getDatabaseFilePath();
     // Metoda do pobierania połączenia do bazy danych

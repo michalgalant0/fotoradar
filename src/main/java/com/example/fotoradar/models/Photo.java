@@ -8,8 +8,8 @@ import lombok.Setter;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 public class Photo {
-    private long id;
+    private int id;
     private String fileName;
     private String filePath;
-    private long parentVersionId;
+    private int parentVersionId;
 }

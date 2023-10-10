@@ -12,4 +12,6 @@ module com.example.fotoradar {
     exports com.example.fotoradar;
     exports com.example.fotoradar.controllers;
     opens com.example.fotoradar.controllers to javafx.fxml;
+    exports com.example.fotoradar.databaseOperations;
+    opens com.example.fotoradar.databaseOperations to javafx.fxml;
 }

@@ -1,15 +1,13 @@
 package com.example.fotoradar.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
+@ToString
 public class Collection {
-    private long id;
-    private String name;
+    private int id;
+    private String title;
     private String startDate;
     private String finishDate;
     private String description;

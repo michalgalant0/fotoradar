@@ -8,10 +8,10 @@ import lombok.Setter;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 public class Collectible {
-    private long id;
+    private int id;
     private String name;
     private String startDate;
     private String finishDate;
     private String description;
-    private long parentCollectionId;
+    private int parentCollectionId;
 }
