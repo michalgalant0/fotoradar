@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter @Setter
 public class Segment {
     private int id;
-    private String name;
+    private String title;
     private String startDate;
     private String finishDate;
     private String description;

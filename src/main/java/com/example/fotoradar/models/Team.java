@@ -5,11 +5,9 @@ import lombok.*;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 @ToString
-public class Collectible {
+public class Team {
     private int id;
-    private String title;
-    private String startDate;
-    private String finishDate;
+    private String name;
     private String description;
     private int parentCollectionId;
 }

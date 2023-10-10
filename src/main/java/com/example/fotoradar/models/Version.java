@@ -11,8 +11,9 @@ public class Version {
     private int id;
     private String name;
     private String startDate;
-    private String startTime;
+    //private String startTime;
     private String finishDate;
-    private String finishTime;
+    //private String finishTime;
+    private int teamId;
     private int parentSegmentId;
 }

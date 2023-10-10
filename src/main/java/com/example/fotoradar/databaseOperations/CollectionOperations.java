@@ -71,6 +71,7 @@ public class CollectionOperations {
     public boolean deleteCollection(int id) throws SQLException {
         String query = "DELETE FROM Collection WHERE collection_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
             preparedStatement.setInt(1, id);
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
