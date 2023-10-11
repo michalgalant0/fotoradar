@@ -7,30 +7,32 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 public class SegmentOperations {
-    private Connection connection;
+    private final Connection connection;
 
     public SegmentOperations(Connection connection) {
         this.connection = connection;
     }
 
     // Pobieranie wszystkich obiektów z bazy
-    public List<Segment> getAllSegments() throws SQLException {
+    public List<Segment> getAllSegments(int parentCollectibleId) throws SQLException {
         List<Segment> segments = new ArrayList<>();
-        String query = "SELECT * FROM Segment";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+        String query = "SELECT * FROM Segment WHERE collectible_id=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, parentCollectibleId);
 
-            while (resultSet.next()) {
-                int id = resultSet.getInt("segment_id");
-                String title = resultSet.getString("title");
-                String startDate = resultSet.getString("start_datetime");
-                String finishDate = resultSet.getString("finish_datetime");
-                String description = resultSet.getString("description");
-                int statusId = resultSet.getInt("status_id");
-                int parentCollectibleId = resultSet.getInt("collectible_id");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
-                Segment segment = new Segment(id, title, startDate, finishDate, description, statusId, parentCollectibleId);
-                segments.add(segment);
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("segment_id");
+                    String title = resultSet.getString("title");
+                    String startDate = resultSet.getString("start_datetime");
+                    String finishDate = resultSet.getString("finish_datetime");
+                    String description = resultSet.getString("description");
+                    int statusId = resultSet.getInt("status_id");
+
+                    Segment segment = new Segment(id, title, startDate, finishDate, description, statusId, parentCollectibleId);
+                    segments.add(segment);
+                }
             }
         }
         return segments;
@@ -38,18 +40,18 @@ public class SegmentOperations {
 
     // Pobieranie jednego obiektu z bazy po ID
     public Segment getSegmentById(int id, int statusId, int parentCollectibleId) throws SQLException {
-        String query = "SELECT * FROM Segment WHERE (segment_id=?, status_id=? AND collectible_id=?)";
+        String query = "SELECT * FROM Segment WHERE (segment_id=? AND status_id=? AND collectible_id=?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
-            preparedStatement.setInt(6, statusId);
-            preparedStatement.setInt(7, parentCollectibleId);
+            preparedStatement.setInt(2, statusId);
+            preparedStatement.setInt(3, parentCollectibleId);
+
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     String title = resultSet.getString("title");
                     String startDate = resultSet.getString("start_datetime");
                     String finishDate = resultSet.getString("finish_datetime");
                     String description = resultSet.getString("description");
-
 
                     return new Segment(id, title, startDate, finishDate, description, statusId, parentCollectibleId);
                 }

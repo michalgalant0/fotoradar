@@ -2,45 +2,47 @@ package com.example.fotoradar.databaseOperations;
 
 import com.example.fotoradar.models.Collectible;
 
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 public class CollectibleOperations {
-    private Connection connection;
+    private final Connection connection;
 
     public CollectibleOperations(Connection connection) {
         this.connection = connection;
     }
 
     // Pobieranie wszystkich obiektów z bazy
-    public List<Collectible> getAllCollectibles() throws SQLException {
+    public List<Collectible> getAllCollectibles(int parentCollectionId) throws SQLException {
         List<Collectible> collectibles = new ArrayList<>();
-        String query = "SELECT * FROM Collectible";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+        String query = "SELECT * FROM Collectible WHERE collection_id=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, parentCollectionId);
 
-            while (resultSet.next()) {
-                int id = resultSet.getInt("collectible_id");
-                String title = resultSet.getString("title");
-                String startDate = resultSet.getString("start_date");
-                String finishDate = resultSet.getString("finish_date");
-                String description = resultSet.getString("description");
-                int parentCollectionId = resultSet.getInt("collection_id");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("collectible_id");
+                    String title = resultSet.getString("title");
+                    String startDate = resultSet.getString("start_date");
+                    String finishDate = resultSet.getString("finish_date");
+                    String description = resultSet.getString("description");
 
-                Collectible collectible = new Collectible(id, title, startDate, finishDate, description, parentCollectionId);
-                collectibles.add(collectible);
+                    Collectible collectible = new Collectible(id, title, startDate, finishDate, description, parentCollectionId);
+                    collectibles.add(collectible);
+                }
             }
         }
         return collectibles;
     }
+
 
     // Pobieranie jednego obiektu z bazy po ID
     public Collectible getCollectibleById(int id, int parentCollectionId) throws SQLException {
         String query = "SELECT * FROM Collectible WHERE (collectible_id=? AND collection_id=?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
-            preparedStatement.setInt(6, parentCollectionId);
+            preparedStatement.setInt(2, parentCollectionId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     String title = resultSet.getString("title");

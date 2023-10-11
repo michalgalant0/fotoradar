@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionOperations {
-    private Connection connection;
+    private final Connection connection;
 
     public CollectionOperations(Connection connection) {
         this.connection = connection;

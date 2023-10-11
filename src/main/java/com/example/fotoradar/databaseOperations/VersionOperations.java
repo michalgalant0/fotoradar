@@ -7,29 +7,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VersionOperations {
-    private Connection connection;
+    private final Connection connection;
 
     public VersionOperations(Connection connection) {
         this.connection = connection;
     }
 
     // Pobieranie wszystkich wersji z bazy
-    public List<Version> getAllVersions() throws SQLException {
+    public List<Version> getAllVersions(int parentSegmentId) throws SQLException {
         List<Version> versions = new ArrayList<>();
-        String query = "SELECT * FROM Version";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+        String query = "SELECT * FROM Version WHERE segment_id=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, parentSegmentId);
 
-            while (resultSet.next()) {
-                int id = resultSet.getInt("version_id");
-                String name = resultSet.getString("name");
-                String startDate = resultSet.getString("start_datetime");
-                String finishDate = resultSet.getString("finish_datetime");
-                int teamId = resultSet.getInt("team_id");
-                int parentSegmentId = resultSet.getInt("segment_id");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("version_id");
+                    String name = resultSet.getString("name");
+                    String startDate = resultSet.getString("start_datetime");
+                    String finishDate = resultSet.getString("finish_datetime");
+                    int teamId = resultSet.getInt("team_id");
 
-                Version version = new Version(id, name, startDate, finishDate, teamId, parentSegmentId);
-                versions.add(version);
+                    Version version = new Version(id, name, startDate, finishDate, teamId, parentSegmentId);
+                    versions.add(version);
+                }
             }
         }
         return versions;
@@ -46,7 +47,6 @@ public class VersionOperations {
                     String title = resultSet.getString("name");
                     String startDate = resultSet.getString("start_datetime");
                     String finishDate = resultSet.getString("finish_datetime");
-
 
                     return new Version(id, title, startDate, finishDate, teamId, parentSegmentId );
                 }
@@ -88,7 +88,6 @@ public class VersionOperations {
             preparedStatement.setString(2, version.getStartDate());
             preparedStatement.setString(3, version.getFinishDate());
             preparedStatement.setInt(4, version.getTeamId());
-
             preparedStatement.setInt(5,version.getId());
             preparedStatement.setInt(6, version.getParentSegmentId());
 
