@@ -25,14 +25,10 @@ public class Main extends Application {
         // test operacji
         // utworzenie obiektu klasy ..Operations
         CollectibleOperations cop = new CollectibleOperations(connection);
-        // wydrukowanie w konsoli zwrotu danej metody
+        // wydrukowanie w konsoli zwrotu danej metody - tu: pobranie obiektu po jego id i id jego kolekcji
         System.out.println(
                 cop.getCollectibleById(3, 8).toString()
         );
-
-        SegmentOperations sop = new SegmentOperations(connection);
-        System.out.println(sop.getSegmentById(1,1,1).toString());
-
 
 
         // using fxml loader for layout loading
