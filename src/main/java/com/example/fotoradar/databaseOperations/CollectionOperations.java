@@ -7,15 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionOperations {
-    private final Connection connection;
+    private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
-    public CollectionOperations(Connection connection) {
-        this.connection = connection;
+    public CollectionOperations() throws SQLException {
     }
 
     // Pobieranie wszystkich kolekcji z bazy
-    public List<Collection> getAllCollections() throws SQLException {
-        List<Collection> collections = new ArrayList<>();
+    public ArrayList<Collection> getAllCollections() throws SQLException {
+        ArrayList<Collection> collections = new ArrayList<>();
         String query = "SELECT * FROM Collection";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {

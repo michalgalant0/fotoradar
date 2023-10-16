@@ -18,7 +18,7 @@ public class DatabaseConnection {
     private Connection connection;
     private static DatabaseConnection instance;
 
-    private DatabaseConnection() throws SQLException {
+    public DatabaseConnection() throws SQLException {
         connect();
     }
 
