@@ -45,8 +45,11 @@ public class CollectionViewController {
     }
 
     @FXML
-    private void addCollectible (ActionEvent event) {
+    private void addCollectible (ActionEvent event) throws IOException, SQLException {
+        AddCollectibleViewController controller = new AddCollectibleViewController();
+        controller.setCollection(this.collection);
 
+        new SwitchScene(event, "add_collectible_view", controller);
     }
 
     public void editCollection(ActionEvent event) throws IOException, SQLException {
