@@ -1,20 +1,16 @@
 package com.example.fotoradar.controllers;
 
 import com.example.fotoradar.SwitchScene;
-import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 @Getter @Setter
 public class CollectionViewController {
@@ -27,16 +23,8 @@ public class CollectionViewController {
     private Collection collection;
 
     @FXML
-    public void initialize() throws SQLException {
+    public void initialize() {
         titleLabel.setText("kolekcje/ "+collection.getTitle());
-        fillListView();
-    }
-
-    private void fillListView() throws SQLException {
-        ArrayList<Collectible> collectibles = new CollectibleOperations().getAllCollectibles(collection.getId());
-
-        for (Collectible collectible : collectibles)
-            collectiblesListView.getItems().add(collectible);
     }
 
     @FXML
@@ -45,16 +33,15 @@ public class CollectionViewController {
     }
 
     @FXML
-    private void addCollectible (ActionEvent event) {
+    private void addCollectible (ActionEvent event) throws IOException, SQLException {
+        AddCollectibleViewController controller = new AddCollectibleViewController();
+        controller.setCollection(this.collection);
 
+        new SwitchScene(event, "add_collectible_view", controller);
     }
 
-    public void editCollection(ActionEvent event) throws IOException, SQLException {
-        // Tworzenie kontrolera dla widoku edycji kolekcji i przekazywanie parametrów kolekcji
-        EditCollectionViewController controller = new EditCollectionViewController();
-        controller.setCollection(getCollection());
-
-        // Przenoszenie do widoku kolekcji z przekazaną kolekcją
-        new SwitchScene(event, "edit_collection_view", controller);
+    public void editCollection(ActionEvent event) throws IOException {
+        //tmp
+        new SwitchScene(event, "edit_collection_view");
     }
 }
