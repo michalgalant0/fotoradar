@@ -1,13 +1,10 @@
 package com.example.fotoradar.controllers;
 
-import com.example.fotoradar.Main;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
@@ -20,7 +17,7 @@ public class CollectionsViewController {
     @FXML
     private Button addCollectionButton, openCollectionButton;
     @FXML
-    private ListView collectionsListView;
+    private ListView<Collection> collectionsListView;
 
     @FXML
     public void initialize() throws SQLException {
@@ -42,10 +39,15 @@ public class CollectionsViewController {
     @FXML
     private void openCollection(ActionEvent event) throws IOException {
         // pobiera aktualnie wybraną kolekcje z ListView
-        Collection selectedCollection = (Collection) collectionsListView.getSelectionModel().getSelectedItem();
-        System.out.println(selectedCollection); //debug
+        Collection selectedCollection = collectionsListView.getSelectionModel().getSelectedItem();
 
-        // tmp
-        new SwitchScene(event, "collection_view");
+        if (selectedCollection != null) {
+            // Tworzenie kontrolera dla widoku kolekcji i przekazywanie kolekcji
+            CollectionViewController controller = new CollectionViewController();
+            controller.setCollection(selectedCollection);
+
+            // Przenoszenie do widoku kolekcji z przekazaną kolekcją
+            new SwitchScene(event, "collection_view", controller);
+        }
     }
 }

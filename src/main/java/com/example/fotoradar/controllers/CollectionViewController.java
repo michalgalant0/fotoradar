@@ -1,6 +1,7 @@
 package com.example.fotoradar.controllers;
 
 import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,25 +14,18 @@ import java.io.IOException;
 @Getter @Setter
 public class CollectionViewController {
     public Label titleLabel;
+    public ListView<Collectible> collectiblesListView;
     public Button backToCollectionsButton;
-    public TextField titleTextField;
-    public TextField startDateTextField;
-    public TextField finishDateTextField;
-    public TextArea descriptionTextArea;
-    public ListView collectiblesListView;
-    public Label collectiblesLabel;
-    public Button saveCollectionButton;
     public Button addCollectibleButton;
     public Button editCollectionButton;
 
-    Collection collection;
+    private Collection collection;
 
     @FXML
-    public void initialize() {}
-
-    public void displayCollectionTitle (String title) {
-        titleLabel.setText("kolekcje/ "+title);
+    public void initialize() {
+        titleLabel.setText("kolekcje/ "+collection.getTitle());
     }
+
     @FXML
     private void backToCollections (ActionEvent event) throws IOException {
         new SwitchScene(event, "collections-view");

@@ -15,4 +15,12 @@ public class SwitchScene {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
     }
+
+    public SwitchScene(ActionEvent event, String viewName, Object controller) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(viewName + ".fxml"));
+        fxmlLoader.setController(controller); // Ustawienie kontrolera widoku
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setScene(scene);
+    }
 }
