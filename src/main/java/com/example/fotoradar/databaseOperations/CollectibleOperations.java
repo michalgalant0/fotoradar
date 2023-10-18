@@ -7,15 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CollectibleOperations {
-    private final Connection connection;
+    private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
-    public CollectibleOperations(Connection connection) {
-        this.connection = connection;
+    public CollectibleOperations() throws SQLException {
     }
 
     // Pobieranie wszystkich obiektów z bazy
-    public List<Collectible> getAllCollectibles(int parentCollectionId) throws SQLException {
-        List<Collectible> collectibles = new ArrayList<>();
+    public ArrayList<Collectible> getAllCollectibles(int parentCollectionId) throws SQLException {
+        ArrayList<Collectible> collectibles = new ArrayList<>();
         String query = "SELECT * FROM Collectible WHERE collection_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, parentCollectionId);

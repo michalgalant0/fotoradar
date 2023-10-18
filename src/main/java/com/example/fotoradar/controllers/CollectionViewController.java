@@ -1,15 +1,20 @@
 package com.example.fotoradar.controllers;
 
 import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 @Getter @Setter
 public class CollectionViewController {
@@ -22,8 +27,16 @@ public class CollectionViewController {
     private Collection collection;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
         titleLabel.setText("kolekcje/ "+collection.getTitle());
+        fillListView();
+    }
+
+    private void fillListView() throws SQLException {
+        ArrayList<Collectible> collectibles = new CollectibleOperations().getAllCollectibles(collection.getId());
+
+        for (Collectible collectible : collectibles)
+            collectiblesListView.getItems().add(collectible);
     }
 
     @FXML
