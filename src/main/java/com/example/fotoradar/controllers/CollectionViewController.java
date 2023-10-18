@@ -50,7 +50,11 @@ public class CollectionViewController {
     }
 
     public void editCollection(ActionEvent event) throws IOException {
-        //tmp
-        new SwitchScene(event, "edit_collection_view");
+        // Tworzenie kontrolera dla widoku edycji kolekcji i przekazywanie parametrów kolekcji
+        EditCollectionViewController controller = new EditCollectionViewController();
+        controller.setCollection(getCollection());
+
+        // Przenoszenie do widoku kolekcji z przekazaną kolekcją
+        new SwitchScene(event, "edit_collection_view", controller);
     }
 }
