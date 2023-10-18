@@ -44,5 +44,8 @@ public class CollectionsViewController {
         // pobiera aktualnie wybraną kolekcje z ListView
         Collection selectedCollection = (Collection) collectionsListView.getSelectionModel().getSelectedItem();
         System.out.println(selectedCollection); //debug
+
+        // tmp
+        new SwitchScene(event, "collection_view");
     }
 }
