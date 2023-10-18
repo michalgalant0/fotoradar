@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="562.5" prefWidth="1000.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.fotoradar.controllers.CollectionViewController">
+   <Label fx:id="titleLabel" layoutX="14.0" layoutY="24.0" text="kolekcje/ ">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </Label>
+   <Button fx:id="backToCollectionsButton" layoutX="861.0" layoutY="525.0" mnemonicParsing="false" onAction="#backToCollections" text="Wróć do kolekcji" />
+   <Label layoutX="50.0" layoutY="74.0" text="Tytuł" />
+   <TextField fx:id="titleTextField" layoutX="50.0" layoutY="96.0" prefHeight="24.0" prefWidth="265.0" />
+   <Label layoutX="50.0" layoutY="138.0" text="Data rozpoczęcia" />
+   <TextField fx:id="startDateTextField" layoutX="50.0" layoutY="160.0" prefHeight="24.0" prefWidth="265.0" />
+   <Label layoutX="50.0" layoutY="200.0" text="Data zakończenia" />
+   <TextField fx:id="finishDateTextField" layoutX="50.0" layoutY="222.0" prefHeight="24.0" prefWidth="265.0" />
+   <Label layoutX="50.0" layoutY="266.0" text="Opis" />
+   <TextArea fx:id="descriptionTextArea" layoutX="50.0" layoutY="289.0" prefHeight="223.0" prefWidth="265.0" />
+   <ListView fx:id="collectiblesListView" layoutX="476.0" layoutY="96.0" prefHeight="419.0" prefWidth="359.0" />
+   <Label fx:id="collectiblesLabel" layoutX="476.0" layoutY="74.0" text="Obiekty" />
+   <Button fx:id="saveCollectionButton" layoutX="329.0" layoutY="488.0" mnemonicParsing="false" onAction="#saveCollection" text="Zapisz zmiany" />
+   <Button fx:id="addCollectibleButton" layoutX="852.0" layoutY="488.0" mnemonicParsing="false" onAction="#addCollectible" text="Dodaj obiekt" />
+</AnchorPane>

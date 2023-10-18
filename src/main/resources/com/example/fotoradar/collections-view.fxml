@@ -15,4 +15,5 @@
    </Label>
    <ListView fx:id="collectionsListView" layoutX="14.0" layoutY="73.0" prefHeight="476.0" prefWidth="488.0" />
    <Button fx:id="addCollectionButton" layoutX="865.0" layoutY="525.0" mnemonicParsing="false" onAction="#addCollection" text="Utwórz kolekcję" />
+   <Button fx:id="openCollectionButton" layoutX="728.0" layoutY="525.0" mnemonicParsing="false" onAction="#openCollection" text="Otwórz kolekcję" />
 </AnchorPane>
