@@ -49,7 +49,7 @@ public class CollectionViewController {
 
     }
 
-    public void editCollection(ActionEvent event) throws IOException {
+    public void editCollection(ActionEvent event) throws IOException, SQLException {
         // Tworzenie kontrolera dla widoku edycji kolekcji i przekazywanie parametrów kolekcji
         EditCollectionViewController controller = new EditCollectionViewController();
         controller.setCollection(getCollection());

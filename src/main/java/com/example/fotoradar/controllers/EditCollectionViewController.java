@@ -1,6 +1,7 @@
 package com.example.fotoradar.controllers;
 
 import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextField;
 import lombok.Setter;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @Setter
 public class EditCollectionViewController {
@@ -23,6 +25,11 @@ public class EditCollectionViewController {
     public Button cancelButton;
 
     private Collection collection;
+
+    private final CollectionOperations collectionOperations = new CollectionOperations();
+
+    public EditCollectionViewController() throws SQLException {
+    }
 
     @FXML
     public void initialize() {
@@ -46,11 +53,29 @@ public class EditCollectionViewController {
     public void cancel(ActionEvent event) throws IOException {
         CollectionViewController controller = new CollectionViewController();
         controller.setCollection(collection);
-
-        // powrót do kolekcji musi załadować tę samą kolekcję, która została załadowana tutaj w formularzu
         new SwitchScene(event, "collection_view", controller);
     }
 
-    public void editCollection(ActionEvent event) {
+    public void editCollection(ActionEvent event) throws IOException {
+        String newTitle = titleTextField.getText();
+        String newStartDate = startDateTextField.getText();
+        String newFinishDate = finishDateTextField.getText();
+        String newDescription = descriptionTextArea.getText();
+
+        this.collection.setTitle(newTitle);
+        this.collection.setStartDate(newStartDate);
+        this.collection.setFinishDate(newFinishDate);
+        this.collection.setDescription(newDescription);
+
+        System.out.println(this.collection);
+        try {
+            collectionOperations.updateCollection(this.collection);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        CollectionViewController controller = new CollectionViewController();
+        controller.setCollection(collection);
+        new SwitchScene(event, "collection_view", controller);
     }
 }
