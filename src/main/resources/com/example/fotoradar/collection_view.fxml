@@ -13,7 +13,8 @@
       </font>
    </Label>
    <ListView fx:id="collectiblesListView" layoutX="14.0" layoutY="83.0" prefHeight="463.0" prefWidth="500.0" />
-   <Button fx:id="backToCollectionsButton" layoutX="861.0" layoutY="525.0" mnemonicParsing="false" onAction="#backToCollections" text="Wróć do kolekcji" />
-   <Button fx:id="addCollectibleButton" layoutX="861.0" layoutY="493.0" mnemonicParsing="false" onAction="#addCollectible" prefHeight="24.0" prefWidth="125.0" text="Dodaj obiekt" />
-   <Button fx:id="editCollectionButton" layoutX="861.0" layoutY="459.0" mnemonicParsing="false" onAction="#editCollection" prefHeight="24.0" prefWidth="125.0" text="Edytuj kolekcję" />
+   <Button fx:id="backToCollectionsButton" layoutX="871.0" layoutY="524.0" mnemonicParsing="false" onAction="#backToCollections" text="Wróć do kolekcji" />
+   <Button fx:id="addCollectibleButton" layoutX="861.0" layoutY="395.0" mnemonicParsing="false" onAction="#addCollectible" prefHeight="24.0" prefWidth="125.0" text="Dodaj obiekt" />
+   <Button fx:id="editCollectionButton" layoutX="861.0" layoutY="437.0" mnemonicParsing="false" onAction="#editCollection" prefHeight="24.0" prefWidth="125.0" text="Edytuj kolekcję" />
+   <Button fx:id ="deleteCollectionButton" layoutX="861.0" layoutY="478.0" mnemonicParsing="false" onAction="#deleteCollection" prefHeight="25.0" prefWidth="125.0" text="Usuń kolekcję" />
 </AnchorPane>
