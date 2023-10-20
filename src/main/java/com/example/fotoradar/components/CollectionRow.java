@@ -21,7 +21,10 @@ public class CollectionRow extends AnchorPane {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectionRow.fxml"));
         loader.setRoot(this);
         loader.setController(this);
-
         loader.load();
+    }
+
+    public void setNameLabel(String name) {
+        nameLabel.setText(name);
     }
 }
