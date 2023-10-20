@@ -11,7 +11,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         // using fxml loader for layout loading
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("collections-view.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("collections-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/TEST-VIEW.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("fotoradar");
         stage.setScene(scene);

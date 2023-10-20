@@ -39,20 +39,20 @@ public class CollectibleOperations {
 
 
     // Pobieranie jednego obiektu z bazy po ID
-    public Collectible getCollectibleById(int id, int parentCollectionId) throws SQLException {
-        String query = "SELECT * FROM Collectible WHERE (collectible_id=? AND collection_id=?)";
+    public Collectible getCollectibleById(int id) throws SQLException {
+        String query = "SELECT * FROM Collectible WHERE collectible_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, parentCollectionId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     String title = resultSet.getString("title");
                     String startDate = resultSet.getString("start_date");
                     String finishDate = resultSet.getString("finish_date");
                     String description = resultSet.getString("description");
+                    int parentCollectionId = resultSet.getInt("collection_id");
 
 
-                    return new Collectible(id, title, startDate, finishDate, description, parentCollectionId );
+                    return new Collectible(id, title, startDate, finishDate, description, parentCollectionId);
                 }
             }
         }
