@@ -25,7 +25,7 @@ public class Collection extends AnchorPane {
 
     private ArrayList<Collectible> collectibles;
 
-    public Collection() throws IOException {
+    public Collection() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/Collection.fxml"));
         loader.setRoot(this);
         loader.setController(this);
