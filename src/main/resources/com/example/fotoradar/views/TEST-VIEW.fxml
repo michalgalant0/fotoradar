@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.example.fotoradar.components.Collections?>
+
 <?import javafx.scene.layout.AnchorPane?>
 
-<?import com.example.fotoradar.components.Collection?>
-
-<AnchorPane prefHeight="682.0" prefWidth="724.0"
+<AnchorPane prefHeight="1080.0" prefWidth="1000.0"
             xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.fotoradar.controllers.TestViewController">
-    <Collection fx:id="collection" />
+    <Collections fx:id="collections" />
 </AnchorPane>
