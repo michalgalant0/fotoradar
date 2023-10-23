@@ -7,9 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-public class SegmentForm extends AnchorPane {
-    @FXML
-    public TextField numberTextField;
+public class VersionForm extends AnchorPane {
     @FXML
     public TextField nameTextField;
     @FXML
@@ -23,21 +21,19 @@ public class SegmentForm extends AnchorPane {
     @FXML
     public TextArea descriptionTextArea;
     @FXML
-    public ComboBox versionComboBox;
-    @FXML
-    public ComboBox statusComboBox;
+    public ComboBox teamComboBox;
 
-    public SegmentForm() {}
+    public VersionForm() {}
 
     public void initialize() {}
 
     @FXML
-    public void openVersion() {
-        System.out.println("otwarcie wersji");
+    public void editTeam() {
+        System.out.println("edycja zespołu");
     }
 
     @FXML
-    public void addVersion() {
-        System.out.println("dodanie wersji");
+    public void addTeam() {
+        System.out.println("dodanie zespołu");
     }
 }
