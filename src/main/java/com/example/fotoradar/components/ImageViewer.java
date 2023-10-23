@@ -35,7 +35,9 @@ public class ImageViewer extends AnchorPane {
     public void initialize() {
         try {
             String directoryName = "tmpPhotos";
-            Path directoryPath = Paths.get(Objects.requireNonNull(Main.class.getClassLoader().getResource(directoryName)).toURI());
+            Path directoryPath = Paths.get(
+                    Objects.requireNonNull(Main.class.getClassLoader().getResource(directoryName)).toURI()
+            );
 
             imageFiles = Files.walk(directoryPath, 1)
                     .filter(Files::isRegularFile)

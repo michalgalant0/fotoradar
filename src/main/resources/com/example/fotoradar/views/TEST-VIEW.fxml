@@ -4,8 +4,9 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import com.example.fotoradar.components.MiniGallery?>
 <AnchorPane prefHeight="1080.0" prefWidth="1000.0"
             xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.fotoradar.controllers.TestViewController">
-    <ImageViewer fx:id="imageViewer" />
+    <MiniGallery fx:id="miniGallery" />
 </AnchorPane>
