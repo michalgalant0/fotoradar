@@ -1,14 +1,15 @@
 package com.example.fotoradar.controllers;
 
-import com.example.fotoradar.components.Collectible;
+import com.example.fotoradar.components.Collectibles;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import javafx.fxml.FXML;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class TestViewController {
     @FXML
-    public Collectible collectible;
+    public Collectibles collectibles;
 
     CollectibleOperations collectibleOperations = new CollectibleOperations();
 
@@ -16,8 +17,9 @@ public class TestViewController {
     }
 
     public void initialize() throws SQLException {
-        com.example.fotoradar.models.Collectible object = collectibleOperations.getCollectibleById(3);
-        collectible.setCollectible(object);
+        ArrayList<com.example.fotoradar.models.Collectible> collectiblesList = collectibleOperations.getAllCollectibles(8);
+        collectibles.setCollectibles(collectiblesList);
+        collectibles.fillCollectiblesHBox();
     }
 
 }

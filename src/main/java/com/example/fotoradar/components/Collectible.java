@@ -3,11 +3,12 @@ package com.example.fotoradar.components;
 import com.example.fotoradar.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class Collectible extends AnchorPane {
 
@@ -34,6 +35,10 @@ public class Collectible extends AnchorPane {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setHeaderLabel(String name) {
+        headerLabel.setText(name);
     }
 
     public void setCollectible(com.example.fotoradar.models.Collectible collectible) {
