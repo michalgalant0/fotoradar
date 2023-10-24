@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="396.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.fotoradar.windows.TESTWINDOWS">
+    <Label layoutX="106.0" layoutY="33.0" text="okienka"/>
+    <Button layoutX="62.0" layoutY="93.0" mnemonicParsing="false" text="formularz kolekcji"
+            onAction="#formularzkolekcji"/>
+    <Button layoutX="62.0" layoutY="140.0" mnemonicParsing="false" text="formularz obiektu"
+            onAction="#formularzobiektu"/>
+    <Button layoutX="62.0" layoutY="180.0" mnemonicParsing="false" text="formularz wersji" onAction="#formularzwersji"/>
+    <Button layoutX="62.0" layoutY="232.0" mnemonicParsing="false" text="dodaj zdjecia" onAction="#dodajzdjecia"/>
+    <Button layoutX="62.0" layoutY="284.0" mnemonicParsing="false" text="przeglad" onAction="#przeglad"/>
+</AnchorPane>

@@ -16,4 +16,5 @@ module com.example.fotoradar {
     opens com.example.fotoradar.databaseOperations to javafx.fxml;
 
     opens com.example.fotoradar.components to javafx.fxml;
+    opens com.example.fotoradar.windows to javafx.fxml;
 }
