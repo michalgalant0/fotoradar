@@ -1,11 +1,15 @@
 package com.example.fotoradar.components;
 
+import com.example.fotoradar.Main;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 public class VersionForm extends AnchorPane {
     @FXML
@@ -23,7 +27,13 @@ public class VersionForm extends AnchorPane {
     @FXML
     public ComboBox teamComboBox;
 
-    public VersionForm() {}
+    public VersionForm() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/VersionForm.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+
+        loader.load();
+    }
 
     public void initialize() {}
 

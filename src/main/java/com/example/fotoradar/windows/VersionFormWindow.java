@@ -1,4 +1,37 @@
 package com.example.fotoradar.windows;
 
-public class VersionFormWindow {
+import com.example.fotoradar.components.VersionForm;
+import com.example.fotoradar.models.Version;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.stage.Stage;
+import lombok.Setter;
+
+public class VersionFormWindow implements Window {
+    @FXML
+    public VersionForm versionForm;
+    @Setter
+    private Stage dialogStage;
+
+    @FXML
+    public void saveVersion(ActionEvent event) {
+        System.out.println("zapisz wersję");
+
+        Version versionToAdd = new Version(
+                versionForm.nameTextField.getText(),
+                versionForm.startDatePicker.getValue().toString(),
+                versionForm.finishDatePicker.getValue().toString(),
+                // todo dodac przekazywanie id zespolu
+                1,
+                // todo dodac przekazywanie id segmentu
+                8
+        );
+
+        System.out.println("dane z formularza: " + versionToAdd);
+    }
+
+    @FXML
+    public void cancel(ActionEvent event) {
+        System.out.println("anuluj");
+    }
 }

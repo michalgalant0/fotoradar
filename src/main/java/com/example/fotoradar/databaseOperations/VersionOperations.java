@@ -2,9 +2,11 @@ package com.example.fotoradar.databaseOperations;
 
 import com.example.fotoradar.models.Version;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class VersionOperations {
     private final Connection connection;
@@ -14,8 +16,8 @@ public class VersionOperations {
     }
 
     // Pobieranie wszystkich wersji z bazy
-    public List<Version> getAllVersions(int parentSegmentId) throws SQLException {
-        List<Version> versions = new ArrayList<>();
+    public ArrayList<Version> getAllVersions(int parentSegmentId) throws SQLException {
+        ArrayList<Version> versions = new ArrayList<>();
         String query = "SELECT * FROM Version WHERE segment_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, parentSegmentId);
