@@ -14,4 +14,12 @@ public class Version {
     //private String finishTime;
     private int teamId;
     private int parentSegmentId;
+
+    public Version(String name, String startDate, String finishDate, int teamId, int parentSegmentId) {
+        this.name = name;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+        this.teamId = teamId;
+        this.parentSegmentId = parentSegmentId;
+    }
 }
