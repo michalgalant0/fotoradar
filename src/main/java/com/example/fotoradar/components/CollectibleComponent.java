@@ -1,6 +1,7 @@
 package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
+import com.example.fotoradar.models.Collectible;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -23,7 +24,7 @@ public class CollectibleComponent extends AnchorPane {
     @FXML
     public TextField statusTextField;
 
-    private com.example.fotoradar.models.Collectible collectible;
+    private Collectible collectible;
 
     public CollectibleComponent() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectibleComponent.fxml"));
@@ -54,6 +55,7 @@ public class CollectibleComponent extends AnchorPane {
         statusTextField.setText("do pobrania");
     }
 
+    @FXML
     public void goToCollectible() {
         System.out.println("przejscie do obiektu");
     }

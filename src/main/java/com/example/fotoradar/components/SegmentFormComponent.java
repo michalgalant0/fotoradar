@@ -1,11 +1,15 @@
 package com.example.fotoradar.components;
 
+import com.example.fotoradar.Main;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 public class SegmentFormComponent extends AnchorPane {
     @FXML
@@ -27,7 +31,13 @@ public class SegmentFormComponent extends AnchorPane {
     @FXML
     public ComboBox statusComboBox;
 
-    public SegmentFormComponent() {}
+    public SegmentFormComponent() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/SegmentFormComponent.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+
+        loader.load();
+    }
 
     public void initialize() {}
 
