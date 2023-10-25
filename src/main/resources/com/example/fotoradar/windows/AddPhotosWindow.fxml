@@ -7,17 +7,21 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="209.0" prefWidth="283.0"
+<!--<AnchorPane prefHeight="209.0" prefWidth="283.0"-->
+<AnchorPane prefHeight="400.0" prefWidth="283.0"
             xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.fotoradar.windows.AddPhotosWindow">
-   <Button layoutX="211.0" layoutY="96.0" mnemonicParsing="false" prefHeight="24.0" text="..."/>
-   <Button layoutX="72.0" layoutY="159.0" mnemonicParsing="false" text="DODAJ" onAction="#addPhotos" />
    <Label layoutX="90.0" layoutY="35.0" text="Wybierz zdjęcie" AnchorPane.topAnchor="40.0"/>
-   <TextField layoutX="40.0" layoutY="96.0"/>
-   <Button layoutX="150.0" layoutY="159.0" mnemonicParsing="false" text="ANULUJ" onAction="#cancel" />
    <Label layoutX="40.0" layoutY="82.0" text="ŚCIEŻKA">
       <font>
          <Font size="11.0"/>
       </font>
    </Label>
+   <TextField layoutX="40.0" layoutY="96.0"/>
+   <Button layoutX="211.0" layoutY="96.0" mnemonicParsing="false" prefHeight="24.0" text="..."
+      onAction="#pickFiles" />
+   <Button layoutX="72.0" layoutY="159.0" mnemonicParsing="false" text="DODAJ" onAction="#addPhotos" />
+   <Button layoutX="150.0" layoutY="159.0" mnemonicParsing="false" text="ANULUJ" onAction="#cancel" />
+
+   <Label fx:id="counter" layoutX="48.0" layoutY="230.0" text="selected files"/>
 </AnchorPane>
