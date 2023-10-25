@@ -23,7 +23,7 @@ public class VersionView {
     @FXML
     private void addPhotos(ActionEvent event) throws IOException {
         System.out.println("dodawanie zdjęć");
-        new SwitchScene().switchScene(event, "collectionView");
+        new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj zdjęcia");
     }
 
     @FXML
@@ -35,7 +35,7 @@ public class VersionView {
     @FXML
     private void removeVersion(ActionEvent event) throws IOException {
         System.out.println("usuwanie wersji");
-        new SwitchScene().switchScene(event, "segmentsView");
+        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie");
     }
 
     @FXML
