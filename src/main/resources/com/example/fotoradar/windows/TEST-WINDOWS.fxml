@@ -15,4 +15,5 @@
     <Button layoutX="62.0" layoutY="180.0" mnemonicParsing="false" text="formularz wersji" onAction="#formularzwersji"/>
     <Button layoutX="62.0" layoutY="232.0" mnemonicParsing="false" text="dodaj zdjecia" onAction="#dodajzdjecia"/>
     <Button layoutX="62.0" layoutY="284.0" mnemonicParsing="false" text="przeglad" onAction="#przeglad"/>
+    <Button layoutX="62.0" layoutY="320.0" mnemonicParsing="false" text="potwierdz usuwanie" onAction="#potwierdzusuwanie"/>
 </AnchorPane>
