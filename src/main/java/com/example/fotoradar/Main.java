@@ -1,7 +1,5 @@
 package com.example.fotoradar;
 
-import com.example.fotoradar.databaseOperations.CollectionOperations;
-import com.example.fotoradar.views.ParametersView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,7 +16,7 @@ public class Main extends Application {
         // main view
 //        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/collectionsView.fxml"));
         // dla testow
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/parametersView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/collectibleView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("fotoradar");
         stage.setScene(scene);

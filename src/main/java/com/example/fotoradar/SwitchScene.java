@@ -11,14 +11,14 @@ import java.io.IOException;
 public class SwitchScene {
     public SwitchScene (ActionEvent event, String viewName) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(viewName + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/" + viewName + ".fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
     }
 
     public SwitchScene(ActionEvent event, String viewName, Object controller) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(viewName + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/" + viewName + ".fxml"));
         fxmlLoader.setController(controller); // Ustawienie kontrolera widoku
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);

@@ -3,6 +3,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+fotoradar.db
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
