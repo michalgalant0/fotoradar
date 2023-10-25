@@ -1,6 +1,8 @@
 package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
+import com.example.fotoradar.SwitchScene;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
@@ -42,12 +44,14 @@ public class SegmentFormComponent extends AnchorPane {
     public void initialize() {}
 
     @FXML
-    public void openVersion() {
+    public void openVersion(ActionEvent event) throws IOException {
         System.out.println("otwarcie wersji");
+        new SwitchScene().switchScene(event, "versionView");
     }
 
     @FXML
-    public void addVersion() {
+    public void addVersion(ActionEvent event) throws IOException {
         System.out.println("dodanie wersji");
+        new SwitchScene().switchScene(event, "versionView");
     }
 }

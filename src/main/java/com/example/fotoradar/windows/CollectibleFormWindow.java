@@ -27,6 +27,9 @@ public class CollectibleFormWindow implements Window {
         );
 
         System.out.println("dane z formularza: " + collectionToAdd);
+
+        // po wykonanej operacji zamknij okienko
+        closeWindow(dialogStage);
     }
 
     @FXML

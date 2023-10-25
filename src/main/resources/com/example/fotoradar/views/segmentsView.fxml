@@ -34,7 +34,7 @@
     <Button mnemonicParsing="false" onAction="#addSegments"
             prefHeight="24.0" prefWidth="200.0" text="UTWÓRZ SEGMENTY"
             AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="48.0" />
-    <Button mnemonicParsing="false" onAction="#backToCollection"
+    <Button mnemonicParsing="false" onAction="#backToCollectible"
             prefHeight="24.0" prefWidth="200.0" text="POWRÓT DO OBIEKTU"
             AnchorPane.bottomAnchor="48.0" AnchorPane.rightAnchor="48.0" />
 </AnchorPane>

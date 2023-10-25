@@ -20,8 +20,9 @@ public class SegmentsView {
         System.out.println("zapis segmentu");
     }
     @FXML
-    private void deleteSegment(){
+    private void deleteSegment() throws IOException {
         System.out.println("usuwanie segmentu");
+        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie");
     }
     @FXML
     private void addSketch(){
@@ -37,8 +38,8 @@ public class SegmentsView {
         System.out.println("dodanie segmentu");
     }
     @FXML
-    private void backToCollection(ActionEvent event) throws IOException{
-        System.out.println("powrót do kolekcji");
-        new SwitchScene().switchScene(event, "collectionView");
+    private void backToCollectible(ActionEvent event) throws IOException{
+        System.out.println("powrót do obiektu");
+        new SwitchScene().switchScene(event, "collectibleView");
     }
 }
