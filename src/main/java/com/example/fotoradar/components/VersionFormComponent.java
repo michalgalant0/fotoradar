@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class VersionForm extends AnchorPane {
+public class VersionFormComponent extends AnchorPane {
     @FXML
     public TextField nameTextField;
     @FXML
@@ -27,8 +27,8 @@ public class VersionForm extends AnchorPane {
     @FXML
     public ComboBox teamComboBox;
 
-    public VersionForm() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/VersionForm.fxml"));
+    public VersionFormComponent() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/VersionFormComponent.fxml"));
         loader.setRoot(this);
         loader.setController(this);
 

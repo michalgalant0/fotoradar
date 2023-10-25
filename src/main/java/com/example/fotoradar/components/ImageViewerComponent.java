@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ImageViewer extends AnchorPane {
+public class ImageViewerComponent extends AnchorPane {
 
     @FXML
     private ImageView imageView;
@@ -24,8 +24,8 @@ public class ImageViewer extends AnchorPane {
     private ArrayList<String> imageFiles = new ArrayList<>();
     private int currentImageIndex = 0;
 
-    public ImageViewer() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/ImageViewer.fxml"));
+    public ImageViewerComponent() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/ImageViewerComponent.fxml"));
         loader.setRoot(this);
         loader.setController(this);
 

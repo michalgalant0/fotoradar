@@ -13,15 +13,15 @@ import javafx.scene.layout.GridPane;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MiniGallery extends AnchorPane {
+public class MiniGalleryComponent extends AnchorPane {
     @FXML
     public ScrollPane scrollPane;
     @FXML
     public GridPane photosContainer;
     private ArrayList<String> imagePaths = new ArrayList<>();
 
-    public MiniGallery() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/MiniGallery.fxml"));
+    public MiniGalleryComponent() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/MiniGalleryComponent.fxml"));
         loader.setRoot(this);
         loader.setController(this);
 

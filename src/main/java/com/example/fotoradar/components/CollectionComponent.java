@@ -2,6 +2,7 @@ package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
 import com.example.fotoradar.models.Collectible;
+import com.example.fotoradar.models.Collection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -12,7 +13,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Collection extends AnchorPane {
+public class CollectionComponent extends AnchorPane {
 
     @FXML
     private Label headerLabel;
@@ -23,18 +24,15 @@ public class Collection extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
 
+    private Collection collection;
     private ArrayList<Collectible> collectibles;
 
-    public Collection() {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/Collection.fxml"));
+    public CollectionComponent() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectionComponent.fxml"));
         loader.setRoot(this);
         loader.setController(this);
 
-        try {
-            loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        loader.load();
     }
 
     public void setHeaderLabel(String name) {
@@ -48,7 +46,7 @@ public class Collection extends AnchorPane {
 
     private void fillCollectionVBox() throws IOException {
         for (Collectible collectible : collectibles) {
-            CollectionRow collectionRow = new CollectionRow();
+            CollectionRowComponent collectionRow = new CollectionRowComponent();
             collectionRow.setNameLabel(collectible.getTitle());
 
             collectiblesContainer.getChildren().add(collectionRow);

@@ -1,6 +1,6 @@
 package com.example.fotoradar.windows;
 
-import com.example.fotoradar.components.VersionForm;
+import com.example.fotoradar.components.VersionFormComponent;
 import com.example.fotoradar.models.Version;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +9,7 @@ import lombok.Setter;
 
 public class VersionFormWindow implements Window {
     @FXML
-    public VersionForm versionForm;
+    public VersionFormComponent versionForm;
     @Setter
     private Stage dialogStage;
 

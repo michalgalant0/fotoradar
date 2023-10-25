@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class CollectionRow extends AnchorPane {
+public class CollectionRowComponent extends AnchorPane {
     @FXML
     public ImageView objectThumbnailImageView;
     @FXML
@@ -17,10 +17,11 @@ public class CollectionRow extends AnchorPane {
     @FXML
     public Label statusLabel;
 
-    public CollectionRow() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectionRow.fxml"));
+    public CollectionRowComponent() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectionRowComponent.fxml"));
         loader.setRoot(this);
         loader.setController(this);
+
         loader.load();
     }
 
