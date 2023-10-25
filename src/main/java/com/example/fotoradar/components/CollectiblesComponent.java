@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class CollectiblesComponent extends AnchorPane {
 
     @FXML
     private HBox collectiblesContainer;
-
+    @Setter
     private ArrayList<Collectible> collectibles;
 
     public CollectiblesComponent() throws IOException {
@@ -23,10 +24,6 @@ public class CollectiblesComponent extends AnchorPane {
         loader.setController(this);
 
         loader.load();
-    }
-
-    public void setCollectibles(ArrayList<Collectible> collectibles) {
-        this.collectibles = collectibles;
     }
 
     public void fillCollectiblesHBox() {
