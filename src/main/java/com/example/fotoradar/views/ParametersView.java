@@ -45,8 +45,9 @@ public class ParametersView {
         System.out.println(collection);
     }
     @FXML
-    private void manageTeams(ActionEvent event) {
+    private void manageTeams(ActionEvent event) throws IOException {
         System.out.println("zarządzaj zespołami");
+        new SwitchScene().switchScene(event, "teamsView");
     }
     @FXML
     private void backToCollection(ActionEvent event) throws IOException {
