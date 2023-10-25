@@ -23,15 +23,11 @@ public class CollectionFormComponent extends AnchorPane {
     @FXML
     public TextArea descriptionTextArea;
 
-    public CollectionFormComponent() {
+    public CollectionFormComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectionFormComponent.fxml"));
         loader.setRoot(this);
         loader.setController(this);
 
-        try {
-            loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        loader.load();
     }
 }
