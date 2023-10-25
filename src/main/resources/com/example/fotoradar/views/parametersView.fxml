@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import com.example.fotoradar.components.CollectionFormComponent?>
+<?import com.example.fotoradar.components.TeamsComponent?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.fotoradar.views.ParametersView">
-
+    <Label layoutX="48.0" layoutY="24.0" text="kolekcje/">
+        <font>
+            <Font size="30.0" />
+        </font>
+    </Label>
+    <CollectionFormComponent fx:id="collectionFormComponent" layoutX="24.0" layoutY="84.0" prefHeight="500.0">
+        <Button  mnemonicParsing="false" onAction="#saveCollection"
+                 AnchorPane.bottomAnchor="0.0"
+                 AnchorPane.rightAnchor="0.0"
+                 prefHeight="24.0" prefWidth="200.0" text="ZAPISZ PARAMETRY" />
+    </CollectionFormComponent>
+    <TeamsComponent fx:id="teamsComponent" layoutX="500.0" layoutY="84.0" prefHeight="500">
+        <Button  mnemonicParsing="false" onAction="#manageTeams"
+                 AnchorPane.bottomAnchor="0.0"
+                 AnchorPane.rightAnchor="0.0"
+                 prefHeight="24.0" prefWidth="200.0" text="ZARZĄDZAJ ZESPOŁAMI" />
+    </TeamsComponent>
+    <Button  mnemonicParsing="false" onAction="#backToCollection"
+             AnchorPane.bottomAnchor="48.0"
+             AnchorPane.rightAnchor="48.0"
+             prefHeight="24.0" prefWidth="200.0" text="POWRÓT DO KOLEKCJI" />
 </AnchorPane>
