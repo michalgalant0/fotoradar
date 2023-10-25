@@ -1,8 +1,12 @@
 package com.example.fotoradar.views;
 
+import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.VersionFormComponent;
 import com.example.fotoradar.components.MiniGalleryComponent;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
+import java.io.IOException;
 
 public class VersionView {
     @FXML
@@ -13,25 +17,31 @@ public class VersionView {
     @FXML
     private void saveVersion() {
         System.out.println("zapis wersji");
+
     }
 
     @FXML
-    private void addPhotos() {
+    private void addPhotos(ActionEvent event) throws IOException {
         System.out.println("dodawanie zdjęć");
+        new SwitchScene().switchScene(event, "collectionView");
     }
 
     @FXML
     private void manageTeams() {
         System.out.println("przejscie do zespołów");
+
     }
 
     @FXML
-    private void removeVersion() {
+    private void removeVersion(ActionEvent event) throws IOException {
         System.out.println("usuwanie wersji");
+        new SwitchScene().switchScene(event, "segmentsView");
     }
 
     @FXML
-    private void backToSegments() {
+    private void backToSegments(ActionEvent event) throws IOException {
         System.out.println("powrot do segmentów");
+        new SwitchScene().switchScene(event, "segmentsView");
+
     }
 }
