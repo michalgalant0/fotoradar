@@ -1,5 +1,6 @@
 package com.example.fotoradar.views;
 
+import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectionsComponent;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
@@ -37,7 +38,8 @@ public class CollectionsView {
     }
 
     @FXML
-    private void addCollection() {
+    private void addCollection() throws IOException {
         System.out.println("dodaj kolekcje");
+        new SwitchScene().displayWindow("CollectionFormWindow", "Dodaj kolekcję");
     }
 }
