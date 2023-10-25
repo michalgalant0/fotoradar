@@ -1,26 +1,50 @@
 package com.example.fotoradar;
 
+import com.example.fotoradar.windows.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
 public class SwitchScene {
-    public SwitchScene (ActionEvent event, String viewName) throws IOException {
+    public void switchScene (ActionEvent event, String viewName) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/" + viewName + ".fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
     }
 
-    public SwitchScene(ActionEvent event, String viewName, Object controller) throws IOException {
+    public void switchScene(ActionEvent event, String viewName, Object controller) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/" + viewName + ".fxml"));
         fxmlLoader.setController(controller); // Ustawienie kontrolera widoku
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
+    }
+
+    public void displayWindow(String windowName, String title) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("windows/"+windowName+".fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+
+        Stage dialogStage = new Stage();
+        dialogStage.initStyle(StageStyle.UTILITY);
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setResizable(false);
+        dialogStage.setTitle(title);
+
+        // Ustawienie sceny na nowym oknie
+        dialogStage.setScene(scene);
+
+        // Pobranie kontrolera
+        Window controller = fxmlLoader.getController();
+        controller.setDialogStage(dialogStage);
+
+        // Wyświetlenie nowego okna
+        dialogStage.showAndWait();
     }
 }
