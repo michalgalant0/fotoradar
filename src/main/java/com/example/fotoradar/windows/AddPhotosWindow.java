@@ -2,7 +2,9 @@ package com.example.fotoradar.windows;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Setter;
@@ -12,14 +14,22 @@ import java.util.List;
 
 public class AddPhotosWindow implements Window {
     @FXML
-    public Label counter;
+    public TextArea fileNamesContainer;
+    @FXML
+    public Label counterLabel;
+    @FXML
+    public Button addPhotoButton;
+    @FXML
+    public Button cancelButton;
     @Setter
     private Stage dialogStage;
     private List<File> selectedFiles;
 
     @FXML
     public void addPhotos(ActionEvent event) {
-        System.out.println("dodanie zdjęć");
+        System.out.println("lista dodanych zdjęć:");
+        System.out.println(selectedFiles);
+
         closeWindow(dialogStage);
     }
 
@@ -32,8 +42,8 @@ public class AddPhotosWindow implements Window {
     @FXML
     public void pickFiles(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-        selectedFiles = fileChooser.showOpenMultipleDialog(counter.getScene().getWindow());
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.jpeg"));
+        selectedFiles = fileChooser.showOpenMultipleDialog(counterLabel.getScene().getWindow());
 
         if (selectedFiles != null) {
             displaySelectedFiles();
@@ -50,6 +60,20 @@ public class AddPhotosWindow implements Window {
             fileNames.append(file.getName()).append("\n");
         }
 
-        counter.setText(fileNames.toString() + "Ilość załadowanych: " + selectedFiles.size());
+        fileNamesContainer.setText(fileNames.toString());
+        counterLabel.setText("ilość wczytanych plików: " + selectedFiles.size());
+
+        // Pokaż wczytane elementy, ustawiając visible i managed na true
+        fileNamesContainer.setVisible(true);
+        fileNamesContainer.setManaged(true);
+        counterLabel.setVisible(true);
+        counterLabel.setManaged(true);
+        addPhotoButton.setVisible(true);
+        cancelButton.setVisible(true);
+
+        // Dostosuj wielkość sceny (stage)
+        Stage stage = (Stage) fileNamesContainer.getScene().getWindow();
+        stage.setWidth(300);  // Ustaw preferowaną szerokość
+        stage.setHeight(400); // Ustaw preferowaną wysokość
     }
 }
