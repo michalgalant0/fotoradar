@@ -1,0 +1,246 @@
+1. WIDOKI
+- kolekcje/
+    komponent KOLEKCJE
+	przycisk DODAJ KOLEKCJE
+		-> okienko FORMULARZ KOLEKCJI
+
+- kolekcja/
+    komponent OBIEKTY
+	komponent KWADRAT WSKAŹNIKÓW
+ 	przycisk PARAMETRY KOLEKCJI
+ 		-> widok KOLEKCJA/ PARAMETRY
+	przycisk DODAJ OBIEKT
+		-> okienko FORMULARZ OBIEKTU
+	przycisk USUŃ KOLEKCJĘ
+		-> popup POTWIERDŹ USUWANIE
+    przycisk POWRÓT DO KOLEKCJI
+        -> widok KOLEKCJE/
+
+- kolekcja/ parametry
+	komponent KWADRAT WSKAŹNIKÓW
+	komponent FORMULARZ KOLEKCJI
+    przycisk ZAPISZ PARAMETRY
+        ->
+	komponent ZESPOŁY
+    przycisk ZARZĄDZAJ ZESPOŁAMI
+        -> widok KOLEKCJA/ ZESPOŁY
+	przycisk POWRÓT DO KOLEKCJI
+		-> widok KOLEKCJA/
+
+- kolekcja/ zespoły
+	lista komponentów ZESPÓŁ
+        -> (prawy przycisk na komponent ZESPÓŁ)
+            okienko CO ZROBIĆ Z ZESPOŁEM
+    przycisk DODAJ ZESPÓŁ
+        -> okienko FORMULARZ ZESPOŁU
+	przycisk WRÓC DO KOLEKCJI
+		-> widok KOLEKCJA/
+
+- kolekcja/ obiekt
+	komponent MINIATURY Z SEGMENTAMI
+	komponent FORMULARZ OBIEKTU
+    przycisk ZAPISZ
+        ->
+    przycisk DODAJ SZKIC
+        -> moduł PAINT
+    przycisk DODAJ ZDJĘCIE
+        -> okienko DODAJ ZDJECIE
+	przycisk ZARZĄDZAJ SEGMENTAMI
+		-> widok KOLEKCJA/ OBIEKT/ SEGMENTY
+	przycisk USUŃ OBIEKT
+		-> popup POTWIERDŹ USUWANIE
+    przycisk POWRÓT DO KOLEKCJI
+        -> widok KOLEKCJA/
+
+- kolekcja/ obiekt/ segmenty
+	komponent PRZEGLĄD ZDJĘĆ I SZKICÓW
+	komponent FORMULARZ SEGMENTU
+	przycisk ZAPISZ SEGMENT
+		-> zostaje na tym samym widoku
+    przycisk DODAJ SZKIC
+        -> moduł PAINT
+    przycisk DODAJ ZDJĘCIE
+        -> okienko DODAJ ZDJECIE
+    przycisk UTWÓRZ SEGMENTY
+        -> moduł SEGMENTER
+	przycisk WRÓĆ DO OBIEKTU
+		-> widok KOLEKCJA/ OBIEKT
+
+- kolekcja/ obiekt/ segment/ wersja
+	komponent ZDJĘCIA WERSJI
+	komponent FORMULARZ WERSJI
+	przycisk ZAPISZ
+		->
+	przycisk WRÓĆ DO SEGMENTÓW
+		-> widok KOLEKCJA/ OBIEKT/ SEGMENTY
+	przycisk USUŃ (dla edycji wersji)
+		-> widok KOLEKCJA/ OBIEKT/ SEGMENTY
+	przycisk DODAJ ZDJĘCIA
+		-> okienko DODAJ ZDJĘCIA
+
+
+
+2. KOMPONENTY
+- kolekcje
+    lista komponentów KOLEKCJA
+
+- kolekcja
+	nazwa kolekcji
+	lista komponentów WIERSZ KOLEKCJI
+	przycisk PRZEJDŹ DO KOLEKCJI
+		-> widok KOLEKCJA/
+
+- wiersz kolekcji
+	miniaturka
+	nazwa obiektu
+	status
+
+- obiekty
+    lista komponentów OBIEKT
+
+- obiekt
+	nazwa
+	kilka miniaturek?
+    pole data start \
+    pole data stop   \___załadowane dane obiektu
+    pole opis        /
+    pole status     /
+	przycisk PRZEJDŹ DO OBIEKTU
+		-> widok KOLEKCJA/ OBIEKT
+
+- kwadrat wskaźników
+	pasek postępu
+	ilość zajmowanego miejsca
+
+- formularz kolekcji
+	pole nazwa
+	pole data start
+	pole data stop
+	pole opis
+
+- formularz obiektu
+	pole nazwa
+	pole data start
+	pole data stop
+	pole opis
+    pole status (z listy rozwijanej)
+
+- formularz segmentu
+	pole numer
+	pole nazwa
+	data godzina rozpoczęcia
+	data godzina zakończenia
+	opis
+	pole wersja (lista rozwijana)
+	przycisk OTWÓRZ WERSJĘ
+		-> widok KOLEKCJA/ OBIEKT/ SEGMENT/ WERSJA (załadowane dane wersji)
+	przycisk DODAJ WERSJĘ
+		-> widok KOLEKCJA/ OBIEKT/ SEGMENT/ WERSJA
+	pole status (lista rozwijana)
+
+- formularz wersji
+	pole tytuł/nazwa
+	pole dataczas start
+	pole dataczas stop
+	pole opis
+	pole zespół (lista rozwijana)
+	przycisk EDYTUJ ZESPÓŁ
+		-> okienko FORMULARZ ZESPOŁU (załadowane dane zespołu)
+	przycisk DODAJ ZESPÓŁ
+		-> okienko FORMULARZ ZESPOŁU
+
+- formularz zespołu
+	pole nazwa
+	pole opis
+
+- zespoły
+	nagłówek zespoły
+	lista komponentów ZESPÓŁ
+	przycisk ZARZĄDZAJ ZESPOŁAMI
+		-> widok KOLEKCJA/ ZESPOŁY
+
+- zespół
+	nagłowek nazwa zespołu
+	pole opis (z tabeli zespoły)
+
+- miniatury z segmentami
+	box ze zdjęciami/szkicami (2x3 ? 3x3)
+
+- przegląd zdjęć i szkiców
+	przycisk LEWO
+		-> poprzednie zdjęcie
+	zdjęcie/szkic
+	przycisk PRAWO
+		-> następne zdjęcie
+
+- zdjęcia wersji (mini galeria)
+    pudełko ze zdjęciami (miniatury)
+        -> okienko PRZEGLĄD ale z przyciskiem USUŃ
+        -> (prawy przycisk na ZDJĘCIE)
+            okienko CO ZROBIĆ ZE ZDJĘCIEM
+
+
+
+3. OKIENKA
+- formularz kolekcji
+	nagłówek
+	komponent FORMULARZ KOLEKCJI
+	przycisk ZAPISZ
+    przycisk ANULUJ
+
+- formularz obiektu
+	nagłówek
+	komponent FORMULARZ OBIEKTU
+	przycisk ZAPISZ
+    przycisk ANULUJ
+
+- formularz wersji
+	nagłówek (informacja czy dodawanie czy edycja)
+	komponent FORMULARZ WERSJI
+	przycisk ZAPISZ
+    przycisk ANULUJ
+
+- formularz zespołu
+	nagłowek (informacja czy dodawanie czy edycja)
+	komponent FORMULARZ ZESPOŁU
+	przycisk ZAPISZ
+    przycisk ANULUJ
+
+- przegląd
+    komponent PRZEGLĄD ZDJĘĆ I SZKICÓW (zdjęcia z dysku)
+
+- dodaj zdjęcia
+	nagłówek 'wybierz zdjęcia do dodania'
+    pole, które otworzy systemowy dialog do wyboru plików
+    przycisk DODAJ
+        ->
+    przycisk ANULUJ
+        ->
+
+- dodaj zdjęcie (miniatura)
+	nagłówek 'wybierz zdjęcie obiektu'
+    pole, które otworzy systemowy dialog do wyboru plików
+    przycisk DODAJ
+        ->
+    przycisk ANULUJ
+        ->
+
+dodaj zdjecie i dodaj zdjecia (miniatura) - to samo okienko -> AddPhotosWindow
+
+
+
+4. POPUPY
+- potwierdź usuwanie
+	Czy na pewno chcesz usunąć <nazwa>?
+	przycisk TAK
+	przycisk NIE
+
+- co zrobić ze zdjęciem (menu popupowe)
+	przycisk USUŃ
+
+- co zrobić z zespołem (menu popupowe)
+    co chcesz zrobić z zespołem <nazwa zespołu>?
+    przycisk EDYTUJ
+        -> okienko FORMULARZ ZESPOŁU
+    przycisk USUŃ
+        -> popup POTWIERDŹ USUWANIE

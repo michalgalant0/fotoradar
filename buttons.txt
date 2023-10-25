@@ -1,0 +1,51 @@
+=======  z widokow
+kolekcje: dodaj kolekcje -> okienko formularz kolekcji
+kolekcja: parametry kolekcji -> widok kolekcja/parametry
+kolekcja: dodaj obiekt -> okienko formularz obiektu
+kolekcja: usuń kolekcję -> popup potwierdź usuwanie
+kolekcja: powrót do kolekcji -> widok kolekcje/
+kolekcja/parametry: zapisz parametry ->
+kolekcja/parametry: zarządzaj zespołami -> widok kolekcja/zepsoły
+kolekcja/parametry: powrót do kolekcji -> widok kolekcja
+kolekcja/zespoły: dodaj zespół -> okienko formularz zespołu
+kolekcja/zespoły: wróć do kolekcji -> widok kolekcja/
+kolekcja/obiekt: zapisz ->
+kolekcja/obiekt: dodaj szkic -> moduł paint
+kolekcja/obiekt: dodaj zdjęcie -> okienko dodaj zdjęcie
+kolekcja/obiekt: zarządzaj segmentami -> widok kolekcja/obiekt/segmenty
+kolekcja/obiekt: usuń obiekt -> popup potwierdź usuwanie
+kolekcja/obiekt: powrót do kolekcji -> widok kolekcja/
+kolekcja/obiekt/segmenty: zapisz segment -> zostaje na tym samym widoku
+kolekcja/obiekt/segmenty: dodaj szkic -> moduł paint
+kolekcja/obiekt/segmenty: dodaj zdjęcie -> okienko dodaj zdjęcie
+kolekcja/obiekt/segmenty: utwórz segmenty -> moduł segmenter
+kolekcja/obiekt/segmenty: wróć do obiektu -> widok kolekcja/obiekt
+kolekcja/obiekt/segmenty/wersja: zapisz ->
+kolekcja/obiekt/segmenty/wersja: wróć do segmentów -> widok kolekcja/obiekt/segment
+kolekcja/obiekt/segmenty/wersja: usuń -> widok kolekcja/obiekt/segment
+kolekcja/obiekt/segmenty/wersja: dodaj zdjęcia -> widok kolekcja/obiekt
+
+=======  z komponentow
+kolekcja: przejdź do kolekcji -> widok kolekcja/
+obiekt: przejdź do obiektu -> widok kolekcja/obiekt
+formularz segmentu: otwórz wersję -> widok kolekcja/obiekt/segment/wersja (załadowane dane)
+formularz segmentu: dodaj wersję -> widok kolekcja/obiekt/segment/wersja
+formularz wersji: edytuj zespół -> okienko formularz zespołu (załadowane dane)
+formularz wersji: dodaj zespół -> okienko formularz zespołu
+zespoły: zarządzaj zespołami -> widok kolekcja/zespoły
+imageViewer: < -> poprzednie zdjęcie
+imageViewer: > -> następne zdjęcie
+(dodać) imageViewer: usuń -> popup potwierdz usuwanie
+miniGallery: (prawy przycisk myszy na zdjęcie) -> okienko co zrobic ze zdjeciem
+
+=======  z okienek
+formularze: zapisz -> zamknij okienko, zapisz dane z formularza
+formularze: anuluj -> zamknij okienko, bez zapisywania zmian
+dodaj zdjęcia: dodaj -> zatwierdza dodawanie, zamyka okienko
+dodaj zdjęcia: anuluj -> zamyka okienko, bez zapisywania zmian
+
+=======  z popupów
+potwierdz usuwanie: tak -> zamyka okienko, wykonuje operacje, wchodzi na widok nadrzędny
+potwierdz usuwanie: nie -> zamyka okienko, bez wykonywania operacji, zostaje na tym samym widoku
+co zrobic z zespolem: edytuj -> okienko formularz zespołu (załadowane dane)
+co zrobic z zespolem: usun -> popup potwierdz usuwanie
