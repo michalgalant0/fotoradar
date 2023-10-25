@@ -26,6 +26,9 @@ public class TESTWINDOWS {
     public void przeglad(ActionEvent event) throws IOException {
         displayWindow("ImageViewerWindow", "przeglad zdjec");
     }
+    public void potwierdzusuwanie(ActionEvent event) throws IOException {
+        displayWindow("ConfirmDeletePopup", "potwierdz usuwanie");
+    }
 
     public void displayWindow(String windowName, String title) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("windows/"+windowName+".fxml"));
