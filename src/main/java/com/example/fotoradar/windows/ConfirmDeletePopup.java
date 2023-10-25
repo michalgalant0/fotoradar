@@ -14,9 +14,11 @@ public class ConfirmDeletePopup implements Window {
     @FXML
     public void confirmDelete() {
         System.out.println("potwierdz usuwanie");
+        closeWindow(dialogStage);
     }
     @FXML
     public void cancel() {
         System.out.println("anuluj");
+        closeWindow(dialogStage);
     }
 }

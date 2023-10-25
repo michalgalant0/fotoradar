@@ -25,10 +25,14 @@ public class CollectionFormWindow implements Window {
         );
 
         System.out.println("dane z formularza: " + collectionToAdd);
+
+        // zamkniecie okienka po wykonanej operacji
+        closeWindow(dialogStage);
     }
 
     @FXML
     public void cancel(ActionEvent event) {
         System.out.println("anuluj");
+        closeWindow(dialogStage);
     }
 }

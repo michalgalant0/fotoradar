@@ -1,8 +1,10 @@
 package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
+import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -54,8 +56,8 @@ public class CollectionComponent extends AnchorPane {
     }
 
     @FXML
-    public void goToCollection () {
-        // todo implementacja akcji na wczytanie widoku kolekcji z daną kolekcją
+    public void goToCollection(ActionEvent event) throws IOException {
         System.out.println("przejscie do kolekcji");
+        new SwitchScene().switchScene(event, "collectionView");
     }
 }

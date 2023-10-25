@@ -1,7 +1,9 @@
 package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
+import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.models.Collectible;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -56,7 +58,8 @@ public class CollectibleComponent extends AnchorPane {
     }
 
     @FXML
-    public void goToCollectible() {
+    public void goToCollectible(ActionEvent event) throws IOException {
         System.out.println("przejscie do obiektu");
+        new SwitchScene().switchScene(event, "collectibleView");
     }
 }

@@ -28,10 +28,13 @@ public class VersionFormWindow implements Window {
         );
 
         System.out.println("dane z formularza: " + versionToAdd);
+        // po wykonaniu operacji zamknij okienko
+        closeWindow(dialogStage);
     }
 
     @FXML
     public void cancel(ActionEvent event) {
         System.out.println("anuluj");
+        closeWindow(dialogStage);
     }
 }
