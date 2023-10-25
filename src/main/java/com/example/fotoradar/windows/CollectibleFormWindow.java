@@ -32,5 +32,6 @@ public class CollectibleFormWindow implements Window {
     @FXML
     public void cancel(ActionEvent event) {
         System.out.println("anuluj");
+        closeWindow(dialogStage);
     }
 }
