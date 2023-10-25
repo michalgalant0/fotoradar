@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.example.fotoradar.components.ImageViewer?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.fotoradar.windows.ImageViewerWindow"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 
+<AnchorPane prefHeight="799.0" prefWidth="798.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.fotoradar.windows.ImageViewerWindow">
+    <Label layoutX="381.0" layoutY="14.0" text="Label" AnchorPane.topAnchor="16.0" alignment="CENTER" />
+    <ImageViewer fx:id="imageViewer" layoutY="50.0" />
+    <Button layoutX="672.0" layoutY="718.0" mnemonicParsing="false" onAction="#deletePhoto" text="USUŃ ZDJĘCIE" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0" />
 </AnchorPane>
