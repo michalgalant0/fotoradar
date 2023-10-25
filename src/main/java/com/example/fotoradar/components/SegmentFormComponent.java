@@ -7,7 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-public class SegmentForm extends AnchorPane {
+public class SegmentFormComponent extends AnchorPane {
     @FXML
     public TextField numberTextField;
     @FXML
@@ -27,7 +27,7 @@ public class SegmentForm extends AnchorPane {
     @FXML
     public ComboBox statusComboBox;
 
-    public SegmentForm() {}
+    public SegmentFormComponent() {}
 
     public void initialize() {}
 

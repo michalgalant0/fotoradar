@@ -1,6 +1,6 @@
 package com.example.fotoradar.windows;
 
-import com.example.fotoradar.components.CollectibleForm;
+import com.example.fotoradar.components.CollectibleFormComponent;
 import com.example.fotoradar.models.Collectible;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +9,7 @@ import lombok.Setter;
 
 public class CollectibleFormWindow implements Window {
     @FXML
-    private CollectibleForm collectibleForm;
+    private CollectibleFormComponent collectibleForm;
     @Setter
     private Stage dialogStage;
 

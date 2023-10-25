@@ -1,13 +1,13 @@
 package com.example.fotoradar.windows;
 
-import com.example.fotoradar.components.ImageViewer;
+import com.example.fotoradar.components.ImageViewerComponent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import lombok.Setter;
 
 public class ImageViewerWindow implements Window {
     @FXML
-    private ImageViewer imageViewer;
+    private ImageViewerComponent imageViewer;
     @Setter
     private Stage dialogStage;
 

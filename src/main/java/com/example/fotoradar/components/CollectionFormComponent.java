@@ -3,15 +3,17 @@ package com.example.fotoradar.components;
 import com.example.fotoradar.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
 
-public class CollectibleForm extends AnchorPane {
+@Getter @Setter
+public class CollectionFormComponent extends AnchorPane {
     @FXML
     public TextField titleTextField;
     @FXML
@@ -20,11 +22,9 @@ public class CollectibleForm extends AnchorPane {
     public DatePicker finishDatePicker;
     @FXML
     public TextArea descriptionTextArea;
-    @FXML
-    public ComboBox statusComboBox;
 
-    public CollectibleForm() {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectibleForm.fxml"));
+    public CollectionFormComponent() {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectionFormComponent.fxml"));
         loader.setRoot(this);
         loader.setController(this);
 
@@ -32,7 +32,6 @@ public class CollectibleForm extends AnchorPane {
             loader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }}
-
-    public void initialize() {}
+        }
+    }
 }

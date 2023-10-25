@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.example.fotoradar.components.CollectionForm?>
+<?import com.example.fotoradar.components.CollectionFormComponent?>
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -9,7 +9,7 @@
 <AnchorPane prefHeight="508.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.fotoradar.windows.CollectionFormWindow">
     <Label layoutX="182.0" layoutY="14.0" text="Label"/>
-    <CollectionForm fx:id="collectionForm"/>
+    <CollectionFormComponent fx:id="collectionForm"/>
     <Button layoutX="127.0" layoutY="468.0" mnemonicParsing="false" text="ZAPISZ" onAction="#saveCollection" />
     <Button layoutX="208.0" layoutY="468.0" mnemonicParsing="false" text="ANULUJ" onAction="#cancel" />
 </AnchorPane>

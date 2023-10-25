@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class Collectible extends AnchorPane {
+public class CollectibleComponent extends AnchorPane {
 
     @FXML
     public Label headerLabel;
@@ -25,8 +25,8 @@ public class Collectible extends AnchorPane {
 
     private com.example.fotoradar.models.Collectible collectible;
 
-    public Collectible() {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/Collectible.fxml"));
+    public CollectibleComponent() {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectibleComponent.fxml"));
         loader.setRoot(this);
         loader.setController(this);
 

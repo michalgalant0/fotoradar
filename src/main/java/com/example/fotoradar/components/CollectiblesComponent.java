@@ -10,15 +10,15 @@ import javafx.scene.layout.HBox;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Collectibles extends AnchorPane {
+public class CollectiblesComponent extends AnchorPane {
 
     @FXML
     private HBox collectiblesContainer;
 
     private ArrayList<Collectible> collectibles;
 
-    public Collectibles() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/Collectibles.fxml"));
+    public CollectiblesComponent() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectiblesComponent.fxml"));
         loader.setRoot(this);
         loader.setController(this);
 
@@ -32,8 +32,8 @@ public class Collectibles extends AnchorPane {
     public void fillCollectiblesHBox() {
         for (Collectible collectible : collectibles) {
             // utworzenie komponentu obiektu
-            com.example.fotoradar.components.Collectible collectibleComponent =
-                    new com.example.fotoradar.components.Collectible();
+            CollectibleComponent collectibleComponent =
+                    new CollectibleComponent();
             // ustawienie tytułu komponentu
             collectibleComponent.setHeaderLabel(collectible.getTitle());
             // ustawienie listy obiektów kolekcji

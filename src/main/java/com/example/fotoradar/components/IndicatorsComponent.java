@@ -1,4 +1,4 @@
 package com.example.fotoradar.components;
 
-public class Team {
+public class IndicatorsComponent {
 }
