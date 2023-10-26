@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class CollectibleFormComponent extends AnchorPane {
     @FXML
@@ -35,4 +37,25 @@ public class CollectibleFormComponent extends AnchorPane {
         }}
 
     public void initialize() {}
+
+    public void setTitleTextField(String collectibleTitle) {
+        titleTextField.setText(collectibleTitle);
+    }
+    public void setStartDatePicker(String startDate) {
+        // todo String to Date
+        startDate = "2019-02-04"; //todo test
+        startDatePicker.setValue(LocalDate.parse(startDate));
+    }
+    public void setFinishDatePicker(String finishDate) {
+        // todo String to Date
+        finishDate = "2018-05-05"; //todo test
+        finishDatePicker.setValue(LocalDate.parse(finishDate));
+    }
+    public void setDescriptionTextArea(String collectibleDescription) {
+        descriptionTextArea.setText(collectibleDescription);
+    }
+    public void setStatusComboBox(String value) {
+        // todo poprawic
+        statusComboBox.setValue(value);
+    }
 }
