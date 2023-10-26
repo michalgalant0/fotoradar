@@ -3,25 +3,37 @@ package com.example.fotoradar.views;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectiblesComponent;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
-import com.example.fotoradar.models.Collectible;
+import com.example.fotoradar.models.Collection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class CollectionView {
     @FXML
-    public CollectiblesComponent collectiblesComponent;
-    private ArrayList<Collectible> collectibles = new ArrayList<>();
+    private Label windowLabel;
+    @FXML
+    private CollectiblesComponent collectiblesComponent;
+
+    @Setter
+    private Collection collection = new Collection();
 
     public void initialize() throws SQLException {
-        // tutaj pobranie z bazy testowo, normalnie przekazanie z poprzedniego modułu
+        System.out.println("CollectionView.initialize: "+collection);
+        // ustawienie nagłówka okna
+        setWindowLabel(collection.getTitle());
+        // wypełnienie listy obiektów danymi pobranymi z bazy
         collectiblesComponent.setCollectibles(
-                new CollectibleOperations().getAllCollectibles(8)
+                new CollectibleOperations().getAllCollectibles(collection.getId())
         );
         collectiblesComponent.fillCollectiblesHBox();
+    }
+
+    private void setWindowLabel(String collectionName) {
+        windowLabel.setText("kolekcje/ "+collectionName);
     }
 
     @FXML

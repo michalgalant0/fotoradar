@@ -1,7 +1,6 @@
 package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
-import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import javafx.fxml.FXML;
@@ -11,13 +10,10 @@ import javafx.scene.layout.HBox;
 import lombok.Setter;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class CollectionsComponent extends AnchorPane {
-
     @FXML
     private HBox collectionsContainer;
 
@@ -39,12 +35,16 @@ public class CollectionsComponent extends AnchorPane {
             // utworzenie komponentu kolekcja
             CollectionComponent collectionComponent =
                     new CollectionComponent();
+            // przekazanie kolekcji do komponentu
+            collectionComponent.setCollection(collection);
             // ustawienie tytułu komponentu
             collectionComponent.setHeaderLabel(collection.getTitle());
             // ustawienie listy obiektów kolekcji
             ArrayList<Collectible> collectibles = collectiblesMap.get(collection.getId());
             if (collectibles != null)
                 collectionComponent.setCollectibles(collectibles);
+            // wypełnienie komponentu listą obiektów
+            collectionComponent.fillCollectionVBox();
 
             collectionsContainer.getChildren().add(collectionComponent);
         }
