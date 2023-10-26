@@ -1,11 +1,17 @@
 package com.example.fotoradar.windows;
 
 import com.example.fotoradar.components.CollectionFormComponent;
+import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collection;
+import com.example.fotoradar.views.CollectionView;
+import com.example.fotoradar.views.CollectionsView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import lombok.Setter;
+
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class CollectionFormWindow implements Window {
     @FXML
@@ -14,7 +20,7 @@ public class CollectionFormWindow implements Window {
     private Stage dialogStage;
 
     @FXML
-    public void saveCollection(ActionEvent event) {
+    public void saveCollection(ActionEvent event) throws SQLException, IOException {
         System.out.println("zapisz kolekcje");
 
         Collection collectionToAdd = new Collection(
@@ -25,6 +31,9 @@ public class CollectionFormWindow implements Window {
         );
 
         System.out.println("dane z formularza: " + collectionToAdd);
+
+        CollectionOperations collectionOperations = new CollectionOperations();
+        collectionOperations.addCollection(collectionToAdd);
 
         // zamkniecie okienka po wykonanej operacji
         closeWindow(dialogStage);
