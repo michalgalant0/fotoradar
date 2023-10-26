@@ -22,9 +22,9 @@ public class CollectionComponent extends AnchorPane {
     private Label headerLabel;
     @FXML
     private VBox collectiblesContainer;
-
     @FXML
     private ScrollPane scrollPane;
+
     @Setter
     private Collection collection;
     private ArrayList<Collectible> collectibles;
@@ -58,7 +58,7 @@ public class CollectionComponent extends AnchorPane {
     public void goToCollection(ActionEvent event) throws IOException {
         System.out.println("przejscie do kolekcji");
         System.out.println("CollectionComponent.goToCollection: "+collection);
-        // utworzenie kontrolera widoku
+        // utworzenie kontrolera widoku docelowego
         CollectionView collectionView = new CollectionView();
         collectionView.setCollection(collection);
         // zaladowanie nowej sceny z przekazanym kontrolerem

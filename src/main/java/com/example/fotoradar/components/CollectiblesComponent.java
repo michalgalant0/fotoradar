@@ -26,16 +26,17 @@ public class CollectiblesComponent extends AnchorPane {
         loader.load();
     }
 
-    public void fillCollectiblesHBox() {
+    public void fillCollectiblesHBox() throws IOException {
         for (Collectible collectible : collectibles) {
             // utworzenie komponentu obiektu
             CollectibleComponent collectibleComponent =
                     new CollectibleComponent();
-            // ustawienie tytułu komponentu
-            collectibleComponent.setHeaderLabel(collectible.getTitle());
+            System.out.println("CollectiblesComponent.fillCollectiblesHBox: "+collectible);
             // ustawienie listy obiektów kolekcji
             collectibleComponent.setCollectible(collectible);
-
+            // wypełnienie komponentu
+            collectibleComponent.fillComponent();
+            // dodanie komponentu do listy
             collectiblesContainer.getChildren().add(collectibleComponent);
         }
     }
