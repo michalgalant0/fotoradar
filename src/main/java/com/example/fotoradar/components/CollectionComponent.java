@@ -4,6 +4,7 @@ import com.example.fotoradar.Main;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
+import com.example.fotoradar.views.CollectionView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,21 +12,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class CollectionComponent extends AnchorPane {
-
     @FXML
     private Label headerLabel;
-
     @FXML
     private VBox collectiblesContainer;
 
     @FXML
     private ScrollPane scrollPane;
-
+    @Setter
     private Collection collection;
     private ArrayList<Collectible> collectibles;
 
@@ -41,12 +41,11 @@ public class CollectionComponent extends AnchorPane {
         headerLabel.setText(name);
     }
 
-    public void setCollectibles(ArrayList<Collectible> collectibles) throws IOException {
+    public void setCollectibles(ArrayList<Collectible> collectibles) {
         this.collectibles = collectibles;
-        fillCollectionVBox();
     }
 
-    private void fillCollectionVBox() throws IOException {
+    public void fillCollectionVBox() throws IOException {
         for (Collectible collectible : collectibles) {
             CollectionRowComponent collectionRow = new CollectionRowComponent();
             collectionRow.setNameLabel(collectible.getTitle());
@@ -58,6 +57,11 @@ public class CollectionComponent extends AnchorPane {
     @FXML
     public void goToCollection(ActionEvent event) throws IOException {
         System.out.println("przejscie do kolekcji");
-        new SwitchScene().switchScene(event, "collectionView");
+        System.out.println("CollectionComponent.goToCollection: "+collection);
+        // utworzenie kontrolera widoku
+        CollectionView collectionView = new CollectionView();
+        collectionView.setCollection(collection);
+        // zaladowanie nowej sceny z przekazanym kontrolerem
+        new SwitchScene().switchScene(event, "collectionView", collectionView);
     }
 }

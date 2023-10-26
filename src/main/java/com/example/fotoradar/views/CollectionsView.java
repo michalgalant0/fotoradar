@@ -18,14 +18,12 @@ public class CollectionsView {
     @FXML
     public CollectionsComponent collectionsComponent;
 
-    private ArrayList<Collection> collections = new ArrayList<>();
-    private Map<Integer, ArrayList<Collectible>> collectiblesMap = new HashMap<>();
-
     public void initialize() throws SQLException, IOException {
         CollectionOperations collectionOperations = new CollectionOperations();
-        collections = collectionOperations.getAllCollections();
+        ArrayList<Collection> collections = collectionOperations.getAllCollections();
 
         CollectibleOperations collectibleOperations = new CollectibleOperations();
+        Map<Integer, ArrayList<Collectible>> collectiblesMap = new HashMap<>();
         for (Collection collection : collections) {
             int collectionId = collection.getId();
             collectiblesMap.put(collectionId, collectibleOperations.getAllCollectibles(collectionId));
