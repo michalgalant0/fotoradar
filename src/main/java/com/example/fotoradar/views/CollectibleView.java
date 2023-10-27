@@ -6,6 +6,7 @@ import com.example.fotoradar.components.MiniGalleryComponent;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collectible;
+import com.example.fotoradar.models.Collection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -24,17 +25,25 @@ public class CollectibleView {
 
     @Setter
     private Collectible collectible = new Collectible();
+    @Setter
+    private Collection parentCollection = new Collection();
 
-    public void initialize() {
+    public void initialize() throws SQLException {
         System.out.println("CollectibleView.initialize: "+collectible);
+        // ustawienie kolekcji nadrzędnej
+        setParentCollection();
         // ustawienie nagłówka okna
-        setWindowLabel(collectible.getTitle());
+        setWindowLabel(parentCollection.getTitle(), collectible.getTitle());
         // wypełnienie komponentu z formularzem
         fillCollectibleForm();
     }
 
-    private void setWindowLabel(String collectibleName) {
-        windowLabel.setText("kolekcje/ <nazwa kolekcji nadrzędnej>/ "+collectibleName);
+    private void setParentCollection() throws SQLException {
+        this.parentCollection = new CollectionOperations().getCollectionById(collectible.getParentCollectionId());
+    }
+
+    private void setWindowLabel(String collectionName, String collectibleName) {
+        windowLabel.setText(String.format("kolekcje/ %s/ %s", collectionName, collectibleName));
     }
 
     private void fillCollectibleForm() {
@@ -80,9 +89,7 @@ public class CollectibleView {
         System.out.println("powrot do kolekcji");
 
         CollectionView collectionView = new CollectionView();
-        collectionView.setCollection(
-                new CollectionOperations().getCollectionById(collectible.getParentCollectionId())
-        );
+        collectionView.setCollection(parentCollection);
 
         new SwitchScene().switchScene(event, "collectionView", collectionView);
     }
