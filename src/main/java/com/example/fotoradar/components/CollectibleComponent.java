@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import lombok.Setter;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class CollectibleComponent extends AnchorPane {
 
@@ -54,7 +55,7 @@ public class CollectibleComponent extends AnchorPane {
     }
 
     @FXML
-    public void goToCollectible(ActionEvent event) throws IOException {
+    public void goToCollectible(ActionEvent event) throws IOException, SQLException {
         System.out.println("przejscie do obiektu");
         System.out.println("CollectibleComponent.goToCollectible: "+collectible);
         // utworzenie kontrolera widoku docelowego
