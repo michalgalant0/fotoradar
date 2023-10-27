@@ -7,6 +7,7 @@ import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import lombok.Setter;
 
 import java.io.IOException;
@@ -19,14 +20,23 @@ public class ParametersView {
     public CollectionFormComponent collectionFormComponent;
     @FXML
     public TeamsComponent teamsComponent;
+    @FXML
+    public Label windowLabel;
 
     @Setter
     private Collection collection;
 
-    public void initialize() throws SQLException {
-        // tutaj pobranie z bazy testowo, normalnie przekazanie z poprzedniego modułu
-        setCollection(new CollectionOperations().getCollectionById(8));
+    public void initialize() {
+        System.out.println("ParametersView.initialize: "+collection);
+        setWindowLabel(collection.getTitle());
+        fillFormComponent();
+    }
 
+    public void setWindowLabel(String collectionName) {
+        windowLabel.setText(String.format("kolekcje/ %s/ parametry", collectionName));
+    }
+
+    public void fillFormComponent() {
         collectionFormComponent.titleTextField.setText(collection.getTitle());
         collectionFormComponent.startDatePicker.setValue(LocalDate.parse(collection.getStartDate(),
                 DateTimeFormatter.ofPattern("dd.MM.yyyy")));
@@ -52,6 +62,11 @@ public class ParametersView {
     @FXML
     private void backToCollection(ActionEvent event) throws IOException {
         System.out.println("powrót do kolekcji");
-        new SwitchScene().switchScene(event, "collectionView");
+
+        // utworzenie kontrolera widoku kolekcji
+        CollectionView collectionView = new CollectionView();
+        collectionView.setCollection(collection);
+
+        new SwitchScene().switchScene(event, "collectionView", collectionView);
     }
 }

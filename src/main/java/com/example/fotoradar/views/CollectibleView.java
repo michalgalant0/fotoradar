@@ -4,6 +4,7 @@ import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectibleFormComponent;
 import com.example.fotoradar.components.MiniGalleryComponent;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
+import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collectible;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -75,8 +76,14 @@ public class CollectibleView {
     }
 
     @FXML
-    private void backToCollection(ActionEvent event) throws IOException {
+    private void backToCollection(ActionEvent event) throws IOException, SQLException {
         System.out.println("powrot do kolekcji");
-        new SwitchScene().switchScene(event, "collectionView");
+
+        CollectionView collectionView = new CollectionView();
+        collectionView.setCollection(
+                new CollectionOperations().getCollectionById(collectible.getParentCollectionId())
+        );
+
+        new SwitchScene().switchScene(event, "collectionView", collectionView);
     }
 }
