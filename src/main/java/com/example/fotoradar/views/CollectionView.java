@@ -41,7 +41,14 @@ public class CollectionView {
     @FXML
     private void goToParameters(ActionEvent event) throws IOException {
         System.out.println("przejscie do parametrow kolekcji");
-        new SwitchScene().switchScene(event, "parametersView");
+        System.out.println("CollectionView.goToParameters: "+collection);
+
+        // utworzenie kontrolera widoku docelowego i ustawienie jego pól
+        ParametersView parametersView = new ParametersView();
+        parametersView.setCollection(collection);
+
+        // przejście do widoku docelowego
+        new SwitchScene().switchScene(event, "parametersView", parametersView);
     }
     @FXML
     private void addCollectible(ActionEvent event) throws IOException {
