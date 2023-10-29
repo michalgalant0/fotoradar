@@ -75,7 +75,14 @@ public class CollectibleView {
     @FXML
     private void manageSegments(ActionEvent event) throws IOException {
         System.out.println("przejscie do segmentow");
-        new SwitchScene().switchScene(event, "segmentsView");
+        System.out.println("CollectibleView.goToSegments: "+collectible);
+
+        // utworzenie kotrnolera widoku docelowego i ustawienie jego pól
+        SegmentsView segmentsView = new SegmentsView();
+        segmentsView.setCollectible(collectible);
+        segmentsView.setParentCollectionName(parentCollection.getTitle());
+
+        new SwitchScene().switchScene(event, "segmentsView", segmentsView);
     }
 
     @FXML
