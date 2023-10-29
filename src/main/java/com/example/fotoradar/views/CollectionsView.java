@@ -8,6 +8,7 @@ import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import javafx.fxml.FXML;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,6 +34,17 @@ public class CollectionsView {
         collectionsComponent.setCollectiblesMap(collectiblesMap);
 
         collectionsComponent.fillCollectionsHBox();
+
+        // utworzenie katalogu KOLEKCJE jesli nie istnieje
+        String currentDirectory = System.getProperty("user.dir");
+        File directory = new File(currentDirectory, "kolekcje");
+        if (!directory.exists()) {
+            boolean directoryCreated = directory.mkdir();
+            System.out.println(
+                    directoryCreated ? "utworzono" : "nie utworzono"
+            );
+        } else
+            System.out.println("kolekcje istnieją");
     }
 
     @FXML

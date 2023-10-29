@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import lombok.Setter;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -37,6 +38,27 @@ public class CollectionFormWindow implements Window {
 
         // zamkniecie okienka po wykonanej operacji
         closeWindow(dialogStage);
+
+        // utworzenie katalogu kolekcji i podkatalogu obiekty
+        String currentDirectory = System.getProperty("user.dir")+"/kolekcje";
+        File collectionDirectory = new File(currentDirectory, collectionToAdd.getTitle());
+        File collectiblesDirectory = new File(collectionDirectory, "obiekty");
+
+        if (!collectionDirectory.exists()) {
+            boolean directoryCreated = collectionDirectory.mkdir();
+            System.out.println(
+                    directoryCreated ? "utworzono katalog kolekcji" : "nie utworzono katalogu kolekcji"
+            );
+        } else
+            System.out.println("katalog kolekcji istnieje");
+
+        if (!collectiblesDirectory.exists()) {
+            boolean directoryCreated = collectiblesDirectory.mkdir();
+            System.out.println(
+                    directoryCreated ? "utworzono podkatalog obiektow" : "nie utworzono podkatalogu obiektow"
+            );
+        } else
+            System.out.println("podkatalog obiektow istnieje");
     }
 
     @FXML
