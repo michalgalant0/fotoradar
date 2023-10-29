@@ -8,9 +8,8 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0"
-            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.fotoradar.views.SegmentsView">
-    <Label layoutX="48.0" layoutY="24.0" text="kolekcje/ kolekcja/ obiekt/ segmenty">
+            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ kolekcja/ obiekt/ segmenty">
         <font>
             <Font size="30.0" />
         </font>
