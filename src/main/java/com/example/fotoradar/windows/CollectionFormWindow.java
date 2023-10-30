@@ -3,8 +3,6 @@ package com.example.fotoradar.windows;
 import com.example.fotoradar.components.CollectionFormComponent;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collection;
-import com.example.fotoradar.views.CollectionView;
-import com.example.fotoradar.views.CollectionsView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
