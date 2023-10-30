@@ -5,6 +5,7 @@ import com.example.fotoradar.components.CollectiblesComponent;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
+import com.example.fotoradar.windows.CollectibleFormWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -53,7 +54,13 @@ public class CollectionView {
     @FXML
     private void addCollectible(ActionEvent event) throws IOException {
         System.out.println("dodaj obiekt");
-        new SwitchScene().displayWindow("CollectibleFormWindow", "Dodaj obiekt");
+
+        // Przygotuj okno CollectibleFormWindow
+        CollectibleFormWindow collectibleFormWindow = new CollectibleFormWindow();
+        collectibleFormWindow.setParentCollection(collection); // Przekazujemy kolekcję
+
+        // Wywołaj metodę do wyświetlenia okna
+        new SwitchScene().displayWindow("CollectibleFormWindow", "Dodaj obiekt", collectibleFormWindow);
     }
     @FXML
     private void removeCollection(ActionEvent event) throws IOException {
