@@ -4,6 +4,7 @@ target/
 !**/src/test/**/target/
 
 fotoradar.db
+/kolekcje
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
