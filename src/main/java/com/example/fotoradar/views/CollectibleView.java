@@ -1,5 +1,6 @@
 package com.example.fotoradar.views;
 
+import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectibleFormComponent;
 import com.example.fotoradar.components.MiniGalleryComponent;
@@ -36,6 +37,8 @@ public class CollectibleView {
         setWindowLabel(parentCollection.getTitle(), collectible.getTitle());
         // wypełnienie komponentu z formularzem
         fillCollectibleForm();
+
+        new DirectoryOperator().createStructure(collectible, parentCollection.getTitle());
     }
 
     private void setParentCollection() throws SQLException {

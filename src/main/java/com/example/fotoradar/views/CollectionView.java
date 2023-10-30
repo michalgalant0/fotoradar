@@ -1,5 +1,6 @@
 package com.example.fotoradar.views;
 
+import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectiblesComponent;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
@@ -33,6 +34,8 @@ public class CollectionView {
                 new CollectibleOperations().getAllCollectibles(collection.getId());
         collectiblesComponent.setCollectibles(collectibles);
         collectiblesComponent.fillCollectiblesHBox();
+
+        new DirectoryOperator().createStructure(collection);
     }
 
     private void setWindowLabel(String collectionName) {

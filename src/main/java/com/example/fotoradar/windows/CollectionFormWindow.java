@@ -1,5 +1,6 @@
 package com.example.fotoradar.windows;
 
+import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.components.CollectionFormComponent;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collection;
@@ -31,32 +32,15 @@ public class CollectionFormWindow implements Window {
 
         System.out.println("dane z formularza: " + collectionToAdd);
 
+        // dodanie kolekcji do bazy
         CollectionOperations collectionOperations = new CollectionOperations();
         collectionOperations.addCollection(collectionToAdd);
 
+        // utworzenie katalogu kolekcji i podkatalogu obiekty
+        new DirectoryOperator().createStructure(collectionToAdd);
+
         // zamkniecie okienka po wykonanej operacji
         closeWindow(dialogStage);
-
-        // utworzenie katalogu kolekcji i podkatalogu obiekty
-        String currentDirectory = System.getProperty("user.dir")+"/kolekcje";
-        File collectionDirectory = new File(currentDirectory, collectionToAdd.getTitle());
-        File collectiblesDirectory = new File(collectionDirectory, "obiekty");
-
-        if (!collectionDirectory.exists()) {
-            boolean directoryCreated = collectionDirectory.mkdir();
-            System.out.println(
-                    directoryCreated ? "utworzono katalog kolekcji" : "nie utworzono katalogu kolekcji"
-            );
-        } else
-            System.out.println("katalog kolekcji istnieje");
-
-        if (!collectiblesDirectory.exists()) {
-            boolean directoryCreated = collectiblesDirectory.mkdir();
-            System.out.println(
-                    directoryCreated ? "utworzono podkatalog obiektow" : "nie utworzono podkatalogu obiektow"
-            );
-        } else
-            System.out.println("podkatalog obiektow istnieje");
     }
 
     @FXML

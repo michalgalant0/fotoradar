@@ -1,5 +1,6 @@
 package com.example.fotoradar.views;
 
+import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.MiniGalleryComponent;
 import com.example.fotoradar.components.SegmentFormComponent;
@@ -25,12 +26,15 @@ public class SegmentsView {
     @Setter
     private Collectible collectible = new Collectible();
     @Setter
-    private String parentCollectionName = "";
+    private String parentCollectionName;
     private ArrayList<Segment> segments = new ArrayList<>();
 
     public void initialize() {
         System.out.println("SegmentsView.initialize: "+collectible);
         setWindowLabel(parentCollectionName, collectible.getTitle());
+
+        for (Segment segment : segments)
+            new DirectoryOperator().createStructure(segment, parentCollectionName, collectible.getTitle());
     }
 
     private void setWindowLabel(String parentCollectionName, String collectibleName) {

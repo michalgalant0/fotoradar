@@ -1,5 +1,6 @@
 package com.example.fotoradar.views;
 
+import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectionsComponent;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
@@ -36,15 +37,7 @@ public class CollectionsView {
         collectionsComponent.fillCollectionsHBox();
 
         // utworzenie katalogu KOLEKCJE jesli nie istnieje
-        String currentDirectory = System.getProperty("user.dir");
-        File directory = new File(currentDirectory, "kolekcje");
-        if (!directory.exists()) {
-            boolean directoryCreated = directory.mkdir();
-            System.out.println(
-                    directoryCreated ? "utworzono" : "nie utworzono"
-            );
-        } else
-            System.out.println("kolekcje istnieją");
+        new DirectoryOperator().createStructure();
     }
 
     @FXML
