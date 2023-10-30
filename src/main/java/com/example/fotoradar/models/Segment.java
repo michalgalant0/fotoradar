@@ -13,4 +13,5 @@ public class Segment {
     private String description;
     private int statusId;
     private int parentCollectibleId;
+    private String coords;
 }

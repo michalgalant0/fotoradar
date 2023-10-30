@@ -16,4 +16,6 @@ module com.example.fotoradar {
     opens com.example.fotoradar.components to javafx.fxml;
     opens com.example.fotoradar.windows to javafx.fxml;
     opens com.example.fotoradar.views to javafx.fxml;
+
+    exports com.example.fotoradar.segmenter;
 }
