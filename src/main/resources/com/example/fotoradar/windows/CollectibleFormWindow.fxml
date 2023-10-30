@@ -6,10 +6,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="570.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.fotoradar.windows.CollectibleFormWindow">
-        <Label layoutX="182.0" layoutY="14.0" text="Label"/>
-        <CollectibleFormComponent fx:id="collectibleForm"/>
+<AnchorPane prefHeight="580.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+        <Label fx:id="windowLabel" layoutX="182.0" layoutY="14.0" text="Label"
+               alignment="CENTER" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0"/>
+        <CollectibleFormComponent fx:id="collectibleForm" layoutY="30.0" />
         <Button layoutX="127.0" layoutY="510.0" mnemonicParsing="false" text="ZAPISZ" onAction="#saveCollectible" />
         <Button layoutX="208.0" layoutY="510.0" mnemonicParsing="false" text="ANULUJ" onAction="#cancel" />
 </AnchorPane>

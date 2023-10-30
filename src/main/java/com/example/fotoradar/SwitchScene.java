@@ -47,4 +47,27 @@ public class SwitchScene {
         // Wyświetlenie nowego okna
         dialogStage.showAndWait();
     }
+
+    // SwitchScene
+    public void displayWindow(String windowName, String title, Object controller) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("windows/" + windowName + ".fxml"));
+        fxmlLoader.setController(controller);
+        Scene scene = new Scene(fxmlLoader.load());
+
+        Stage dialogStage = new Stage();
+        dialogStage.initStyle(StageStyle.UTILITY);
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setResizable(false);
+        dialogStage.setTitle(title);
+        dialogStage.setScene(scene);
+
+        // Jeśli controller implementuje Window, przekaż dialogStage
+        if (controller instanceof Window) {
+            ((Window) controller).setDialogStage(dialogStage);
+        }
+
+        // Wyświetlenie nowego okna
+        dialogStage.showAndWait();
+    }
+
 }
