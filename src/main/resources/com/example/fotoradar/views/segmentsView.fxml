@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.example.fotoradar.components.MiniGalleryComponent?>
+<?import com.example.fotoradar.components.ImageViewerComponent?>
 <?import com.example.fotoradar.components.SegmentFormComponent?>
 
 <?import javafx.scene.control.*?>
@@ -14,7 +14,7 @@
             <Font size="30.0" />
         </font>
     </Label>
-    <MiniGalleryComponent fx:id="miniGalleryComponent" layoutY="84.0" AnchorPane.leftAnchor="48.0"/>
+    <ImageViewerComponent fx:id="imageViewerComponent" layoutY="84.0" AnchorPane.leftAnchor="48.0"/>
     <SegmentFormComponent fx:id="segmentFormComponent" layoutY="84.0" prefHeight="500.0"
                           AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="84.0">
         <Button mnemonicParsing="false" onAction="#saveSegment"
