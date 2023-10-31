@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,6 +25,9 @@ public class ImageViewerComponent extends AnchorPane {
 
     private ArrayList<String> imageFiles = new ArrayList<>();
     private int currentImageIndex = 0;
+
+    @Setter @Getter
+    private Image currentImage;
 
     public ImageViewerComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/ImageViewerComponent.fxml"));
@@ -77,6 +82,7 @@ public class ImageViewerComponent extends AnchorPane {
                 FileInputStream fileInputStream = new FileInputStream(imagePath);
                 Image image = new Image(fileInputStream);
                 imageView.setImage(image);
+                setCurrentImage(image); // ustawienie bieżącego zdjęcia
             } catch (IOException e) {
                 e.printStackTrace();
             }

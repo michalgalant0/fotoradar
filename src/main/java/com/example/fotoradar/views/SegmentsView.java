@@ -11,6 +11,7 @@ import com.example.fotoradar.segmenter.SegmenterListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Setter;
 
@@ -31,6 +32,8 @@ public class SegmentsView implements SegmenterListener {
     private String parentCollectionName;
     @Setter
     private ArrayList<Segment> segments = new ArrayList<>();
+
+    private Segmenter segmenter;
 
     public void initialize() {
         System.out.println("SegmentsView.initialize: " + collectible);
@@ -74,8 +77,11 @@ public class SegmentsView implements SegmenterListener {
     private void addSegments() {
         System.out.println("dodanie segmentu");
 
+
         // Start the Segmenter
-        Segmenter segmenter = new Segmenter();
+        segmenter = new Segmenter();
+        // przekazanie bieżącego zdjęcia do segmentera
+        passCurrentImageToSegmenter();
         segmenter.setSegmenterListener(this);
         Stage stage = new Stage();
         segmenter.start(stage);
@@ -84,6 +90,11 @@ public class SegmentsView implements SegmenterListener {
     @Override
     public void onSegmentationFinished(ArrayList<Segmenter.Segment> segments) {
         System.out.println("SegmentsView.onSegmentationFinished: segmentsFromSegmenter "+segments);
+    }
+
+    private void passCurrentImageToSegmenter() {
+        Image currentImage = imageViewerComponent.getCurrentImage();
+        segmenter.setCurrentImage(currentImage);
     }
 
     @FXML

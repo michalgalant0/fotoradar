@@ -29,9 +29,10 @@ public class Segmenter extends Application {
     @Setter
     private SegmenterListener segmenterListener;
 
-    final String path = "file://"+System.getProperty("user.dir")+"/src/main/resources/tmpPhotos/tmp.jpg";
+    @Setter
+    private Image currentImage;
 
-    private Button segmentButton = new Button("ZAKOŃCZ SEGMENTOWANIE"); // Add the segment button
+    private final Button segmentButton = new Button("ZAKOŃCZ SEGMENTOWANIE");
 
     public static void main(String[] args) {
         launch(args);
@@ -43,10 +44,9 @@ public class Segmenter extends Application {
         primaryStage.setTitle("Segment Drawer");
         BorderPane root = new BorderPane();
 
-        Image image = new Image(path);
-        canvas = new Canvas(Math.min(800, image.getWidth()), Math.min(800, image.getHeight()));
+        canvas = new Canvas(Math.min(800, currentImage.getWidth()), Math.min(800, currentImage.getHeight()));
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.drawImage(currentImage, 0, 0, canvas.getWidth(), canvas.getHeight());
 
         canvas.setOnMouseClicked(event -> {
             if (currentSegment == null) {
@@ -71,7 +71,7 @@ public class Segmenter extends Application {
         });
 
         canvas.setOnMouseMoved(event -> {
-            if (currentSegment != null && currentSegment.getPoints().size() > 0) {
+            if (currentSegment != null && !currentSegment.getPoints().isEmpty()) {
                 double currentX = event.getX();
                 double currentY = event.getY();
                 redrawCanvas();
@@ -110,7 +110,7 @@ public class Segmenter extends Application {
     private void redrawCanvas() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        gc.drawImage(new Image(path), 0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.drawImage(currentImage, 0, 0, canvas.getWidth(), canvas.getHeight());
 
         for (Segment segment : segments) {
             List<Double> points = segment.getPoints();
