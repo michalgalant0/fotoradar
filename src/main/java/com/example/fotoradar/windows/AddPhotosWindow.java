@@ -1,5 +1,6 @@
 package com.example.fotoradar.windows;
 
+import com.example.fotoradar.AddPhotoListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,14 +22,20 @@ public class AddPhotosWindow implements Window {
     public Button addPhotoButton;
     @FXML
     public Button cancelButton;
+
     @Setter
     private Stage dialogStage;
     private List<File> selectedFiles;
+
+    @Setter
+    private AddPhotoListener addPhotoListener;
 
     @FXML
     public void addPhotos(ActionEvent event) {
         System.out.println("lista dodanych zdjęć:");
         System.out.println(selectedFiles);
+
+        addPhotoListener.onAddingPhotosFinished(selectedFiles);
 
         closeWindow(dialogStage);
     }

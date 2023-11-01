@@ -5,7 +5,9 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="112.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fotoradar.windows.AddPhotosWindow">
+<AnchorPane prefHeight="112.0" prefWidth="300.0"
+            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+<!--            fx:controller="com.example.fotoradar.windows.AddPhotosWindow">-->
    <Button layoutX="83.0" layoutY="29.0" mnemonicParsing="false" onAction="#pickFiles" prefHeight="24.0" text="WCZYTAJ ZDJĘCIA" AnchorPane.topAnchor="32.0" />
    <Label layoutX="24.0" layoutY="72.0" managed="false" text="wczytane pliki:" visible="false" AnchorPane.leftAnchor="24.0" />
    <TextArea fx:id="fileNamesContainer" editable="false" layoutX="24.0" layoutY="96.0" managed="false" prefHeight="176.0" visible="false" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" />

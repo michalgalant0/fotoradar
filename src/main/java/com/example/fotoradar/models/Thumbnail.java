@@ -5,10 +5,8 @@ import lombok.*;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 @ToString
-public class Photo {
+public class Thumbnail {
     private int id;
     private String fileName;
-    private String geoLocation;
-    private float fileSize;
-    private int parentVersionId;
+    private int parentCollectibleId;
 }

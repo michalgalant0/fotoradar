@@ -1,5 +1,6 @@
 package com.example.fotoradar.views;
 
+import com.example.fotoradar.AddPhotoListener;
 import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.ImageViewerComponent;
@@ -8,6 +9,7 @@ import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Segment;
 import com.example.fotoradar.segmenter.Segmenter;
 import com.example.fotoradar.segmenter.SegmenterListener;
+import com.example.fotoradar.windows.AddPhotosWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -15,10 +17,13 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Setter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class SegmentsView implements SegmenterListener {
+public class SegmentsView implements SegmenterListener, AddPhotoListener {
     @FXML
     public Label windowLabel;
     @FXML
@@ -71,18 +76,22 @@ public class SegmentsView implements SegmenterListener {
     @FXML
     private void addPhoto() throws IOException {
         System.out.println("dodanie zdjęcia");
-        new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj zdjęcie");
+
+        AddPhotosWindow addPhotosWindow = new AddPhotosWindow();
+        addPhotosWindow.setAddPhotoListener(this);
+
+        new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj miniatury", addPhotosWindow);
     }
 
     @FXML
     private void addSegments() {
         System.out.println("dodanie segmentu");
 
-
         // Start the Segmenter
         segmenter = new Segmenter();
         // przekazanie bieżącego zdjęcia do segmentera
         passCurrentImageToSegmenter();
+
         segmenter.setSegmenterListener(this);
         Stage stage = new Stage();
         segmenter.start(stage);
@@ -91,6 +100,11 @@ public class SegmentsView implements SegmenterListener {
     @Override
     public void onSegmentationFinished(ArrayList<Segmenter.Segment> segments) {
         System.out.println("SegmentsView.onSegmentationFinished: segmentsFromSegmenter "+segments);
+    }
+
+    @Override
+    public void onAddingPhotosFinished(List<File> selectedFiles) {
+        System.out.println("SegmentsView.onAddingPhotosFinished: selectedFilesFromAddPhotosWindow "+selectedFiles);
     }
 
     private void passCurrentImageToSegmenter() {

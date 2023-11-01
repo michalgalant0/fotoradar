@@ -48,7 +48,6 @@ public class SwitchScene {
         dialogStage.showAndWait();
     }
 
-    // SwitchScene
     public void displayWindow(String windowName, String title, Object controller) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("windows/" + windowName + ".fxml"));
         fxmlLoader.setController(controller);

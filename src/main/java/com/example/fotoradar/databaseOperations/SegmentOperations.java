@@ -5,7 +5,6 @@ import com.example.fotoradar.models.Segment;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 public class SegmentOperations {
     private final Connection connection;
 
@@ -14,8 +13,8 @@ public class SegmentOperations {
     }
 
     // Pobieranie wszystkich obiektów z bazy
-    public List<Segment> getAllSegments(int parentCollectibleId) throws SQLException {
-        List<Segment> segments = new ArrayList<>();
+    public ArrayList<Segment> getAllSegments(int parentCollectibleId) throws SQLException {
+        ArrayList<Segment> segments = new ArrayList<>();
         String query = "SELECT * FROM Segment WHERE collectible_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, parentCollectibleId);
@@ -28,9 +27,11 @@ public class SegmentOperations {
                     String startDate = resultSet.getString("start_datetime");
                     String finishDate = resultSet.getString("finish_datetime");
                     String description = resultSet.getString("description");
+                    String coords = resultSet.getString("coords");
                     int statusId = resultSet.getInt("status_id");
+                    int thumbnailId = resultSet.getInt("thumbnail_id");
 
-                    Segment segment = new Segment(id, title, startDate, finishDate, description, statusId, parentCollectibleId);
+                    Segment segment = new Segment(id, title, startDate, finishDate, description, coords, statusId, parentCollectibleId, thumbnailId);
                     segments.add(segment);
                 }
             }
@@ -53,8 +54,9 @@ public class SegmentOperations {
                     String finishDate = resultSet.getString("finish_datetime");
                     String description = resultSet.getString("description");
                     String coords = resultSet.getString("coords");
+                    int thumbnailId = resultSet.getInt("thumbnail_id");
 
-                    return new Segment(id, title, startDate, finishDate, description, statusId, parentCollectibleId, coords);
+                    return new Segment(id, title, startDate, finishDate, description, coords, statusId, parentCollectibleId, thumbnailId);
                 }
             }
         }
