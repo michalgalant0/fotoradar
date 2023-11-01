@@ -19,8 +19,10 @@ import lombok.Setter;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SegmentsView implements SegmenterListener, AddPhotoListener {
@@ -39,11 +41,15 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener {
     private ArrayList<Segment> segments = new ArrayList<>();
 
     private Segmenter segmenter;
+    private String collectibleThumbnailsPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/";
 
     public void initialize() {
         System.out.println("SegmentsView.initialize: " + collectible);
         setWindowLabel(parentCollectionName, collectible.getTitle());
         imageViewerComponent.setForSegmentsView(true);
+
+        collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
+                System.getProperty("user.dir"), parentCollectionName, collectible.getTitle());
 
         for (Segment segment : segments) {
             new DirectoryOperator().createStructure(segment, parentCollectionName, collectible.getTitle());
@@ -103,8 +109,15 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener {
     }
 
     @Override
-    public void onAddingPhotosFinished(List<File> selectedFiles) {
+    public void onAddingPhotosFinished(List<File> selectedFiles) throws IOException {
         System.out.println("SegmentsView.onAddingPhotosFinished: selectedFilesFromAddPhotosWindow "+selectedFiles);
+        for (File file : selectedFiles) {
+            // kopiowanie dla potrzeb testowych - domyślnie przenoszenie
+            Files.copy(
+                    file.toPath(), Path.of(collectibleThumbnailsPath+file.getName()),
+                    StandardCopyOption.REPLACE_EXISTING
+            );
+        }
     }
 
     private void passCurrentImageToSegmenter() {

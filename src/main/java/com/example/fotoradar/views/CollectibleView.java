@@ -1,5 +1,6 @@
 package com.example.fotoradar.views;
 
+import com.example.fotoradar.AddPhotoListener;
 import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectibleFormComponent;
@@ -7,15 +8,18 @@ import com.example.fotoradar.components.MiniGalleryComponent;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
+import com.example.fotoradar.windows.AddPhotosWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import lombok.Setter;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
-public class CollectibleView {
+public class CollectibleView implements AddPhotoListener {
     @FXML
     private Label windowLabel;
     @FXML
@@ -70,8 +74,12 @@ public class CollectibleView {
 
     @FXML
     private void addPhoto(ActionEvent event) throws IOException {
-        System.out.println("dodawanie zdjecia");
-        new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj zdjęcia");
+        System.out.println("dodawanie zdjęcia");
+
+        AddPhotosWindow addPhotosWindow = new AddPhotosWindow();
+        addPhotosWindow.setAddPhotoListener(this);
+
+        new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj miniatury", addPhotosWindow);
     }
 
     @FXML
@@ -101,5 +109,10 @@ public class CollectibleView {
         collectionView.setCollection(parentCollection);
 
         new SwitchScene().switchScene(event, "collectionView", collectionView);
+    }
+
+    @Override
+    public void onAddingPhotosFinished(List<File> selectedFiles) {
+        System.out.println("CollectibleView.onAddingPhotoFinished: selectedFilesFromAddPhotosWindow "+selectedFiles);
     }
 }

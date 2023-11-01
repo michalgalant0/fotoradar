@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import lombok.Setter;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class AddPhotosWindow implements Window {
@@ -31,7 +32,7 @@ public class AddPhotosWindow implements Window {
     private AddPhotoListener addPhotoListener;
 
     @FXML
-    public void addPhotos(ActionEvent event) {
+    public void addPhotos(ActionEvent event) throws IOException {
         System.out.println("lista dodanych zdjęć:");
         System.out.println(selectedFiles);
 
