@@ -1,6 +1,7 @@
 package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
+import com.example.fotoradar.SwitchScene;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
@@ -24,10 +25,11 @@ public class ImageViewerComponent extends AnchorPane {
     private ImageView imageView;
 
     private ArrayList<String> imageFiles = new ArrayList<>();
-    private int currentImageIndex = 0;
-
     @Setter @Getter
     private Image currentImage;
+    private int currentImageIndex = 0;
+    @Setter
+    private boolean isForSegmentsView = false;
 
     public ImageViewerComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/ImageViewerComponent.fxml"));
@@ -53,9 +55,14 @@ public class ImageViewerComponent extends AnchorPane {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        if (isForSegmentsView) {
+            loadSegments();
+        }
     }
 
-    public void showPreviousImage() {
+    @FXML
+    private void showPreviousImage() {
         if (currentImageIndex > 0) {
             currentImageIndex--;
             showImage();
@@ -65,7 +72,8 @@ public class ImageViewerComponent extends AnchorPane {
         }
     }
 
-    public void showNextImage() {
+    @FXML
+    private void showNextImage() {
         if (currentImageIndex < imageFiles.size() - 1) {
             currentImageIndex++;
             showImage();
@@ -74,7 +82,11 @@ public class ImageViewerComponent extends AnchorPane {
             showImage();
         }
     }
-
+    @FXML
+    private void deleteCurrentPhoto() throws IOException {
+        System.out.println("usuwanie zdjęcia");
+        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie");
+    }
     private void showImage() {
         if (!imageFiles.isEmpty() && currentImageIndex >= 0 && currentImageIndex < imageFiles.size()) {
             String imagePath = imageFiles.get(currentImageIndex);
@@ -87,6 +99,14 @@ public class ImageViewerComponent extends AnchorPane {
                 e.printStackTrace();
             }
         }
+
+        if (isForSegmentsView) {
+            loadSegments();
+        }
+    }
+
+    private void loadSegments() {
+        System.out.println("wyświetl segmenty na danym zdjęciu");
     }
 
 }

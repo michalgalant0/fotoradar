@@ -52,8 +52,9 @@ public class SegmentOperations {
                     String startDate = resultSet.getString("start_datetime");
                     String finishDate = resultSet.getString("finish_datetime");
                     String description = resultSet.getString("description");
+                    String coords = resultSet.getString("coords");
 
-                    return new Segment(id, title, startDate, finishDate, description, statusId, parentCollectibleId);
+                    return new Segment(id, title, startDate, finishDate, description, statusId, parentCollectibleId, coords);
                 }
             }
         }

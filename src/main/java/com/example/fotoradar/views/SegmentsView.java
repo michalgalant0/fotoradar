@@ -38,6 +38,7 @@ public class SegmentsView implements SegmenterListener {
     public void initialize() {
         System.out.println("SegmentsView.initialize: " + collectible);
         setWindowLabel(parentCollectionName, collectible.getTitle());
+        imageViewerComponent.setForSegmentsView(true);
 
         for (Segment segment : segments) {
             new DirectoryOperator().createStructure(segment, parentCollectionName, collectible.getTitle());

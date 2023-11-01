@@ -4,7 +4,6 @@ import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectibleFormComponent;
 import com.example.fotoradar.components.MiniGalleryComponent;
-import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
@@ -80,7 +79,7 @@ public class CollectibleView {
         System.out.println("przejscie do segmentow");
         System.out.println("CollectibleView.goToSegments: "+collectible);
 
-        // utworzenie kotrnolera widoku docelowego i ustawienie jego pól
+        // utworzenie kontrolera widoku docelowego i ustawienie jego pól
         SegmentsView segmentsView = new SegmentsView();
         segmentsView.setCollectible(collectible);
         segmentsView.setParentCollectionName(parentCollection.getTitle());

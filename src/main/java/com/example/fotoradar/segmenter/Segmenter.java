@@ -32,8 +32,6 @@ public class Segmenter extends Application {
     @Setter
     private Image currentImage;
 
-    private final Button segmentButton = new Button("ZAKOŃCZ SEGMENTOWANIE");
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -82,6 +80,7 @@ public class Segmenter extends Application {
 
         root.setCenter(canvas);
 
+        Button segmentButton = new Button("ZAKOŃCZ SEGMENTOWANIE");
         segmentButton.setOnAction(event -> {
             endSegmenting();
             segmenterListener.onSegmentationFinished(segments);
@@ -161,7 +160,7 @@ public class Segmenter extends Application {
 
         @Override
         public String toString() {
-            StringBuilder sb = new StringBuilder("Czworokąt: ");
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < points.size(); i += 2) {
                 sb.append("(").append(points.get(i)).append(",").append(points.get(i + 1)).append(") ");
             }
