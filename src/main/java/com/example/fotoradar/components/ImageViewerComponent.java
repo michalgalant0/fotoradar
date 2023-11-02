@@ -5,18 +5,18 @@ import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.databaseOperations.SegmentOperations;
 import com.example.fotoradar.models.Segment;
 import com.example.fotoradar.models.Thumbnail;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import lombok.Getter;
 import lombok.Setter;
+import javafx.animation.ScaleTransition;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -40,6 +40,9 @@ public class ImageViewerComponent extends AnchorPane {
     private int currentImageIndex;
     @Setter
     private boolean isForSegmentsView = false;
+
+    @Getter
+    private Polygon highlightedPolygon; // Zmienna do przechowywania zaznaczonego poligonu
 
     public ImageViewerComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/ImageViewerComponent.fxml"));
@@ -137,7 +140,6 @@ public class ImageViewerComponent extends AnchorPane {
         double imageViewWidth = imageView.getFitWidth();
         double imageViewHeight = imageView.getFitHeight();
 
-
         for (Segment segment : segments) {
             drawSegment(segment, imageViewWidth, imageViewHeight);
         }
@@ -148,26 +150,53 @@ public class ImageViewerComponent extends AnchorPane {
         double[] coordinates = parseCoordinates(coords);
 
         if (coordinates.length == 8) {
-            double[] xPoints = new double[4];
-            double[] yPoints = new double[4];
-
-            // Oblicz skalę dla segmentów
             double scaleX = imageViewWidth / currentImage.getWidth();
             double scaleY = imageViewHeight / currentImage.getHeight();
 
+            Polygon polygon = new Polygon();
+
             for (int i = 0; i < 8; i += 2) {
-                xPoints[i / 2] = coordinates[i] * scaleX;
-                yPoints[i / 2] = coordinates[i + 1] * scaleY;
+                double x = coordinates[i] * scaleX;
+                double y = coordinates[i + 1] * scaleY;
+                polygon.getPoints().addAll(x, y);
             }
 
-            Canvas canvas = new Canvas(imageViewWidth, imageViewHeight);
-            GraphicsContext gc = canvas.getGraphicsContext2D();
+            polygon.setStroke(Color.RED);
+            polygon.setStrokeWidth(2);
+            polygon.setFill(Color.TRANSPARENT); // Ustaw wypełnienie na przezroczyste
 
-            gc.setStroke(Color.RED);
-            gc.setLineWidth(2);
-            gc.strokePolygon(xPoints, yPoints, 4);
+            segmentPane.getChildren().add(polygon);
 
-            segmentPane.getChildren().add(canvas);
+            // fancy gowienko - mozna usunac, ale cieszy XD
+            ScaleTransition scaleIn = new ScaleTransition(Duration.millis(200), polygon);
+            scaleIn.setFromX(1.0);
+            scaleIn.setFromY(1.0);
+            scaleIn.setToX(1.1);
+            scaleIn.setToY(1.1);
+
+            polygon.setOnMouseClicked(event -> {
+                System.out.println("Kliknięto segment: " + segment);
+
+                // Odznacz poprzedni zaznaczony segment
+                if (highlightedPolygon != null) {
+                    // animacja
+                    ScaleTransition scaleOut = new ScaleTransition(Duration.millis(200), highlightedPolygon);
+                    scaleOut.setFromX(1.1);
+                    scaleOut.setFromY(1.1);
+                    scaleOut.setToX(1.0);
+                    scaleOut.setToY(1.0);
+                    scaleOut.play();
+                    // koniec animacji
+                    highlightedPolygon.setStroke(Color.RED);
+                    highlightedPolygon.setFill(Color.TRANSPARENT);
+                }
+
+                // Zaznacz bieżący segment
+                scaleIn.play(); // animacja
+                polygon.setStroke(Color.PURPLE);
+                polygon.setFill(Color.rgb(127,50,120,0.2));
+                highlightedPolygon = polygon;
+            });
         }
     }
 
