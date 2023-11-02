@@ -15,4 +15,10 @@ public class Segment {
     private int statusId;
     private int parentCollectibleId;
     private int thumbnailId;
+
+    public Segment(String coords, int parentCollectibleId, int thumbnailId) {
+        this.coords = coords;
+        this.parentCollectibleId = parentCollectibleId;
+        this.thumbnailId = thumbnailId;
+    }
 }

@@ -41,8 +41,9 @@ public class CollectionsView {
     }
 
     @FXML
-    private void addCollection() throws IOException {
+    private void addCollection() throws IOException, SQLException {
         System.out.println("dodaj kolekcje");
         new SwitchScene().displayWindow("CollectionFormWindow", "Dodaj kolekcję");
+        initialize();
     }
 }

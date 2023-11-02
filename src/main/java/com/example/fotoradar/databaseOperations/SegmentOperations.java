@@ -6,10 +6,10 @@ import com.example.fotoradar.models.Segment;
 import java.sql.*;
 import java.util.ArrayList;
 public class SegmentOperations {
-    private final Connection connection;
+    private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
-    public SegmentOperations(Connection connection) {
-        this.connection = connection;
+    public SegmentOperations() throws SQLException {
+
     }
 
     // Pobieranie wszystkich obiektów z bazy
@@ -32,6 +32,33 @@ public class SegmentOperations {
                     int thumbnailId = resultSet.getInt("thumbnail_id");
 
                     Segment segment = new Segment(id, title, startDate, finishDate, description, coords, statusId, parentCollectibleId, thumbnailId);
+                    segments.add(segment);
+                }
+            }
+        }
+        return segments;
+    }
+
+    // Pobieranie wszystkich obiektów z bazy
+    public ArrayList<Segment> getAllSegmentsForThumbnail(int parentThumbnailId) throws SQLException {
+        ArrayList<Segment> segments = new ArrayList<>();
+        String query = "SELECT * FROM Segment WHERE thumbnail_id=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, parentThumbnailId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("segment_id");
+                    String title = resultSet.getString("title");
+                    String startDate = resultSet.getString("start_datetime");
+                    String finishDate = resultSet.getString("finish_datetime");
+                    String description = resultSet.getString("description");
+                    String coords = resultSet.getString("coords");
+                    int statusId = resultSet.getInt("status_id");
+                    int parentCollectibleId = resultSet.getInt("thumbnail_id");
+
+                    Segment segment = new Segment(id, title, startDate, finishDate, description, coords, statusId, parentCollectibleId, parentThumbnailId);
                     segments.add(segment);
                 }
             }
@@ -65,14 +92,16 @@ public class SegmentOperations {
 
     // Dodawanie obiektu do bazy
     public boolean addSegment(Segment segment) throws SQLException {
-        String query = "INSERT INTO Segment (title, start_datetime, finish_datetime, description, status_id, collectible_id) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Segment (title, start_datetime, finish_datetime, description, coords, status_id, collectible_id, thumbnail_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, segment.getTitle());
             preparedStatement.setString(2, segment.getStartDate());
             preparedStatement.setString(3, segment.getFinishDate());
             preparedStatement.setString(4, segment.getDescription());
-            preparedStatement.setInt(5, segment.getStatusId());
-            preparedStatement.setInt(6, segment.getParentCollectibleId());
+            preparedStatement.setString(5, segment.getCoords());
+            preparedStatement.setInt(6, segment.getStatusId());
+            preparedStatement.setInt(7, segment.getParentCollectibleId());
+            preparedStatement.setInt(8, segment.getThumbnailId());
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;

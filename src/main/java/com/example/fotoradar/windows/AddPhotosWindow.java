@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class AddPhotosWindow implements Window {
@@ -32,7 +33,7 @@ public class AddPhotosWindow implements Window {
     private AddPhotoListener addPhotoListener;
 
     @FXML
-    public void addPhotos(ActionEvent event) throws IOException {
+    public void addPhotos(ActionEvent event) throws IOException, SQLException {
         System.out.println("lista dodanych zdjęć:");
         System.out.println(selectedFiles);
 

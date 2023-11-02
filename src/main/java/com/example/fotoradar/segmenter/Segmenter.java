@@ -1,5 +1,6 @@
 package com.example.fotoradar.segmenter;
 
+import com.example.fotoradar.models.Thumbnail;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,8 @@ public class Segmenter extends Application {
 
     @Setter
     private Image currentImage;
+    @Setter
+    private int currentThumbnailId;
 
     public static void main(String[] args) {
         launch(args);
@@ -83,7 +87,11 @@ public class Segmenter extends Application {
         Button segmentButton = new Button("ZAKOŃCZ SEGMENTOWANIE");
         segmentButton.setOnAction(event -> {
             endSegmenting();
-            segmenterListener.onSegmentationFinished(segments);
+            try {
+                segmenterListener.onSegmentationFinished(segments, currentThumbnailId);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         VBox buttonBox = new VBox(segmentButton);

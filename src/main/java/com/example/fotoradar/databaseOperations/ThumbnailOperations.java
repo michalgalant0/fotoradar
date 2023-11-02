@@ -88,5 +88,19 @@ public class ThumbnailOperations {
         }
     }
 
+    public int getThumbnailId(String fileName, int parentCollectibleId) {
+        String query = "SELECT thumbnail_id FROM Thumbnail WHERE file_name=? AND collectible_id=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, fileName);
+            preparedStatement.setInt(2, parentCollectibleId);
 
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next())
+                    return resultSet.getInt("thumbnail_id");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
 }

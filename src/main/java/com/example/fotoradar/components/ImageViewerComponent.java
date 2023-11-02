@@ -2,32 +2,41 @@ package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
 import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.databaseOperations.SegmentOperations;
+import com.example.fotoradar.models.Segment;
+import com.example.fotoradar.models.Thumbnail;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class ImageViewerComponent extends AnchorPane {
-
     @FXML
     private ImageView imageView;
+    @FXML
+    private Pane segmentPane;
 
-    private ArrayList<String> imageFiles = new ArrayList<>();
+    @Setter
+    private String parentDirectory;
+    @Setter
+    private ArrayList<Thumbnail> thumbnails = new ArrayList<>();
     @Setter @Getter
     private Image currentImage;
-    private int currentImageIndex = 0;
+    @Setter @Getter
+    private Thumbnail currentThumbnail;
+    private int currentImageIndex;
     @Setter
     private boolean isForSegmentsView = false;
 
@@ -39,62 +48,54 @@ public class ImageViewerComponent extends AnchorPane {
         loader.load();
     }
 
-    public void initialize() {
-        try {
-            String directoryName = "tmpPhotos";
-            Path directoryPath = Paths.get(
-                    Objects.requireNonNull(Main.class.getClassLoader().getResource(directoryName)).toURI()
-            );
-
-            imageFiles = Files.walk(directoryPath, 1)
-                    .filter(Files::isRegularFile)
-                    .map(Path::toString)
-                    .collect(Collectors.toCollection(ArrayList::new));
-
-            showImage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (isForSegmentsView) {
-            loadSegments();
-        }
+    public void initialize() throws SQLException {
+        currentImageIndex = 0;
+        showImage();
     }
 
     @FXML
-    private void showPreviousImage() {
+    private void showPreviousImage() throws SQLException {
         if (currentImageIndex > 0) {
             currentImageIndex--;
             showImage();
         } else if (currentImageIndex == 0) {
-            currentImageIndex = imageFiles.size() - 1;
+            currentImageIndex = thumbnails.size() - 1;
             showImage();
         }
     }
 
     @FXML
-    private void showNextImage() {
-        if (currentImageIndex < imageFiles.size() - 1) {
+    private void showNextImage() throws SQLException {
+        if (currentImageIndex < thumbnails.size() - 1) {
             currentImageIndex++;
             showImage();
-        } else if (currentImageIndex == imageFiles.size() - 1) {
+        } else if (currentImageIndex == thumbnails.size() - 1) {
             currentImageIndex = 0;
             showImage();
         }
     }
+
     @FXML
     private void deleteCurrentPhoto() throws IOException {
         System.out.println("usuwanie zdjęcia");
         new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie");
     }
-    private void showImage() {
-        if (!imageFiles.isEmpty() && currentImageIndex >= 0 && currentImageIndex < imageFiles.size()) {
-            String imagePath = imageFiles.get(currentImageIndex);
+
+    private void showImage() throws SQLException {
+        if (!thumbnails.isEmpty() && currentImageIndex >= 0 && currentImageIndex < thumbnails.size()) {
+            Thumbnail thumbnail = thumbnails.get(currentImageIndex);
+            String imagePath = parentDirectory + thumbnail.getFileName();
             try {
                 FileInputStream fileInputStream = new FileInputStream(imagePath);
                 Image image = new Image(fileInputStream);
                 imageView.setImage(image);
                 setCurrentImage(image); // ustawienie bieżącego zdjęcia
+                setCurrentThumbnail(thumbnail);
+
+                // Centrowanie obrazu wewnątrz ImageView
+                imageView.setPreserveRatio(true);
+                imageView.setFitWidth(imageView.getFitWidth());
+                imageView.setFitHeight(imageView.getFitHeight());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -105,8 +106,56 @@ public class ImageViewerComponent extends AnchorPane {
         }
     }
 
-    private void loadSegments() {
+    private void loadSegments() throws SQLException {
         System.out.println("wyświetl segmenty na danym zdjęciu");
+        ArrayList<Segment> segments = new SegmentOperations().getAllSegmentsForThumbnail(currentThumbnail.getId());
+
+        segmentPane.getChildren().clear(); // Wyczyść istniejące segmenty
+
+        Canvas canvas = new Canvas(imageView.getFitWidth(), imageView.getFitHeight());
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        for (Segment segment : segments)
+            drawSegment(gc, segment.getCoords());
+
+        // Centrowanie segmentów wewnątrz segmentPane
+        segmentPane.getChildren().add(canvas);
     }
 
+    private void drawSegment(GraphicsContext gc, String coords) {
+        double[] coordinates = parseCoordinates(coords);
+        if (coordinates.length == 8) {
+            double[] xPoints = new double[4];
+            double[] yPoints = new double[4];
+            for (int i = 0; i < 8; i += 2) {
+                xPoints[i / 2] = coordinates[i];
+                yPoints[i / 2] = coordinates[i + 1];
+            }
+
+            gc.setStroke(Color.RED);
+            gc.setLineWidth(2);
+            gc.strokePolygon(xPoints, yPoints, 4);
+        }
+    }
+
+    private static double[] parseCoordinates(String coordinates) {
+        double[] result = new double[8];
+        // Usuń zbędne spacje
+        coordinates = coordinates.replaceAll("\\s+", "");
+        System.out.println(coordinates);
+        // Usuń nawiasy okrągłe
+        coordinates = coordinates
+                .replace(")(",",")
+                .replace("(", "")
+                .replace(")", "");
+        // Podziel ciąg znaków na współrzędne
+        String[] parts = coordinates.split(",");
+        // Sprawdź, czy mamy wystarczającą liczbę części
+        if (parts.length != 8)
+            throw new IllegalArgumentException("Nieprawidłowy format współrzędnych. Oczekiwano 8 liczb.");
+        // Konwertuj ciągi znaków na liczby double
+        for (int i = 0; i < 8; i++)
+            result[i] = Double.parseDouble(parts[i]);
+        return result;
+    }
 }
