@@ -89,20 +89,35 @@ public class ImageViewerComponent extends AnchorPane {
             try {
                 FileInputStream fileInputStream = new FileInputStream(imagePath);
                 Image image = new Image(fileInputStream);
+
+                // Ustal szerokość i wysokość obrazka, aby zmieścił się w kontenerze (max 800x800)
+                double maxWidth = 800;
+                double maxHeight = 800;
+                double imageWidth = image.getWidth();
+                double imageHeight = image.getHeight();
+
+                if (imageWidth > maxWidth || imageHeight > maxHeight) {
+                    double widthRatio = maxWidth / imageWidth;
+                    double heightRatio = maxHeight / imageHeight;
+                    double scaleFactor = Math.min(widthRatio, heightRatio);
+
+                    imageWidth *= scaleFactor;
+                    imageHeight *= scaleFactor;
+                }
+
                 imageView.setImage(image);
+                imageView.setPreserveRatio(true);
+                imageView.setFitWidth(imageWidth);
+                imageView.setFitHeight(imageHeight);
+
                 setCurrentImage(image); // ustawienie bieżącego zdjęcia
                 setCurrentThumbnail(thumbnail);
 
-                // Centrowanie obrazu wewnątrz ImageView
-                imageView.setPreserveRatio(true);
-                imageView.setFitWidth(image.getWidth()); // Ustal szerokość na podstawie wczytanego obrazu
-                imageView.setFitHeight(image.getHeight()); // Ustal wysokość na podstawie wczytanego obrazu
-
                 // Ustal rozmiar segmentPane na podstawie rozmiaru wczytanego obrazu
-                segmentPane.setMinWidth(image.getWidth());
-                segmentPane.setMinHeight(image.getHeight());
-                segmentPane.setMaxWidth(image.getWidth());
-                segmentPane.setMaxHeight(image.getHeight());
+                segmentPane.setMinWidth(imageWidth);
+                segmentPane.setMinHeight(imageHeight);
+                segmentPane.setMaxWidth(imageWidth);
+                segmentPane.setMaxHeight(imageHeight);
             } catch (IOException e) {
                 e.printStackTrace();
             }

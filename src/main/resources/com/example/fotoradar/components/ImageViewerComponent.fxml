@@ -10,7 +10,7 @@
 <fx:root prefHeight="830.0" prefWidth="796.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <HBox alignment="CENTER" prefHeight="800.0" spacing="20">
         <Button onAction="#showPreviousImage" text="&lt;" />
-        <StackPane>
+        <StackPane prefWidth="800.0">
             <ImageView fx:id="imageView" fitHeight="800.0" fitWidth="800.0" StackPane.alignment="CENTER" />
             <Pane fx:id="segmentPane" StackPane.alignment="CENTER" style="-fx-border-width: 1px; -fx-border-color: yellow;"/>
         </StackPane>
