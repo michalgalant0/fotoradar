@@ -6,8 +6,10 @@ import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectibleFormComponent;
 import com.example.fotoradar.components.MiniGalleryComponent;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
+import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
+import com.example.fotoradar.models.Thumbnail;
 import com.example.fotoradar.windows.AddPhotosWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +18,9 @@ import lombok.Setter;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -32,6 +37,9 @@ public class CollectibleView implements AddPhotoListener {
     @Setter
     private Collection parentCollection = new Collection();
 
+    private String collectibleThumbnailsPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/";
+    private ThumbnailOperations thumbnailOperations;
+
     public void initialize() throws SQLException {
         System.out.println("CollectibleView.initialize: "+collectible);
         // ustawienie kolekcji nadrzędnej
@@ -40,6 +48,12 @@ public class CollectibleView implements AddPhotoListener {
         setWindowLabel(parentCollection.getTitle(), collectible.getTitle());
         // wypełnienie komponentu z formularzem
         fillCollectibleForm();
+
+        thumbnailOperations = new ThumbnailOperations();
+
+        // ustawienie katalogu miniatur dla bieżącego obiektu
+        collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
+                System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle());
 
         new DirectoryOperator().createStructure(collectible, parentCollection.getTitle());
     }
@@ -112,7 +126,20 @@ public class CollectibleView implements AddPhotoListener {
     }
 
     @Override
-    public void onAddingPhotosFinished(List<File> selectedFiles) {
+    public void onAddingPhotosFinished(List<File> selectedFiles) throws IOException, SQLException {
         System.out.println("CollectibleView.onAddingPhotoFinished: selectedFilesFromAddPhotosWindow "+selectedFiles);
+        for (File file : selectedFiles) {
+            // przekopiowanie wybranych plikow do utworzonej struktury aplikacji
+            String destinationFilePath = collectibleThumbnailsPath+file.getName();
+            // kopiowanie dla potrzeb testowych - domyślnie przenoszenie
+            Files.copy(
+                    file.toPath(), Path.of(destinationFilePath),
+                    StandardCopyOption.REPLACE_EXISTING
+            );
+            // dodanie miniatur do bazy
+            thumbnailOperations.addThumbnail(
+                    new Thumbnail(file.getName(), collectible.getId())
+            );
+        }
     }
 }
