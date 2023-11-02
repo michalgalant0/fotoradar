@@ -5,6 +5,7 @@ import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.databaseOperations.SegmentOperations;
 import com.example.fotoradar.models.Segment;
 import com.example.fotoradar.models.Thumbnail;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
@@ -94,8 +95,14 @@ public class ImageViewerComponent extends AnchorPane {
 
                 // Centrowanie obrazu wewnątrz ImageView
                 imageView.setPreserveRatio(true);
-                imageView.setFitWidth(imageView.getFitWidth());
-                imageView.setFitHeight(imageView.getFitHeight());
+                imageView.setFitWidth(image.getWidth()); // Ustal szerokość na podstawie wczytanego obrazu
+                imageView.setFitHeight(image.getHeight()); // Ustal wysokość na podstawie wczytanego obrazu
+
+                // Ustal rozmiar segmentPane na podstawie rozmiaru wczytanego obrazu
+                segmentPane.setMinWidth(image.getWidth());
+                segmentPane.setMinHeight(image.getHeight());
+                segmentPane.setMaxWidth(image.getWidth());
+                segmentPane.setMaxHeight(image.getHeight());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -112,31 +119,43 @@ public class ImageViewerComponent extends AnchorPane {
 
         segmentPane.getChildren().clear(); // Wyczyść istniejące segmenty
 
-        Canvas canvas = new Canvas(imageView.getFitWidth(), imageView.getFitHeight());
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        double imageViewWidth = imageView.getFitWidth();
+        double imageViewHeight = imageView.getFitHeight();
 
-        for (Segment segment : segments)
-            drawSegment(gc, segment.getCoords());
 
-        // Centrowanie segmentów wewnątrz segmentPane
-        segmentPane.getChildren().add(canvas);
+        for (Segment segment : segments) {
+            drawSegment(segment, imageViewWidth, imageViewHeight);
+        }
     }
 
-    private void drawSegment(GraphicsContext gc, String coords) {
+    private void drawSegment(Segment segment, double imageViewWidth, double imageViewHeight) {
+        String coords = segment.getCoords();
         double[] coordinates = parseCoordinates(coords);
+
         if (coordinates.length == 8) {
             double[] xPoints = new double[4];
             double[] yPoints = new double[4];
+
+            // Oblicz skalę dla segmentów
+            double scaleX = imageViewWidth / currentImage.getWidth();
+            double scaleY = imageViewHeight / currentImage.getHeight();
+
             for (int i = 0; i < 8; i += 2) {
-                xPoints[i / 2] = coordinates[i];
-                yPoints[i / 2] = coordinates[i + 1];
+                xPoints[i / 2] = coordinates[i] * scaleX;
+                yPoints[i / 2] = coordinates[i + 1] * scaleY;
             }
+
+            Canvas canvas = new Canvas(imageViewWidth, imageViewHeight);
+            GraphicsContext gc = canvas.getGraphicsContext2D();
 
             gc.setStroke(Color.RED);
             gc.setLineWidth(2);
             gc.strokePolygon(xPoints, yPoints, 4);
+
+            segmentPane.getChildren().add(canvas);
         }
     }
+
 
     private static double[] parseCoordinates(String coordinates) {
         double[] result = new double[8];
