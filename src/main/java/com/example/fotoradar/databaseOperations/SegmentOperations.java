@@ -120,7 +120,7 @@ public class SegmentOperations {
 
     // Aktualizacja istniejącego obiektu w bazie
     public boolean updateSegment(Segment segment) throws SQLException {
-        String query = "UPDATE Segment SET title=?, start_datetime=?, finish_datetime=?, description=?, status_id=? WHERE segment_id=? AND collectible_id=?";
+        String query = "UPDATE Segment SET title=?, start_datetime=?, finish_datetime=?, description=?, status_id=? WHERE segment_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, segment.getTitle());
             preparedStatement.setString(2, segment.getStartDate());
@@ -129,7 +129,8 @@ public class SegmentOperations {
 
             preparedStatement.setInt(5, segment.getStatusId());
             preparedStatement.setInt(6, segment.getId());
-            preparedStatement.setInt(7, segment.getParentCollectibleId());
+
+            System.out.println(preparedStatement);
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;

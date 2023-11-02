@@ -2,6 +2,7 @@ package com.example.fotoradar.views;
 
 import com.example.fotoradar.AddPhotoListener;
 import com.example.fotoradar.DirectoryOperator;
+import com.example.fotoradar.SegmentsListener;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.ImageViewerComponent;
 import com.example.fotoradar.components.SegmentFormComponent;
@@ -29,7 +30,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SegmentsView implements SegmenterListener, AddPhotoListener {
+public class SegmentsView implements SegmenterListener, AddPhotoListener, SegmentsListener {
     @FXML
     public Label windowLabel;
     @FXML
@@ -43,13 +44,16 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener {
     private String parentCollectionName;
     @Setter
     private ArrayList<Segment> segments = new ArrayList<>();
+    private Segment currentSegment;
 
     private Segmenter segmenter;
     private String collectibleThumbnailsPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/";
     private ThumbnailOperations thumbnailOperations;
+    private SegmentOperations segmentOperations;
 
     public void initialize() throws SQLException {
         thumbnailOperations = new ThumbnailOperations();
+        segmentOperations = new SegmentOperations();
 
         System.out.println("SegmentsView.initialize: " + collectible);
         setWindowLabel(parentCollectionName, collectible.getTitle());
@@ -59,6 +63,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener {
         imageViewerComponent.setForSegmentsView(true);
         imageViewerComponent.setThumbnails(getThumbnails());
         imageViewerComponent.setParentDirectory(collectibleThumbnailsPath);
+        imageViewerComponent.setSegmentsListener(this);
 
         for (Segment segment : segments) {
             new DirectoryOperator().createStructure(segment, parentCollectionName, collectible.getTitle());
@@ -81,8 +86,19 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener {
     }
 
     @FXML
-    private void saveSegment() {
+    private void saveSegment() throws SQLException {
         System.out.println("zapis segmentu");
+        Segment segmentToUpdate = currentSegment;
+
+        // pobranie nowych danych z formularza
+        currentSegment.setTitle(segmentFormComponent.nameTextField.getText());
+        currentSegment.setStartDate(String.valueOf(segmentFormComponent.startDatePicker.getValue()));
+        currentSegment.setFinishDate(String.valueOf(segmentFormComponent.finishDatePicker.getValue()));
+        currentSegment.setDescription(segmentFormComponent.descriptionTextArea.getText());
+        currentSegment.setStatusId(1); // test
+
+        System.out.println(currentSegment);
+        System.out.println(segmentOperations.updateSegment(segmentToUpdate));
     }
 
     @FXML
@@ -123,7 +139,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener {
     @Override
     public void onSegmentationFinished(ArrayList<Segmenter.Segment> segments, int segmentedThumbnailId) throws SQLException {
         System.out.println("SegmentsView.onSegmentationFinished: segmentsFromSegmenter "+segments);
-        SegmentOperations segmentOperations = new SegmentOperations();
+        segmentOperations = new SegmentOperations();
         for (Segmenter.Segment segment : segments) {
             segmentOperations.addSegment(
                     new Segment(
@@ -152,6 +168,13 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener {
                     new Thumbnail(file.getName(), collectible.getId())
             );
         }
+    }
+
+    @Override
+    public void onCurrentSegmentChanged(Segment segment) {
+        System.out.println("SegmentsView.onCurrentSegmentChanged: "+segment);
+        segmentFormComponent.fillForm(segment);
+        currentSegment = segment;
     }
 
     private void passCurrentImageToSegmenter() {

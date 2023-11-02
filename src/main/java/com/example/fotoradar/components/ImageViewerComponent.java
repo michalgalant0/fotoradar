@@ -1,6 +1,7 @@
 package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
+import com.example.fotoradar.SegmentsListener;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.databaseOperations.SegmentOperations;
 import com.example.fotoradar.models.Segment;
@@ -43,6 +44,9 @@ public class ImageViewerComponent extends AnchorPane {
 
     @Getter
     private Polygon highlightedPolygon; // Zmienna do przechowywania zaznaczonego poligonu
+
+    @Setter
+    private SegmentsListener segmentsListener;
 
     public ImageViewerComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/ImageViewerComponent.fxml"));
@@ -196,6 +200,9 @@ public class ImageViewerComponent extends AnchorPane {
                 polygon.setStroke(Color.PURPLE);
                 polygon.setFill(Color.rgb(127,50,120,0.2));
                 highlightedPolygon = polygon;
+
+                // przekaz biezacy segment do słuchacza
+                segmentsListener.onCurrentSegmentChanged(segment);
             });
         }
     }
