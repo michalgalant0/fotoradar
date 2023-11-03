@@ -41,6 +41,8 @@ public class CollectibleView implements AddPhotoListener {
     private ThumbnailOperations thumbnailOperations;
 
     public void initialize() throws SQLException {
+        thumbnailOperations = new ThumbnailOperations();
+
         System.out.println("CollectibleView.initialize: "+collectible);
         // ustawienie kolekcji nadrzędnej
         setParentCollection();
@@ -49,7 +51,8 @@ public class CollectibleView implements AddPhotoListener {
         // wypełnienie komponentu z formularzem
         fillCollectibleForm();
 
-        thumbnailOperations = new ThumbnailOperations();
+        // wypelnienie komponentu miniGallery miniaturami
+        fillMiniGallery();
 
         // ustawienie katalogu miniatur dla bieżącego obiektu
         collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
@@ -123,6 +126,17 @@ public class CollectibleView implements AddPhotoListener {
         collectionView.setCollection(parentCollection);
 
         new SwitchScene().switchScene(event, "collectionView", collectionView);
+    }
+
+    private void fillMiniGallery() throws SQLException {
+        miniGalleryComponent.setParentDirectory(
+                String.format(collectibleThumbnailsPath,
+                        System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle()));
+        miniGalleryComponent.setThumbnails(thumbnailOperations.getAllThumbnails(collectible.getId()));
+
+        System.out.println(miniGalleryComponent.parentDirectory);
+        System.out.println(miniGalleryComponent.thumbnails);
+        miniGalleryComponent.fillComponent();
     }
 
     @Override
