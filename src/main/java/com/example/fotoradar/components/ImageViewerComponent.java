@@ -38,7 +38,7 @@ public class ImageViewerComponent extends AnchorPane {
     private Image currentImage;
     @Setter @Getter
     private Thumbnail currentThumbnail;
-    private int currentImageIndex;
+    private int currentImageIndex = 0;
     @Setter
     private boolean isForSegmentsView = false;
 
@@ -57,7 +57,6 @@ public class ImageViewerComponent extends AnchorPane {
     }
 
     public void initialize() throws SQLException {
-        currentImageIndex = 0;
         showImage();
     }
 
@@ -125,13 +124,13 @@ public class ImageViewerComponent extends AnchorPane {
                 segmentPane.setMinHeight(imageHeight);
                 segmentPane.setMaxWidth(imageWidth);
                 segmentPane.setMaxHeight(imageHeight);
+
+                if (isForSegmentsView) {
+                    loadSegments();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        if (isForSegmentsView) {
-            loadSegments();
         }
     }
 

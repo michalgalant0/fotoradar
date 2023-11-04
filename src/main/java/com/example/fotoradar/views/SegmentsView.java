@@ -63,6 +63,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         imageViewerComponent.setForSegmentsView(true);
         imageViewerComponent.setThumbnails(getThumbnails());
         imageViewerComponent.setParentDirectory(collectibleThumbnailsPath);
+        imageViewerComponent.initialize();
         imageViewerComponent.setSegmentsListener(this);
 
         for (Segment segment : segments) {
