@@ -2,7 +2,13 @@ package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
 import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.databaseOperations.VersionOperations;
+import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Segment;
+import com.example.fotoradar.models.Version;
+import com.example.fotoradar.views.VersionView;
+import com.example.fotoradar.windows.VersionFormWindow;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,9 +17,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.StringConverter;
+import lombok.Setter;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class SegmentFormComponent extends AnchorPane {
     @FXML
@@ -31,9 +41,17 @@ public class SegmentFormComponent extends AnchorPane {
     @FXML
     public TextArea descriptionTextArea;
     @FXML
-    public ComboBox versionComboBox;
+    public ComboBox<Version> versionComboBox;
     @FXML
     public ComboBox statusComboBox;
+
+    private Segment segment;
+    @Setter
+    private String parentCollectionName;
+    @Setter
+    private Collectible parentCollectible;
+
+    private ArrayList<Version> versions;
 
     public SegmentFormComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/SegmentFormComponent.fxml"));
@@ -43,21 +61,62 @@ public class SegmentFormComponent extends AnchorPane {
         loader.load();
     }
 
-    public void initialize() {}
+    public void initialize() {
+    }
+
+    public void fillVersionComboBox() throws SQLException {
+        versions = new VersionOperations().getAllVersions(segment.getId());
+
+        versionComboBox.setConverter(new StringConverter<Version>() {
+            @Override
+            public String toString(Version version) {
+                return version != null ? version.getName() : "";
+            }
+
+            @Override
+            public Version fromString(String string) {
+                return findVersionByName(string);
+            }
+        });
+
+        versionComboBox.setItems(FXCollections.observableArrayList(versions));
+    }
+
+    private Version findVersionByName(String name) {
+        for (Version version : versions) {
+            if (version.getName().equals(name)) {
+                return version;
+            }
+        }
+        return null; // Możesz obsłużyć przypadek, gdy wersja nie zostanie znaleziona
+    }
 
     @FXML
     public void openVersion(ActionEvent event) throws IOException {
         System.out.println("otwarcie wersji");
-        new SwitchScene().switchScene(event, "versionView");
+
+        VersionView versionView = new VersionView();
+        versionView.setParentCollectionName(parentCollectionName);
+        versionView.setParentCollectible(parentCollectible);
+        versionView.setParentSegment(segment);
+        versionView.setVersion(versionComboBox.getValue());
+
+        new SwitchScene().switchScene(event, "versionView", versionView);
     }
 
     @FXML
     public void addVersion(ActionEvent event) throws IOException {
         System.out.println("dodanie wersji");
-        new SwitchScene().switchScene(event, "versionView");
+
+        VersionFormWindow versionFormWindow = new VersionFormWindow();
+        versionFormWindow.setParentSegment(segment);
+        versionFormWindow.setParentCollectionName(parentCollectionName);
+        versionFormWindow.setParentCollectible(parentCollectible);
+
+        new SwitchScene().displayWindow("VersionFormWindow", "dodaj wersję", versionFormWindow);
     }
 
-    public void fillForm(Segment segment) {
+    private void fillForm() {
         // testowo
         numberTextField.setText(String.valueOf(segment.getId()));
         String title = segment.getTitle() == null ? "wprowadź nazwę segmentu" : segment.getTitle();
@@ -68,7 +127,12 @@ public class SegmentFormComponent extends AnchorPane {
         finishDatePicker.setValue(LocalDate.parse(finishDate));
         String description = segment.getDescription() == null ? "wprowadź opis segmentu" : segment.getDescription();
         descriptionTextArea.setText(description);
-        versionComboBox.setValue("wersje do pobrania");
+        versionComboBox.setValue(null);
         statusComboBox.setValue("status do pobrania");
+    }
+
+    public void setSegment(Segment segment) {
+        this.segment = segment;
+        fillForm();
     }
 }

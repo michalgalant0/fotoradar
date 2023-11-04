@@ -29,7 +29,7 @@ public class CollectibleFormWindow implements Window {
         setWindowLabel(parentCollection.getTitle());
     }
 
-    public void setWindowLabel(String collectionName) {
+    private void setWindowLabel(String collectionName) {
         windowLabel.setText(String.format("Dodaj obiekt do kolekcji %s", collectionName));
     }
 

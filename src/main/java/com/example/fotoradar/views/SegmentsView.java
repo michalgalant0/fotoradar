@@ -66,9 +66,10 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         imageViewerComponent.initialize();
         imageViewerComponent.setSegmentsListener(this);
 
-        for (Segment segment : segments) {
-            new DirectoryOperator().createStructure(segment, parentCollectionName, collectible.getTitle());
-        }
+        segments = segmentOperations.getAllSegments(collectible.getId());
+        for (Segment segment : segments)
+            if (segment.getTitle() != null && !segment.getTitle().isBlank() && !segment.getTitle().isEmpty())
+                new DirectoryOperator().createStructure(segment, parentCollectionName, collectible.getTitle());
     }
 
     private ArrayList<Thumbnail> getThumbnails() throws SQLException {
@@ -174,8 +175,16 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     @Override
     public void onCurrentSegmentChanged(Segment segment) {
         System.out.println("SegmentsView.onCurrentSegmentChanged: "+segment);
-        segmentFormComponent.fillForm(segment);
         currentSegment = segment;
+
+        segmentFormComponent.setSegment(currentSegment);
+        segmentFormComponent.setParentCollectionName(parentCollectionName);
+        segmentFormComponent.setParentCollectible(collectible);
+        try {
+            segmentFormComponent.fillVersionComboBox();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void passCurrentImageToSegmenter() {

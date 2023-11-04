@@ -9,11 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class VersionOperations {
-    private final Connection connection;
+    private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
-    public VersionOperations(Connection connection) {
-        this.connection = connection;
-    }
+    public VersionOperations() throws SQLException {}
 
     // Pobieranie wszystkich wersji z bazy
     public ArrayList<Version> getAllVersions(int parentSegmentId) throws SQLException {
