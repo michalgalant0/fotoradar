@@ -31,13 +31,6 @@ public class VersionFormComponent extends AnchorPane {
     @FXML
     public ComboBox teamComboBox;
 
-//    @Setter
-//    private String parentCollectionName;
-//    @Setter
-//    private Collectible parentCollectible;
-//    @Setter
-//    private Version version;
-
     public VersionFormComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/VersionFormComponent.fxml"));
         loader.setRoot(this);

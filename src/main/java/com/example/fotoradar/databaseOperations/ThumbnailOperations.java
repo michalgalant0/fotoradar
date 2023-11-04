@@ -57,7 +57,7 @@ public class ThumbnailOperations {
         String query = "INSERT INTO Thumbnail (file_name, collectible_id) VALUES (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, thumbnail.getFileName());
-            preparedStatement.setInt(2, thumbnail.getParentCollectibleId());
+            preparedStatement.setInt(2, thumbnail.getParentId());
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
@@ -79,7 +79,7 @@ public class ThumbnailOperations {
         String query = "UPDATE Thumbnail SET file_name=?, collectible_id=? WHERE thumbnail_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, thumbnail.getFileName());
-            preparedStatement.setInt(2, thumbnail.getParentCollectibleId());
+            preparedStatement.setInt(2, thumbnail.getParentId());
 
             preparedStatement.setInt(3, thumbnail.getId());
 

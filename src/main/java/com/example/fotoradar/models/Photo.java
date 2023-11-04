@@ -5,10 +5,13 @@ import lombok.*;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 @ToString
-public class Photo {
-    private int id;
-    private String fileName;
+public class Photo extends ImageModel {
     private String geoLocation;
     private float fileSize;
-    private int parentVersionId;
+
+    public Photo(int id, String fileName, int parentVersionId) {
+        this.setId(id);
+        this.setFileName(fileName);
+        this.setParentId(parentVersionId);
+    }
 }

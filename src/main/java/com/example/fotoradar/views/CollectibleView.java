@@ -9,6 +9,7 @@ import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
+import com.example.fotoradar.models.ImageModel;
 import com.example.fotoradar.models.Thumbnail;
 import com.example.fotoradar.windows.AddPhotosWindow;
 import javafx.event.ActionEvent;
@@ -22,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollectibleView implements AddPhotoListener {
@@ -132,10 +134,17 @@ public class CollectibleView implements AddPhotoListener {
         miniGalleryComponent.setParentDirectory(
                 String.format(collectibleThumbnailsPath,
                         System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle()));
-        miniGalleryComponent.setThumbnails(thumbnailOperations.getAllThumbnails(collectible.getId()));
+        // konwersja listy thumbnails na imagemodels
+        ArrayList<Thumbnail> thumbnails = thumbnailOperations.getAllThumbnails(collectible.getId());
+        ArrayList<ImageModel> imageModels = new ArrayList<>();
+        for (Thumbnail thumbnail : thumbnails) {
+            ImageModel imageModel = new ImageModel(thumbnail.getId(), thumbnail.getFileName(), thumbnail.getParentId());
+            imageModels.add(imageModel);
+        }
+        miniGalleryComponent.setImages(imageModels);
 
         System.out.println(miniGalleryComponent.parentDirectory);
-        System.out.println(miniGalleryComponent.thumbnails);
+        System.out.println(miniGalleryComponent.images);
         miniGalleryComponent.fillComponent();
     }
 

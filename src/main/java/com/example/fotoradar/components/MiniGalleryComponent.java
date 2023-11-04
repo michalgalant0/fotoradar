@@ -1,7 +1,7 @@
 package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
-import com.example.fotoradar.models.Thumbnail;
+import com.example.fotoradar.models.ImageModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
@@ -23,7 +23,7 @@ public class MiniGalleryComponent extends AnchorPane {
     @Setter
     public String parentDirectory;
     @Setter
-    public ArrayList<Thumbnail> thumbnails = new ArrayList<>();
+    public ArrayList<ImageModel> images = new ArrayList<>();
 
     public MiniGalleryComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/MiniGalleryComponent.fxml"));
@@ -38,15 +38,15 @@ public class MiniGalleryComponent extends AnchorPane {
 
     public void fillComponent() {
         System.out.println(parentDirectory);
-        System.out.println(thumbnails);
+        System.out.println(images);
 
         int maxColumns = 3; // Ilość kolumn
         int columnIndex = 0;
         int rowIndex = 0;
 
-        for (Thumbnail thumbnail : thumbnails) {
-            System.out.println("MiniGallery.fillComponent: thumbnail name: "+thumbnail.getFileName());
-            ImageView imageView = createThumbnailImageView(thumbnail.getFileName());
+        for (ImageModel imageModel : images) {
+            System.out.println("MiniGallery.fillComponent: thumbnail name: "+imageModel.getFileName());
+            ImageView imageView = createThumbnailImageView(imageModel.getFileName());
             photosContainer.add(imageView, columnIndex, rowIndex);
 
             // Przesuwaj się do kolejnej kolumny lub wiersza
