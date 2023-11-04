@@ -1,6 +1,8 @@
 package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
+import com.example.fotoradar.models.Collectible;
+import com.example.fotoradar.models.Version;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
@@ -8,8 +10,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import lombok.Setter;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class VersionFormComponent extends AnchorPane {
     @FXML
@@ -27,6 +31,13 @@ public class VersionFormComponent extends AnchorPane {
     @FXML
     public ComboBox teamComboBox;
 
+//    @Setter
+//    private String parentCollectionName;
+//    @Setter
+//    private Collectible parentCollectible;
+//    @Setter
+//    private Version version;
+
     public VersionFormComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/VersionFormComponent.fxml"));
         loader.setRoot(this);
@@ -36,6 +47,14 @@ public class VersionFormComponent extends AnchorPane {
     }
 
     public void initialize() {}
+
+    public void fillForm(Version version) {
+        nameTextField.setText(version.getName());
+        startDatePicker.setValue(LocalDate.parse(version.getStartDate()));
+        finishDatePicker.setValue(LocalDate.parse(version.getFinishDate()));
+        descriptionTextArea.setText(version.toString()); // todo dodać atrybut description w encji VERSION
+        // todo dodać wypełnianie listy zespołami pod kolekcją do której wersja należy
+    }
 
     @FXML
     public void editTeam() {

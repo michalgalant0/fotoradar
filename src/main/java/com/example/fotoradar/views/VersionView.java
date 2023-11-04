@@ -33,6 +33,9 @@ public class VersionView {
 
     public void initialize() {
         setWindowLabel();
+
+        versionFormComponent.fillForm(version);
+
         new DirectoryOperator().createStructure(version, parentCollectionName, parentCollectible.getTitle(), parentSegment.getTitle());
     }
 
