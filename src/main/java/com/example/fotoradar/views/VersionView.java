@@ -7,6 +7,7 @@ import com.example.fotoradar.components.VersionFormComponent;
 import com.example.fotoradar.components.MiniGalleryComponent;
 import com.example.fotoradar.databaseOperations.PhotoOperations;
 import com.example.fotoradar.models.*;
+import com.example.fotoradar.windows.AddPhotosWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,6 +15,9 @@ import lombok.Setter;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +90,11 @@ public class VersionView implements AddPhotoListener {
     @FXML
     private void addPhotos(ActionEvent event) throws IOException {
         System.out.println("dodawanie zdjęć");
-        new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj zdjęcia");
+
+        AddPhotosWindow addPhotosWindow = new AddPhotosWindow();
+        addPhotosWindow.setAddPhotoListener(this);
+
+        new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj zdjęcia", addPhotosWindow);
     }
 
     @FXML
@@ -113,6 +121,20 @@ public class VersionView implements AddPhotoListener {
 
     @Override
     public void onAddingPhotosFinished(List<File> selectedFiles) throws IOException, SQLException {
-
+        // wyswietlenie listy zdjec w konsoli
+        System.out.println("VersionView.onAddingPhotosFinished: selectedFilesFromAddPhotosWindow "+selectedFiles);
+        for (File file : selectedFiles) {
+            // przekopiowanie wybranych plikow do utworzonej struktury aplikacji
+            String destinationFilePath = versionPhotosPath+file.getName();
+            // kopiowanie dla potrzeb testowych - domyślnie przenoszenie
+            Files.copy(
+                    file.toPath(), Path.of(destinationFilePath),
+                    StandardCopyOption.REPLACE_EXISTING
+            );
+            // dodanie zdjęć do bazy
+            photoOperations.addPhoto(
+                    new Photo(file.getName(), version.getId())
+            );
+        }
     }
 }

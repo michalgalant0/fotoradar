@@ -14,4 +14,9 @@ public class Photo extends ImageModel {
         this.setFileName(fileName);
         this.setParentId(parentVersionId);
     }
+
+    public Photo(String fileName, int parentVersionId) {
+        this.setFileName(fileName);
+        this.setParentId(parentVersionId);
+    }
 }
