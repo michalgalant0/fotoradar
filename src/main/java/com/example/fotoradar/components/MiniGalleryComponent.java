@@ -1,7 +1,9 @@
 package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
+import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.models.ImageModel;
+import com.example.fotoradar.windows.ImageViewerWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
@@ -44,9 +46,10 @@ public class MiniGalleryComponent extends AnchorPane {
         int columnIndex = 0;
         int rowIndex = 0;
 
-        for (ImageModel imageModel : images) {
+        for (int i=0; i< images.size(); i++) {
+            ImageModel imageModel = images.get(i);
             System.out.println("MiniGallery.fillComponent: thumbnail name: "+imageModel.getFileName());
-            ImageView imageView = createThumbnailImageView(imageModel.getFileName());
+            ImageView imageView = createThumbnailImageView(imageModel.getFileName(), i);
             photosContainer.add(imageView, columnIndex, rowIndex);
 
             // Przesuwaj się do kolejnej kolumny lub wiersza
@@ -58,7 +61,7 @@ public class MiniGalleryComponent extends AnchorPane {
         }
     }
 
-    private ImageView createThumbnailImageView(String thumbnailName) {
+    private ImageView createThumbnailImageView(String thumbnailName, int index) {
         ImageView imageView = new ImageView();
         imageView.setFitWidth(200);
         imageView.setFitHeight(200);
@@ -70,6 +73,16 @@ public class MiniGalleryComponent extends AnchorPane {
         imageView.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 System.out.println("Kliknięto lewym przyciskiem myszy na miniaturze obrazu: " + thumbnailName);
+                ImageViewerWindow imageViewerWindow = new ImageViewerWindow();
+                imageViewerWindow.setParentDirectory(parentDirectory);
+                imageViewerWindow.setImages(images);
+                imageViewerWindow.setCurrentImage(image);
+                imageViewerWindow.setCurrentImageIndex(index);
+                try {
+                    new SwitchScene().displayWindow("ImageViewerWindow", "przegląd zdjęć", imageViewerWindow);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             } else if (event.getButton() == MouseButton.SECONDARY) {
                 System.out.println("Kliknięto prawym przyciskiem myszy na miniaturze obrazu: " + thumbnailName);
             }

@@ -4,6 +4,7 @@ import com.example.fotoradar.Main;
 import com.example.fotoradar.SegmentsListener;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.databaseOperations.SegmentOperations;
+import com.example.fotoradar.models.ImageModel;
 import com.example.fotoradar.models.Segment;
 import com.example.fotoradar.models.Thumbnail;
 import javafx.fxml.FXML;
@@ -33,12 +34,13 @@ public class ImageViewerComponent extends AnchorPane {
     @Setter
     private String parentDirectory;
     @Setter
-    private ArrayList<Thumbnail> thumbnails = new ArrayList<>();
+    private ArrayList<ImageModel> images = new ArrayList<>();
     @Setter @Getter
     private Image currentImage;
     @Setter @Getter
     private Thumbnail currentThumbnail;
-    private int currentImageIndex = 0;
+    @Setter
+    private int currentImageIndex;
     @Setter
     private boolean isForSegmentsView = false;
 
@@ -57,28 +59,28 @@ public class ImageViewerComponent extends AnchorPane {
     }
 
     public void initialize() throws SQLException {
-        showImage();
+        showImage(currentImageIndex);
     }
 
     @FXML
     private void showPreviousImage() throws SQLException {
         if (currentImageIndex > 0) {
             currentImageIndex--;
-            showImage();
+            showImage(currentImageIndex);
         } else if (currentImageIndex == 0) {
-            currentImageIndex = thumbnails.size() - 1;
-            showImage();
+            currentImageIndex = images.size() - 1;
+            showImage(currentImageIndex);
         }
     }
 
     @FXML
     private void showNextImage() throws SQLException {
-        if (currentImageIndex < thumbnails.size() - 1) {
+        if (currentImageIndex < images.size() - 1) {
             currentImageIndex++;
-            showImage();
-        } else if (currentImageIndex == thumbnails.size() - 1) {
+            showImage(currentImageIndex);
+        } else if (currentImageIndex == images.size() - 1) {
             currentImageIndex = 0;
-            showImage();
+            showImage(currentImageIndex);
         }
     }
 
@@ -88,10 +90,11 @@ public class ImageViewerComponent extends AnchorPane {
         new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie");
     }
 
-    private void showImage() throws SQLException {
-        if (!thumbnails.isEmpty() && currentImageIndex >= 0 && currentImageIndex < thumbnails.size()) {
-            Thumbnail thumbnail = thumbnails.get(currentImageIndex);
-            String imagePath = parentDirectory + thumbnail.getFileName();
+    private void showImage(int index) throws SQLException {
+        if (!images.isEmpty() && currentImageIndex >= 0 && currentImageIndex < images.size()) {
+            currentImageIndex = index;
+            ImageModel imageModel = images.get(currentImageIndex);
+            String imagePath = parentDirectory + imageModel.getFileName();
             try {
                 FileInputStream fileInputStream = new FileInputStream(imagePath);
                 Image image = new Image(fileInputStream);
@@ -106,7 +109,6 @@ public class ImageViewerComponent extends AnchorPane {
                     double widthRatio = maxWidth / imageWidth;
                     double heightRatio = maxHeight / imageHeight;
                     double scaleFactor = Math.min(widthRatio, heightRatio);
-
                     imageWidth *= scaleFactor;
                     imageHeight *= scaleFactor;
                 }
@@ -117,15 +119,17 @@ public class ImageViewerComponent extends AnchorPane {
                 imageView.setFitHeight(imageHeight);
 
                 setCurrentImage(image); // ustawienie bieżącego zdjęcia
-                setCurrentThumbnail(thumbnail);
-
-                // Ustal rozmiar segmentPane na podstawie rozmiaru wczytanego obrazu
-                segmentPane.setMinWidth(imageWidth);
-                segmentPane.setMinHeight(imageHeight);
-                segmentPane.setMaxWidth(imageWidth);
-                segmentPane.setMaxHeight(imageHeight);
-
+                System.out.println("ImageViewerComponent.showImage: currentImage "+image);
                 if (isForSegmentsView) {
+                    setCurrentThumbnail((Thumbnail) imageModel);
+
+                    // Ustal rozmiar segmentPane na podstawie rozmiaru wczytanego obrazu
+                    segmentPane.setMinWidth(imageWidth);
+                    segmentPane.setMinHeight(imageHeight);
+                    segmentPane.setMaxWidth(imageWidth);
+                    segmentPane.setMaxHeight(imageHeight);
+
+                    // załadowanie segmentów
                     loadSegments();
                 }
             } catch (IOException e) {

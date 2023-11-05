@@ -9,6 +9,7 @@ import com.example.fotoradar.components.SegmentFormComponent;
 import com.example.fotoradar.databaseOperations.SegmentOperations;
 import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import com.example.fotoradar.models.Collectible;
+import com.example.fotoradar.models.ImageModel;
 import com.example.fotoradar.models.Segment;
 import com.example.fotoradar.models.Thumbnail;
 import com.example.fotoradar.segmenter.Segmenter;
@@ -61,7 +62,8 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
                 System.getProperty("user.dir"), parentCollectionName, collectible.getTitle());
 
         imageViewerComponent.setForSegmentsView(true);
-        imageViewerComponent.setThumbnails(getThumbnails());
+        ArrayList<ImageModel> imageModels = new ArrayList<>(getThumbnails());
+        imageViewerComponent.setImages(imageModels);
         imageViewerComponent.setParentDirectory(collectibleThumbnailsPath);
         imageViewerComponent.initialize();
         imageViewerComponent.setSegmentsListener(this);
