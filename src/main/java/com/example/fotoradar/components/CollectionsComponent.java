@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import lombok.Setter;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class CollectionsComponent extends AnchorPane {
         loader.load();
     }
 
-    public void fillCollectionsHBox() throws IOException {
+    public void fillCollectionsHBox() throws IOException, SQLException {
         for (Collection collection : collections) {
             // utworzenie komponentu kolekcja
             CollectionComponent collectionComponent =

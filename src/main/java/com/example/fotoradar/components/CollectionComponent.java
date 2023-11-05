@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import lombok.Setter;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CollectionComponent extends AnchorPane {
@@ -45,10 +46,14 @@ public class CollectionComponent extends AnchorPane {
         this.collectibles = collectibles;
     }
 
-    public void fillCollectionVBox() throws IOException {
+    public void fillCollectionVBox() throws IOException, SQLException {
         for (Collectible collectible : collectibles) {
             CollectionRowComponent collectionRow = new CollectionRowComponent();
+            collectionRow.setCollectible(collectible);
             collectionRow.setNameLabel(collectible.getTitle());
+            collectionRow.setStatusLabel("DO POBRANIA");
+            collectionRow.setThumbnailPath(collection.getTitle());
+            collectionRow.setObjectThumbnailImageView();
 
             collectiblesContainer.getChildren().add(collectionRow);
         }
