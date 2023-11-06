@@ -25,7 +25,7 @@ public class CollectionRowComponent extends AnchorPane {
     @Setter
     private Collectible collectible;
 
-    private String thumbnailPath;
+    private String thumbnailPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/%s";
 
     public CollectionRowComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectionRowComponent.fxml"));
@@ -47,7 +47,7 @@ public class CollectionRowComponent extends AnchorPane {
     }
 
     public void setThumbnailPath(String collectionName) throws SQLException {
-        thumbnailPath = String.format("%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/%s",
+        thumbnailPath = String.format(thumbnailPath,
                 System.getProperty("user.dir"), collectionName, collectible.getTitle(),
                 new ThumbnailOperations().getAllThumbnails(collectible.getId()).get(0).getFileName());
     }

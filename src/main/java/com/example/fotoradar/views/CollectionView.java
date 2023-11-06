@@ -33,6 +33,7 @@ public class CollectionView {
         ArrayList<Collectible> collectibles =
                 new CollectibleOperations().getAllCollectibles(collection.getId());
         collectiblesComponent.setCollectibles(collectibles);
+        collectiblesComponent.setCollectionName(collection.getTitle());
         collectiblesComponent.fillCollectiblesHBox();
 
         new DirectoryOperator().createStructure(collection);
