@@ -5,7 +5,9 @@ import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.VersionFormComponent;
 import com.example.fotoradar.components.MiniGalleryComponent;
+import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.databaseOperations.PhotoOperations;
+import com.example.fotoradar.databaseOperations.VersionOperations;
 import com.example.fotoradar.models.*;
 import com.example.fotoradar.windows.AddPhotosWindow;
 import javafx.event.ActionEvent;
@@ -82,7 +84,16 @@ public class VersionView implements AddPhotoListener {
     }
 
     @FXML
-    private void saveVersion() {
+    private void saveVersion() throws SQLException {
+
+        version.setName(versionFormComponent.nameTextField.getText());
+        version.setStartDate(versionFormComponent.startDatePicker.getValue().toString());
+        version.setFinishDate(versionFormComponent.finishDatePicker.getValue().toString());
+        version.setDescription(versionFormComponent.descriptionTextArea.getText());
+
+        // update obiektu do bazy
+        VersionOperations versionOperations = new VersionOperations();
+        versionOperations.updateVersion(version);
         System.out.println("zapis wersji");
 
     }

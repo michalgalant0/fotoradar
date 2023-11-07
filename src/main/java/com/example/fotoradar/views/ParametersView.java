@@ -38,20 +38,24 @@ public class ParametersView {
 
     public void fillFormComponent() {
         collectionFormComponent.titleTextField.setText(collection.getTitle());
-        collectionFormComponent.startDatePicker.setValue(LocalDate.parse(collection.getStartDate(),
-                DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-        collectionFormComponent.finishDatePicker.setValue(LocalDate.parse(collection.getFinishDate(),
-                DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        collectionFormComponent.startDatePicker.setValue(LocalDate.parse(collection.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        collectionFormComponent.finishDatePicker.setValue(LocalDate.parse(collection.getFinishDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         collectionFormComponent.descriptionTextArea.setText(collection.getDescription());
     }
 
     @FXML
-    private void saveCollection() {
+    private void saveCollection() throws SQLException {
         System.out.println("zapisz kolekcje");
+
         collection.setTitle(collectionFormComponent.titleTextField.getText());
         collection.setStartDate(collectionFormComponent.startDatePicker.getValue().toString());
         collection.setFinishDate(collectionFormComponent.finishDatePicker.getValue().toString());
         collection.setDescription(collectionFormComponent.descriptionTextArea.getText());
+
+        // update kolekcji do bazy
+        CollectionOperations collectionOperations = new CollectionOperations();
+        collectionOperations.updateCollection(collection);
+
         System.out.println(collection);
     }
     @FXML

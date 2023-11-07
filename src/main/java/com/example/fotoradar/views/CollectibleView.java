@@ -5,6 +5,7 @@ import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectibleFormComponent;
 import com.example.fotoradar.components.MiniGalleryComponent;
+import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import com.example.fotoradar.models.Collectible;
@@ -80,7 +81,17 @@ public class CollectibleView implements AddPhotoListener {
     }
 
     @FXML
-    private void saveCollectible(ActionEvent event) throws IOException {
+    private void saveCollectible(ActionEvent event) throws IOException, SQLException {
+
+        collectible.setTitle(collectibleFormComponent.titleTextField.getText());
+        collectible.setStartDate(collectibleFormComponent.startDatePicker.getValue().toString());
+        collectible.setFinishDate(collectibleFormComponent.finishDatePicker.getValue().toString());
+        collectible.setDescription(collectibleFormComponent.descriptionTextArea.getText());
+
+        // update obiektu do bazy
+        CollectibleOperations collectibleOperations = new CollectibleOperations();
+        collectibleOperations.updateCollectible(collectible);
+
         System.out.println("zapis obiektu");
         // pozostaje na tym samym widoku
     }

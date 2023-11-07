@@ -45,7 +45,7 @@ public class VersionFormComponent extends AnchorPane {
         nameTextField.setText(version.getName());
         startDatePicker.setValue(LocalDate.parse(version.getStartDate()));
         finishDatePicker.setValue(LocalDate.parse(version.getFinishDate()));
-        descriptionTextArea.setText(version.toString()); // todo dodać atrybut description w encji VERSION
+        descriptionTextArea.setText(version.getDescription());
         // todo dodać wypełnianie listy zespołami pod kolekcją do której wersja należy
     }
 

@@ -50,6 +50,7 @@ public class VersionFormWindow implements Window {
                 versionForm.nameTextField.getText(),
                 versionForm.startDatePicker.getValue().toString(),
                 versionForm.finishDatePicker.getValue().toString(),
+                versionForm.descriptionTextArea.getText(),
                 // todo dodac przekazywanie id zespolu
                 1,
                 parentSegment.getId()

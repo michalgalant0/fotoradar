@@ -26,9 +26,10 @@ public class VersionOperations {
                     String name = resultSet.getString("name");
                     String startDate = resultSet.getString("start_datetime");
                     String finishDate = resultSet.getString("finish_datetime");
+                    String description = resultSet.getString("description");
                     int teamId = resultSet.getInt("team_id");
 
-                    Version version = new Version(id, name, startDate, finishDate, teamId, parentSegmentId);
+                    Version version = new Version(id, name, startDate, finishDate, description, teamId, parentSegmentId);
                     versions.add(version);
                 }
             }
@@ -47,8 +48,10 @@ public class VersionOperations {
                     String title = resultSet.getString("name");
                     String startDate = resultSet.getString("start_datetime");
                     String finishDate = resultSet.getString("finish_datetime");
+                    String description = resultSet.getString("description");
 
-                    return new Version(id, title, startDate, finishDate, teamId, parentSegmentId );
+
+                    return new Version(id, title, startDate, finishDate, description, teamId, parentSegmentId );
                 }
             }
         }
@@ -57,13 +60,14 @@ public class VersionOperations {
 
     // Dodawanie obiektu do bazy
     public boolean addVersion(Version version) throws SQLException {
-        String query = "INSERT INTO Version (name, start_datetime, finish_datetime, team_id, segment_id) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Version (name, start_datetime, finish_datetime, description, team_id, segment_id) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, version.getName());
             preparedStatement.setString(2, version.getStartDate());
             preparedStatement.setString(3, version.getFinishDate());
-            preparedStatement.setInt(4, version.getTeamId());
-            preparedStatement.setInt(5, version.getParentSegmentId());
+            preparedStatement.setString(4, version.getDescription());
+            preparedStatement.setInt(5, version.getTeamId());
+            preparedStatement.setInt(6, version.getParentSegmentId());
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
@@ -82,14 +86,15 @@ public class VersionOperations {
 
     // Aktualizacja istniejącego obiektu w bazie
     public boolean updateVersion(Version version) throws SQLException {
-        String query = "UPDATE Version SET name=?, start_datetime=?, finish_datetime=?, team_id=? WHERE version_id=? AND segment_id=?";
+        String query = "UPDATE Version SET name=?, start_datetime=?, finish_datetime=?, description=?, team_id=? WHERE version_id=? AND segment_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, version.getName());
             preparedStatement.setString(2, version.getStartDate());
             preparedStatement.setString(3, version.getFinishDate());
-            preparedStatement.setInt(4, version.getTeamId());
-            preparedStatement.setInt(5,version.getId());
-            preparedStatement.setInt(6, version.getParentSegmentId());
+            preparedStatement.setString(4, version.getDescription());
+            preparedStatement.setInt(5, version.getTeamId());
+            preparedStatement.setInt(6,version.getId());
+            preparedStatement.setInt(7, version.getParentSegmentId());
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
