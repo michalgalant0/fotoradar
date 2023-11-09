@@ -1,0 +1,9 @@
+zeszyt do wypisywania problemow i klopotow potrzebujących większego zastanowienia i debugowania
+
+1. naprawa generowania identyfikatorów w encjach
+2. naprawienie błędnego wysłania żądania
+3. błąd w mapowaniu pola klasy na pole encji
+4. problem z formularzem dodawania zdjęć
+5. problemy z komunikacją między kontrolerami - jak zrobić to optymalnie i logicznie (rozważanie wzorców projektowych, modeli programistycznych)
+6. problemy z ładowaniem zdjęć na różnych systemach operacyjnych (ścieżki, kodowania)
+7.
