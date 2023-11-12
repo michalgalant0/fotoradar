@@ -1,6 +1,6 @@
 package com.example.fotoradar;
 
-import com.example.fotoradar.windows.Window;
+import com.example.fotoradar.controllers.windows.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

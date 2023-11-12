@@ -13,9 +13,13 @@ module com.example.fotoradar {
     exports com.example.fotoradar.databaseOperations;
     opens com.example.fotoradar.databaseOperations to javafx.fxml;
 
-    opens com.example.fotoradar.components to javafx.fxml;
-    opens com.example.fotoradar.windows to javafx.fxml;
-    opens com.example.fotoradar.views to javafx.fxml;
+    opens com.example.fotoradar.controllers.components to javafx.fxml;
+    opens com.example.fotoradar.controllers.windows to javafx.fxml;
+    opens com.example.fotoradar.controllers.views to javafx.fxml;
 
     exports com.example.fotoradar.segmenter;
+    exports com.example.fotoradar.listeners;
+    opens com.example.fotoradar.listeners to javafx.fxml;
+    exports com.example.fotoradar.controllers.contexts;
+    opens com.example.fotoradar.controllers.contexts to javafx.fxml;
 }

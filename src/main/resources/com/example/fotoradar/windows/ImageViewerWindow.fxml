@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.example.fotoradar.components.ImageViewerComponent?>
+<?import com.example.fotoradar.controllers.components.ImageViewerComponent?>
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>

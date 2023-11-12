@@ -1,6 +1,6 @@
 package com.example.fotoradar.segmenter;
 
-import com.example.fotoradar.models.Thumbnail;
+import com.example.fotoradar.listeners.SegmenterListener;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

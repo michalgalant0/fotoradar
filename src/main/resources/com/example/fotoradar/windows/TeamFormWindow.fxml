@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.fotoradar.windows.TeamFormWindow"
+            fx:controller="com.example.fotoradar.controllers.windows.TeamFormWindow"
             prefHeight="400.0" prefWidth="600.0">
 
 </AnchorPane>

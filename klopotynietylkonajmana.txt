@@ -6,4 +6,13 @@ zeszyt do wypisywania problemow i klopotow potrzebujących większego zastanowie
 4. problem z formularzem dodawania zdjęć
 5. problemy z komunikacją między kontrolerami - jak zrobić to optymalnie i logicznie (rozważanie wzorców projektowych, modeli programistycznych)
 6. problemy z ładowaniem zdjęć na różnych systemach operacyjnych (ścieżki, kodowania)
-7.
+7. komunikacja między modułami - fotoradar <-> segmenter z ładowaniem zdjęć, segmentów i identyfikacja segmentów w module głównym
+8. komunikacja między kontrolerami - realizacja usuwania poprzez zatwierdzenie w popupie
+9.
+
+
+SCENARIUSZE TESTÓW
+1. uruchomienie aplikacji na pustej bazie danych i bez katalogow i wykonanie każdej operacji
+2. uruchomienie aplikacji na pustej bazie danych i z katalogami i wykonanie każdej operacji
+3. uruchomienie aplikacji na niepustej bazie danych i bez katalogów i wykonanie każdej operacji
+4. uruchomienie aplikacji na niepustej bazie danych i z katalogami i wykonanie każdej operacji

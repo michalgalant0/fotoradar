@@ -1,5 +1,6 @@
 package com.example.fotoradar;
 
+import com.example.fotoradar.controllers.contexts.MainContext;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,6 +17,9 @@ public class Main extends Application {
         stage.setTitle("fotoradar");
         stage.setScene(scene);
         stage.show();
+
+        // ustawienie kontekstu aplikacji
+        MainContext context = MainContext.getInstance();
     }
 
     public static void main(String[] args) {

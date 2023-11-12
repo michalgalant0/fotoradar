@@ -6,7 +6,7 @@
 
 
 <AnchorPane prefHeight="129.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.fotoradar.windows.ConfirmDeletePopup">
+            fx:controller="com.example.fotoradar.controllers.windows.ConfirmDeletePopup">
     <Label layoutX="120.0" layoutY="31.0" text="Czy na pewno chcesz usunąć?" AnchorPane.topAnchor="31.0"/>
     <Button layoutX="155.0" layoutY="72.0" mnemonicParsing="false" text="USUŃ" AnchorPane.bottomAnchor="33.0"
             onAction="#confirmDelete" />

@@ -14,8 +14,30 @@ public class CollectibleOperations {
     public CollectibleOperations() throws SQLException {
     }
 
-    // Pobieranie wszystkich obiektów z bazy
-    public ArrayList<Collectible> getAllCollectibles(int parentCollectionId) throws SQLException {
+    // pobranie wszystkich obiektów z bazy
+    public ArrayList<Collectible> getAllCollectibles() throws SQLException {
+        ArrayList<Collectible> collectibles = new ArrayList<>();
+        String query = "SELECT * FROM Collectible;";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("collectible_id");
+                    String title = resultSet.getString("title");
+                    String startDate = resultSet.getString("start_date");
+                    String finishDate = resultSet.getString("finish_date");
+                    String description = resultSet.getString("description");
+                    int parentId = resultSet.getInt("collection_id");
+
+                    Collectible collectible = new Collectible(id, title, startDate, finishDate, description, parentId);
+                    collectibles.add(collectible);
+                }
+            }
+        }
+        return collectibles;
+    }
+
+    // Pobieranie wszystkich obiektów z bazy dla danej kolekcji
+    public ArrayList<Collectible> getAllCollectiblesByParentId(int parentCollectionId) throws SQLException {
         ArrayList<Collectible> collectibles = new ArrayList<>();
         String query = "SELECT * FROM Collectible WHERE collection_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {

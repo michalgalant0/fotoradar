@@ -103,4 +103,24 @@ public class ThumbnailOperations {
         }
         return 0;
     }
+
+    public Thumbnail getMainThumbnail(int collectibleId) {
+        String query = "SELECT * FROM Thumbnail WHERE collectible_id=? ORDER BY thumbnail_id ASC LIMIT 1";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, collectibleId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next())
+                    return new Thumbnail(
+                            resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getInt(3)
+                    );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
+    }
 }

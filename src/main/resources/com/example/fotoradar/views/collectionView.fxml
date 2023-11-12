@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.example.fotoradar.components.CollectiblesComponent?>
+<?import com.example.fotoradar.controllers.components.CollectiblesComponent?>
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>

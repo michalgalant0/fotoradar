@@ -9,10 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 public class StatusOperations {
-    private final Connection connection;
+    private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
-    public StatusOperations(Connection connection) {
-        this.connection = connection;
+    public StatusOperations() throws SQLException {
     }
 
     // todo do usunięcia - dodać statusy na sztywno w bazie
@@ -27,8 +26,8 @@ public class StatusOperations {
         }
     }
 
-    public List<Status> getAllStatuses() throws SQLException {
-        List<Status> statuses = new ArrayList<>();
+    public ArrayList<Status> getAllStatuses() throws SQLException {
+        ArrayList<Status> statuses = new ArrayList<>();
         String query = "SELECT * FROM Status";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery()) {

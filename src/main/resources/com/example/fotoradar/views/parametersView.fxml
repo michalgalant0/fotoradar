@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.example.fotoradar.components.CollectionFormComponent?>
-<?import com.example.fotoradar.components.TeamsComponent?>
+<?import com.example.fotoradar.controllers.components.CollectionFormComponent?>
+<?import com.example.fotoradar.controllers.components.TeamsComponent?>
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
-<?import com.example.fotoradar.components.VersionFormComponent?>
-<?import com.example.fotoradar.components.MiniGalleryComponent?>
+<?import com.example.fotoradar.controllers.components.VersionFormComponent?>
+<?import com.example.fotoradar.controllers.components.MiniGalleryComponent?>
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>

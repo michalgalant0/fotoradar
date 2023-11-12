@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.example.fotoradar.components.ImageViewerComponent?>
-<?import com.example.fotoradar.components.SegmentFormComponent?>
+<?import com.example.fotoradar.controllers.components.ImageViewerComponent?>
+<?import com.example.fotoradar.controllers.components.SegmentFormComponent?>
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
