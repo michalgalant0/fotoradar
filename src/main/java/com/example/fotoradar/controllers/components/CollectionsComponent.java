@@ -1,7 +1,6 @@
 package com.example.fotoradar.controllers.components;
 
 import com.example.fotoradar.Main;
-import com.example.fotoradar.controllers.views.View;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import com.example.fotoradar.models.Thumbnail;
@@ -16,8 +15,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class CollectionsComponent
-        extends AnchorPane
-        implements View {
+        extends AnchorPane {
     @FXML
     private HBox collectionsContainer;
 

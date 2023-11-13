@@ -2,7 +2,6 @@ package com.example.fotoradar.controllers.components;
 
 import com.example.fotoradar.Main;
 import com.example.fotoradar.controllers.views.View;
-import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Thumbnail;
 import javafx.fxml.FXML;
@@ -14,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import lombok.Setter;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class CollectionRowComponent extends AnchorPane implements View {
     @FXML

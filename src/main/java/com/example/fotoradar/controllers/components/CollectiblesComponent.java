@@ -2,6 +2,7 @@ package com.example.fotoradar.controllers.components;
 
 import com.example.fotoradar.Main;
 import com.example.fotoradar.models.Collectible;
+import com.example.fotoradar.models.Thumbnail;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -9,7 +10,6 @@ import javafx.scene.layout.HBox;
 import lombok.Setter;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CollectiblesComponent extends AnchorPane {
@@ -20,7 +20,7 @@ public class CollectiblesComponent extends AnchorPane {
     @Setter
     private ArrayList<Collectible> collectibles;
     @Setter
-    private String collectionName;
+    private ArrayList<Thumbnail> thumbnails;
 
     public CollectiblesComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectiblesComponent.fxml"));
@@ -30,19 +30,19 @@ public class CollectiblesComponent extends AnchorPane {
         loader.load();
     }
 
-    public void fillCollectiblesHBox() throws IOException, SQLException {
+    public void fillCollectiblesHBox() throws IOException {
         for (Collectible collectible : collectibles) {
-            // utworzenie komponentu obiektu
-            CollectibleComponent collectibleComponent =
-                    new CollectibleComponent();
             System.out.println("CollectiblesComponent.fillCollectiblesHBox: "+collectible);
-            // ustawienie listy obiektów kolekcji
+            // utworzenie komponentu obiektu
+            CollectibleComponent collectibleComponent = new CollectibleComponent();
             collectibleComponent.setCollectible(collectible);
-            // wypełnienie komponentu
-            collectibleComponent.setThumbnailPath(collectionName);
-            collectibleComponent.setObjectThumbnailImageView();
+
+            collectibleComponent.setMainThumbnail(
+                    thumbnails.stream()
+                            .filter(thumbnail -> thumbnail.getParentId() == collectible.getId())
+                            .toList().get(0));
             collectibleComponent.fillComponent();
-            // dodanie komponentu do listy
+
             collectiblesContainer.getChildren().add(collectibleComponent);
         }
     }

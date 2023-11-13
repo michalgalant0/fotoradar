@@ -2,6 +2,9 @@ package com.example.fotoradar.controllers.windows;
 
 import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.controllers.components.CollectibleFormComponent;
+import com.example.fotoradar.controllers.contexts.CollectionViewContext;
+import com.example.fotoradar.controllers.contexts.CollectionsViewContext;
+import com.example.fotoradar.controllers.views.CollectionView;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
@@ -21,10 +24,13 @@ public class CollectibleFormWindow implements Window {
 
     @Setter
     private Stage dialogStage;
-    @Setter
+
+    private CollectionViewContext collectionViewContext;
+
     private Collection parentCollection;
 
     public void initialize() {
+        parentCollection = collectionViewContext.getCurrentCollection();
         setWindowLabel(parentCollection.getTitle());
     }
 

@@ -2,9 +2,11 @@ package com.example.fotoradar.controllers.components;
 
 import com.example.fotoradar.Main;
 import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.controllers.views.View;
 import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.controllers.views.CollectibleView;
+import com.example.fotoradar.models.Thumbnail;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +21,7 @@ import lombok.Setter;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class CollectibleComponent extends AnchorPane {
+public class CollectibleComponent extends AnchorPane implements View {
 
     @FXML
     public Label headerLabel;
@@ -36,8 +38,8 @@ public class CollectibleComponent extends AnchorPane {
 
     @Setter
     private Collectible collectible;
-
-    private String thumbnailPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/%s";
+    @Setter
+    private Thumbnail mainThumbnail;
 
     public CollectibleComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectibleComponent.fxml"));
@@ -62,12 +64,11 @@ public class CollectibleComponent extends AnchorPane {
     }
 
     public void setThumbnailPath(String collectionName) throws SQLException {
-        thumbnailPath = String.format(thumbnailPath,
-                System.getProperty("user.dir"), collectionName, collectible.getTitle(),
-                new ThumbnailOperations().getAllThumbnails(collectible.getId()).get(0).getFileName());
-    }
-
-    public void setObjectThumbnailImageView() {
+        if (mainThumbnail == null)
+            return;
+        String thumbnailPath = String.format(context.getThumbnailPath(),
+                context.getRootDirectory(), collectionName, collectible.getTitle(),
+                mainThumbnail.getFileName());
         Image image = new Image("file://"+thumbnailPath);
         imageView.setImage(image);
     }
@@ -76,10 +77,7 @@ public class CollectibleComponent extends AnchorPane {
     public void goToCollectible(ActionEvent event) throws IOException, SQLException {
         System.out.println("przejscie do obiektu");
         System.out.println("CollectibleComponent.goToCollectible: "+collectible);
-        // utworzenie kontrolera widoku docelowego
-        CollectibleView collectibleView = new CollectibleView();
-        collectibleView.setCollectible(collectible);
-        // załadowanie nowej sceny z przekazanym kontrolerem
-        new SwitchScene().switchScene(event, "collectibleView", collectibleView);
+        context.setCurrentCollectible(collectible);
+        new SwitchScene().switchScene(event, "collectibleView");
     }
 }

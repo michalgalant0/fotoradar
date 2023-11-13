@@ -66,11 +66,6 @@ public class ParametersView {
     @FXML
     private void backToCollection(ActionEvent event) throws IOException {
         System.out.println("powrót do kolekcji");
-
-        // utworzenie kontrolera widoku kolekcji
-        CollectionView collectionView = new CollectionView();
-        collectionView.setCollection(collection);
-
-        new SwitchScene().switchScene(event, "collectionView", collectionView);
+        new SwitchScene().switchScene(event, "collectionView");
     }
 }

@@ -134,11 +134,7 @@ public class CollectibleView implements AddPhotoListener {
     @FXML
     private void backToCollection(ActionEvent event) throws IOException, SQLException {
         System.out.println("powrot do kolekcji");
-
-        CollectionView collectionView = new CollectionView();
-        collectionView.setCollection(parentCollection);
-
-        new SwitchScene().switchScene(event, "collectionView", collectionView);
+        new SwitchScene().switchScene(event, "collectionView");
     }
 
     private void fillMiniGallery() throws SQLException {

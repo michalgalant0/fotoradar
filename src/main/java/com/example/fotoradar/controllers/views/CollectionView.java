@@ -3,6 +3,7 @@ package com.example.fotoradar.controllers.views;
 import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.controllers.components.CollectiblesComponent;
+import com.example.fotoradar.controllers.contexts.CollectionViewContext;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
@@ -16,27 +17,31 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CollectionView {
+public class CollectionView implements View {
     @FXML
     private Label windowLabel;
     @FXML
     private CollectiblesComponent collectiblesComponent;
 
-    @Setter
-    private Collection collection = new Collection();
+    private CollectionViewContext collectionViewContext;
 
-    public void initialize() throws SQLException, IOException {
-        System.out.println("CollectionView.initialize: "+collection);
+    private Collection currentCollection;
+
+    public CollectionView() {
+        collectionViewContext = new CollectionViewContext();
+        currentCollection = collectionViewContext.getCurrentCollection();
+        System.out.println(currentCollection);
+    }
+
+    public void initialize() throws IOException {
+        System.out.println("CollectionView.initialize: "+currentCollection);
         // ustawienie nagłówka okna
-        setWindowLabel(collection.getTitle());
-        // wypełnienie listy obiektów danymi pobranymi z bazy
-        ArrayList<Collectible> collectibles =
-                new CollectibleOperations().getAllCollectiblesByParentId(collection.getId());
-        collectiblesComponent.setCollectibles(collectibles);
-        collectiblesComponent.setCollectionName(collection.getTitle());
+        setWindowLabel(currentCollection.getTitle());
+        collectiblesComponent.setCollectibles(collectionViewContext.getCollectibles());
+        collectiblesComponent.setThumbnails(collectionViewContext.getThumbnails());
         collectiblesComponent.fillCollectiblesHBox();
 
-        new DirectoryOperator().createStructure(collection);
+        new DirectoryOperator().createStructure(currentCollection);
     }
 
     private void setWindowLabel(String collectionName) {
@@ -46,25 +51,13 @@ public class CollectionView {
     @FXML
     private void goToParameters(ActionEvent event) throws IOException {
         System.out.println("przejscie do parametrow kolekcji");
-        System.out.println("CollectionView.goToParameters: "+collection);
-
-        // utworzenie kontrolera widoku docelowego i ustawienie jego pól
-        ParametersView parametersView = new ParametersView();
-        parametersView.setCollection(collection);
-
-        // przejście do widoku docelowego
-        new SwitchScene().switchScene(event, "parametersView", parametersView);
+        System.out.println("CollectionView.goToParameters: "+currentCollection);
+        new SwitchScene().switchScene(event, "parametersView");
     }
     @FXML
     private void addCollectible(ActionEvent event) throws IOException {
         System.out.println("dodaj obiekt");
-
-        // Przygotuj okno CollectibleFormWindow
-        CollectibleFormWindow collectibleFormWindow = new CollectibleFormWindow();
-        collectibleFormWindow.setParentCollection(collection); // Przekazujemy kolekcję
-
-        // Wywołaj metodę do wyświetlenia okna
-        new SwitchScene().displayWindow("CollectibleFormWindow", "Dodaj obiekt", collectibleFormWindow);
+        new SwitchScene().displayWindow("CollectibleFormWindow", "Dodaj obiekt");
     }
     @FXML
     private void removeCollection(ActionEvent event) throws IOException {

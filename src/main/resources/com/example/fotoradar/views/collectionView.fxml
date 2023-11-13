@@ -7,7 +7,8 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0"
-            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.fotoradar.controllers.views.CollectionView">
     <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/">
         <font>
             <Font size="30.0" />

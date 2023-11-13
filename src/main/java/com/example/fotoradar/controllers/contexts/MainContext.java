@@ -26,11 +26,11 @@ public class MainContext {
     @Setter @Getter
     private ArrayList<Status> statuses;
 
-    private final CollectionOperations collectionOperations;
-    private final CollectibleOperations collectibleOperations;
-    private final SegmentOperations segmentOperations;
-    private final VersionOperations versionOperations;
-    private final StatusOperations statusOperations;
+    protected final CollectionOperations collectionOperations;
+    protected final CollectibleOperations collectibleOperations;
+    protected final SegmentOperations segmentOperations;
+    protected final VersionOperations versionOperations;
+    protected final StatusOperations statusOperations;
     protected final ThumbnailOperations thumbnailOperations;
 
 

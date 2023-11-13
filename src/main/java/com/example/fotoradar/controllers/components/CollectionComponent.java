@@ -2,9 +2,10 @@ package com.example.fotoradar.controllers.components;
 
 import com.example.fotoradar.Main;
 import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.controllers.contexts.CollectionViewContext;
+import com.example.fotoradar.controllers.contexts.MainContext;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
-import com.example.fotoradar.controllers.views.CollectionView;
 import com.example.fotoradar.models.Thumbnail;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,7 +50,9 @@ public class CollectionComponent extends AnchorPane {
         for (Collectible collectible : collectibles) {
             CollectionRowComponent collectionRow = new CollectionRowComponent();
             collectionRow.setCollectible(collectible);
-            collectionRow.setMainThumbnail(thumbnails.stream().filter(thumbnail -> thumbnail.getParentId() == collectible.getId()).toList().get(0));
+            collectionRow.setMainThumbnail(thumbnails.stream()
+                    .filter(thumbnail -> thumbnail.getParentId() == collectible.getId())
+                    .toList().get(0));
             collectionRow.setNameLabel(collectible.getTitle());
             collectionRow.setStatusLabel("DO POBRANIA");
             collectionRow.setObjectThumbnailImageView(collection.getTitle());
@@ -63,10 +66,7 @@ public class CollectionComponent extends AnchorPane {
     public void goToCollection(ActionEvent event) throws IOException {
         System.out.println("przejscie do kolekcji");
         System.out.println("CollectionComponent.goToCollection: "+collection);
-        // utworzenie kontrolera widoku docelowego
-        CollectionView collectionView = new CollectionView();
-        collectionView.setCollection(collection);
-        // zaladowanie nowej sceny z przekazanym kontrolerem
-        new SwitchScene().switchScene(event, "collectionView", collectionView);
+        CollectionViewContext.getInstance().setCurrentCollection(collection);
+        new SwitchScene().switchScene(event, "collectionView");
     }
 }
