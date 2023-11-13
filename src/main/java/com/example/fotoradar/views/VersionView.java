@@ -166,7 +166,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
 
         // Spróbuj odświeżyć scenę główną
         try {
-            new SwitchScene().switchScene(event, "segmentsView", (SegmentsView) view);
+            new SwitchScene().switchScene(event, "segmentsView", view);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

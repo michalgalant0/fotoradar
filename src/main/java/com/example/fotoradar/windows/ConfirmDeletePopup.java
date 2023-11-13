@@ -1,7 +1,6 @@
 package com.example.fotoradar.windows;
 
 import com.example.fotoradar.RemoveStructureListener;
-import com.example.fotoradar.views.SegmentsView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -20,7 +19,7 @@ public class ConfirmDeletePopup implements Window {
     @Setter
     private Object objToDelete;
     @Setter
-    private SegmentsView parentView;
+    private Object parentView;
     @Setter
     private ActionEvent sourceEvent;
 

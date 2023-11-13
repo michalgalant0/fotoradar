@@ -1,12 +1,16 @@
 package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
+import com.example.fotoradar.RemoveStructureListener;
 import com.example.fotoradar.SegmentsListener;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.databaseOperations.SegmentOperations;
 import com.example.fotoradar.models.ImageModel;
 import com.example.fotoradar.models.Segment;
 import com.example.fotoradar.models.Thumbnail;
+import com.example.fotoradar.windows.ConfirmDeletePopup;
+import javafx.animation.ScaleTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
@@ -15,17 +19,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.util.Duration;
 import lombok.Getter;
 import lombok.Setter;
-import javafx.animation.ScaleTransition;
-import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ImageViewerComponent extends AnchorPane {
+public class ImageViewerComponent extends AnchorPane implements RemoveStructureListener {
     @FXML
     private ImageView imageView;
     @FXML
@@ -85,9 +88,16 @@ public class ImageViewerComponent extends AnchorPane {
     }
 
     @FXML
-    private void deleteCurrentPhoto() throws IOException {
+    private void deleteCurrentPhoto(ActionEvent event) throws IOException {
         System.out.println("usuwanie zdjęcia");
-        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie");
+
+        ConfirmDeletePopup confirmDeletePopup = new ConfirmDeletePopup();
+        confirmDeletePopup.setRemoveStructureListener(this);
+        confirmDeletePopup.setObjToDelete(currentImage);
+        confirmDeletePopup.setSourceEvent(event);
+        confirmDeletePopup.setParentView(event.getSource());
+
+        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
     }
 
     private void showImage(int index) throws SQLException {
@@ -230,5 +240,17 @@ public class ImageViewerComponent extends AnchorPane {
         for (int i = 0; i < 8; i++)
             result[i] = Double.parseDouble(parts[i]);
         return result;
+    }
+
+    @Override
+    public void onDeleteConfirmed(ActionEvent event, Object objToDelete, Object view) {
+        System.out.println("ImageViewerComponent.onDeleteConfirmed: "+objToDelete.toString());
+
+//        // Spróbuj odświeżyć scenę główną
+//        try {
+//            new SwitchScene().switchScene(event, "segmentsView");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }
