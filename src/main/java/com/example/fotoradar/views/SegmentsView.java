@@ -1,9 +1,6 @@
 package com.example.fotoradar.views;
 
-import com.example.fotoradar.AddPhotoListener;
-import com.example.fotoradar.DirectoryOperator;
-import com.example.fotoradar.SegmentsListener;
-import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.*;
 import com.example.fotoradar.components.ImageViewerComponent;
 import com.example.fotoradar.components.SegmentFormComponent;
 import com.example.fotoradar.databaseOperations.SegmentOperations;
@@ -15,6 +12,7 @@ import com.example.fotoradar.models.Thumbnail;
 import com.example.fotoradar.segmenter.Segmenter;
 import com.example.fotoradar.segmenter.SegmenterListener;
 import com.example.fotoradar.windows.AddPhotosWindow;
+import com.example.fotoradar.windows.ConfirmDeletePopup;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -31,7 +29,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SegmentsView implements SegmenterListener, AddPhotoListener, SegmentsListener {
+public class SegmentsView implements SegmenterListener, AddPhotoListener, SegmentsListener, RemoveStructureListener {
     @FXML
     public Label windowLabel;
     @FXML
@@ -106,9 +104,20 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     }
 
     @FXML
-    private void deleteSegment() throws IOException {
+    private void deleteSegment(ActionEvent event) throws IOException {
         System.out.println("usuwanie segmentu");
-        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie");
+
+        ConfirmDeletePopup confirmDeletePopup = new ConfirmDeletePopup();
+        confirmDeletePopup.setRemoveStructureListener(this);
+        confirmDeletePopup.setObjToDelete(currentSegment);
+        confirmDeletePopup.setSourceEvent(event);
+        confirmDeletePopup.setParentView(this);
+        // widok nadrzedny do powrotu
+//        CollectibleView collectibleView = new CollectibleView();
+//        collectibleView.setCollectible(collectible);
+
+        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
+
     }
 
     @FXML
@@ -202,5 +211,15 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         CollectibleView collectibleView = new CollectibleView();
         collectibleView.setCollectible(collectible);
         new SwitchScene().switchScene(event, "collectibleView", collectibleView);
+    }
+
+    @Override
+    public void onDeleteConfirmed(ActionEvent event, Object objToDelete, Object view) {
+        System.out.println("SegmentsView.onDeleteConfirmed: "+objToDelete.toString());
+        try {
+            imageViewerComponent.initialize();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

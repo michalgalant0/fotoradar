@@ -1,12 +1,14 @@
 package com.example.fotoradar.views;
 
 import com.example.fotoradar.DirectoryOperator;
+import com.example.fotoradar.RemoveStructureListener;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectiblesComponent;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import com.example.fotoradar.windows.CollectibleFormWindow;
+import com.example.fotoradar.windows.ConfirmDeletePopup;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -16,7 +18,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CollectionView {
+public class CollectionView implements RemoveStructureListener {
     @FXML
     private Label windowLabel;
     @FXML
@@ -69,11 +71,31 @@ public class CollectionView {
     @FXML
     private void removeCollection(ActionEvent event) throws IOException {
         System.out.println("usun kolekcje");
-        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie");
+        ConfirmDeletePopup confirmDeletePopup = new ConfirmDeletePopup();
+        confirmDeletePopup.setRemoveStructureListener(this);
+        confirmDeletePopup.setObjToDelete(collection);
+        confirmDeletePopup.setSourceEvent(event);
+        // widok nadrzedny do powrotu
+        CollectionsView collectionsView = new CollectionsView();
+        confirmDeletePopup.setParentView(collectionsView);
+
+        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
     }
     @FXML
     private void backToCollections(ActionEvent event) throws IOException {
         System.out.println("powrot do kolekcji");
         new SwitchScene().switchScene(event, "collectionsView");
+    }
+
+    @Override
+    public void onDeleteConfirmed(ActionEvent event, Object objToDelete, Object view) {
+        System.out.println("CollectionView.onDeleteConfirmed: "+objToDelete.toString());
+
+        // Spróbuj odświeżyć scenę główną
+        try {
+            new SwitchScene().switchScene(event, "collectionsView");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

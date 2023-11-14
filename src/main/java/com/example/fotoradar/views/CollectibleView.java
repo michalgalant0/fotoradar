@@ -2,6 +2,7 @@ package com.example.fotoradar.views;
 
 import com.example.fotoradar.AddPhotoListener;
 import com.example.fotoradar.DirectoryOperator;
+import com.example.fotoradar.RemoveStructureListener;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectibleFormComponent;
 import com.example.fotoradar.components.MiniGalleryComponent;
@@ -13,6 +14,7 @@ import com.example.fotoradar.models.Collection;
 import com.example.fotoradar.models.ImageModel;
 import com.example.fotoradar.models.Thumbnail;
 import com.example.fotoradar.windows.AddPhotosWindow;
+import com.example.fotoradar.windows.ConfirmDeletePopup;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -27,7 +29,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollectibleView implements AddPhotoListener {
+public class CollectibleView implements AddPhotoListener, RemoveStructureListener {
     @FXML
     private Label windowLabel;
     @FXML
@@ -128,7 +130,17 @@ public class CollectibleView implements AddPhotoListener {
     @FXML
     private void removeCollectible(ActionEvent event) throws IOException {
         System.out.println("usuwanie obiektu");
-        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie");
+
+        ConfirmDeletePopup confirmDeletePopup = new ConfirmDeletePopup();
+        confirmDeletePopup.setRemoveStructureListener(this);
+        confirmDeletePopup.setObjToDelete(collectible);
+        confirmDeletePopup.setSourceEvent(event);
+        // widok nadrzedny do powrotu
+        CollectionView collectionView = new CollectionView();
+        collectionView.setCollection(parentCollection);
+        confirmDeletePopup.setParentView(collectionView);
+
+        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
     }
 
     @FXML
@@ -174,6 +186,18 @@ public class CollectibleView implements AddPhotoListener {
             thumbnailOperations.addThumbnail(
                     new Thumbnail(file.getName(), collectible.getId())
             );
+        }
+    }
+
+    @Override
+    public void onDeleteConfirmed(ActionEvent event, Object objToDelete, Object view) {
+        System.out.println("CollectibleView.onDeleteConfirmed: "+objToDelete.toString());
+
+        // Spróbuj odświeżyć scenę główną
+        try {
+            new SwitchScene().switchScene(event, "collectionView", view);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
