@@ -31,6 +31,7 @@ import javax.imageio.ImageIO;
 public class PainterView implements Initializable {
     //>>>>>>>>>>>>>>>>>>>>>>>Other variables<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     private GraphicsContext gcB, gcF;
+    private Stage primaryStage;
     private boolean drawline = false, drawoval = false, drawrectangle = false, erase = false, freedesign = true;
     double startX, startY, lastX, lastY, oldX, oldY;
     double hg;
@@ -58,7 +59,7 @@ public class PainterView implements Initializable {
     @FXML
     private Slider sizeSlider;
 
-    private Stage primaryStage;
+
 
     //////////////////////////////////////////////////////////////////////////////
 
@@ -111,6 +112,8 @@ public class PainterView implements Initializable {
     // New method for erasing
     private void erase(double x, double y) {
         gcB.clearRect(x - sizeSlider.getValue() / 2, y - sizeSlider.getValue() / 2, sizeSlider.getValue(), sizeSlider.getValue());
+        gcF.clearRect(x - sizeSlider.getValue() / 2, y - sizeSlider.getValue() / 2, sizeSlider.getValue(), sizeSlider.getValue());
+
     }
 
 //    @FXML
