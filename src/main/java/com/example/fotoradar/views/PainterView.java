@@ -75,11 +75,14 @@ public class PainterView implements Initializable {
 
     @FXML
     private void onMousePressedListener(MouseEvent e) {
+        if (erase) {
+            erase(e.getX(), e.getY());
+        } else{
         this.startX = e.getX();
         this.startY = e.getY();
         this.oldX = e.getX();
         this.oldY = e.getY();
-    }
+    }}
 
     @FXML
     private void onMouseDraggedListener(MouseEvent e) {
