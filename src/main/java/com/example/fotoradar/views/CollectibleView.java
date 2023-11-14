@@ -13,11 +13,13 @@ import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import com.example.fotoradar.models.ImageModel;
 import com.example.fotoradar.models.Thumbnail;
+import com.example.fotoradar.painter.Painter;
 import com.example.fotoradar.windows.AddPhotosWindow;
 import com.example.fotoradar.windows.ConfirmDeletePopup;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import lombok.Setter;
 
 import java.io.File;
@@ -41,6 +43,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
     private Collectible collectible = new Collectible();
     @Setter
     private Collection parentCollection = new Collection();
+    private Painter painter;
 
     private String collectibleThumbnailsPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/";
     private ThumbnailOperations thumbnailOperations;
@@ -99,9 +102,12 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
     }
 
     @FXML
-    private void addSketch(ActionEvent event) throws IOException {
+    private void addSketch(ActionEvent event) throws Exception {
         System.out.println("dodawanie szkicu");
         // otwarcie modułu do szkicowania
+        painter = new Painter();
+        Stage stage = new Stage();
+        painter.start(stage);
     }
 
     @FXML

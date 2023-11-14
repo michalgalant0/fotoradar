@@ -9,6 +9,7 @@ import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.ImageModel;
 import com.example.fotoradar.models.Segment;
 import com.example.fotoradar.models.Thumbnail;
+import com.example.fotoradar.painter.Painter;
 import com.example.fotoradar.segmenter.Segmenter;
 import com.example.fotoradar.segmenter.SegmenterListener;
 import com.example.fotoradar.windows.AddPhotosWindow;
@@ -49,6 +50,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     private String collectibleThumbnailsPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/";
     private ThumbnailOperations thumbnailOperations;
     private SegmentOperations segmentOperations;
+    private Painter painter;
 
     public void initialize() throws SQLException {
         thumbnailOperations = new ThumbnailOperations();
@@ -121,8 +123,11 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     }
 
     @FXML
-    private void addSketch() {
+    private void addSketch() throws Exception {
         System.out.println("dodanie szkicu");
+        painter = new Painter();
+        Stage stage = new Stage();
+        painter.start(stage);
     }
 
     @FXML

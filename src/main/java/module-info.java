@@ -7,6 +7,8 @@ module com.example.fotoradar {
     requires org.kordamp.bootstrapfx.core;
     requires lombok;
     requires java.sql;
+    requires java.desktop;
+    requires javafx.swing;
 
     opens com.example.fotoradar to javafx.fxml;
     exports com.example.fotoradar;
