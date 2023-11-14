@@ -1,5 +1,7 @@
 package com.example.fotoradar.controllers.windows;
 
+import com.example.fotoradar.RemoveStructureListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -11,9 +13,22 @@ public class ConfirmDeletePopup implements Window {
     @Setter
     private Stage dialogStage;
 
+    @Setter
+    private RemoveStructureListener removeStructureListener;
+
+    @Setter
+    private Object objToDelete;
+    @Setter
+    private Object parentView;
+    @Setter
+    private ActionEvent sourceEvent;
+
     @FXML
-    public void confirmDelete() {
+    public void confirmDelete(ActionEvent event) {
         System.out.println("potwierdz usuwanie");
+
+        removeStructureListener.onDeleteConfirmed(sourceEvent, objToDelete, parentView);
+
         closeWindow(dialogStage);
     }
     @FXML
