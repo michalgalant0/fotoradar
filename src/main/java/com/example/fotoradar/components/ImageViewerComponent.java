@@ -4,7 +4,9 @@ import com.example.fotoradar.Main;
 import com.example.fotoradar.RemoveStructureListener;
 import com.example.fotoradar.SegmentsListener;
 import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.databaseOperations.PhotoOperations;
 import com.example.fotoradar.databaseOperations.SegmentOperations;
+import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import com.example.fotoradar.models.ImageModel;
 import com.example.fotoradar.models.Segment;
 import com.example.fotoradar.models.Thumbnail;
@@ -93,7 +95,6 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
 
         ConfirmDeletePopup confirmDeletePopup = new ConfirmDeletePopup();
         confirmDeletePopup.setRemoveStructureListener(this);
-        confirmDeletePopup.setObjToDelete(currentImage);
         confirmDeletePopup.setSourceEvent(event);
         confirmDeletePopup.setParentView(event.getSource());
 
@@ -243,14 +244,36 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
     }
 
     @Override
-    public void onDeleteConfirmed(ActionEvent event, Object objToDelete, Object view) {
-        System.out.println("ImageViewerComponent.onDeleteConfirmed: "+objToDelete.toString());
+    public void onDeleteConfirmed(ActionEvent event, Object view) {
+        System.out.println("ImageViewerComponent.onDeleteConfirmed: "+currentThumbnail.toString());
 
-//        // Spróbuj odświeżyć scenę główną
-//        try {
-//            new SwitchScene().switchScene(event, "segmentsView");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        // usuniecie z bazy
+        if (isForSegmentsView) { // thumbnails
+            try {
+                if (new ThumbnailOperations().deleteThumbnail(currentThumbnail.getId()))
+                    System.out.println("usunieto miniature z bazy");
+                // todo dodac usuwanie jeszcze jej segmentow i wersji itd
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else { // photos
+            try {
+                ImageModel current = images.get(currentImageIndex);
+                if (new PhotoOperations().deletePhoto(current.getId()))
+                    System.out.println("usunięto zdjęcie z bazy");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        // usuniecie struktury katalogów
+        // todo
+
+        currentImageIndex++;
+        try {
+            showImage(currentImageIndex);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -17,8 +17,6 @@ public class ConfirmDeletePopup implements Window {
     private RemoveStructureListener removeStructureListener;
 
     @Setter
-    private Object objToDelete;
-    @Setter
     private Object parentView;
     @Setter
     private ActionEvent sourceEvent;
@@ -27,7 +25,7 @@ public class ConfirmDeletePopup implements Window {
     public void confirmDelete(ActionEvent event) {
         System.out.println("potwierdz usuwanie");
 
-        removeStructureListener.onDeleteConfirmed(sourceEvent, objToDelete, parentView);
+        removeStructureListener.onDeleteConfirmed(sourceEvent, parentView);
 
         closeWindow(dialogStage);
     }

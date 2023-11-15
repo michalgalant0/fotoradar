@@ -109,7 +109,6 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
 
         ConfirmDeletePopup confirmDeletePopup = new ConfirmDeletePopup();
         confirmDeletePopup.setRemoveStructureListener(this);
-        confirmDeletePopup.setObjToDelete(currentSegment);
         confirmDeletePopup.setSourceEvent(event);
         confirmDeletePopup.setParentView(this);
         // widok nadrzedny do powrotu
@@ -214,8 +213,17 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     }
 
     @Override
-    public void onDeleteConfirmed(ActionEvent event, Object objToDelete, Object view) {
-        System.out.println("SegmentsView.onDeleteConfirmed: "+objToDelete.toString());
+    public void onDeleteConfirmed(ActionEvent event, Object view) {
+        System.out.println("SegmentsView.onDeleteConfirmed: "+currentSegment);
+
+        try {
+            if (segmentOperations.deleteSegment(currentSegment.getId()))
+                System.out.println("usunieto segment z bazy");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        // odświeżenie widoku
         try {
             imageViewerComponent.initialize();
         } catch (SQLException e) {

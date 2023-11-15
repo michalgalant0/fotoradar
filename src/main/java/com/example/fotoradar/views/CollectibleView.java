@@ -133,7 +133,6 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
 
         ConfirmDeletePopup confirmDeletePopup = new ConfirmDeletePopup();
         confirmDeletePopup.setRemoveStructureListener(this);
-        confirmDeletePopup.setObjToDelete(collectible);
         confirmDeletePopup.setSourceEvent(event);
         // widok nadrzedny do powrotu
         CollectionView collectionView = new CollectionView();
@@ -190,8 +189,15 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
     }
 
     @Override
-    public void onDeleteConfirmed(ActionEvent event, Object objToDelete, Object view) {
-        System.out.println("CollectibleView.onDeleteConfirmed: "+objToDelete.toString());
+    public void onDeleteConfirmed(ActionEvent event, Object view) {
+        System.out.println("CollectibleView.onDeleteConfirmed: "+collectible);
+
+        try {
+            if (new CollectibleOperations().deleteCollectible(collectible.getId()))
+                System.out.println("usunieto obiekt z bazy");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         // Spróbuj odświeżyć scenę główną
         try {

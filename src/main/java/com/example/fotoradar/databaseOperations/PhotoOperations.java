@@ -1,7 +1,6 @@
 package com.example.fotoradar.databaseOperations;
 
 import com.example.fotoradar.models.Photo;
-import com.example.fotoradar.models.Thumbnail;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,6 +41,15 @@ public class PhotoOperations {
             preparedStatement.setString(1, photo.getFileName());
             preparedStatement.setInt(2, photo.getParentId());
 
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deletePhoto(int id) throws SQLException {
+        String query = "DELETE FROM Photo WHERE photo_id=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
         }

@@ -121,7 +121,6 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
 
         ConfirmDeletePopup confirmDeletePopup = new ConfirmDeletePopup();
         confirmDeletePopup.setRemoveStructureListener(this);
-        confirmDeletePopup.setObjToDelete(version);
         confirmDeletePopup.setSourceEvent(event);
         // widok nadrzedny do powrotu
         SegmentsView segmentsView = new SegmentsView();
@@ -161,8 +160,14 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
     }
 
     @Override
-    public void onDeleteConfirmed(ActionEvent event, Object objToDelete, Object view) {
-        System.out.println("VersionView.onDeleteConfirmed: "+objToDelete.toString());
+    public void onDeleteConfirmed(ActionEvent event, Object view) {
+        System.out.println("VersionView.onDeleteConfirmed: "+version);
+        try {
+            if (new VersionOperations().deleteVersion(version.getId()))
+                System.out.println("usunieto wersje z bazy");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         // Spróbuj odświeżyć scenę główną
         try {

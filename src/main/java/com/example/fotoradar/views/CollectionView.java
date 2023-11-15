@@ -5,6 +5,7 @@ import com.example.fotoradar.RemoveStructureListener;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectiblesComponent;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
+import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import com.example.fotoradar.windows.CollectibleFormWindow;
@@ -73,7 +74,6 @@ public class CollectionView implements RemoveStructureListener {
         System.out.println("usun kolekcje");
         ConfirmDeletePopup confirmDeletePopup = new ConfirmDeletePopup();
         confirmDeletePopup.setRemoveStructureListener(this);
-        confirmDeletePopup.setObjToDelete(collection);
         confirmDeletePopup.setSourceEvent(event);
         // widok nadrzedny do powrotu
         CollectionsView collectionsView = new CollectionsView();
@@ -88,8 +88,15 @@ public class CollectionView implements RemoveStructureListener {
     }
 
     @Override
-    public void onDeleteConfirmed(ActionEvent event, Object objToDelete, Object view) {
-        System.out.println("CollectionView.onDeleteConfirmed: "+objToDelete.toString());
+    public void onDeleteConfirmed(ActionEvent event, Object view) {
+        System.out.println("CollectionView.onDeleteConfirmed: "+collection);
+
+        try {
+            if (new CollectionOperations().deleteCollection(collection.getId()))
+                System.out.println("usunieto kolekcje z bazy");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         // Spróbuj odświeżyć scenę główną
         try {
