@@ -118,7 +118,6 @@ public class PainterView implements Initializable {
     private void erase(double x, double y) {
         gcB.clearRect(x - sizeSlider.getValue() / 2, y - sizeSlider.getValue() / 2, sizeSlider.getValue(), sizeSlider.getValue());
         gcF.clearRect(x - sizeSlider.getValue() / 2, y - sizeSlider.getValue() / 2, sizeSlider.getValue(), sizeSlider.getValue());
-
     }
 
 //    @FXML
@@ -212,6 +211,18 @@ public class PainterView implements Initializable {
         gcB.strokeLine(startX, startY, lastX, lastY);
     }
 
+
+    @FXML
+    private void clearCanvas(ActionEvent e) {
+        gcB.clearRect(0, 0, TheCanvas.getWidth(), TheCanvas.getHeight());
+        gcF.clearRect(0, 0, TheCanvas.getWidth(), TheCanvas.getHeight());
+    }
+
+    @FXML
+    private void clearImg(ActionEvent e) {
+        gcI.clearRect(0, 0, TheCanvas.getWidth(), TheCanvas.getHeight());
+    }
+
     /*------- Save & Open ------*/
     // Open
     private void open() {
@@ -270,12 +281,6 @@ public class PainterView implements Initializable {
         }
     }
     ///////////////////////////////////////////////////////////////////////
-
-    @FXML
-    private void clearCanvas(ActionEvent e) {
-        gcB.clearRect(0, 0, TheCanvas.getWidth(), TheCanvas.getHeight());
-        gcF.clearRect(0, 0, TheCanvas.getWidth(), TheCanvas.getHeight());
-    }
 
 
     //>>>>>>>>>>>>>>>>>>>>>Buttons control<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

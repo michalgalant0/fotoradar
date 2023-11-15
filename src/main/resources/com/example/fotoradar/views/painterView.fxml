@@ -20,6 +20,7 @@
                 <Button fx:id="eraser" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#setErase" prefHeight="25.0" prefWidth="78.0" text="Gumka" />
             <Button fx:id="clean" mnemonicParsing="false" onAction="#clearCanvas" prefHeight="25.0" prefWidth="78.0" text="Wyczyść" />
                 <Button fx:id="open" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setOpen" prefHeight="25.0" prefWidth="78.0" text="Dodaj tło" />
+            <Button fx:id="clearImg" mnemonicParsing="false" onAction="#clearImg" prefHeight="25.0" prefWidth="78.0" text="Usuń tło" />
                 <Button fx:id="save" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setSave" prefHeight="25.0" prefWidth="78.0" text="Zapisz szkic" />
                 <ColorPicker fx:id="colorPick" prefHeight="25.0" prefWidth="78.0" />
                 <RadioButton fx:id="strokeRB" mnemonicParsing="false" prefHeight="17.0" prefWidth="78.0" selected="true" text="Linia">
