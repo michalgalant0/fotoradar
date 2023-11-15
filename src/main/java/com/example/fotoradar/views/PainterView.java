@@ -7,10 +7,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.example.fotoradar.Main;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -30,7 +33,7 @@ import javax.imageio.ImageIO;
 
 public class PainterView implements Initializable {
     //>>>>>>>>>>>>>>>>>>>>>>>Other variables<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    private GraphicsContext gcB, gcF;
+    private GraphicsContext gcB, gcF, gcI;
     private Stage primaryStage;
     private boolean drawline = false, drawoval = false, drawrectangle = false, erase = false, freedesign = true;
     double startX, startY, lastX, lastY, oldX, oldY;
@@ -41,7 +44,7 @@ public class PainterView implements Initializable {
     @FXML
     private ColorPicker colorPick;
     @FXML
-    private Canvas TheCanvas, canvasGo;
+    private Canvas TheCanvas, canvasGo, imgBack;
     @FXML
     private Button rectButton;
     @FXML
@@ -65,11 +68,10 @@ public class PainterView implements Initializable {
 
     public PainterView(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        // Pusty konstruktor bezparametrowy
     }
 
     public PainterView(){
-
+        // Pusty konstruktor bezparametrowy
     }
 
 
@@ -129,41 +131,41 @@ public class PainterView implements Initializable {
     private void drawOval() {
         double wh = lastX - startX;
         double hg = lastY - startY;
-        gcB.setLineWidth(sizeSlider.getValue());
+        gcF.setLineWidth(sizeSlider.getValue());
 
         if (fillRB.isSelected()) {
-            gcB.setFill(colorPick.getValue());
-            gcB.fillOval(startX, startY, wh, hg);
+            gcF.setFill(colorPick.getValue());
+            gcF.fillOval(startX, startY, wh, hg);
         } else {
-            gcB.setStroke(colorPick.getValue());
-            gcB.strokeOval(startX, startY, wh, hg);
+            gcF.setStroke(colorPick.getValue());
+            gcF.strokeOval(startX, startY, wh, hg);
         }
     }
 
     private void drawRect() {
         double wh = lastX - startX;
         double hg = lastY - startY;
-        gcB.setLineWidth(sizeSlider.getValue());
+        gcF.setLineWidth(sizeSlider.getValue());
 
         if (fillRB.isSelected()) {
-            gcB.setFill(colorPick.getValue());
-            gcB.fillRect(startX, startY, wh, hg);
+            gcF.setFill(colorPick.getValue());
+            gcF.fillRect(startX, startY, wh, hg);
         } else {
-            gcB.setStroke(colorPick.getValue());
-            gcB.strokeRect(startX, startY, wh, hg);
+            gcF.setStroke(colorPick.getValue());
+            gcF.strokeRect(startX, startY, wh, hg);
         }
     }
 
     private void drawLine() {
-        gcB.setLineWidth(sizeSlider.getValue());
-        gcB.setStroke(colorPick.getValue());
-        gcB.strokeLine(startX, startY, lastX, lastY);
+        gcF.setLineWidth(sizeSlider.getValue());
+        gcF.setStroke(colorPick.getValue());
+        gcF.strokeLine(startX, startY, lastX, lastY);
     }
 
     private void freeDrawing() {
-        gcB.setLineWidth(sizeSlider.getValue());
-        gcB.setStroke(colorPick.getValue());
-        gcB.strokeLine(oldX, oldY, lastX, lastY);
+        gcF.setLineWidth(sizeSlider.getValue());
+        gcF.setStroke(colorPick.getValue());
+        gcF.strokeLine(oldX, oldY, lastX, lastY);
         oldX = lastX;
         oldY = lastY;
     }
@@ -174,58 +176,81 @@ public class PainterView implements Initializable {
     private void drawOvalEffect() {
         double wh = lastX - startX;
         double hg = lastY - startY;
-        gcF.setLineWidth(sizeSlider.getValue());
+        gcB.setLineWidth(sizeSlider.getValue());
 
         if (fillRB.isSelected()) {
-            gcF.clearRect(0, 0, canvasGo.getWidth(), canvasGo.getHeight());
-            gcF.setFill(colorPick.getValue());
-            gcF.fillOval(startX, startY, wh, hg);
+            gcB.clearRect(0, 0, canvasGo.getWidth(), canvasGo.getHeight());
+            gcB.setFill(colorPick.getValue());
+            gcB.fillOval(startX, startY, wh, hg);
         } else {
-            gcF.clearRect(0, 0, canvasGo.getWidth(), canvasGo.getHeight());
-            gcF.setStroke(colorPick.getValue());
-            gcF.strokeOval(startX, startY, wh, hg);
+            gcB.clearRect(0, 0, canvasGo.getWidth(), canvasGo.getHeight());
+            gcB.setStroke(colorPick.getValue());
+            gcB.strokeOval(startX, startY, wh, hg);
         }
     }
 
     private void drawRectEffect() {
         double wh = lastX - startX;
         double hg = lastY - startY;
-        gcF.setLineWidth(sizeSlider.getValue());
+        gcB.setLineWidth(sizeSlider.getValue());
 
         if (fillRB.isSelected()) {
-            gcF.clearRect(0, 0, canvasGo.getWidth(), canvasGo.getHeight());
-            gcF.setFill(colorPick.getValue());
-            gcF.fillRect(startX, startY, wh, hg);
+            gcB.clearRect(0, 0, canvasGo.getWidth(), canvasGo.getHeight());
+            gcB.setFill(colorPick.getValue());
+            gcB.fillRect(startX, startY, wh, hg);
         } else {
-            gcF.clearRect(0, 0, canvasGo.getWidth(), canvasGo.getHeight());
-            gcF.setStroke(colorPick.getValue());
-            gcF.strokeRect(startX, startY, wh, hg);
+            gcB.clearRect(0, 0, canvasGo.getWidth(), canvasGo.getHeight());
+            gcB.setStroke(colorPick.getValue());
+            gcB.strokeRect(startX, startY, wh, hg);
         }
     }
 
     private void drawLineEffect() {
-        gcF.setLineWidth(sizeSlider.getValue());
-        gcF.setStroke(colorPick.getValue());
-        gcF.clearRect(0, 0, canvasGo.getWidth(), canvasGo.getHeight());
-        gcF.strokeLine(startX, startY, lastX, lastY);
+        gcB.setLineWidth(sizeSlider.getValue());
+        gcB.setStroke(colorPick.getValue());
+        gcB.clearRect(0, 0, canvasGo.getWidth(), canvasGo.getHeight());
+        gcB.strokeLine(startX, startY, lastX, lastY);
     }
 
     /*------- Save & Open ------*/
     // Open
-    private void open(){
+    private void open() {
         FileChooser openFile = new FileChooser();
         openFile.setTitle("Open File");
         File file = openFile.showOpenDialog(primaryStage);
+
         if (file != null) {
             try {
                 InputStream io = new FileInputStream(file);
                 Image img = new Image(io);
-                gcB.drawImage(img, 0, 0);
+
+                double aspectRatio = img.getWidth() / img.getHeight();
+                double newWidth, newHeight;
+
+                if (aspectRatio >= 1) {
+                    newWidth = 800;
+                    newHeight = 800 / aspectRatio;
+                } else {
+                    newHeight = 800;
+                    newWidth = 800 * aspectRatio;
+                }
+
+                ImageView imageView = new ImageView(img);
+                imageView.setFitWidth(newWidth);
+                imageView.setFitHeight(newHeight);
+
+                SnapshotParameters params = new SnapshotParameters();
+                params.setFill(Color.TRANSPARENT);
+
+                WritableImage scaledImage = imageView.snapshot(params, null);
+
+                gcI.drawImage(scaledImage, 0, 0);
             } catch (IOException ex) {
                 System.out.println("Error!");
             }
         }
     }
+
 
     // Save
     private void save(){
@@ -243,7 +268,6 @@ public class PainterView implements Initializable {
                 System.out.println("Error!");
             }
         }
-
     }
     ///////////////////////////////////////////////////////////////////////
 
@@ -325,38 +349,39 @@ public class PainterView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colorPick.setValue(Color.valueOf("black"));
-        gcB = TheCanvas.getGraphicsContext2D();
-        gcF = canvasGo.getGraphicsContext2D();
+        gcB = canvasGo.getGraphicsContext2D();
+        gcF = TheCanvas.getGraphicsContext2D();
+        gcI = imgBack.getGraphicsContext2D();
 
         sizeSlider.setMin(1);
         sizeSlider.setMax(50);
 
         //////////////////////////////////
-        Image imageRect = new Image(getClass().getResource("/com/example/fotoradar/icons/rectangle.png").toExternalForm());
+        Image imageRect = new Image(Main.class.getResource("icons/rectangle.png").toExternalForm());
         ImageView icR = new ImageView(imageRect);
         icR.setFitWidth(32);
         icR.setFitHeight(32);
         rectButton.setGraphic(icR);
 
-        Image imageLinea = new Image(getClass().getResource("/com/example/fotoradar/icons/line.png").toExternalForm());
+        Image imageLinea = new Image(Main.class.getResource("icons/line.png").toExternalForm());
         ImageView icLin = new ImageView(imageLinea);
         icLin.setFitWidth(32);
         icLin.setFitHeight(32);
         lineButton.setGraphic(icLin);
 
-        Image imageOvalo = new Image(getClass().getResource("/com/example/fotoradar/icons/oval.png").toExternalForm());
+        Image imageOvalo = new Image(Main.class.getResource("icons/oval.png").toExternalForm());
         ImageView icOval = new ImageView(imageOvalo);
         icOval.setFitWidth(32);
         icOval.setFitHeight(32);
         ovlButton.setGraphic(icOval);
 
-        Image imageLapiz = new Image(getClass().getResource("/com/example/fotoradar/icons/pencil.png").toExternalForm());
+        Image imageLapiz = new Image(Main.class.getResource("icons/pencil.png").toExternalForm());
         ImageView icLapiz = new ImageView(imageLapiz);
         icLapiz.setFitWidth(32);
         icLapiz.setFitHeight(32);
         pencButton.setGraphic(icLapiz);
 
-        Image imageEraser = new Image(getClass().getResource("/com/example/fotoradar/icons/eraser.png").toExternalForm());
+        Image imageEraser = new Image(Main.class.getResource("icons/eraser.png").toExternalForm());
         ImageView icEraser = new ImageView(imageEraser);
         icLapiz.setFitWidth(32);
         icLapiz.setFitHeight(32);

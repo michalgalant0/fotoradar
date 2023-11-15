@@ -12,7 +12,7 @@ public class Painter extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/fotoradar/views/painterView.fxml"));
+        Parent root = FXMLLoader.load(Main.class.getResource("views/painterView.fxml"));
 
         Scene scene = new Scene(root);
 
