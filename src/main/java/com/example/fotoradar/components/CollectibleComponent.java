@@ -4,6 +4,7 @@ import com.example.fotoradar.Main;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import com.example.fotoradar.models.Collectible;
+import com.example.fotoradar.models.Thumbnail;
 import com.example.fotoradar.views.CollectibleView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ import lombok.Setter;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CollectibleComponent extends AnchorPane {
 
@@ -61,10 +63,17 @@ public class CollectibleComponent extends AnchorPane {
         statusTextField.setText("do pobrania");
     }
 
+
     public void setThumbnailPath(String collectionName) throws SQLException {
-        thumbnailPath = String.format(thumbnailPath,
-                System.getProperty("user.dir"), collectionName, collectible.getTitle(),
-                new ThumbnailOperations().getAllThumbnails(collectible.getId()).get(0).getFileName());
+        ArrayList<Thumbnail> allThumbnails = new ThumbnailOperations().getAllThumbnails(collectible.getId());
+        if (!allThumbnails.isEmpty()) {
+            thumbnailPath = String.format(thumbnailPath,
+                    System.getProperty("user.dir"), collectionName, collectible.getTitle(),
+                    allThumbnails.get(0).getFileName());
+            setObjectThumbnailImageView();
+        }
+        else
+            imageView.setImage(null);
     }
 
     public void setObjectThumbnailImageView() {

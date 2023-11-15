@@ -1,9 +1,6 @@
 package com.example.fotoradar;
 
-import com.example.fotoradar.models.Collectible;
-import com.example.fotoradar.models.Collection;
-import com.example.fotoradar.models.Segment;
-import com.example.fotoradar.models.Version;
+import com.example.fotoradar.models.*;
 
 import java.io.File;
 
@@ -29,6 +26,11 @@ public class DirectoryOperator {
         createDirectory(collectiblesDirectory, String.format("/%s/OBIEKTY", collection.getTitle()));
     }
 
+    public void removeStructure(Collection collection) {
+        String currentCollectionsDir = currentDir+"/KOLEKCJE/"+collection.getTitle();
+        removeStructure(currentCollectionsDir);
+    }
+
     // dla obiektu
     public void createStructure(Collectible collectible, String parentCollectionName) {
         String currentCollectiblesDir =
@@ -49,6 +51,12 @@ public class DirectoryOperator {
         createDirectory(segmentsDir,
                 String.format("/%s/OBIEKTY/%s/SEGMENTY", parentCollectionName, collectible.getTitle())
         );
+    }
+
+    public void removeStructure(Collectible collectible, String parentCollectionName) {
+        String currentCollectiblesDir =
+                String.format("%s/KOLEKCJE/%s/OBIEKTY/%s", currentDir, parentCollectionName, collectible.getTitle());
+        removeStructure(currentCollectiblesDir);
     }
 
     // dla segmentu
@@ -72,6 +80,13 @@ public class DirectoryOperator {
         );
     }
 
+    public void removeStructure(Segment segment, String parentCollectionName, String parentCollectibleName) {
+        String currentSegmentsDir =
+                String.format("%s/KOLEKCJE/%s/OBIEKTY/%s/SEGMENTY/%s",
+                        currentDir, parentCollectionName, parentCollectibleName, segment.getTitle());
+        removeStructure(currentSegmentsDir);
+    }
+
     // dla wersji
     public void createStructure(Version version, String parentCollectionName, String parentCollectibleName, String parentSegmentName) {
         String currentVersionsDir =
@@ -82,6 +97,23 @@ public class DirectoryOperator {
                 String.format("/%s/OBIEKTY/%s/SEGMENTY/%s/WERSJE/%s",
                         parentCollectionName, parentCollectibleName, parentSegmentName, version.getName())
         );
+    }
+
+    public void removeStructure(Version version, String parentCollectionName, String parentCollectibleName, String parentSegmentName) {
+        String currentVersionsDir =
+                String.format("%s/KOLEKCJE/%s/OBIEKTY/%s/SEGMENTY/%s/WERSJE/%s",
+                        currentDir, parentCollectionName, parentCollectibleName, parentSegmentName, version.getName());
+        removeStructure(currentVersionsDir);
+    }
+
+    public void removeStructure(Photo photo, String parentDirectory) {
+        String photoToRemovePath = parentDirectory + photo.getFileName();
+        removeStructure(photoToRemovePath);
+    }
+
+    public void removeStructure(Thumbnail thumbnail, String parentDirectory) {
+        String thumbnailToRemovePath = parentDirectory + thumbnail.getFileName();
+        removeStructure(thumbnailToRemovePath);
     }
 
     /**
@@ -98,5 +130,47 @@ public class DirectoryOperator {
             );
         } else
             System.out.println("katalog "+type+" istnieje");
+    }
+
+    private void removeStructure(String path) {
+        File structure = new File(path);
+
+        if (!structure.exists()) {
+            System.out.println("Struktura nie istnieje: " + path);
+            return;
+        }
+
+        try {
+            removeDirectory(structure);
+        } catch (Exception e) {
+            System.out.println("Błąd podczas usuwania plików: " + e.getMessage());
+        }
+
+        if (structure.delete()) {
+            System.out.println("Katalog usunięty: " + path);
+        } else {
+            System.out.println("Nie udało się usunąć katalogu: " + path);
+        }
+    }
+
+    private boolean removeDirectory(File directory) {
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    if (!removeDirectory(file)) {
+                        return false;
+                    }
+                } else {
+                    if (!file.delete()) {
+                        System.out.println("Nie udało się usunąć pliku: " + file);
+                        return false;
+                    }
+                }
+            }
+        }
+
+        // Usuwamy sam katalog nadrzędny po usunięciu wszystkich plików i podkatalogów
+        return directory.delete();
     }
 }

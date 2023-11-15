@@ -1,13 +1,11 @@
 package com.example.fotoradar.components;
 
-import com.example.fotoradar.Main;
-import com.example.fotoradar.RemoveStructureListener;
-import com.example.fotoradar.SegmentsListener;
-import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.*;
 import com.example.fotoradar.databaseOperations.PhotoOperations;
 import com.example.fotoradar.databaseOperations.SegmentOperations;
 import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import com.example.fotoradar.models.ImageModel;
+import com.example.fotoradar.models.Photo;
 import com.example.fotoradar.models.Segment;
 import com.example.fotoradar.models.Thumbnail;
 import com.example.fotoradar.windows.ConfirmDeletePopup;
@@ -44,6 +42,8 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
     private Image currentImage;
     @Setter @Getter
     private Thumbnail currentThumbnail;
+    @Setter @Getter
+    private Photo currentPhoto;
     @Setter
     private int currentImageIndex;
     @Setter
@@ -139,10 +139,18 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
                     segmentPane.setMinHeight(imageHeight);
                     segmentPane.setMaxWidth(imageWidth);
                     segmentPane.setMaxHeight(imageHeight);
+                    segmentPane.setOnMouseClicked(mouseEvent -> {
+                        highlightedPolygon = null;
+                    });
 
                     // załadowanie segmentów
                     loadSegments();
                 }
+                else {
+                    Photo photo = new Photo(imageModel.getId(), imageModel.getFileName(), imageModel.getParentId());
+                    setCurrentPhoto(photo);
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -245,8 +253,12 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
 
     @Override
     public void onDeleteConfirmed(ActionEvent event, Object view) {
-        System.out.println("ImageViewerComponent.onDeleteConfirmed: "+currentThumbnail.toString());
-
+        if (isForSegmentsView)
+            System.out.println("ImageViewerComponent.onDeleteConfirmed: "+currentThumbnail.toString());
+        else {
+            System.out.println("Potwierdzenie usuniecia zdjecia");
+//            setCurrentPhoto((Photo) currentThumbnail);
+        }
         // usuniecie z bazy
         if (isForSegmentsView) { // thumbnails
             try {
@@ -266,8 +278,11 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
             }
         }
 
-        // usuniecie struktury katalogów
-        // todo
+        // usuniecie pliku
+        if (isForSegmentsView)
+            new DirectoryOperator().removeStructure(currentThumbnail, parentDirectory);
+        else
+            new DirectoryOperator().removeStructure(currentPhoto, parentDirectory);
 
         currentImageIndex++;
         try {

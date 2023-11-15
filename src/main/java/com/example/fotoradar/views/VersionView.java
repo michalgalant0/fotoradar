@@ -162,12 +162,16 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
     @Override
     public void onDeleteConfirmed(ActionEvent event, Object view) {
         System.out.println("VersionView.onDeleteConfirmed: "+version);
+        // usuwanie z bazy
         try {
             if (new VersionOperations().deleteVersion(version.getId()))
                 System.out.println("usunieto wersje z bazy");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        //usuwanie katalogow
+        new DirectoryOperator().removeStructure(version, parentCollectionName, parentCollectible.getTitle(), parentSegment.getTitle());
 
         // Spróbuj odświeżyć scenę główną
         try {

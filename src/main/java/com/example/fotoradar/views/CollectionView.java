@@ -91,12 +91,16 @@ public class CollectionView implements RemoveStructureListener {
     public void onDeleteConfirmed(ActionEvent event, Object view) {
         System.out.println("CollectionView.onDeleteConfirmed: "+collection);
 
+        // usuwanie w bazie
         try {
             if (new CollectionOperations().deleteCollection(collection.getId()))
                 System.out.println("usunieto kolekcje z bazy");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        // usuwanie katalogów
+        new DirectoryOperator().removeStructure(collection);
 
         // Spróbuj odświeżyć scenę główną
         try {

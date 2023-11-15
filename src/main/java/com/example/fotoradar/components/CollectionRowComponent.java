@@ -3,6 +3,7 @@ package com.example.fotoradar.components;
 import com.example.fotoradar.Main;
 import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import com.example.fotoradar.models.Collectible;
+import com.example.fotoradar.models.Thumbnail;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -13,6 +14,7 @@ import lombok.Setter;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CollectionRowComponent extends AnchorPane {
     @FXML
@@ -47,9 +49,15 @@ public class CollectionRowComponent extends AnchorPane {
     }
 
     public void setThumbnailPath(String collectionName) throws SQLException {
-        thumbnailPath = String.format(thumbnailPath,
-                System.getProperty("user.dir"), collectionName, collectible.getTitle(),
-                new ThumbnailOperations().getAllThumbnails(collectible.getId()).get(0).getFileName());
+        ArrayList<Thumbnail> allThumbnails = new ThumbnailOperations().getAllThumbnails(collectible.getId());
+        if (!allThumbnails.isEmpty()) {
+            thumbnailPath = String.format(thumbnailPath,
+                    System.getProperty("user.dir"), collectionName, collectible.getTitle(),
+                    allThumbnails.get(0).getFileName());
+            setObjectThumbnailImageView();
+        }
+        else
+            objectThumbnailImageView.setImage(null);
     }
 
     public void setObjectThumbnailImageView() {

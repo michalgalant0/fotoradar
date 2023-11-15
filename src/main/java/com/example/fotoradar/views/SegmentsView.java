@@ -216,12 +216,16 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     public void onDeleteConfirmed(ActionEvent event, Object view) {
         System.out.println("SegmentsView.onDeleteConfirmed: "+currentSegment);
 
+        // usuwanie z bazy
         try {
             if (segmentOperations.deleteSegment(currentSegment.getId()))
                 System.out.println("usunieto segment z bazy");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        //usuwanie katalogóœ
+        new DirectoryOperator().removeStructure(currentSegment, parentCollectionName, collectible.getTitle());
 
         // odświeżenie widoku
         try {
