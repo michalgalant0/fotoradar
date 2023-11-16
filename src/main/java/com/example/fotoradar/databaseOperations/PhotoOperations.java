@@ -54,4 +54,49 @@ public class PhotoOperations {
             return rowsAffected > 0;
         }
     }
+
+    public boolean deletePhotosByCollectionId(int collectionId) throws SQLException {
+        String query = "DELETE FROM PHOTO WHERE version_id IN (SELECT version_id FROM VERSION WHERE segment_id IN (SELECT segment_id FROM SEGMENT WHERE collectible_id IN (SELECT collectible_id FROM COLLECTIBLE WHERE collection_id = ?)))";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, collectionId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deletePhotosByCollectibleId(int collectibleId) throws SQLException {
+        String query = "DELETE FROM PHOTO WHERE version_id IN (SELECT version_id FROM VERSION WHERE segment_id IN (SELECT segment_id FROM SEGMENT WHERE collectible_id = ?))";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, collectibleId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deletePhotosBySegmentId(int segmentId) throws SQLException {
+        String query = "DELETE FROM PHOTO WHERE version_id IN (SELECT version_id FROM VERSION WHERE segment_id = ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, segmentId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deletePhotosByVersionId(int versionId) throws SQLException {
+        String query = "DELETE FROM PHOTO WHERE version_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, versionId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deletePhotosByThumbnailId(int thumbnailId) throws SQLException {
+        String query = "DELETE FROM PHOTO WHERE version_id IN (SELECT version_id FROM VERSION WHERE segment_id IN (SELECT segment_id FROM SEGMENT WHERE thumbnail_id = ?))";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, thumbnailId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
 }

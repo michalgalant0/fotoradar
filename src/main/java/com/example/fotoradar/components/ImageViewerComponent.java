@@ -260,15 +260,17 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
 //            setCurrentPhoto((Photo) currentThumbnail);
         }
         // usuniecie z bazy
-        if (isForSegmentsView) { // thumbnails
+        // thumbnails
+        if (isForSegmentsView) {
             try {
-                if (new ThumbnailOperations().deleteThumbnail(currentThumbnail.getId()))
+                if (new ThumbnailOperations().deleteThumbnailWithSubstructures(currentThumbnail.getId()))
                     System.out.println("usunieto miniature z bazy");
-                // todo dodac usuwanie jeszcze jej segmentow i wersji itd
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-        } else { // photos
+        }
+        // photos
+        else {
             try {
                 ImageModel current = images.get(currentImageIndex);
                 if (new PhotoOperations().deletePhoto(current.getId()))

@@ -103,4 +103,41 @@ public class ThumbnailOperations {
         }
         return 0;
     }
+
+    public boolean deleteThumbnailWithSubstructures(int thumbnailId) throws SQLException {
+        // Usuwanie wszystkich podrędnych segmentów
+        new SegmentOperations().deleteSegmentsByThumbnailId(thumbnailId);
+
+        // Usuwanie wszystkich podrędnych wersji
+        new VersionOperations().deleteVersionsByThumbnailId(thumbnailId);
+
+        // Usuwanie wszystkich podrędnych zdjęć
+        new PhotoOperations().deletePhotosByThumbnailId(thumbnailId);
+
+        // Usuwanie miniatury
+        String query = "DELETE FROM THUMBNAIL WHERE thumbnail_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, thumbnailId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deleteThumbnailsByCollectionId(int collectionId) throws SQLException {
+        String query = "DELETE FROM THUMBNAIL WHERE collectible_id IN (SELECT collectible_id FROM COLLECTIBLE WHERE collection_id = ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, collectionId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deleteThumbnailsByCollectibleId(int collectibleId) throws SQLException {
+        String query = "DELETE FROM THUMBNAIL WHERE collectible_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, collectibleId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
 }

@@ -218,7 +218,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
 
         // usuwanie z bazy
         try {
-            if (segmentOperations.deleteSegment(currentSegment.getId()))
+            if (segmentOperations.deleteSegmentWithSubstructures(currentSegment.getId()))
                 System.out.println("usunieto segment z bazy");
         } catch (SQLException e) {
             throw new RuntimeException(e);

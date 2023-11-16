@@ -100,4 +100,53 @@ public class VersionOperations {
             return rowsAffected > 0;
         }
     }
+
+    public boolean deleteVersionWithSubstructures(int versionId) throws SQLException {
+        // Usuwanie wszystkich podrędnych zdjęć
+        new PhotoOperations().deletePhotosByVersionId(versionId);
+
+        // Usuwanie wersji
+        String query = "DELETE FROM VERSION WHERE version_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, versionId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deleteVersionsByCollectionId(int collectionId) throws SQLException {
+        String query = "DELETE FROM VERSION WHERE segment_id IN (SELECT segment_id FROM SEGMENT WHERE collectible_id IN (SELECT collectible_id FROM COLLECTIBLE WHERE collection_id = ?))";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, collectionId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deleteVersionsByCollectibleId(int collectibleId) throws SQLException {
+        String query = "DELETE FROM VERSION WHERE segment_id IN (SELECT segment_id FROM SEGMENT WHERE collectible_id = ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, collectibleId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deleteVersionsByThumbnailId(int thumbnailId) throws SQLException {
+        String query = "DELETE FROM VERSION WHERE segment_id IN (SELECT segment_id FROM SEGMENT WHERE thumbnail_id = ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, thumbnailId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deleteVersionsBySegmentId(int segmentId) throws SQLException {
+        String query = "DELETE FROM VERSION WHERE segment_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, segmentId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
 }

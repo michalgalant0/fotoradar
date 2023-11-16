@@ -93,7 +93,7 @@ public class CollectionView implements RemoveStructureListener {
 
         // usuwanie w bazie
         try {
-            if (new CollectionOperations().deleteCollection(collection.getId()))
+            if (new CollectionOperations().deleteCollectionWithSubstructures(collection.getId()))
                 System.out.println("usunieto kolekcje z bazy");
         } catch (SQLException e) {
             throw new RuntimeException(e);

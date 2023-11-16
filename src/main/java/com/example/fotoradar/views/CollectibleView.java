@@ -194,7 +194,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
 
         // usuwanie z bazy
         try {
-            if (new CollectibleOperations().deleteCollectible(collectible.getId()))
+            if (new CollectibleOperations().deleteCollectibleWithSubstructures(collectible.getId()))
                 System.out.println("usunieto obiekt z bazy");
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -2,9 +2,12 @@ package com.example.fotoradar.databaseOperations;
 
 import com.example.fotoradar.models.Segment;
 
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
 public class SegmentOperations {
     private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
@@ -137,5 +140,46 @@ public class SegmentOperations {
         }
     }
 
+    public boolean deleteSegmentWithSubstructures(int segmentId) throws SQLException {
+        // Usuwanie wszystkich podrędnych wersji
+        new VersionOperations().deleteVersionsBySegmentId(segmentId);
 
+        // Usuwanie wszystkich podrędnych zdjęć
+        new PhotoOperations().deletePhotosBySegmentId(segmentId);
+
+        // Usuwanie segmentu
+        String query = "DELETE FROM SEGMENT WHERE segment_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, segmentId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deleteSegmentsByCollectionId(int collectionId) throws SQLException {
+        String query = "DELETE FROM SEGMENT WHERE collectible_id IN (SELECT collectible_id FROM COLLECTIBLE WHERE collection_id = ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, collectionId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deleteSegmentsByCollectibleId(int collectibleId) throws SQLException {
+        String query = "DELETE FROM SEGMENT WHERE collectible_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, collectibleId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deleteSegmentsByThumbnailId(int thumbnailId) throws SQLException {
+        String query = "DELETE FROM SEGMENT WHERE thumbnail_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, thumbnailId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
 }

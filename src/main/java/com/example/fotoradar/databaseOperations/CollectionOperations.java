@@ -94,4 +94,29 @@ public class CollectionOperations {
             return rowsAffected > 0;
         }
     }
+
+    public boolean deleteCollectionWithSubstructures(int collectionId) throws SQLException {
+        // Usuwanie wszystkich podrzędnych obiektów
+        new CollectibleOperations().deleteCollectiblesByCollectionId(collectionId);
+
+        // Usuwanie wszystkich podrędnych miniatur
+        new ThumbnailOperations().deleteThumbnailsByCollectionId(collectionId);
+
+        // Usuwanie wszystkich podrędnych segmentów
+        new SegmentOperations().deleteSegmentsByCollectionId(collectionId);
+
+        // Usuwanie wszystkich podrędnych wersji
+        new VersionOperations().deleteVersionsByCollectionId(collectionId);
+
+        // Usuwanie wszystkich podrędnych zdjęć
+        new PhotoOperations().deletePhotosByCollectionId(collectionId);
+
+        // Usuwanie kolekcji
+        String query = "DELETE FROM COLLECTION WHERE collection_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, collectionId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
 }

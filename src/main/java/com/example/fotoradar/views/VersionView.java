@@ -164,7 +164,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
         System.out.println("VersionView.onDeleteConfirmed: "+version);
         // usuwanie z bazy
         try {
-            if (new VersionOperations().deleteVersion(version.getId()))
+            if (new VersionOperations().deleteVersionWithSubstructures(version.getId()))
                 System.out.println("usunieto wersje z bazy");
         } catch (SQLException e) {
             throw new RuntimeException(e);

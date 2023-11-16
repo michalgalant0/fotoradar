@@ -101,5 +101,34 @@ public class CollectibleOperations {
         }
     }
 
+    public boolean deleteCollectibleWithSubstructures(int collectibleId) throws SQLException {
+        // Usuwanie wszystkich podrędnych miniatur
+        new ThumbnailOperations().deleteThumbnailsByCollectibleId(collectibleId);
 
+        // Usuwanie wszystkich podrędnych segmentów
+        new SegmentOperations().deleteSegmentsByCollectibleId(collectibleId);
+
+        // Usuwanie wszystkich podrędnych wersji
+        new VersionOperations().deleteVersionsByCollectibleId(collectibleId);
+
+        // Usuwanie wszystkich podrędnych zdjęć
+        new PhotoOperations().deletePhotosByCollectibleId(collectibleId);
+
+        // Usuwanie obiektu
+        String query = "DELETE FROM COLLECTIBLE WHERE collectible_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, collectibleId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    public boolean deleteCollectiblesByCollectionId(int collectionId) throws SQLException {
+        String query = "DELETE FROM COLLECTIBLE WHERE collection_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, collectionId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
 }
