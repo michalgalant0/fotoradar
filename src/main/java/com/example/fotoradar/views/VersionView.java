@@ -42,7 +42,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
     @Setter
     private Version version;
 
-    private String versionPhotosPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/SEGMENTY/%s/WERSJE/%s/";
+    private String versionPhotosPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/SEGMENTY/%s/WERSJE/%s";
     private PhotoOperations photoOperations;
 
     public void initialize() throws SQLException {
@@ -52,13 +52,13 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
 
         versionFormComponent.fillForm(version);
 
-        versionPhotosPath = String.format(versionPhotosPath,
+        versionPhotosPath = String.format(versionPhotosPath+'/',
                 System.getProperty("user.dir"), parentCollectionName, parentCollectible.getTitle(),
                 parentSegment.getTitle(), version.getName());
 
         fillMiniGallery();
 
-        new DirectoryOperator().createStructure(version, parentCollectionName, parentCollectible.getTitle(), parentSegment.getTitle());
+        DirectoryOperator.getInstance().createStructure(version, parentCollectionName, parentCollectible.getTitle(), parentSegment.getTitle());
     }
 
     private void fillMiniGallery() throws SQLException {
@@ -86,7 +86,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
 
     @FXML
     private void saveVersion() throws SQLException {
-
+        String oldPath = versionPhotosPath;
         version.setName(versionFormComponent.nameTextField.getText());
         version.setStartDate(versionFormComponent.startDatePicker.getValue().toString());
         version.setFinishDate(versionFormComponent.finishDatePicker.getValue().toString());
@@ -97,6 +97,9 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
         versionOperations.updateVersion(version);
         System.out.println("zapis wersji");
 
+        // aktualizacja katalogow
+        String newName = version.getName();
+        DirectoryOperator.getInstance().updateDirectoryName(oldPath, newName);
     }
 
     @FXML
@@ -171,7 +174,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
         }
 
         //usuwanie katalogow
-        new DirectoryOperator().removeStructure(version, parentCollectionName, parentCollectible.getTitle(), parentSegment.getTitle());
+        DirectoryOperator.getInstance().removeStructure(version, parentCollectionName, parentCollectible.getTitle(), parentSegment.getTitle());
 
         // Spróbuj odświeżyć scenę główną
         try {

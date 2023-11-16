@@ -39,7 +39,7 @@ public class CollectionView implements RemoveStructureListener {
         collectiblesComponent.setCollectionName(collection.getTitle());
         collectiblesComponent.fillCollectiblesHBox();
 
-        new DirectoryOperator().createStructure(collection);
+        DirectoryOperator.getInstance().createStructure(collection);
     }
 
     private void setWindowLabel(String collectionName) {
@@ -100,7 +100,7 @@ public class CollectionView implements RemoveStructureListener {
         }
 
         // usuwanie katalogów
-        new DirectoryOperator().removeStructure(collection);
+        DirectoryOperator.getInstance().removeStructure(collection);
 
         // Spróbuj odświeżyć scenę główną
         try {

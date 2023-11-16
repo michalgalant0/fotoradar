@@ -63,7 +63,7 @@ public class VersionFormWindow implements Window {
         versionOperations.addVersion(versionToAdd);
 
         // utworzenie katalogu wersji
-        new DirectoryOperator().createStructure(versionToAdd, parentCollectionName, parentCollectible.getTitle(), parentSegment.getTitle());
+        DirectoryOperator.getInstance().createStructure(versionToAdd, parentCollectionName, parentCollectible.getTitle(), parentSegment.getTitle());
 
         // po wykonaniu operacji zamknij okienko
         closeWindow(dialogStage);

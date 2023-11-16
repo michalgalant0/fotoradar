@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import lombok.Setter;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -37,7 +36,7 @@ public class CollectionFormWindow implements Window {
         collectionOperations.addCollection(collectionToAdd);
 
         // utworzenie katalogu kolekcji i podkatalogu obiekty
-        new DirectoryOperator().createStructure(collectionToAdd);
+        DirectoryOperator.getInstance().createStructure(collectionToAdd);
 
         // zamkniecie okienka po wykonanej operacji
         closeWindow(dialogStage);

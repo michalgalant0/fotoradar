@@ -91,6 +91,8 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     private void saveSegment() throws SQLException {
         System.out.println("zapis segmentu");
         Segment segmentToUpdate = currentSegment;
+        String oldPath = String.format("%s/KOLEKCJE/%s/OBIEKTY/%s/SEGMENTY/%s",
+                System.getProperty("user.dir"), parentCollectionName, collectible.getTitle(), currentSegment.getTitle());
 
         // pobranie nowych danych z formularza
         currentSegment.setTitle(segmentFormComponent.nameTextField.getText());
@@ -99,8 +101,14 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         currentSegment.setDescription(segmentFormComponent.descriptionTextArea.getText());
         currentSegment.setStatusId(1); // test
 
-        System.out.println(currentSegment);
-        System.out.println(segmentOperations.updateSegment(segmentToUpdate));
+        // aktualizacja danych w bazie
+        segmentOperations.updateSegment(segmentToUpdate);
+        // aktualizacja nazwy katalogu
+        String newName = currentSegment.getTitle();
+        if (new File(oldPath).exists())
+            DirectoryOperator.getInstance().updateDirectoryName(oldPath, newName);
+        else
+            DirectoryOperator.getInstance().createStructure(segmentToUpdate, parentCollectionName, collectible.getTitle());
     }
 
     @FXML
@@ -111,12 +119,8 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         confirmDeletePopup.setRemoveStructureListener(this);
         confirmDeletePopup.setSourceEvent(event);
         confirmDeletePopup.setParentView(this);
-        // widok nadrzedny do powrotu
-//        CollectibleView collectibleView = new CollectibleView();
-//        collectibleView.setCollectible(collectible);
 
         new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
-
     }
 
     @FXML
@@ -153,13 +157,12 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         System.out.println("SegmentsView.onSegmentationFinished: segmentsFromSegmenter "+segments);
         segmentOperations = new SegmentOperations();
         for (Segmenter.Segment segment : segments) {
-            segmentOperations.addSegment(
-                    new Segment(
-                            segment.toString(),
-                            collectible.getId(),
-                            segmentedThumbnailId
-                    )
-            );
+            // utworzenie obiektu, ktory bedzie dodawany
+            Segment segmentToAdd = new Segment(segment.toString(), collectible.getId(), segmentedThumbnailId);
+            // dodanie do bazy
+            segmentOperations.addSegment(segmentToAdd);
+            // utworzenie katalogow
+            DirectoryOperator.getInstance().createStructure(segmentToAdd, parentCollectionName, collectible.getTitle());
         }
     }
 
@@ -225,7 +228,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         }
 
         //usuwanie katalogóœ
-        new DirectoryOperator().removeStructure(currentSegment, parentCollectionName, collectible.getTitle());
+        DirectoryOperator.getInstance().removeStructure(currentSegment, parentCollectionName, collectible.getTitle());
 
         // odświeżenie widoku
         try {

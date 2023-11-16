@@ -63,7 +63,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
                 System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle());
 
-        new DirectoryOperator().createStructure(collectible, parentCollection.getTitle());
+        DirectoryOperator.getInstance().createStructure(collectible, parentCollection.getTitle());
     }
 
     private void setParentCollection() throws SQLException {
@@ -83,7 +83,9 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
     }
 
     @FXML
-    private void saveCollectible(ActionEvent event) throws IOException, SQLException {
+    private void saveCollectible(ActionEvent event) throws SQLException {
+        String oldPath = String.format("%s/KOLEKCJE/%s/OBIEKTY/%s",
+                System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle());
 
         collectible.setTitle(collectibleFormComponent.titleTextField.getText());
         collectible.setStartDate(collectibleFormComponent.startDatePicker.getValue().toString());
@@ -94,12 +96,18 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         CollectibleOperations collectibleOperations = new CollectibleOperations();
         collectibleOperations.updateCollectible(collectible);
 
+        // aktualizacja nazwy katalogu
+        String newName = collectible.getTitle();
+        System.err.println(oldPath);
+        System.err.println(newName);
+        DirectoryOperator.getInstance().updateDirectoryName(oldPath, newName);
+
         System.out.println("zapis obiektu");
         // pozostaje na tym samym widoku
     }
 
     @FXML
-    private void addSketch(ActionEvent event) throws IOException {
+    private void addSketch(ActionEvent event) {
         System.out.println("dodawanie szkicu");
         // otwarcie modułu do szkicowania
     }
@@ -201,7 +209,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         }
 
         // usuwanie katalogow
-        new DirectoryOperator().removeStructure(collectible, parentCollection.getTitle());
+        DirectoryOperator.getInstance().removeStructure(collectible, parentCollection.getTitle());
 
         // Spróbuj odświeżyć scenę główną
         try {

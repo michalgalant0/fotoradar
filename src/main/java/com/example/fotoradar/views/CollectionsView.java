@@ -9,7 +9,6 @@ import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import javafx.fxml.FXML;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,13 +36,12 @@ public class CollectionsView {
         collectionsComponent.fillCollectionsHBox();
 
         // utworzenie katalogu KOLEKCJE jesli nie istnieje
-        new DirectoryOperator().createStructure();
+        DirectoryOperator.getInstance().createStructure();
     }
 
     @FXML
-    private void addCollection() throws IOException, SQLException {
+    private void addCollection() throws IOException {
         System.out.println("dodaj kolekcje");
         new SwitchScene().displayWindow("CollectionFormWindow", "Dodaj kolekcję");
-        initialize();
     }
 }

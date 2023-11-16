@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import lombok.Setter;
 
-import java.io.File;
 import java.sql.SQLException;
 
 public class CollectibleFormWindow implements Window {
@@ -54,7 +53,7 @@ public class CollectibleFormWindow implements Window {
         collectibleOperations.addCollectible(collectibleToAdd);
 
         // utworzenie katalogu obiektu i podkatalogów MINIATURY i SEGMENTY
-        new DirectoryOperator().createStructure(collectibleToAdd, parentCollection.getTitle());
+        DirectoryOperator.getInstance().createStructure(collectibleToAdd, parentCollection.getTitle());
 
         // po wykonanej operacji zamknij okienko
         closeWindow(dialogStage);

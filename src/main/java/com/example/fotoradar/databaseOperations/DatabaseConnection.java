@@ -25,7 +25,6 @@ public class DatabaseConnection {
     public static synchronized DatabaseConnection getInstance() throws SQLException {
         if (instance == null)
             instance = new DatabaseConnection();
-
         return instance;
     }
 

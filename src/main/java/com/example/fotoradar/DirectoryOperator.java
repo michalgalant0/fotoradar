@@ -5,7 +5,14 @@ import com.example.fotoradar.models.*;
 import java.io.File;
 
 public class DirectoryOperator {
+    private static DirectoryOperator instance;
     private final String currentDir = System.getProperty("user.dir");
+
+    public static synchronized DirectoryOperator getInstance() {
+        if (instance == null)
+            instance = new DirectoryOperator();
+        return instance;
+    }
 
     // dla kolekcji (wszystkich)
     public void createStructure() {
@@ -172,5 +179,30 @@ public class DirectoryOperator {
 
         // Usuwamy sam katalog nadrzędny po usunięciu wszystkich plików i podkatalogów
         return directory.delete();
+    }
+
+    public boolean updateDirectoryName(String currentPath, String newName) {
+        // Tworzenie obiektu reprezentującego katalog
+        File file = new File(currentPath);
+
+        // Sprawdzenie, czy katalog istnieje
+        if (!file.exists()) {
+            System.out.println("Katalog o nazwie " + currentPath + " nie istnieje.");
+            return false;
+        }
+
+        // Tworzenie obiektu reprezentującego nową nazwę katalogu
+        File updatedFile = new File(file.getParent(), newName);
+
+        // Zmiana nazwy katalogu
+        boolean success = file.renameTo(updatedFile);
+
+        if (success) {
+            System.out.println("Nazwa katalogu została pomyślnie zmieniona na " + newName);
+        } else {
+            System.out.println("Nie udało się zmienić nazwy katalogu.");
+        }
+
+        return success;
     }
 }

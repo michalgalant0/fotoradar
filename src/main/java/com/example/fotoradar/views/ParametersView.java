@@ -1,5 +1,6 @@
 package com.example.fotoradar.views;
 
+import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectionFormComponent;
 import com.example.fotoradar.components.TeamsComponent;
@@ -26,10 +27,13 @@ public class ParametersView {
     @Setter
     private Collection collection;
 
+    private String collectionPath = "%s/KOLEKCJE/%s";
+
     public void initialize() {
         System.out.println("ParametersView.initialize: "+collection);
         setWindowLabel(collection.getTitle());
         fillFormComponent();
+        collectionPath = String.format(collectionPath, System.getProperty("user.dir"), collection.getTitle());
     }
 
     public void setWindowLabel(String collectionName) {
@@ -46,6 +50,7 @@ public class ParametersView {
     @FXML
     private void saveCollection() throws SQLException {
         System.out.println("zapisz kolekcje");
+        String oldPath = collectionPath;
 
         collection.setTitle(collectionFormComponent.titleTextField.getText());
         collection.setStartDate(collectionFormComponent.startDatePicker.getValue().toString());
@@ -55,6 +60,10 @@ public class ParametersView {
         // update kolekcji do bazy
         CollectionOperations collectionOperations = new CollectionOperations();
         collectionOperations.updateCollection(collection);
+
+        // aktualizacja nazwy katalogu
+        String newName = collection.getTitle();
+        DirectoryOperator.getInstance().updateDirectoryName(oldPath, newName);
 
         System.out.println(collection);
     }
