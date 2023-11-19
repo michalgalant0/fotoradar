@@ -38,36 +38,46 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
     public CollectibleFormComponent collectibleFormComponent;
 
     @Setter
-    private Collectible collectible = new Collectible();
+    private Collectible collectible;
     @Setter
-    private Collection parentCollection = new Collection();
+    private Collection parentCollection;
 
-    private String collectibleThumbnailsPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/";
+    private String collectibleThumbnailsPathTmp = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/";
+    private String currentCollectibleThumnailsPath;
     private ThumbnailOperations thumbnailOperations;
+    private CollectibleOperations collectibleOperations;
+
+    public CollectibleView() {
+        try {
+            thumbnailOperations = new ThumbnailOperations();
+            collectibleOperations = new CollectibleOperations();
+            collectible = new Collectible();
+            parentCollection = new Collection();
+            currentCollectibleThumnailsPath = "";
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void initialize() throws SQLException {
-        thumbnailOperations = new ThumbnailOperations();
-
         System.out.println("CollectibleView.initialize: "+collectible);
         // ustawienie kolekcji nadrzędnej
         setParentCollection();
+        // ustawienie katalogu miniatur dla bieżącego obiektu
+        currentCollectibleThumnailsPath = String.format(collectibleThumbnailsPathTmp,
+                System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle());
         // ustawienie nagłówka okna
         setWindowLabel(parentCollection.getTitle(), collectible.getTitle());
         // wypełnienie komponentu z formularzem
         fillCollectibleForm();
-
         // wypelnienie komponentu miniGallery miniaturami
         fillMiniGallery();
-
-        // ustawienie katalogu miniatur dla bieżącego obiektu
-        collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
-                System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle());
 
         DirectoryOperator.getInstance().createStructure(collectible, parentCollection.getTitle());
     }
 
     private void setParentCollection() throws SQLException {
-        this.parentCollection = new CollectionOperations().getCollectionById(collectible.getParentCollectionId());
+        parentCollection = new CollectionOperations().getCollectionById(collectible.getParentCollectionId());
     }
 
     private void setWindowLabel(String collectionName, String collectibleName) {
@@ -93,7 +103,6 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         collectible.setDescription(collectibleFormComponent.descriptionTextArea.getText());
 
         // update obiektu do bazy
-        CollectibleOperations collectibleOperations = new CollectibleOperations();
         collectibleOperations.updateCollectible(collectible);
 
         // aktualizacja nazwy katalogu
@@ -104,6 +113,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
 
         System.out.println("zapis obiektu");
         // pozostaje na tym samym widoku
+        refresh();
     }
 
     @FXML
@@ -120,6 +130,11 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         addPhotosWindow.setAddPhotoListener(this);
 
         new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj miniatury", addPhotosWindow);
+        try {
+            refresh();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -162,7 +177,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
 
     private void fillMiniGallery() throws SQLException {
         miniGalleryComponent.setParentDirectory(
-                String.format(collectibleThumbnailsPath,
+                String.format(currentCollectibleThumnailsPath,
                         System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle()));
         // konwersja listy thumbnails na imagemodels
         ArrayList<Thumbnail> thumbnails = thumbnailOperations.getAllThumbnails(collectible.getId());
@@ -183,7 +198,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         System.out.println("CollectibleView.onAddingPhotoFinished: selectedFilesFromAddPhotosWindow "+selectedFiles);
         for (File file : selectedFiles) {
             // przekopiowanie wybranych plikow do utworzonej struktury aplikacji
-            String destinationFilePath = collectibleThumbnailsPath+file.getName();
+            String destinationFilePath = currentCollectibleThumnailsPath+file.getName();
             // kopiowanie dla potrzeb testowych - domyślnie przenoszenie
             Files.copy(
                     file.toPath(), Path.of(destinationFilePath),
@@ -217,5 +232,19 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void refresh() throws SQLException {
+        setCollectible(collectibleOperations.getCollectibleById(collectible.getId()));
+        // ustawienie nagłówka okna
+        setWindowLabel(parentCollection.getTitle(), collectible.getTitle());
+        // ustawienie katalogu miniatur dla bieżącego obiektu
+        currentCollectibleThumnailsPath = String.format(collectibleThumbnailsPathTmp,
+                System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle());
+
+        // wypełnienie komponentu z formularzem
+        fillCollectibleForm();
+        // wypelnienie komponentu miniGallery miniaturami
+        fillMiniGallery();
     }
 }
