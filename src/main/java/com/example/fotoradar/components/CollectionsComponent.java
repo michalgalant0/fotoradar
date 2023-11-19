@@ -32,6 +32,7 @@ public class CollectionsComponent extends AnchorPane {
     }
 
     public void fillCollectionsHBox() throws IOException, SQLException {
+        collectionsContainer.getChildren().clear();
         for (Collection collection : collections) {
             // utworzenie komponentu kolekcja
             CollectionComponent collectionComponent =

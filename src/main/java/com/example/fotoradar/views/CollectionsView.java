@@ -19,20 +19,31 @@ public class CollectionsView {
     @FXML
     public CollectionsComponent collectionsComponent;
 
-    public void initialize() throws SQLException, IOException {
-        CollectionOperations collectionOperations = new CollectionOperations();
-        ArrayList<Collection> collections = collectionOperations.getAllCollections();
+    private CollectionOperations collectionOperations;
+    private CollectibleOperations collectibleOperations;
+    private ArrayList<Collection> collections;
+    private Map<Integer, ArrayList<Collectible>> collectiblesMap;
 
-        CollectibleOperations collectibleOperations = new CollectibleOperations();
-        Map<Integer, ArrayList<Collectible>> collectiblesMap = new HashMap<>();
+    public CollectionsView() {
+        try {
+            collectionOperations = new CollectionOperations();
+            collectibleOperations = new CollectibleOperations();
+            collections = new ArrayList<>();
+            collectiblesMap = new HashMap<>();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void initialize() throws SQLException, IOException {
+        collections = collectionOperations.getAllCollections();
+        collectiblesMap = new HashMap<>();
         for (Collection collection : collections) {
             int collectionId = collection.getId();
             collectiblesMap.put(collectionId, collectibleOperations.getAllCollectibles(collectionId));
         }
-
         collectionsComponent.setCollections(collections);
         collectionsComponent.setCollectiblesMap(collectiblesMap);
-
         collectionsComponent.fillCollectionsHBox();
 
         // utworzenie katalogu KOLEKCJE jesli nie istnieje
@@ -43,5 +54,22 @@ public class CollectionsView {
     private void addCollection() throws IOException {
         System.out.println("dodaj kolekcje");
         new SwitchScene().displayWindow("CollectionFormWindow", "Dodaj kolekcję");
+        try {
+            refresh();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void refresh() throws SQLException, IOException {
+        collections = collectionOperations.getAllCollections();
+        collectiblesMap = new HashMap<>();
+        for (Collection collection : collections) {
+            int collectionId = collection.getId();
+            collectiblesMap.put(collectionId, collectibleOperations.getAllCollectibles(collectionId));
+        }
+        collectionsComponent.setCollections(collections);
+        collectionsComponent.setCollectiblesMap(collectiblesMap);
+        collectionsComponent.fillCollectionsHBox();
     }
 }
