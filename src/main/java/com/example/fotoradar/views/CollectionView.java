@@ -26,15 +26,27 @@ public class CollectionView implements RemoveStructureListener {
     private CollectiblesComponent collectiblesComponent;
 
     @Setter
-    private Collection collection = new Collection();
+    private Collection collection;
+
+    private CollectibleOperations collectibleOperations;
+    private ArrayList<Collectible> collectibles;
+
+    public CollectionView() {
+        try {
+            collectibleOperations = new CollectibleOperations();
+            collection = new Collection();
+            collectibles = new ArrayList<>();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void initialize() throws SQLException, IOException {
         System.out.println("CollectionView.initialize: "+collection);
         // ustawienie nagłówka okna
         setWindowLabel(collection.getTitle());
         // wypełnienie listy obiektów danymi pobranymi z bazy
-        ArrayList<Collectible> collectibles =
-                new CollectibleOperations().getAllCollectibles(collection.getId());
+        collectibles = collectibleOperations.getAllCollectibles(collection.getId());
         collectiblesComponent.setCollectibles(collectibles);
         collectiblesComponent.setCollectionName(collection.getTitle());
         collectiblesComponent.fillCollectiblesHBox();
@@ -68,6 +80,11 @@ public class CollectionView implements RemoveStructureListener {
 
         // Wywołaj metodę do wyświetlenia okna
         new SwitchScene().displayWindow("CollectibleFormWindow", "Dodaj obiekt", collectibleFormWindow);
+        try {
+            refresh();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     @FXML
     private void removeCollection(ActionEvent event) throws IOException {
@@ -108,5 +125,15 @@ public class CollectionView implements RemoveStructureListener {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void refresh() throws SQLException, IOException {
+        // ustawienie nagłówka okna
+        setWindowLabel(collection.getTitle());
+        // wypełnienie listy obiektów danymi pobranymi z bazy
+        collectibles = collectibleOperations.getAllCollectibles(collection.getId());
+        collectiblesComponent.setCollectibles(collectibles);
+        collectiblesComponent.setCollectionName(collection.getTitle());
+        collectiblesComponent.fillCollectiblesHBox();
     }
 }

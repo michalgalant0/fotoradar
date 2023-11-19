@@ -31,6 +31,7 @@ public class CollectiblesComponent extends AnchorPane {
     }
 
     public void fillCollectiblesHBox() throws IOException, SQLException {
+        collectiblesContainer.getChildren().clear();
         for (Collectible collectible : collectibles) {
             // utworzenie komponentu obiektu
             CollectibleComponent collectibleComponent =
