@@ -66,6 +66,10 @@ public class ParametersView {
         DirectoryOperator.getInstance().updateDirectoryName(oldPath, newName);
 
         System.out.println(collection);
+
+        //odswiezenie okna po zapisie
+        setCollection(collection);
+        refresh();
     }
     @FXML
     private void manageTeams(ActionEvent event) throws IOException {
@@ -81,5 +85,11 @@ public class ParametersView {
         collectionView.setCollection(collection);
 
         new SwitchScene().switchScene(event, "collectionView", collectionView);
+    }
+
+    private void refresh() {
+        setWindowLabel(collection.getTitle());
+        fillFormComponent();
+        collectionPath = String.format(collectionPath, System.getProperty("user.dir"), collection.getTitle());
     }
 }
