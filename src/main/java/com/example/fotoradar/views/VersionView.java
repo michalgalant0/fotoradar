@@ -45,9 +45,15 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
     private String versionPhotosPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/SEGMENTY/%s/WERSJE/%s";
     private PhotoOperations photoOperations;
 
-    public void initialize() throws SQLException {
-        photoOperations = new PhotoOperations();
+    public VersionView() {
+        try {
+            photoOperations = new PhotoOperations();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    public void initialize() throws SQLException {
         setWindowLabel();
 
         versionFormComponent.fillForm(version);
@@ -100,6 +106,9 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
         // aktualizacja katalogow
         String newName = version.getName();
         DirectoryOperator.getInstance().updateDirectoryName(oldPath, newName);
+
+        setVersion(version);
+        refresh();
     }
 
     @FXML
@@ -110,6 +119,11 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
         addPhotosWindow.setAddPhotoListener(this);
 
         new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj zdjęcia", addPhotosWindow);
+        try {
+            refresh();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -182,5 +196,15 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void refresh() throws SQLException {
+        setWindowLabel();
+        versionFormComponent.fillForm(version);
+        versionPhotosPath = String.format(versionPhotosPath+'/',
+                System.getProperty("user.dir"), parentCollectionName, parentCollectible.getTitle(),
+                parentSegment.getTitle(), version.getName());
+
+        fillMiniGallery();
     }
 }

@@ -16,7 +16,8 @@ public class Segment {
     private int parentCollectibleId;
     private int thumbnailId;
 
-    public Segment(String coords, int parentCollectibleId, int thumbnailId) {
+    public Segment(String title, String coords, int parentCollectibleId, int thumbnailId) {
+        this.title = title;
         this.coords = coords;
         this.parentCollectibleId = parentCollectibleId;
         this.thumbnailId = thumbnailId;

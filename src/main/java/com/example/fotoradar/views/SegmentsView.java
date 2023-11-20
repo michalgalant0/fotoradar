@@ -38,11 +38,11 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     public SegmentFormComponent segmentFormComponent;
 
     @Setter
-    private Collectible collectible = new Collectible();
+    private Collectible collectible;
     @Setter
     private String parentCollectionName;
     @Setter
-    private ArrayList<Segment> segments = new ArrayList<>();
+    private ArrayList<Segment> segments;
     private Segment currentSegment;
 
     private Segmenter segmenter;
@@ -50,10 +50,21 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     private ThumbnailOperations thumbnailOperations;
     private SegmentOperations segmentOperations;
 
-    public void initialize() throws SQLException {
-        thumbnailOperations = new ThumbnailOperations();
-        segmentOperations = new SegmentOperations();
+    private int lastIndex;
 
+    public SegmentsView() {
+        try {
+            thumbnailOperations = new ThumbnailOperations();
+            segmentOperations = new SegmentOperations();
+            collectible = new Collectible();
+            segments = new ArrayList<>();
+            lastIndex = 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void initialize() throws SQLException {
         System.out.println("SegmentsView.initialize: " + collectible);
         setWindowLabel(parentCollectionName, collectible.getTitle());
         collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
@@ -67,6 +78,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         imageViewerComponent.setSegmentsListener(this);
 
         segments = segmentOperations.getAllSegments(collectible.getId());
+        lastIndex = segments.size();
         for (Segment segment : segments)
             if (segment.getTitle() != null && !segment.getTitle().isBlank() && !segment.getTitle().isEmpty())
                 new DirectoryOperator().createStructure(segment, parentCollectionName, collectible.getTitle());
@@ -121,6 +133,11 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         confirmDeletePopup.setParentView(this);
 
         new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
+        try {
+            refresh();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -136,6 +153,12 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         addPhotosWindow.setAddPhotoListener(this);
 
         new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj miniatury", addPhotosWindow);
+        //odswiezenie widoku
+        try {
+            refresh();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -156,14 +179,18 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     public void onSegmentationFinished(ArrayList<Segmenter.Segment> segments, int segmentedThumbnailId) throws SQLException {
         System.out.println("SegmentsView.onSegmentationFinished: segmentsFromSegmenter "+segments);
         segmentOperations = new SegmentOperations();
+        String tmpName = "segment%d";
         for (Segmenter.Segment segment : segments) {
             // utworzenie obiektu, ktory bedzie dodawany
-            Segment segmentToAdd = new Segment(segment.toString(), collectible.getId(), segmentedThumbnailId);
+            Segment segmentToAdd = new Segment(String.format(tmpName, lastIndex+=1), segment.toString(), collectible.getId(), segmentedThumbnailId);
             // dodanie do bazy
             segmentOperations.addSegment(segmentToAdd);
             // utworzenie katalogow
             DirectoryOperator.getInstance().createStructure(segmentToAdd, parentCollectionName, collectible.getTitle());
         }
+
+        //odswiezenie widoku
+        refresh();
     }
 
     @Override
@@ -183,6 +210,9 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
                     new Thumbnail(file.getName(), collectible.getId())
             );
         }
+
+        //odswiezenie widoku
+        refresh();
     }
 
     @Override
@@ -232,9 +262,27 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
 
         // odświeżenie widoku
         try {
-            imageViewerComponent.initialize();
+            refresh();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+    private void refresh() throws SQLException {
+        setWindowLabel(parentCollectionName, collectible.getTitle());
+        collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
+                System.getProperty("user.dir"), parentCollectionName, collectible.getTitle());
+
+        imageViewerComponent.setForSegmentsView(true);
+        ArrayList<ImageModel> imageModels = new ArrayList<>(getThumbnails());
+        imageViewerComponent.setImages(imageModels);
+        imageViewerComponent.setParentDirectory(collectibleThumbnailsPath);
+        imageViewerComponent.initialize();
+        imageViewerComponent.setSegmentsListener(this);
+
+        segments = segmentOperations.getAllSegments(collectible.getId());
+        lastIndex = segments.size();
+    }
+
+    //todo dodac odswiezanie na dodaniu wersji i zaladowac pierwszą jako default
 }
