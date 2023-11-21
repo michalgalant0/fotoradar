@@ -24,6 +24,9 @@ public class CollectibleFormWindow implements Window {
     @Setter
     private Collection parentCollection;
 
+    @Setter
+    private OnWindowClosedListener onWindowClosedListener;
+
     public void initialize() {
         setWindowLabel(parentCollection.getTitle());
     }
@@ -56,12 +59,14 @@ public class CollectibleFormWindow implements Window {
         DirectoryOperator.getInstance().createStructure(collectibleToAdd, parentCollection.getTitle());
 
         // po wykonanej operacji zamknij okienko
+        onWindowClosedListener.onWindowClosed();
         closeWindow(dialogStage);
     }
 
     @FXML
     public void cancel(ActionEvent event) {
         System.out.println("anuluj");
+        onWindowClosedListener.onWindowClosed();
         closeWindow(dialogStage);
     }
 }

@@ -31,6 +31,8 @@ public class AddPhotosWindow implements Window {
 
     @Setter
     private AddPhotoListener addPhotoListener;
+    @Setter
+    private OnWindowClosedListener onWindowClosedListener;
 
     @FXML
     public void addPhotos(ActionEvent event) throws IOException, SQLException {
@@ -39,6 +41,7 @@ public class AddPhotosWindow implements Window {
 
         addPhotoListener.onAddingPhotosFinished(selectedFiles);
 
+        onWindowClosedListener.onWindowClosed();
         closeWindow(dialogStage);
     }
 

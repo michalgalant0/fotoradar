@@ -27,6 +27,9 @@ public class MiniGalleryComponent extends AnchorPane {
     @Setter
     public ArrayList<ImageModel> images = new ArrayList<>();
 
+    @Setter
+    private Object parentView;
+
     public MiniGalleryComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/MiniGalleryComponent.fxml"));
         loader.setRoot(this);

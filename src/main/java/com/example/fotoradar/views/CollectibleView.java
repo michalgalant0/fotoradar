@@ -15,6 +15,7 @@ import com.example.fotoradar.models.ImageModel;
 import com.example.fotoradar.models.Thumbnail;
 import com.example.fotoradar.windows.AddPhotosWindow;
 import com.example.fotoradar.windows.ConfirmDeletePopup;
+import com.example.fotoradar.windows.OnWindowClosedListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -29,7 +30,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollectibleView implements AddPhotoListener, RemoveStructureListener {
+public class CollectibleView implements AddPhotoListener, RemoveStructureListener, OnWindowClosedListener {
     @FXML
     private Label windowLabel;
     @FXML
@@ -128,6 +129,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
 
         AddPhotosWindow addPhotosWindow = new AddPhotosWindow();
         addPhotosWindow.setAddPhotoListener(this);
+        addPhotosWindow.setOnWindowClosedListener(this);
 
         new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj miniatury", addPhotosWindow);
         try {
@@ -246,5 +248,14 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         fillCollectibleForm();
         // wypelnienie komponentu miniGallery miniaturami
         fillMiniGallery();
+    }
+
+    @Override
+    public void onWindowClosed() {
+        try {
+            refresh();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

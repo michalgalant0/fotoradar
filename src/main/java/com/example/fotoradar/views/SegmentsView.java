@@ -13,6 +13,7 @@ import com.example.fotoradar.segmenter.Segmenter;
 import com.example.fotoradar.segmenter.SegmenterListener;
 import com.example.fotoradar.windows.AddPhotosWindow;
 import com.example.fotoradar.windows.ConfirmDeletePopup;
+import com.example.fotoradar.windows.OnWindowClosedListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -29,7 +30,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SegmentsView implements SegmenterListener, AddPhotoListener, SegmentsListener, RemoveStructureListener {
+public class SegmentsView implements SegmenterListener, AddPhotoListener, SegmentsListener, RemoveStructureListener, OnWindowClosedListener {
     @FXML
     public Label windowLabel;
     @FXML
@@ -151,6 +152,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
 
         AddPhotosWindow addPhotosWindow = new AddPhotosWindow();
         addPhotosWindow.setAddPhotoListener(this);
+        addPhotosWindow.setOnWindowClosedListener(this);
 
         new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj miniatury", addPhotosWindow);
         //odswiezenie widoku
@@ -282,6 +284,15 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
 
         segments = segmentOperations.getAllSegments(collectible.getId());
         lastIndex = segments.size();
+    }
+
+    @Override
+    public void onWindowClosed() {
+        try {
+            refresh();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //todo dodac odswiezanie na dodaniu wersji i zaladowac pierwszą jako default

@@ -11,6 +11,7 @@ import com.example.fotoradar.databaseOperations.VersionOperations;
 import com.example.fotoradar.models.*;
 import com.example.fotoradar.windows.AddPhotosWindow;
 import com.example.fotoradar.windows.ConfirmDeletePopup;
+import com.example.fotoradar.windows.OnWindowClosedListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -25,7 +26,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VersionView implements AddPhotoListener, RemoveStructureListener {
+public class VersionView implements AddPhotoListener, RemoveStructureListener, OnWindowClosedListener {
     @FXML
     public Label windowLabel;
     @FXML
@@ -117,6 +118,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
 
         AddPhotosWindow addPhotosWindow = new AddPhotosWindow();
         addPhotosWindow.setAddPhotoListener(this);
+        addPhotosWindow.setOnWindowClosedListener(this);
 
         new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj zdjęcia", addPhotosWindow);
         try {
@@ -206,5 +208,14 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
                 parentSegment.getTitle(), version.getName());
 
         fillMiniGallery();
+    }
+
+    @Override
+    public void onWindowClosed() {
+        try {
+            refresh();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

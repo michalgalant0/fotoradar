@@ -10,6 +10,7 @@ import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import com.example.fotoradar.windows.CollectibleFormWindow;
 import com.example.fotoradar.windows.ConfirmDeletePopup;
+import com.example.fotoradar.windows.OnWindowClosedListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CollectionView implements RemoveStructureListener {
+public class CollectionView implements RemoveStructureListener, OnWindowClosedListener {
     @FXML
     private Label windowLabel;
     @FXML
@@ -77,6 +78,7 @@ public class CollectionView implements RemoveStructureListener {
         // Przygotuj okno CollectibleFormWindow
         CollectibleFormWindow collectibleFormWindow = new CollectibleFormWindow();
         collectibleFormWindow.setParentCollection(collection); // Przekazujemy kolekcję
+        collectibleFormWindow.setOnWindowClosedListener(this);
 
         // Wywołaj metodę do wyświetlenia okna
         new SwitchScene().displayWindow("CollectibleFormWindow", "Dodaj obiekt", collectibleFormWindow);
@@ -135,5 +137,14 @@ public class CollectionView implements RemoveStructureListener {
         collectiblesComponent.setCollectibles(collectibles);
         collectiblesComponent.setCollectionName(collection.getTitle());
         collectiblesComponent.fillCollectiblesHBox();
+    }
+
+    @Override
+    public void onWindowClosed() {
+        try {
+            refresh();
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
