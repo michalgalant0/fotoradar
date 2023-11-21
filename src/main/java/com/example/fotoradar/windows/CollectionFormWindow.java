@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import lombok.Setter;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class CollectionFormWindow implements Window {
@@ -18,8 +17,11 @@ public class CollectionFormWindow implements Window {
     @Setter
     private Stage dialogStage;
 
+    @Setter
+    private OnWindowClosedListener onWindowClosedListener;
+
     @FXML
-    public void saveCollection(ActionEvent event) throws SQLException, IOException {
+    public void saveCollection(ActionEvent event) throws SQLException {
         System.out.println("zapisz kolekcje");
 
         Collection collectionToAdd = new Collection(
@@ -39,12 +41,14 @@ public class CollectionFormWindow implements Window {
         DirectoryOperator.getInstance().createStructure(collectionToAdd);
 
         // zamkniecie okienka po wykonanej operacji
+        onWindowClosedListener.onWindowClosed();
         closeWindow(dialogStage);
     }
 
     @FXML
     public void cancel(ActionEvent event) {
         System.out.println("anuluj");
+        onWindowClosedListener.onWindowClosed();
         closeWindow(dialogStage);
     }
 }

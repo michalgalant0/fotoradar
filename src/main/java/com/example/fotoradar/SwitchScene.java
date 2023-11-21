@@ -45,7 +45,10 @@ public class SwitchScene {
         controller.setDialogStage(dialogStage);
 
         // Wyświetlenie nowego okna
-        dialogStage.showAndWait();
+        dialogStage.show();
+
+        dialogStage.toFront();
+        dialogStage.requestFocus();
     }
 
     public void displayWindow(String windowName, String title, Object controller) throws IOException {
@@ -66,7 +69,10 @@ public class SwitchScene {
         }
 
         // Wyświetlenie nowego okna
-        dialogStage.showAndWait();
+        dialogStage.show();
+
+        dialogStage.toFront();
+        dialogStage.requestFocus();
     }
 
 }

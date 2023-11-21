@@ -7,6 +7,8 @@ import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
+import com.example.fotoradar.windows.CollectionFormWindow;
+import com.example.fotoradar.windows.OnWindowClosedListener;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CollectionsView {
+public class CollectionsView implements OnWindowClosedListener {
     @FXML
     public CollectionsComponent collectionsComponent;
 
@@ -53,7 +55,10 @@ public class CollectionsView {
     @FXML
     private void addCollection() throws IOException {
         System.out.println("dodaj kolekcje");
-        new SwitchScene().displayWindow("CollectionFormWindow", "Dodaj kolekcję");
+        CollectionFormWindow collectionFormWindow = new CollectionFormWindow();
+        collectionFormWindow.setOnWindowClosedListener(this);
+
+        new SwitchScene().displayWindow("CollectionFormWindow", "Dodaj kolekcję", collectionFormWindow);
         try {
             refresh();
         } catch (SQLException e) {
@@ -71,5 +76,14 @@ public class CollectionsView {
         collectionsComponent.setCollections(collections);
         collectionsComponent.setCollectiblesMap(collectiblesMap);
         collectionsComponent.fillCollectionsHBox();
+    }
+
+    @Override
+    public void onWindowClosed() {
+        try {
+            refresh();
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
