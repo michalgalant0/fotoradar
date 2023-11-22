@@ -178,6 +178,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
     }
 
     private void fillMiniGallery() throws SQLException {
+        miniGalleryComponent.setOnWindowClosedListener(this);
         miniGalleryComponent.setParentDirectory(
                 String.format(currentCollectibleThumnailsPath,
                         System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle()));
@@ -252,6 +253,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
 
     @Override
     public void onWindowClosed() {
+        System.err.println("REFRESH NA COLLECTIBLE VIEW");
         try {
             refresh();
         } catch (SQLException e) {

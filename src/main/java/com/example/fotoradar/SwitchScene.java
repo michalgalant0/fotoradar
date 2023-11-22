@@ -1,5 +1,6 @@
 package com.example.fotoradar;
 
+import com.example.fotoradar.windows.OnWindowClosedListener;
 import com.example.fotoradar.windows.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -75,4 +76,28 @@ public class SwitchScene {
         dialogStage.requestFocus();
     }
 
+    public void displayWindow(String windowName, String title, Object controller, OnWindowClosedListener listener) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("windows/" + windowName + ".fxml"));
+        fxmlLoader.setController(controller);
+        Scene scene = new Scene(fxmlLoader.load());
+
+        Stage dialogStage = new Stage();
+        dialogStage.initStyle(StageStyle.UTILITY);
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setResizable(false);
+        dialogStage.setTitle(title);
+        dialogStage.setScene(scene);
+
+        // Jeśli controller implementuje Window, przekaż dialogStage
+        if (controller instanceof Window) {
+            ((Window) controller).setDialogStage(dialogStage);
+        }
+
+        // Wyświetlenie nowego okna
+        dialogStage.show();
+
+        dialogStage.toFront();
+        dialogStage.requestFocus();
+        dialogStage.setOnCloseRequest(windowEvent -> listener.onWindowClosed());
+    }
 }

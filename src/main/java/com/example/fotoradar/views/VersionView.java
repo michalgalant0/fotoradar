@@ -69,6 +69,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
     }
 
     private void fillMiniGallery() throws SQLException {
+        miniGalleryComponent.setOnWindowClosedListener(this);
         miniGalleryComponent.setParentDirectory(String.format(versionPhotosPath));
         // konwersja listy photos na imagemodels
         ArrayList<Photo> photos = photoOperations.getAllPhotos(version.getId());
@@ -212,6 +213,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
 
     @Override
     public void onWindowClosed() {
+        System.err.println("REFRESH NA VERSION VIEW");
         try {
             refresh();
         } catch (SQLException e) {

@@ -4,6 +4,7 @@ import com.example.fotoradar.Main;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.models.ImageModel;
 import com.example.fotoradar.windows.ImageViewerWindow;
+import com.example.fotoradar.windows.OnWindowClosedListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
@@ -28,7 +29,7 @@ public class MiniGalleryComponent extends AnchorPane {
     public ArrayList<ImageModel> images = new ArrayList<>();
 
     @Setter
-    private Object parentView;
+    private OnWindowClosedListener onWindowClosedListener;
 
     public MiniGalleryComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/MiniGalleryComponent.fxml"));
@@ -82,7 +83,7 @@ public class MiniGalleryComponent extends AnchorPane {
                 imageViewerWindow.setCurrentImage(image);
                 imageViewerWindow.setCurrentImageIndex(index);
                 try {
-                    new SwitchScene().displayWindow("ImageViewerWindow", "przegląd zdjęć", imageViewerWindow);
+                    new SwitchScene().displayWindow("ImageViewerWindow", "przegląd zdjęć", imageViewerWindow, onWindowClosedListener);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
