@@ -9,7 +9,8 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fotoradar.views.PainterView">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="920.0"
+            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <ToolBar orientation="VERTICAL" prefHeight="800.0" prefWidth="120.0">
             <items>

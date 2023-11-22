@@ -5,10 +5,7 @@ import com.example.fotoradar.components.ImageViewerComponent;
 import com.example.fotoradar.components.SegmentFormComponent;
 import com.example.fotoradar.databaseOperations.SegmentOperations;
 import com.example.fotoradar.databaseOperations.ThumbnailOperations;
-import com.example.fotoradar.models.Collectible;
-import com.example.fotoradar.models.ImageModel;
-import com.example.fotoradar.models.Segment;
-import com.example.fotoradar.models.Thumbnail;
+import com.example.fotoradar.models.*;
 import com.example.fotoradar.painter.Painter;
 import com.example.fotoradar.segmenter.Segmenter;
 import com.example.fotoradar.segmenter.SegmenterListener;
@@ -20,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Setter;
+import lombok.With;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +38,8 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
 
     @Setter
     private Collectible collectible = new Collectible();
+    @Setter
+    private Collection parentCollection = new Collection();
     @Setter
     private String parentCollectionName;
     @Setter
@@ -115,7 +115,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         confirmDeletePopup.setSourceEvent(event);
         confirmDeletePopup.setParentView(this);
         // widok nadrzedny do powrotu
-//        CollectibleView collectibleView = new CollectibleView();
+//        CollectibleView collectibleView = new CollectibleView();s
 //        collectibleView.setCollectible(collectible);
 
         new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
@@ -126,6 +126,10 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     private void addSketch() throws Exception {
         System.out.println("dodanie szkicu");
         painter = new Painter();
+        //do poprawy
+        painter.setParentCollection(parentCollection);
+        painter.setCollectible(collectible);
+        //
         Stage stage = new Stage();
         painter.start(stage);
     }

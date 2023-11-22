@@ -106,6 +106,8 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         System.out.println("dodawanie szkicu");
         // otwarcie modułu do szkicowania
         painter = new Painter();
+        painter.setParentCollection(parentCollection);
+        painter.setCollectible(collectible);
         Stage stage = new Stage();
         painter.start(stage);
     }

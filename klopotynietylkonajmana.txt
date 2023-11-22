@@ -6,4 +6,5 @@ zeszyt do wypisywania problemow i klopotow potrzebujących większego zastanowie
 4. problem z formularzem dodawania zdjęć
 5. problemy z komunikacją między kontrolerami - jak zrobić to optymalnie i logicznie (rozważanie wzorców projektowych, modeli programistycznych)
 6. problemy z ładowaniem zdjęć na różnych systemach operacyjnych (ścieżki, kodowania)
-7.
+7. problem z zapisem szkicu jako pliku graficznego w ustalonej lokalizacji, przekazanie nazw utworzonych kolekcji i obiektów do modułu painter tak by ścieżka była poprawnie tworzona
+    niepojęty problem z rozszerzeniem JPG

@@ -1,25 +1,17 @@
 package com.example.fotoradar.views;
 
-import java.awt.image.RenderedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import com.example.fotoradar.Main;
-import javafx.embed.swing.SwingFXUtils;
+import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.models.Collectible;
+import com.example.fotoradar.models.Collection;
+import com.example.fotoradar.windows.SaveSketchWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -27,8 +19,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import lombok.Setter;
 
-import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 
 public class PainterView implements Initializable {
@@ -37,14 +36,16 @@ public class PainterView implements Initializable {
     private Stage primaryStage;
     private boolean drawline = false, drawoval = false, drawrectangle = false, erase = false, freedesign = true;
     double startX, startY, lastX, lastY, oldX, oldY;
+
     double hg;
+
     //>>>>>>>>>>>>>>>>>>>>>>>FXML Variables<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @FXML
     private RadioButton strokeRB, fillRB;
     @FXML
-    private ColorPicker colorPick;
+    public ColorPicker colorPick;
     @FXML
-    private Canvas TheCanvas, canvasGo, imgBack;
+    public Canvas TheCanvas, canvasGo, imgBack;
     @FXML
     private Button rectButton;
     @FXML
@@ -60,15 +61,25 @@ public class PainterView implements Initializable {
     @FXML
     private Button save;
     @FXML
+    private Label windowTitle;
+    @FXML
+    private TextField fileName;
+    @FXML
     private Slider sizeSlider;
 
+    @Setter
+    private Collection parentCollection;
+    @Setter
+    private Collection parentCollectionName;
+    @Setter
+    private Collectible collectible;
 
 
     //////////////////////////////////////////////////////////////////////////////
 
-    public PainterView(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
+//    public PainterView(Stage primaryStage) {
+//        this.primaryStage = primaryStage;
+//    }
 
     public PainterView(){
         // Pusty konstruktor bezparametrowy
@@ -264,22 +275,69 @@ public class PainterView implements Initializable {
 
 
     // Save
-    private void save(){
-        FileChooser savefile = new FileChooser();
-        savefile.setTitle("Save File");
+//    private void save(){
+//        FileChooser savefile = new FileChooser();
+//        savefile.setTitle("Save File");
+//
+//        File file = savefile.showSaveDialog(primaryStage);
+//        if (file != null) {
+//            try {
+//                WritableImage writableImage = new WritableImage(800, 800);
+//                TheCanvas.snapshot(null, writableImage);
+//                RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+//                ImageIO.write(renderedImage, "png", file);
+//            } catch (IOException ex) {
+//                System.out.println("Error!");
+//            }
+//        }
+//    }
 
-        File file = savefile.showSaveDialog(primaryStage);
-        if (file != null) {
-            try {
-                WritableImage writableImage = new WritableImage(800, 800);
-                TheCanvas.snapshot(null, writableImage);
-                RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
-                ImageIO.write(renderedImage, "png", file);
-            } catch (IOException ex) {
-                System.out.println("Error!");
-            }
-        }
+    private void save() throws IOException, SQLException {
+
+        SaveSketchWindow saveSketchWindow = new SaveSketchWindow(TheCanvas);
+        saveSketchWindow.setParentCollection(parentCollection);
+        saveSketchWindow.setCollectible(collectible);
+        new SwitchScene().displayWindow("SaveSketchWindow", "Zapisz szkic", saveSketchWindow);
+
+//        if (primaryStage == null) {
+//            System.out.println("primaryStage is null");
+//            return;
+//        }
+//
+//        this.primaryStage = primaryStage;
+//        primaryStage.setTitle("Zapisz szkic");
+//        BorderPane root = new BorderPane();
+//
+//        windowTitle.setText("Wpisz nazwę pliku (bez rozszerzenia):");
+//
+//        //fileName.getText();
+//
+//        Button saveButton = new Button("ZAPISZ");
+//        saveButton.setOnAction(event -> {
+//            //funkcja do zapisu
+//        });
+//
+//        Button cancelButton = new Button("ANULUJ");
+//        saveButton.setOnAction(event -> {
+//            //funkcja do anulowania zapisu
+//            primaryStage.close();
+//        });
+//
+//        root.setCenter(windowTitle);
+//
+//        VBox buttonBox = new VBox(saveButton);
+//        buttonBox.setAlignment(Pos.CENTER);
+//        root.setBottom(buttonBox);
+//        VBox buttonBox1 = new VBox(cancelButton);
+//        buttonBox1.setAlignment(Pos.BOTTOM_RIGHT);
+//        //root.setBottom(buttonBox1);
+//
+//        Scene scene = new Scene(root, 300, 130);
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
     }
+
+
     ///////////////////////////////////////////////////////////////////////
 
 
@@ -329,22 +387,16 @@ public class PainterView implements Initializable {
         freedesign = true;
     }
     @FXML
-    private void setSave(ActionEvent e) {
-        drawline = false;
-        drawoval = false;
-        drawrectangle = false;
-        erase = false;
-        freedesign = false;
-        save();
+    private void setSave(ActionEvent e) throws IOException, SQLException {
+        SaveSketchWindow saveSketchWindow = new SaveSketchWindow(TheCanvas);
+        saveSketchWindow.setParentCollection(parentCollection);
+        saveSketchWindow.setCollectible(collectible);
+        new SwitchScene().displayWindow("SaveSketchWindow", "Zapisz szkic", saveSketchWindow);
+
     }
 
     @FXML
     private void setOpen(ActionEvent e) {
-        drawline = false;
-        drawoval = false;
-        drawrectangle = false;
-        erase = false;
-        freedesign = false;
         open();
     }
 
