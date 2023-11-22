@@ -3,12 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="300.0" prefWidth="300.0" style="-fx-border-width: 1px; -fx-border-color: seagreen;"
-            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.fotoradar.components.TeamComponent">
-   <children>
-      <Label layoutX="14.0" layoutY="14.0" text="Nazwa Teamu" />
-      <TextArea layoutX="14.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" text="Opis teamu" />
-   </children>
-</AnchorPane>
+<VBox prefHeight="300.0" prefWidth="300.0" style="-fx-border-width: 1px; -fx-border-color: seagreen; -fx-spacing: 10;"
+      xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.fotoradar.components.TeamComponent">
+   <Label text="Nazwa Teamu" />
+   <TextArea prefHeight="200.0" prefWidth="200.0" text="Opis teamu" />
+</VBox>
