@@ -35,6 +35,7 @@ public class CollectionsView {
         collectionsComponent.setCollectiblesMap(collectiblesMap);
 
         collectionsComponent.fillCollectionsHBox();
+        System.out.println("javafx.runtime.version: " + System.getProperty("javafx.runtime.version"));
 
         // utworzenie katalogu KOLEKCJE jesli nie istnieje
         new DirectoryOperator().createStructure();

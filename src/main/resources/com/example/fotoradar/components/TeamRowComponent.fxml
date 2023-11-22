@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.fotoradar.components.TeamRowComponent"
+            prefHeight="400.0" prefWidth="600.0">
+
+</AnchorPane>
+-->
+
+<fx:root prefHeight="104.0" prefWidth="350.0" style="-fx-border-width: 1px; -fx-border-color: darkorange;" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="nameLabel" layoutX="14.0" layoutY="14.0" text="nazwa Zespolu">
+        <font>
+            <Font size="15.0" />
+        </font>
+    </Label>
+    <Label fx:id="descriptionLabel" layoutX="24.0" layoutY="45.0" style="-fx-text-fill: black;" text="Description" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="275.0">
+        <font>
+            <Font size="10.0" />
+        </font>
+    </Label>
+</fx:root>

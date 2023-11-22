@@ -10,10 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeamOperations {
-    private final Connection connection;
+    /*private final Connection connection ;
 
     public TeamOperations(Connection connection) {
         this.connection = connection;
+    }*/
+    private final Connection connection = DatabaseConnection.getInstance().getConnection();
+
+    public TeamOperations() throws SQLException {
+
     }
 
     public List<Team> getAllTeams() throws SQLException {
