@@ -1,8 +1,11 @@
 package com.example.fotoradar.components;
 
+import com.example.fotoradar.ImageViewerFlag;
 import com.example.fotoradar.Main;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.models.ImageModel;
+import com.example.fotoradar.views.CollectibleView;
+import com.example.fotoradar.views.VersionView;
 import com.example.fotoradar.windows.ImageViewerWindow;
 import com.example.fotoradar.windows.OnWindowClosedListener;
 import javafx.fxml.FXML;
@@ -16,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import lombok.Setter;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class MiniGalleryComponent extends AnchorPane {
@@ -43,10 +47,11 @@ public class MiniGalleryComponent extends AnchorPane {
     }
 
     public void fillComponent() {
+        photosContainer.getChildren().clear();
         System.out.println(parentDirectory);
         System.out.println(images);
 
-        int maxColumns = 3; // Ilość kolumn
+        final int MAX_COLUMNS = 3;
         int columnIndex = 0;
         int rowIndex = 0;
 
@@ -58,7 +63,7 @@ public class MiniGalleryComponent extends AnchorPane {
 
             // Przesuwaj się do kolejnej kolumny lub wiersza
             columnIndex++;
-            if (columnIndex >= maxColumns) {
+            if (columnIndex >= MAX_COLUMNS) {
                 columnIndex = 0;
                 rowIndex++;
             }
@@ -69,7 +74,7 @@ public class MiniGalleryComponent extends AnchorPane {
         ImageView imageView = new ImageView();
         imageView.setFitWidth(200);
         imageView.setFitHeight(200);
-        String filePath = parentDirectory + thumbnailName;
+        String filePath = Paths.get(parentDirectory, thumbnailName).toString();
         System.out.println("miniGallery.createThumbnailImageView: filePath "+filePath);
         Image image = new Image("file://"+filePath);
         imageView.setImage(image);
@@ -77,11 +82,8 @@ public class MiniGalleryComponent extends AnchorPane {
         imageView.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 System.out.println("Kliknięto lewym przyciskiem myszy na miniaturze obrazu: " + thumbnailName);
-                ImageViewerWindow imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.setParentDirectory(parentDirectory);
-                imageViewerWindow.setImages(images);
-                imageViewerWindow.setCurrentImage(image);
-                imageViewerWindow.setCurrentImageIndex(index);
+                ImageViewerWindow imageViewerWindow = getImageViewerWindow(index, image);
+
                 try {
                     new SwitchScene().displayWindow("ImageViewerWindow", "przegląd zdjęć", imageViewerWindow, onWindowClosedListener);
                 } catch (IOException e) {
@@ -93,5 +95,20 @@ public class MiniGalleryComponent extends AnchorPane {
         });
 
         return imageView;
+    }
+
+    private ImageViewerWindow getImageViewerWindow(int index, Image image) {
+        ImageViewerWindow imageViewerWindow = new ImageViewerWindow();
+        imageViewerWindow.setParentDirectory(parentDirectory);
+        imageViewerWindow.setImages(images);
+        imageViewerWindow.setCurrentImage(image);
+        imageViewerWindow.setCurrentImageIndex(index);
+
+        // ustawienie odpowiedniej flagi dla ImageViewerComponent
+        if (onWindowClosedListener instanceof CollectibleView)
+            imageViewerWindow.setImageViewerFlag(ImageViewerFlag.COLLECTIBLE);
+        else if (onWindowClosedListener instanceof VersionView)
+            imageViewerWindow.setImageViewerFlag(ImageViewerFlag.VERSION);
+        return imageViewerWindow;
     }
 }

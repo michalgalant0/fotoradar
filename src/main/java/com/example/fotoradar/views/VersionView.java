@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -56,13 +57,12 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
 
     public void initialize() throws SQLException {
         setWindowLabel();
-
         versionFormComponent.fillForm(version);
-
-        versionPhotosPath = String.format(versionPhotosPath+'/',
-                System.getProperty("user.dir"), parentCollectionName, parentCollectible.getTitle(),
-                parentSegment.getTitle(), version.getName());
-
+        versionPhotosPath = Paths.get(
+                System.getProperty("user.dir"),"KOLEKCJE",
+                parentCollectionName, "OBIEKTY", parentCollectible.getTitle(),
+                "SEGMENTY", parentSegment.getTitle(), "WERSJE", version.getName()
+        ).toString();
         fillMiniGallery();
 
         DirectoryOperator.getInstance().createStructure(version, parentCollectionName, parentCollectible.getTitle(), parentSegment.getTitle());
@@ -166,7 +166,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
         System.out.println("VersionView.onAddingPhotosFinished: selectedFilesFromAddPhotosWindow "+selectedFiles);
         for (File file : selectedFiles) {
             // przekopiowanie wybranych plikow do utworzonej struktury aplikacji
-            String destinationFilePath = versionPhotosPath+file.getName();
+            String destinationFilePath = Paths.get(versionPhotosPath, file.getName()).toString();
             // kopiowanie dla potrzeb testowych - domyślnie przenoszenie
             Files.copy(
                     file.toPath(), Path.of(destinationFilePath),
@@ -177,6 +177,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
                     new Photo(file.getName(), version.getId())
             );
         }
+        refresh();
     }
 
     @Override
@@ -203,11 +204,12 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
 
     private void refresh() throws SQLException {
         setWindowLabel();
-        versionFormComponent.fillForm(version);
-        versionPhotosPath = String.format(versionPhotosPath+'/',
-                System.getProperty("user.dir"), parentCollectionName, parentCollectible.getTitle(),
-                parentSegment.getTitle(), version.getName());
-
+        versionFormComponent.fillForm(version); //todo dodać pobieranie wersji na odświeżeniu dla danego segmentu, żeby nie musieć klikać dwa razy
+        versionPhotosPath = Paths.get(
+                System.getProperty("user.dir"),"KOLEKCJE",
+                parentCollectionName, "OBIEKTY", parentCollectible.getTitle(),
+                "SEGMENTY", parentSegment.getTitle(), "WERSJE", version.getName()
+        ).toString();
         fillMiniGallery();
     }
 

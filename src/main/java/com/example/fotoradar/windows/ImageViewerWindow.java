@@ -1,5 +1,6 @@
 package com.example.fotoradar.windows;
 
+import com.example.fotoradar.ImageViewerFlag;
 import com.example.fotoradar.components.ImageViewerComponent;
 import com.example.fotoradar.models.ImageModel;
 import javafx.fxml.FXML;
@@ -28,12 +29,16 @@ public class ImageViewerWindow implements Window {
     @Setter
     private ArrayList<ImageModel> images;
 
+    @Setter
+    private ImageViewerFlag imageViewerFlag;
+
     public void initialize() throws SQLException {
-        windowLabel.setText(parentDirectory+'\n'+currentImage.toString()+'\n'+currentImage.getUrl());
+//        windowLabel.setText(parentDirectory+'\n'+currentImage.toString()+'\n'+currentImage.getUrl());
         imageViewer.setParentDirectory(parentDirectory);
         imageViewer.setImages(images);
         imageViewer.setCurrentImage(currentImage);
         imageViewer.setCurrentImageIndex(currentImageIndex);
+        imageViewer.setImageViewerFlag(imageViewerFlag);
         imageViewer.initialize();
     }
 }

@@ -25,6 +25,7 @@ import lombok.Setter;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -46,14 +47,15 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
     private Photo currentPhoto;
     @Setter
     private int currentImageIndex;
-    @Setter
-    private boolean isForSegmentsView = false;
 
     @Getter
     private Polygon highlightedPolygon; // Zmienna do przechowywania zaznaczonego poligonu
 
     @Setter
     private SegmentsListener segmentsListener;
+
+    @Setter
+    private ImageViewerFlag imageViewerFlag;
 
     public ImageViewerComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/ImageViewerComponent.fxml"));
@@ -105,7 +107,7 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
         if (!images.isEmpty() && currentImageIndex >= 0 && currentImageIndex < images.size()) {
             currentImageIndex = index;
             ImageModel imageModel = images.get(currentImageIndex);
-            String imagePath = parentDirectory + imageModel.getFileName();
+            String imagePath = Paths.get(parentDirectory, imageModel.getFileName()).toString();
             try {
                 FileInputStream fileInputStream = new FileInputStream(imagePath);
                 Image image = new Image(fileInputStream);
@@ -131,24 +133,23 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
 
                 setCurrentImage(image); // ustawienie bieżącego zdjęcia
                 System.out.println("ImageViewerComponent.showImage: currentImage "+image);
-                if (isForSegmentsView) {
-                    setCurrentThumbnail((Thumbnail) imageModel);
 
-                    // Ustal rozmiar segmentPane na podstawie rozmiaru wczytanego obrazu
-                    segmentPane.setMinWidth(imageWidth);
-                    segmentPane.setMinHeight(imageHeight);
-                    segmentPane.setMaxWidth(imageWidth);
-                    segmentPane.setMaxHeight(imageHeight);
-                    segmentPane.setOnMouseClicked(mouseEvent -> {
-                        highlightedPolygon = null;
-                    });
-
-                    // załadowanie segmentów
-                    loadSegments();
-                }
-                else {
-                    Photo photo = new Photo(imageModel.getId(), imageModel.getFileName(), imageModel.getParentId());
-                    setCurrentPhoto(photo);
+                switch (imageViewerFlag) {
+                    case COLLECTIBLE ->
+                        setCurrentThumbnail(imageModel.imageModelToThumbnail());
+                    case SEGMENTS -> {
+                        setCurrentThumbnail(imageModel.imageModelToThumbnail());
+                        // Ustal rozmiar segmentPane na podstawie rozmiaru wczytanego obrazu
+                        segmentPane.setMinWidth(imageWidth);
+                        segmentPane.setMinHeight(imageHeight);
+                        segmentPane.setMaxWidth(imageWidth);
+                        segmentPane.setMaxHeight(imageHeight);
+                        // załadowanie segmentów
+                        loadSegments();
+                    }
+                    case VERSION -> {
+                        setCurrentPhoto(imageModel.imageModelToPhoto());
+                    }
                 }
 
             } catch (IOException e) {
@@ -253,42 +254,38 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
 
     @Override
     public void onDeleteConfirmed(ActionEvent event, Object view) {
-        if (isForSegmentsView)
-            System.out.println("ImageViewerComponent.onDeleteConfirmed: "+currentThumbnail.toString());
-        else {
-            System.out.println("Potwierdzenie usuniecia zdjecia");
-//            setCurrentPhoto((Photo) currentThumbnail);
-        }
-        // usuniecie z bazy
-        // thumbnails
-        if (isForSegmentsView) {
-            try {
-                if (new ThumbnailOperations().deleteThumbnailWithSubstructures(currentThumbnail.getId()))
-                    System.out.println("usunieto miniature z bazy");
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+        switch (imageViewerFlag) {
+            case COLLECTIBLE, SEGMENTS -> {
+                System.out.println("ImageViewerComponent.onDeleteConfirmed: "+currentThumbnail.toString());
+                // usuniecie z bazy
+                try {
+                    if (new ThumbnailOperations().deleteThumbnailWithSubstructures(currentThumbnail.getId()))
+                        System.out.println("usunieto miniature z bazy");
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                // usuniecie pliku
+                DirectoryOperator.getInstance().removeStructure(currentThumbnail, parentDirectory);
             }
-        }
-        // photos
-        else {
-            try {
-                ImageModel current = images.get(currentImageIndex);
-                if (new PhotoOperations().deletePhoto(current.getId()))
-                    System.out.println("usunięto zdjęcie z bazy");
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+            case VERSION -> {
+                System.out.println("Potwierdzenie usuniecia zdjecia");
+                // usuniecie z bazy
+                try {
+                    ImageModel current = images.get(currentImageIndex);
+                    if (new PhotoOperations().deletePhoto(current.getId()))
+                        System.out.println("usunięto zdjęcie z bazy");
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                // usuniecie pliku
+                DirectoryOperator.getInstance().removeStructure(currentPhoto, parentDirectory);
             }
         }
 
-        // usuniecie pliku
-        if (isForSegmentsView)
-            new DirectoryOperator().removeStructure(currentThumbnail, parentDirectory);
-        else
-            new DirectoryOperator().removeStructure(currentPhoto, parentDirectory);
-
-        currentImageIndex++;
         try {
-            showImage(currentImageIndex);
+            images.remove(currentImageIndex--);
+            showNextImage();
+            if (images.isEmpty()) imageView.setImage(null);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

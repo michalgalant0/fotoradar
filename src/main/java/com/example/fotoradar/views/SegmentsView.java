@@ -71,7 +71,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
                 System.getProperty("user.dir"), parentCollectionName, collectible.getTitle());
 
-        imageViewerComponent.setForSegmentsView(true);
+        imageViewerComponent.setImageViewerFlag(ImageViewerFlag.SEGMENTS);
         ArrayList<ImageModel> imageModels = new ArrayList<>(getThumbnails());
         imageViewerComponent.setImages(imageModels);
         imageViewerComponent.setParentDirectory(collectibleThumbnailsPath);
@@ -275,7 +275,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
                 System.getProperty("user.dir"), parentCollectionName, collectible.getTitle());
 
-        imageViewerComponent.setForSegmentsView(true);
+        imageViewerComponent.setImageViewerFlag(ImageViewerFlag.SEGMENTS);
         ArrayList<ImageModel> imageModels = new ArrayList<>(getThumbnails());
         imageViewerComponent.setImages(imageModels);
         imageViewerComponent.setParentDirectory(collectibleThumbnailsPath);
