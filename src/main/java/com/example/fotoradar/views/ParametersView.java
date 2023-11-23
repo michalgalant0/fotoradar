@@ -2,6 +2,7 @@ package com.example.fotoradar.views;
 
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectionFormComponent;
+import com.example.fotoradar.components.TeamComponent;
 import com.example.fotoradar.components.TeamsComponent;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collection;
@@ -19,7 +20,7 @@ public class ParametersView {
     @FXML
     public CollectionFormComponent collectionFormComponent;
     @FXML
-    public TeamsComponent teamsComponent;
+    public TeamComponent teamComponent;
     @FXML
     public Label windowLabel;
 

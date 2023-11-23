@@ -2,6 +2,7 @@
 
 <?import com.example.fotoradar.components.CollectionFormComponent?>
 <?import com.example.fotoradar.components.TeamsComponent?>
+<?import com.example.fotoradar.components.TeamComponent?>
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>

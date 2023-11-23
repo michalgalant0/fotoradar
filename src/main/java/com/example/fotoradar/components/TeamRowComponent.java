@@ -10,6 +10,7 @@ import com.example.fotoradar.SwitchScene;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.Setter;
 
@@ -25,7 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeamRowComponent {
+public class TeamRowComponent extends AnchorPane {
     @FXML
     public Label nameLabel;
     @FXML

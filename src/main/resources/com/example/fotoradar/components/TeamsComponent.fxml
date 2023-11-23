@@ -15,7 +15,7 @@
          xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <Label fx:id="headerLabel" layoutX="200.0" layoutY="14.0" text="Zespoły" AnchorPane.topAnchor="24.0" />
    <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" layoutX="24.0" layoutY="60.0" prefHeight="586.0" prefWidth="352.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
-      <VBox fx:id="teamsContainer" prefHeight="687.0" prefWidth="400.0" style="-fx-border-width: 1px; -fx-border-color: magenta;" />
+      <VBox fx:id="teamComponent" prefHeight="100.0" prefWidth="100.0" style="-fx-border-width: 1px; -fx-border-color: magenta;" />
    </ScrollPane>
 </fx:root>
 
