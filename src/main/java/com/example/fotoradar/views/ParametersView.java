@@ -6,6 +6,7 @@ import com.example.fotoradar.components.CollectionFormComponent;
 import com.example.fotoradar.components.TeamsComponent;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collection;
+import com.example.fotoradar.summaryGenerator.SummaryGenerator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -75,6 +76,15 @@ public class ParametersView {
     private void manageTeams(ActionEvent event) throws IOException {
         System.out.println("zarządzaj zespołami");
         new SwitchScene().switchScene(event, "teamsView");
+    }
+    @FXML
+    private void createReport(ActionEvent event) {
+        System.out.println("generowanie raportu");
+        try {
+            new SummaryGenerator();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     @FXML
     private void backToCollection(ActionEvent event) throws IOException {

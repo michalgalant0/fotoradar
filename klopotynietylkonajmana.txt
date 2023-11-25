@@ -17,3 +17,7 @@ SCENARIUSZE TESTÓW
 2. uruchomienie aplikacji na pustej bazie danych i z katalogami i wykonanie każdej operacji
 3. uruchomienie aplikacji na niepustej bazie danych i bez katalogów i wykonanie każdej operacji
 4. uruchomienie aplikacji na niepustej bazie danych i z katalogami i wykonanie każdej operacji
+
+
+// przydatne na potem moga byc
+https://stackoverflow.com/questions/2862590/how-to-replace-master-branch-in-git-entirely-from-another-branch
