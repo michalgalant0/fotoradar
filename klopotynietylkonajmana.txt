@@ -9,7 +9,7 @@ zeszyt do wypisywania problemow i klopotow potrzebujących większego zastanowie
 7. odswiezanie widokow - stosowanie odpowiednich wzorcow/rozwiazan dla technologii, odswiezanie przy odpowiednim zastosowaniu observablelist lub zmianie rozmiaru okna o marginalne wartosci
 8. komunikacja między modułami - fotoradar <-> segmenter z ładowaniem zdjęć, segmentów i identyfikacja segmentów w module głównym
 9. komunikacja między kontrolerami - realizacja usuwania poprzez zatwierdzenie w popupie
-10.
+10. do tworzenia plików - standardowe schody z kodowaniem polskich znaków, pobranie sztywnej czcionki i umieszczenie jej w resources najlepszym rozwiązaniem
 
 
 SCENARIUSZE TESTÓW
