@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<?import javafx.scene.text.Text?>
-<fx:root prefHeight="687.0" prefWidth="400.0"
-         type="javafx.scene.layout.AnchorPane"
-         xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="687.0" prefWidth="400.0" style="-fx-border-width: 1px; -fx-border-color: magenta;" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <Text>komponent Teams</Text>
+    <Label fx:id="headerLabel" layoutX="14.0" layoutY="14.0" text="Zespoły" />
+    <ScrollPane style="-fx-border-width: 1px; -fx-border-color: darkblue;" fx:id="scrollPane" fitToHeight="true" fitToWidth="true" layoutX="24.0" layoutY="60.0" prefHeight="586.0" prefWidth="352.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
+        <VBox fx:id="teamsContainer" spacing="10" />
+    </ScrollPane>
 </fx:root>

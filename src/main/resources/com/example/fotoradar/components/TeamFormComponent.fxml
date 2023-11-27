@@ -8,7 +8,8 @@
 
 
 <AnchorPane prefHeight="383.0" prefWidth="366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.fotoradar.components.TeamComponent">
+            fx:controller="com.example.fotoradar.components.TeamComponent"
+            style="-fx-border-width: 1px; -fx-border-color: blue;">
     <Label layoutY="24.0" prefHeight="16.0" prefWidth="370.0" text="Dodaj/Edytuj zespół" textAlignment="CENTER"
            AnchorPane.topAnchor="24.0"/>
     <Label layoutX="24.0" layoutY="64.0" prefHeight="16.0" prefWidth="45.0" text="Nazwa" AnchorPane.leftAnchor="24.0"

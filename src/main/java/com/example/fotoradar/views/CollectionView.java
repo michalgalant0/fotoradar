@@ -30,7 +30,7 @@ public class CollectionView implements RemoveStructureListener, OnWindowClosedLi
     private Collection collection;
 
     private CollectibleOperations collectibleOperations;
-    private ArrayList<Collectible> collectibles;
+    private ArrayList<Collectible>  collectibles;
 
     public CollectionView() {
         try {

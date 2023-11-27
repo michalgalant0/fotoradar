@@ -10,12 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeamOperations {
-    private final Connection connection;
+    private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
-    public TeamOperations(Connection connection) {
-        this.connection = connection;
+    public TeamOperations() throws SQLException {
     }
-
     public List<Team> getAllTeams() throws SQLException {
         List<Team> teams = new ArrayList<>();
         String query = "SELECT * FROM Team";

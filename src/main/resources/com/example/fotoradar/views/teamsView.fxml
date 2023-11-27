@@ -2,9 +2,21 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import com.example.fotoradar.components.CollectionFormComponent?>
+<?import com.example.fotoradar.components.TeamsComponent?>
+<?import com.example.fotoradar.components.TeamFormComponent?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.fotoradar.views.TeamsView">
+<AnchorPane prefHeight="1000.0" prefWidth="1680.0"
+            xmlns="http://javafx.com/javafx/"  xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.fotoradar.views.TeamsView"
+            style="-fx-border-width: 1px; -fx-border-color: cyan;">
 
+
+    <Button  mnemonicParsing="false" onAction="#backToCollection"
+             AnchorPane.bottomAnchor="48.0"
+             AnchorPane.rightAnchor="48.0"
+             prefHeight="24.0" prefWidth="200.0" text="POWRÓT DO KOLEKCJI" />
 </AnchorPane>

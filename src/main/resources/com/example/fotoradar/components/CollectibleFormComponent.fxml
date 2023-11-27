@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<fx:root
+<fx:root style="-fx-border-width: 1px; -fx-border-color: blue;"
         prefHeight="500.0" prefWidth="400.0"
         type="javafx.scene.layout.AnchorPane"
         xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">

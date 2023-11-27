@@ -6,6 +6,7 @@ import com.example.fotoradar.databaseOperations.VersionOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Segment;
 import com.example.fotoradar.models.Version;
+import com.example.fotoradar.models.Team;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -32,9 +33,9 @@ public class VersionFormWindow implements Window {
 
     public void initialize() {
         System.out.println("VersionFormWindow.parentSegment: "+parentSegment);
+        //System.out.println("VersionFormWindow.parentTeam: "+parentTeam);
         System.out.println(parentCollectionName);
         System.out.println(parentCollectible);
-
         setWindowLabel();
     }
 

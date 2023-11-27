@@ -2,25 +2,29 @@
 
 <?import com.example.fotoradar.components.CollectionFormComponent?>
 <?import com.example.fotoradar.components.TeamsComponent?>
-
+<?import com.example.fotoradar.components.TeamFormComponent?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0"
+
+<AnchorPane prefHeight="1000.0" prefWidth="1680.0"
+            style="-fx-border-width: 1px; -fx-border-color: orange;"
             xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ parametry">
         <font>
             <Font size="30.0" />
         </font>
     </Label>
-    <CollectionFormComponent fx:id="collectionFormComponent" layoutX="24.0" layoutY="84.0" prefHeight="500.0">
+    <CollectionFormComponent style="-fx-border-width: 1px; -fx-border-color: darkgreen;"
+            fx:id="collectionFormComponent" layoutX="24.0" layoutY="84.0" prefHeight="500.0" >
         <Button  mnemonicParsing="false" onAction="#saveCollection"
                  AnchorPane.bottomAnchor="0.0"
                  AnchorPane.rightAnchor="0.0"
                  prefHeight="24.0" prefWidth="200.0" text="ZAPISZ PARAMETRY" />
     </CollectionFormComponent>
-    <TeamsComponent fx:id="teamsComponent" layoutX="500.0" layoutY="84.0" prefHeight="500">
+    <TeamsComponent style="-fx-border-width: 1px; -fx-border-color: darkred;"
+                       fx:id="teamsComponent" layoutX="500.0" layoutY="84.0" prefHeight="500">
         <Button  mnemonicParsing="false" onAction="#manageTeams"
                  AnchorPane.bottomAnchor="0.0"
                  AnchorPane.rightAnchor="0.0"
