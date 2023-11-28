@@ -21,11 +21,52 @@ import java.util.Date;
 public class SummaryGenerator {
     private final Connection connection;
     private final Collection collection;
+    private final PDType0Font font;
+
+    private final PDDocument document;
+    private PDPage page;
+    private PDPageContentStream contentStream;
+
+    private int lineCount = 0;
 
     public SummaryGenerator(Collection collection) throws SQLException {
         this.collection = collection;
         connection = DatabaseConnection.getInstance().getConnection();
+        document = new PDDocument();
+        page = new PDPage(PDRectangle.A4);
+        try {
+            font = PDType0Font.load(document, getClass().getResourceAsStream("/fonts/Roboto-Regular.ttf"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         generateReport();
+    }
+
+    private void increaseLineCountByValue(int value) {
+        lineCount += value;
+        if (lineCount >= 50) {
+            try {
+                generatePage();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void generatePage() throws IOException {
+        document.addPage(new PDPage(PDRectangle.A4));
+        if (contentStream != null) {
+            contentStream.endText(); // Zakończenie tekstu na starej stronie
+            contentStream.close();   // Zamknięcie strumienia na starej stronie
+        }
+
+        // Rozpoczęcie tekstu na nowej stronie
+        page = document.getPage(document.getNumberOfPages() - 1);
+        contentStream = new PDPageContentStream(document, page);
+        contentStream.setFont(font, 12);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(30, 800);
+        lineCount = 0;
     }
 
     private void generateReport() {
@@ -33,22 +74,9 @@ public class SummaryGenerator {
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
+            generatePage();
 
-            PDDocument document = new PDDocument();
-            PDPage page = new PDPage(PDRectangle.A4);
-            document.addPage(page);
-
-            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-                PDType0Font font = PDType0Font.load(document, getClass().getResourceAsStream("/fonts/Roboto-Regular.ttf"));
-                contentStream.setFont(font, 12);
-                contentStream.beginText();
-                contentStream.newLineAtOffset(20, 800);
-
-                contentStream.showText("Podsumowanie kolekcji");
-                contentStream.newLineAtOffset(0, -25);
-                contentStream.showText("------------------");
-                contentStream.newLineAtOffset(0, -25);
-
+            try {
                 while (resultSet.next()) {
                     String collectionTitle = resultSet.getString("collection_title");
                     String collectionStartDate = resultSet.getString("collection_start_date");
@@ -57,7 +85,7 @@ public class SummaryGenerator {
                     int totalCollectibles = resultSet.getInt("total_collectibles");
                     double collectionSize = resultSet.getDouble("collection_size");
 
-                    contentStream.showText("Kolekcja: " + collectionTitle);
+                    contentStream.showText("Podsumowanie kolekcji " + collectionTitle);
                     contentStream.newLineAtOffset(0, -20);
                     contentStream.showText("Data rozpoczęcia: " + collectionStartDate);
                     contentStream.newLineAtOffset(0, -15);
@@ -70,13 +98,15 @@ public class SummaryGenerator {
                     contentStream.showText("Rozmiar kolekcji: " + collectionSize);
                     contentStream.newLineAtOffset(0, -20);
 
-                    generateCollectiblesInfo(collectionTitle, contentStream);
+                    increaseLineCountByValue(6);
 
-                    contentStream.showText("------------------");
-                    contentStream.newLineAtOffset(0, -25);
+                    generateCollectiblesInfo(collection.getId());
                 }
 
                 contentStream.endText();
+                contentStream.close();
+            } catch (IOException | SQLException e) {
+                throw new RuntimeException(e);
             }
 
             String fileName = Paths.get(
@@ -97,8 +127,8 @@ public class SummaryGenerator {
         }
     }
 
-    private void generateCollectiblesInfo(String collectionTitle, PDPageContentStream contentStream) throws SQLException {
-        String collectiblesQuery = getCollectiblesQuery(collectionTitle);
+    private void generateCollectiblesInfo(int collectionId) throws SQLException {
+        String collectiblesQuery = getCollectiblesQuery(collectionId);
 
         try (Statement collectiblesStatement = connection.createStatement();
              ResultSet collectiblesResultSet = collectiblesStatement.executeQuery(collectiblesQuery)) {
@@ -112,20 +142,22 @@ public class SummaryGenerator {
                 int totalSegments = collectiblesResultSet.getInt("total_segments");
                 double collectibleSize = collectiblesResultSet.getDouble("collectible_size");
 
-                contentStream.showText("Obiekt: " + collectibleTitle);
+                contentStream.showText("    Obiekt: " + collectibleTitle);
                 contentStream.newLineAtOffset(0, -15);
-                contentStream.showText("Data rozpoczęcia: " + collectibleStartDate);
+                contentStream.showText("    Data rozpoczęcia: " + collectibleStartDate);
                 contentStream.newLineAtOffset(0, -12);
-                contentStream.showText("Data zakończenia: " + collectibleFinishDate);
+                contentStream.showText("    Data zakończenia: " + collectibleFinishDate);
                 contentStream.newLineAtOffset(0, -12);
-                contentStream.showText("Opis: " + collectibleDescription);
+                contentStream.showText("    Opis: " + collectibleDescription);
                 contentStream.newLineAtOffset(0, -12);
-                contentStream.showText("Ilość segmentów: " + totalSegments);
+                contentStream.showText("    Ilość segmentów: " + totalSegments);
                 contentStream.newLineAtOffset(0, -12);
-                contentStream.showText("Waga obiektu: " + collectibleSize);
+                contentStream.showText("    Waga obiektu: " + collectibleSize);
                 contentStream.newLineAtOffset(0, -15);
 
-                generateSegmentsInfo(collectibleId, contentStream);
+                increaseLineCountByValue(6);
+
+                generateSegmentsInfo(collectibleId);
 
                 contentStream.newLineAtOffset(0, -15);
             }
@@ -134,7 +166,7 @@ public class SummaryGenerator {
         }
     }
 
-    private void generateSegmentsInfo(int collectibleId, PDPageContentStream contentStream) throws SQLException {
+    private void generateSegmentsInfo(int collectibleId) throws SQLException {
         String segmentsQuery = getSegmentsQuery(collectibleId);
 
         try (Statement segmentsStatement = connection.createStatement();
@@ -148,18 +180,20 @@ public class SummaryGenerator {
                 int totalVersions = segmentsResultSet.getInt("total_versions");
                 double segmentSize = segmentsResultSet.getDouble("segment_size");
 
-                contentStream.showText("Segment: " + segmentTitle);
+                contentStream.showText("        Segment: " + segmentTitle);
                 contentStream.newLineAtOffset(0, -15);
-                contentStream.showText("Data rozpoczęcia: " + segmentStartDate);
+                contentStream.showText("        Data rozpoczęcia: " + segmentStartDate);
                 contentStream.newLineAtOffset(0, -12);
-                contentStream.showText("Data zakończenia: " + segmentFinishDate);
+                contentStream.showText("        Data zakończenia: " + segmentFinishDate);
                 contentStream.newLineAtOffset(0, -12);
-                contentStream.showText("Ilość wersji: " + totalVersions);
+                contentStream.showText("        Ilość wersji: " + totalVersions);
                 contentStream.newLineAtOffset(0, -12);
-                contentStream.showText("Waga segmentu: " + segmentSize);
+                contentStream.showText("        Waga segmentu: " + segmentSize);
                 contentStream.newLineAtOffset(0, -15);
 
-                generateVersionsInfo(segmentId, contentStream);
+                increaseLineCountByValue(5);
+
+                generateVersionsInfo(segmentId);
 
                 contentStream.newLineAtOffset(-0, -15);
             }
@@ -168,7 +202,7 @@ public class SummaryGenerator {
         }
     }
 
-    private void generateVersionsInfo(int segmentId, PDPageContentStream contentStream) throws SQLException {
+    private void generateVersionsInfo(int segmentId) throws SQLException {
         String versionsQuery = getVersionsQuery(segmentId);
 
         try (Statement versionsStatement = connection.createStatement();
@@ -182,16 +216,18 @@ public class SummaryGenerator {
                 int totalPhotos = versionsResultSet.getInt("total_photos");
                 double versionSize = versionsResultSet.getDouble("version_size");
 
-                contentStream.showText("    Wersja: " + versionName);
+                contentStream.showText("            Wersja: " + versionName);
                 contentStream.newLineAtOffset(0, -15);
-                contentStream.showText("    Data rozpoczęcia: " + startDateTime);
+                contentStream.showText("            Data rozpoczęcia: " + startDateTime);
                 contentStream.newLineAtOffset(0, -12);
-                contentStream.showText("    Data zakończenia: " + finishDateTime);
+                contentStream.showText("            Data zakończenia: " + finishDateTime);
                 contentStream.newLineAtOffset(0, -12);
-                contentStream.showText("    Ilość zdjęć: " + totalPhotos);
+                contentStream.showText("            Ilość zdjęć: " + totalPhotos);
                 contentStream.newLineAtOffset(0, -12);
-                contentStream.showText("    Waga wersji: " + versionSize);
+                contentStream.showText("            Waga wersji: " + versionSize);
                 contentStream.newLineAtOffset(0, -15);
+
+                increaseLineCountByValue(5);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -220,7 +256,7 @@ public class SummaryGenerator {
         return collectionQuery;
     }
 
-    private String getCollectiblesQuery(String collectionTitle) {
+    private String getCollectiblesQuery(int collectionId) {
         String collectiblesQuery = """
                 SELECT
                     cl.collectible_id,
@@ -236,12 +272,12 @@ public class SummaryGenerator {
                     LEFT JOIN VERSION v ON s.segment_id = v.segment_id
                     LEFT JOIN PHOTO p ON v.version_id = p.version_id
                 WHERE
-                    cl.collection_id = (SELECT collection_id FROM COLLECTION WHERE title = '%s')
+                    cl.collection_id = %d
                 GROUP BY
                     cl.collectible_id, cl.title, cl.start_date, cl.finish_date, cl.description
                 """;
 
-        collectiblesQuery = String.format(collectiblesQuery, collectionTitle);
+        collectiblesQuery = String.format(collectiblesQuery, collectionId);
         return collectiblesQuery;
     }
 
