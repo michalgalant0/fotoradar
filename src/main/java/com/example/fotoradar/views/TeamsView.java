@@ -1,11 +1,13 @@
 package com.example.fotoradar.views;
 
+import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.components.TeamFormComponent;
 import com.example.fotoradar.components.TeamsComponent;
 import com.example.fotoradar.databaseOperations.TeamOperations;
 import com.example.fotoradar.models.Collection;
 import com.example.fotoradar.models.Team;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import lombok.Setter;
 
@@ -19,7 +21,7 @@ public class TeamsView {
     @FXML
     private TeamsComponent teamsComponent;
     @FXML
-    private Button backToButton;
+    private TeamFormComponent teamFormComponent;
 
     private TeamOperations teamOperations;
 
@@ -48,5 +50,39 @@ public class TeamsView {
 
     private void setWindowLabel(String collectionName) {
         windowLabel.setText("kolekcje/ "+collectionName + "/ zespoły");
+    }
+
+    @FXML
+    private void backToParameters(ActionEvent event) throws IOException {
+        ParametersView parametersView = new ParametersView();
+        parametersView.setCollection(parentCollection);
+        new SwitchScene().switchScene(event, "parametersView", parametersView);
+    }
+
+    @FXML
+    private void addTeam(ActionEvent event) throws SQLException {
+        System.out.println("zapisz zespol");
+
+        Team teamToAdd = new Team(
+                teamFormComponent.nameTextField.getText(),
+                teamFormComponent.descriptionTextArea.getText(),
+                parentCollection.getId()
+        );
+        System.out.println("dane z formularza: " + teamToAdd);
+
+        new TeamOperations().addTeam(teamToAdd);
+
+        refresh();
+    }
+
+    private void refresh() {
+        try {
+            teams = teamOperations.getAllCollectionTeams(parentCollection.getId());
+            // wypełnienie bloku zespołów danymi z bazy
+            teamsComponent.setTeams(teams);
+            teamsComponent.fillTeamsVBox();
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

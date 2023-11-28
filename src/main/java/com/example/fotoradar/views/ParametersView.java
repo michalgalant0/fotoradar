@@ -5,7 +5,9 @@ import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectionFormComponent;
 import com.example.fotoradar.components.TeamsComponent;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
+import com.example.fotoradar.databaseOperations.TeamOperations;
 import com.example.fotoradar.models.Collection;
+import com.example.fotoradar.models.Team;
 import com.example.fotoradar.summaryGenerator.SummaryGenerator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class ParametersView {
     @FXML
@@ -28,12 +31,15 @@ public class ParametersView {
     @Setter
     private Collection collection;
 
+    private ArrayList<Team> teams;
+
     private String collectionPath = "%s/KOLEKCJE/%s";
 
     public void initialize() {
         System.out.println("ParametersView.initialize: "+collection);
         setWindowLabel(collection.getTitle());
         fillFormComponent();
+        fillTeamsComponent();
         collectionPath = String.format(collectionPath, System.getProperty("user.dir"), collection.getTitle());
     }
 
@@ -46,6 +52,17 @@ public class ParametersView {
         collectionFormComponent.startDatePicker.setValue(LocalDate.parse(collection.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         collectionFormComponent.finishDatePicker.setValue(LocalDate.parse(collection.getFinishDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         collectionFormComponent.descriptionTextArea.setText(collection.getDescription());
+    }
+
+    public void fillTeamsComponent() {
+        try {
+            teamsComponent.setTeams(
+                    new TeamOperations().getAllCollectionTeams(collection.getId())
+            );
+            teamsComponent.fillTeamsVBox();
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -104,6 +121,7 @@ public class ParametersView {
     private void refresh() {
         setWindowLabel(collection.getTitle());
         fillFormComponent();
+        fillTeamsComponent();
         collectionPath = String.format(collectionPath, System.getProperty("user.dir"), collection.getTitle());
     }
 }

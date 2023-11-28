@@ -4,19 +4,24 @@
 <?import com.example.fotoradar.components.TeamsComponent?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/"
-            xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0"
+            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ kolekcja/ zespoły">
         <font>
             <Font size="30.0" />
         </font>
     </Label>
     <TeamsComponent fx:id="teamsComponent" layoutX="24.0" layoutY="84.0" />
-    <TeamFormComponent />
-    <Button fx:id="backToButton"
-            mnemonicParsing="false"
+    <TeamFormComponent fx:id="teamFormComponent" AnchorPane.rightAnchor="24.0" layoutY="84.0" >
+        <Button mnemonicParsing="false"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                prefHeight="24.0" prefWidth="200.0" text="DODAJ ZESPÓŁ"
+                onAction="#addTeam" />
+    </TeamFormComponent>
+    <Button mnemonicParsing="false"
             AnchorPane.bottomAnchor="48.0" AnchorPane.rightAnchor="48.0"
-            prefHeight="24.0" prefWidth="200.0" text="backToButton" />
+            prefHeight="24.0" prefWidth="200.0" text="POWRÓT DO PARAMETRÓW"
+            onAction="#backToParameters" />
 </AnchorPane>

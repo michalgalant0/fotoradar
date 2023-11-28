@@ -67,7 +67,7 @@ public class SegmentFormComponent extends AnchorPane {
     public void fillVersionComboBox() throws SQLException {
         versions = new VersionOperations().getAllVersions(segment.getId());
 
-        versionComboBox.setConverter(new StringConverter<Version>() {
+        versionComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Version version) {
                 return version != null ? version.getName() : "";

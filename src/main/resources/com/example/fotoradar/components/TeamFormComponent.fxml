@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <fx:root
+        style="-fx-border-width: 1px; -fx-border-color: green;"
         prefHeight="383.0" prefWidth="366.0"
         xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
         type="javafx.scene.layout.AnchorPane" >
@@ -15,8 +16,4 @@
     <Label layoutX="24.0" layoutY="120.0" prefHeight="16.0" prefWidth="45.0" text="Opis" AnchorPane.leftAnchor="24.0"/>
     <TextArea fx:id="descriptionTextArea" layoutX="24.0" layoutY="144.0" prefHeight="159.0" prefWidth="321.0" AnchorPane.leftAnchor="24.0"
               AnchorPane.rightAnchor="24.0"/>
-<!--    <Button layoutX="91.0" layoutY="335.0" mnemonicParsing="false" text="Zapisz" AnchorPane.bottomAnchor="24.0"-->
-<!--            AnchorPane.leftAnchor="91.0"/>-->
-<!--    <Button layoutX="216.0" layoutY="335.0" mnemonicParsing="false" text="Anuluj" AnchorPane.bottomAnchor="24.0"-->
-<!--            AnchorPane.rightAnchor="95.0"/>-->
 </fx:root>
