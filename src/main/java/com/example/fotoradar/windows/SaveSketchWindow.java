@@ -1,7 +1,6 @@
 package com.example.fotoradar.windows;
 
 import com.example.fotoradar.models.Collectible;
-import com.example.fotoradar.models.Collection;
 import com.example.fotoradar.models.Thumbnail;
 import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import javafx.embed.swing.SwingFXUtils;

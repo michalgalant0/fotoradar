@@ -31,7 +31,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 
 
-public class Painter extends Application implements Window {
+public class Painter extends Application {
 
     private GraphicsContext gcB, gcF, gcI;
     private Stage primaryStage;
@@ -299,6 +299,9 @@ public class Painter extends Application implements Window {
     private void open() {
         FileChooser openFile = new FileChooser();
         openFile.setTitle("Open File");
+        FileChooser.ExtensionFilter imageFilter =
+                new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png", "*.gif");
+        openFile.getExtensionFilters().add(imageFilter);
         File file = openFile.showOpenDialog(primaryStage);
 
         if (file != null) {
