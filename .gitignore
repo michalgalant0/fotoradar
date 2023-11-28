@@ -5,6 +5,7 @@ target/
 
 fotoradar.db
 /KOLEKCJE
+/RAPORTY
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

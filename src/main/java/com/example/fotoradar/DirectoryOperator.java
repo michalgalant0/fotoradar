@@ -18,6 +18,10 @@ public class DirectoryOperator {
     public void createStructure() {
         File collectionsDirectory = new File(currentDir, "KOLEKCJE");
         createDirectory(collectionsDirectory, "kolekcje(all)");
+
+        // utworzenie katalogu do raportów
+        File reportsDirectory = new File(currentDir, "RAPORTY");
+        createDirectory(reportsDirectory, "raporty(all)");
     }
 
     // dla kolekcji

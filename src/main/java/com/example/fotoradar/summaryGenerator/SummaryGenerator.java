@@ -10,10 +10,13 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SummaryGenerator {
     private final Connection connection;
@@ -76,7 +79,15 @@ public class SummaryGenerator {
                 contentStream.endText();
             }
 
-            try (FileOutputStream fileOutputStream = new FileOutputStream("CollectionReport.pdf")) {
+            String fileName = Paths.get(
+                    "RAPORTY",
+                    String.format(
+                            "%s_raport_%s.pdf",
+                            collection.getTitle(),
+                            new SimpleDateFormat("dd-MM-yyyy").format(new Date())
+                    )
+            ).toString();
+            try (FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
                 document.save(fileOutputStream);
             }
 
