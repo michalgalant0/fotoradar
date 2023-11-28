@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,6 +29,7 @@ public class SummaryGenerator {
     private PDPageContentStream contentStream;
 
     private int lineCount = 0;
+    private final DecimalFormat df = new DecimalFormat("0.00");
 
     public SummaryGenerator(Collection collection) throws SQLException {
         this.collection = collection;
@@ -95,7 +97,7 @@ public class SummaryGenerator {
                     contentStream.newLineAtOffset(0, -15);
                     contentStream.showText("Ilość obiektów: " + totalCollectibles);
                     contentStream.newLineAtOffset(0, -15);
-                    contentStream.showText("Rozmiar kolekcji: " + collectionSize);
+                    contentStream.showText("Rozmiar kolekcji: " + df.format(collectionSize) + " MB");
                     contentStream.newLineAtOffset(0, -20);
 
                     increaseLineCountByValue(6);
@@ -112,7 +114,7 @@ public class SummaryGenerator {
             String fileName = Paths.get(
                     "RAPORTY",
                     String.format(
-                            "%s_raport_%s.pdf",
+                            "raport_%s_%s.pdf",
                             collection.getTitle(),
                             new SimpleDateFormat("dd-MM-yyyy").format(new Date())
                     )
@@ -152,7 +154,7 @@ public class SummaryGenerator {
                 contentStream.newLineAtOffset(0, -12);
                 contentStream.showText("    Ilość segmentów: " + totalSegments);
                 contentStream.newLineAtOffset(0, -12);
-                contentStream.showText("    Waga obiektu: " + collectibleSize);
+                contentStream.showText("    Waga obiektu: " + df.format(collectibleSize) + " MB");
                 contentStream.newLineAtOffset(0, -15);
 
                 increaseLineCountByValue(6);
@@ -188,7 +190,7 @@ public class SummaryGenerator {
                 contentStream.newLineAtOffset(0, -12);
                 contentStream.showText("        Ilość wersji: " + totalVersions);
                 contentStream.newLineAtOffset(0, -12);
-                contentStream.showText("        Waga segmentu: " + segmentSize);
+                contentStream.showText("        Waga segmentu: " + df.format(segmentSize) + " MB");
                 contentStream.newLineAtOffset(0, -15);
 
                 increaseLineCountByValue(5);
@@ -224,7 +226,7 @@ public class SummaryGenerator {
                 contentStream.newLineAtOffset(0, -12);
                 contentStream.showText("            Ilość zdjęć: " + totalPhotos);
                 contentStream.newLineAtOffset(0, -12);
-                contentStream.showText("            Waga wersji: " + versionSize);
+                contentStream.showText("            Waga wersji: " + df.format(versionSize) + " MB");
                 contentStream.newLineAtOffset(0, -15);
 
                 increaseLineCountByValue(5);

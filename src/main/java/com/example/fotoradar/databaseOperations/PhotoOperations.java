@@ -36,10 +36,11 @@ public class PhotoOperations {
 
     // Dodawanie zdjęcia do bazy
     public boolean addPhoto(Photo photo) throws SQLException {
-        String query = "INSERT INTO Photo (file_name, version_id) VALUES (?, ?)";
+        String query = "INSERT INTO Photo (file_name, file_size, version_id) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, photo.getFileName());
-            preparedStatement.setInt(2, photo.getParentId());
+            preparedStatement.setFloat(2, photo.getFileSize());
+            preparedStatement.setInt(3, photo.getParentId());
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;

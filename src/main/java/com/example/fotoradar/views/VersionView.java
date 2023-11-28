@@ -172,9 +172,10 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
                     file.toPath(), Path.of(destinationFilePath),
                     StandardCopyOption.REPLACE_EXISTING
             );
+            float fileSize = (float) file.length() /(1024*1024);
             // dodanie zdjęć do bazy
             photoOperations.addPhoto(
-                    new Photo(file.getName(), version.getId())
+                    new Photo(file.getName(), version.getId(), fileSize)
             );
         }
         refresh();
