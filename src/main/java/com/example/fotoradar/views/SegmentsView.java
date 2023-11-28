@@ -39,8 +39,6 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     @Setter
     private Collectible collectible = new Collectible();
     @Setter
-    private Collection parentCollection = new Collection();
-    @Setter
     private String parentCollectionName;
     @Setter
     private ArrayList<Segment> segments = new ArrayList<>();
@@ -126,10 +124,8 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     private void addSketch() throws Exception {
         System.out.println("dodanie szkicu");
         painter = new Painter();
-        //do poprawy
-        painter.setParentCollection(parentCollection);
+        painter.setParentCollectionName(parentCollectionName);
         painter.setCollectible(collectible);
-        //
         Stage stage = new Stage();
         painter.start(stage);
     }

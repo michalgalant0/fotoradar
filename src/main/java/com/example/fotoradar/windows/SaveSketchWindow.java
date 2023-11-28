@@ -11,6 +11,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
+import javafx.stage.Stage;
 import lombok.Setter;
 
 import javax.imageio.ImageIO;
@@ -21,7 +22,8 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 
 
-public class SaveSketchWindow{
+public class SaveSketchWindow implements Window{
+
     @FXML
     public TextField fileName;
     @FXML
@@ -30,17 +32,24 @@ public class SaveSketchWindow{
     public Button cancelSave;
     @Setter
     private Collectible collectible;
+
     @Setter
-    private Collection parentCollection;
+    private String parentCollectionName;
+    @Setter
     private String filePathString;
-    private final Canvas theCanvas;
+
+    @Setter
+    private Stage dialogStage;
 
     private ThumbnailOperations thumbnailOperations;
 
-    public SaveSketchWindow(Canvas theCanvas) throws SQLException {
-        this.theCanvas = theCanvas;
+    private final Canvas TheCanvas;
+
+
+
+    public SaveSketchWindow(Canvas TheCanvas) throws SQLException {
+        this.TheCanvas = TheCanvas;
         this.collectible = new Collectible();
-        this.parentCollection = new Collection();
         this.thumbnailOperations = new ThumbnailOperations();
 
     }
@@ -63,13 +72,13 @@ public class SaveSketchWindow{
             // Tworzenie ścieżki pliku
             filePathString = Paths.get(
                     System.getProperty("user.dir"), "KOLEKCJE",
-                    parentCollection.getTitle(), "OBIEKTY", collectible.getTitle(), "MINIATURY", fileNameText).toString();
+                    parentCollectionName, "OBIEKTY", collectible.getTitle(), "MINIATURY", fileNameText).toString();
 
             String filePath = filePathString + ".png"; // Dodanie rozszerzenia .png do nazwy pliku
             System.out.printf((filePath) + "%n");
             try {
                 WritableImage writableImage = new WritableImage(800, 800);
-                theCanvas.snapshot(null, writableImage);
+                TheCanvas.snapshot(null, writableImage);
                 RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
                 File file = new File(filePath);
                 ImageIO.write(renderedImage, "png", file);
@@ -78,9 +87,7 @@ public class SaveSketchWindow{
                 thumbnailOperations.addThumbnail(
                         new Thumbnail(fileNameText+".png", collectible.getId())
                 );
-
-                // Zamknięcie okna SaveSketchWindow po zapisaniu pliku
-                //saveSketch.getScene().getWindow().hide();
+                closeWindow(dialogStage);
             } catch (IOException ex) {
                 System.out.println("Error!");
             }
@@ -91,8 +98,6 @@ public class SaveSketchWindow{
 
     public void cancel(){
     //Zamknięcie okna SaveSketchWindow
+        closeWindow(dialogStage);
     }
-
-
-
 }

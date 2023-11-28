@@ -10,7 +10,7 @@ module com.example.fotoradar {
     requires java.desktop;
     requires javafx.swing;
 
-    opens com.example.fotoradar to javafx.fxml;
+    opens com.example.fotoradar.painter to javafx.fxml;
     exports com.example.fotoradar;
     exports com.example.fotoradar.databaseOperations;
     opens com.example.fotoradar.databaseOperations to javafx.fxml;
