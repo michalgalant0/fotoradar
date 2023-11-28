@@ -1,6 +1,7 @@
 package com.example.fotoradar.summaryGenerator;
 
 import com.example.fotoradar.databaseOperations.DatabaseConnection;
+import com.example.fotoradar.models.Collection;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -16,30 +17,16 @@ import java.sql.Statement;
 
 public class SummaryGenerator {
     private final Connection connection;
+    private final Collection collection;
 
-    public SummaryGenerator() throws SQLException {
+    public SummaryGenerator(Collection collection) throws SQLException {
+        this.collection = collection;
         connection = DatabaseConnection.getInstance().getConnection();
         generateReport();
     }
 
     private void generateReport() {
-        String query = """
-                SELECT
-                    c.title AS collection_title,
-                    c.start_date AS collection_start_date,
-                    c.finish_date AS collection_finish_date,
-                    c.description AS collection_description,
-                    COUNT(DISTINCT cl.collectible_id) AS total_collectibles,
-                    SUM(p.file_size) AS collection_size
-                FROM
-                    COLLECTION c
-                    LEFT JOIN COLLECTIBLE cl ON c.collection_id = cl.collection_id
-                    LEFT JOIN SEGMENT s ON cl.collectible_id = s.collectible_id
-                    LEFT JOIN VERSION v ON s.segment_id = v.segment_id
-                    LEFT JOIN PHOTO p ON v.version_id = p.version_id
-                GROUP BY
-                    c.title, c.start_date, c.finish_date, c.description
-                """;
+        String query = getCollectionQuery();
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
@@ -52,7 +39,7 @@ public class SummaryGenerator {
                 PDType0Font font = PDType0Font.load(document, getClass().getResourceAsStream("/fonts/Roboto-Regular.ttf"));
                 contentStream.setFont(font, 12);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(20, 700);
+                contentStream.newLineAtOffset(20, 800);
 
                 contentStream.showText("Podsumowanie kolekcji");
                 contentStream.newLineAtOffset(0, -25);
@@ -67,7 +54,7 @@ public class SummaryGenerator {
                     int totalCollectibles = resultSet.getInt("total_collectibles");
                     double collectionSize = resultSet.getDouble("collection_size");
 
-                    contentStream.showText("Nagłówek podsumowanie kolekcji " + collectionTitle);
+                    contentStream.showText("Kolekcja: " + collectionTitle);
                     contentStream.newLineAtOffset(0, -20);
                     contentStream.showText("Data rozpoczęcia: " + collectionStartDate);
                     contentStream.newLineAtOffset(0, -15);
@@ -115,21 +102,21 @@ public class SummaryGenerator {
                 double collectibleSize = collectiblesResultSet.getDouble("collectible_size");
 
                 contentStream.showText("Obiekt: " + collectibleTitle);
-                contentStream.newLineAtOffset(15, -15);
+                contentStream.newLineAtOffset(0, -15);
                 contentStream.showText("Data rozpoczęcia: " + collectibleStartDate);
-                contentStream.newLineAtOffset(15, -12);
+                contentStream.newLineAtOffset(0, -12);
                 contentStream.showText("Data zakończenia: " + collectibleFinishDate);
-                contentStream.newLineAtOffset(15, -12);
+                contentStream.newLineAtOffset(0, -12);
                 contentStream.showText("Opis: " + collectibleDescription);
-                contentStream.newLineAtOffset(15, -12);
+                contentStream.newLineAtOffset(0, -12);
                 contentStream.showText("Ilość segmentów: " + totalSegments);
-                contentStream.newLineAtOffset(15, -12);
+                contentStream.newLineAtOffset(0, -12);
                 contentStream.showText("Waga obiektu: " + collectibleSize);
-                contentStream.newLineAtOffset(15, -15);
+                contentStream.newLineAtOffset(0, -15);
 
                 generateSegmentsInfo(collectibleId, contentStream);
 
-                contentStream.newLineAtOffset(-15, -15);
+                contentStream.newLineAtOffset(0, -15);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -151,19 +138,19 @@ public class SummaryGenerator {
                 double segmentSize = segmentsResultSet.getDouble("segment_size");
 
                 contentStream.showText("Segment: " + segmentTitle);
-                contentStream.newLineAtOffset(15, -15);
+                contentStream.newLineAtOffset(0, -15);
                 contentStream.showText("Data rozpoczęcia: " + segmentStartDate);
-                contentStream.newLineAtOffset(15, -12);
+                contentStream.newLineAtOffset(0, -12);
                 contentStream.showText("Data zakończenia: " + segmentFinishDate);
-                contentStream.newLineAtOffset(15, -12);
+                contentStream.newLineAtOffset(0, -12);
                 contentStream.showText("Ilość wersji: " + totalVersions);
-                contentStream.newLineAtOffset(15, -12);
+                contentStream.newLineAtOffset(0, -12);
                 contentStream.showText("Waga segmentu: " + segmentSize);
-                contentStream.newLineAtOffset(15, -15);
+                contentStream.newLineAtOffset(0, -15);
 
                 generateVersionsInfo(segmentId, contentStream);
 
-                contentStream.newLineAtOffset(-15, -15);
+                contentStream.newLineAtOffset(-0, -15);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -185,22 +172,44 @@ public class SummaryGenerator {
                 double versionSize = versionsResultSet.getDouble("version_size");
 
                 contentStream.showText("    Wersja: " + versionName);
-                contentStream.newLineAtOffset(15, -15);
+                contentStream.newLineAtOffset(0, -15);
                 contentStream.showText("    Data rozpoczęcia: " + startDateTime);
-                contentStream.newLineAtOffset(15, -12);
+                contentStream.newLineAtOffset(0, -12);
                 contentStream.showText("    Data zakończenia: " + finishDateTime);
-                contentStream.newLineAtOffset(15, -12);
+                contentStream.newLineAtOffset(0, -12);
                 contentStream.showText("    Ilość zdjęć: " + totalPhotos);
-                contentStream.newLineAtOffset(15, -12);
+                contentStream.newLineAtOffset(0, -12);
                 contentStream.showText("    Waga wersji: " + versionSize);
-                contentStream.newLineAtOffset(15, -15);
+                contentStream.newLineAtOffset(0, -15);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static String getCollectiblesQuery(String collectionTitle) {
+    private String getCollectionQuery() {
+        String collectionQuery = """
+                SELECT
+                    c.title AS collection_title,
+                    c.start_date AS collection_start_date,
+                    c.finish_date AS collection_finish_date,
+                    c.description AS collection_description,
+                    COUNT(DISTINCT cl.collectible_id) AS total_collectibles,
+                    SUM(p.file_size) AS collection_size
+                FROM
+                    COLLECTION c
+                    LEFT JOIN COLLECTIBLE cl ON c.collection_id = cl.collection_id
+                    LEFT JOIN SEGMENT s ON cl.collectible_id = s.collectible_id
+                    LEFT JOIN VERSION v ON s.segment_id = v.segment_id
+                    LEFT JOIN PHOTO p ON v.version_id = p.version_id
+                WHERE
+                    c.collection_id = %d
+                """;
+        collectionQuery = String.format(collectionQuery, collection.getId());
+        return collectionQuery;
+    }
+
+    private String getCollectiblesQuery(String collectionTitle) {
         String collectiblesQuery = """
                 SELECT
                     cl.collectible_id,
@@ -225,7 +234,7 @@ public class SummaryGenerator {
         return collectiblesQuery;
     }
 
-    private static String getSegmentsQuery(int collectibleId) {
+    private String getSegmentsQuery(int collectibleId) {
         String segmentsQuery = """
                 SELECT
                     s.segment_id,
@@ -248,7 +257,7 @@ public class SummaryGenerator {
         return segmentsQuery;
     }
 
-    private static String getVersionsQuery(int segmentId) {
+    private String getVersionsQuery(int segmentId) {
         String versionsQuery = """
                 SELECT
                     v.version_id,

@@ -81,7 +81,7 @@ public class ParametersView {
     private void createReport(ActionEvent event) {
         System.out.println("generowanie raportu");
         try {
-            new SummaryGenerator();
+            new SummaryGenerator(collection);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
