@@ -10,4 +10,10 @@ public class Team {
     private String name;
     private String description;
     private int parentCollectionId;
+
+    public Team(String name, String description, int parentCollectionId) {
+        this.setName(name);
+        this.setDescription(description);
+        this.setParentCollectionId(parentCollectionId);
+    }
 }

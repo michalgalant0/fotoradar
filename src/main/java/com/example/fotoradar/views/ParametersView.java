@@ -75,7 +75,11 @@ public class ParametersView {
     @FXML
     private void manageTeams(ActionEvent event) throws IOException {
         System.out.println("zarządzaj zespołami");
-        new SwitchScene().switchScene(event, "teamsView");
+
+        TeamsView teamsView = new TeamsView();
+        teamsView.setParentCollection(collection);
+
+        new SwitchScene().switchScene(event, "teamsView", teamsView);
     }
     @FXML
     private void createReport(ActionEvent event) {

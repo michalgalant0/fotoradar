@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.fotoradar.components.CollectionsComponent"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<fx:root
+        type="javafx.scene.layout.AnchorPane"
+        style="-fx-border-width: 1px; -fx-border-color: pink;"
+        xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="nameLabel"
+           layoutX="14.0" layoutY="14.0" text="nazwa zespolu"
+           AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="16.0" />
+    <TextArea fx:id="descriptionTextArea"
+              layoutX="24.0" layoutY="56.0"
+              maxWidth="300.0" minWidth="300.0"
+              prefHeight="150.0" prefWidth="300.0"
+              AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0"
+              AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="48.0" />
+</fx:root>
