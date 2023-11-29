@@ -13,6 +13,7 @@ import com.example.fotoradar.summaryGenerator.SummaryGenerator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import lombok.Setter;
 
 import java.io.IOException;
@@ -61,6 +62,7 @@ public class ParametersView {
                     new TeamOperations().getAllCollectionTeams(collection.getId())
             );
             teamsComponent.setFlag(TeamsComponentFlag.PARAMETERS_VIEW);
+            AnchorPane.setBottomAnchor(teamsComponent.scrollPane, 32.0);
             teamsComponent.fillTeamsComponent();
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);

@@ -18,7 +18,8 @@
                  AnchorPane.rightAnchor="0.0"
                  prefHeight="24.0" prefWidth="200.0" text="ZAPISZ PARAMETRY" />
     </CollectionFormComponent>
-    <TeamsComponent fx:id="teamsComponent" layoutX="500.0" layoutY="84.0" prefHeight="500">
+    <TeamsComponent fx:id="teamsComponent" layoutX="500.0" layoutY="84.0" prefHeight="500"
+                    style="-fx-border-width: 1px; -fx-border-color: blue;">
         <Button  mnemonicParsing="false" onAction="#manageTeams"
                  AnchorPane.bottomAnchor="0.0"
                  AnchorPane.rightAnchor="0.0"
