@@ -4,6 +4,7 @@ import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.TeamsComponentFlag;
 import com.example.fotoradar.components.CollectionFormComponent;
+import com.example.fotoradar.components.TeamComponentRightClickListener;
 import com.example.fotoradar.components.TeamsComponent;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.databaseOperations.TeamOperations;
@@ -22,7 +23,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class ParametersView {
+public class ParametersView implements TeamComponentRightClickListener {
     @FXML
     public CollectionFormComponent collectionFormComponent;
     @FXML
@@ -61,6 +62,7 @@ public class ParametersView {
             teamsComponent.setTeams(
                     new TeamOperations().getAllCollectionTeams(collection.getId())
             );
+            teamsComponent.setParentView(this);
             teamsComponent.setFlag(TeamsComponentFlag.PARAMETERS_VIEW);
             AnchorPane.setBottomAnchor(teamsComponent.scrollPane, 32.0);
             AnchorPane.setTopAnchor(teamsComponent.scrollPane, 32.0);
@@ -128,5 +130,10 @@ public class ParametersView {
         fillFormComponent();
         fillTeamsComponent();
         collectionPath = String.format(collectionPath, System.getProperty("user.dir"), collection.getTitle());
+    }
+
+    @Override
+    public void onDeletePerformed() {
+        refresh();
     }
 }

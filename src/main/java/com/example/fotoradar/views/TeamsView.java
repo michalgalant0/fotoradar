@@ -3,6 +3,7 @@ package com.example.fotoradar.views;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.TeamsComponentFlag;
 import com.example.fotoradar.components.TeamComponentLeftClickListener;
+import com.example.fotoradar.components.TeamComponentRightClickListener;
 import com.example.fotoradar.components.TeamFormComponent;
 import com.example.fotoradar.components.TeamsComponent;
 import com.example.fotoradar.databaseOperations.TeamOperations;
@@ -18,7 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class TeamsView implements TeamComponentLeftClickListener {
+public class TeamsView implements TeamComponentLeftClickListener, TeamComponentRightClickListener {
     @FXML
     private Label windowLabel;
     @FXML
@@ -80,7 +81,6 @@ public class TeamsView implements TeamComponentLeftClickListener {
                 Team teamToUpdate = teamFormComponent.getTeam();
                 teamToUpdate.setName(teamFormComponent.nameTextField.getText());
                 teamToUpdate.setDescription(teamFormComponent.descriptionTextArea.getText());
-
                 try {
                     new TeamOperations().updateTeam(teamToUpdate);
                 } catch (SQLException e) {
@@ -126,6 +126,11 @@ public class TeamsView implements TeamComponentLeftClickListener {
     @Override
     public void onFormCleared() {
         setSubmitButtonAction(Mode.SAVE);
+    }
+
+    @Override
+    public void onDeletePerformed() {
+        refresh();
     }
 
     enum Mode {

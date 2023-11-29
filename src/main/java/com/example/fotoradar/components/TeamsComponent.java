@@ -2,10 +2,14 @@ package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
 import com.example.fotoradar.TeamsComponentFlag;
+import com.example.fotoradar.databaseOperations.TeamOperations;
 import com.example.fotoradar.models.Team;
+import com.example.fotoradar.views.ParametersView;
 import com.example.fotoradar.views.TeamsView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
@@ -13,11 +17,12 @@ import javafx.scene.layout.GridPane;
 import lombok.Setter;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeamsComponent extends AnchorPane {
     @Setter
-    private TeamsView parentView;
+    private Object parentView;
     @FXML
     public GridPane teamsContainer;
     @FXML
@@ -58,16 +63,26 @@ public class TeamsComponent extends AnchorPane {
             TeamComponent teamComponent = new TeamComponent();
             teamComponent.setTeam(team);
             teamComponent.fillComponent();
-            if (flag == TeamsComponentFlag.TEAMS_VIEW) {
-                teamComponent.setLeftClickListener(parentView);
+            if (flag == TeamsComponentFlag.PARAMETERS_VIEW) {
+                teamComponent.setRightClickListener((ParametersView)parentView);
+                teamComponent.setOnMouseClicked(mouseEvent -> {
+                    if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+                        System.out.println("kliknieto prawym przyciskiem na: " + team);
+                        showContextMenu(teamComponent, team);
+                    }
+                });
+            }
+            else if (flag == TeamsComponentFlag.TEAMS_VIEW) {
+                teamComponent.setLeftClickListener((TeamsView)parentView);
+                teamComponent.setRightClickListener((TeamsView)parentView);
                 teamComponent.setOnMouseClicked(mouseEvent -> {
                     if (mouseEvent.getButton() == MouseButton.PRIMARY) {
                         System.out.println("kliknieto lewym przyciskiem na: " + team);
-                        parentView.onTeamComponentClicked(team);
+                        ((TeamsView) parentView).onTeamComponentClicked(team);
                     }
-                    //todo usuwanie na prawym kliku
                     else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                         System.out.println("kliknieto prawym przyciskiem na: " + team);
+                        showContextMenu(teamComponent, team);
                     }
                 });
             }
@@ -80,5 +95,35 @@ public class TeamsComponent extends AnchorPane {
                 rowIndex++;
             }
         }
+    }
+
+    private void showContextMenu(TeamComponent teamComponent, Team team) {
+        ContextMenu contextMenu = new ContextMenu();
+
+        // Dodanie opcji "USUŃ" do menu kontekstowego
+        MenuItem deleteMenuItem = new MenuItem("USUŃ");
+        deleteMenuItem.setOnAction(actionEvent -> {
+            System.out.println("USUWANIE ZESPOLU " + team.getName());
+            try {
+                new TeamOperations().deleteTeam(team.getId());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            if (parentView instanceof ParametersView)
+                ((ParametersView) parentView).onDeletePerformed();
+            else if (parentView instanceof TeamsView)
+                ((TeamsView) parentView).onDeletePerformed();
+        });
+
+        contextMenu.getItems().add(deleteMenuItem);
+        // Wyświetlenie menu kontekstowego w miejscu kliknięcia
+        contextMenu.show(teamComponent, teamComponent.localToScreen(0, 0).getX(), teamComponent.localToScreen(0, 0).getY());
+
+        // Dodanie obsługi zdarzenia dla kliknięcia gdziekolwiek indziej, aby schować menu kontekstowe
+        teamComponent.setOnMousePressed(mouseEvent -> {
+            if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                contextMenu.hide();
+            }
+        });
     }
 }

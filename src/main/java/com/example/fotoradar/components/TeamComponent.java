@@ -21,6 +21,8 @@ public class TeamComponent extends AnchorPane {
     private Team team;
 
     @Setter
+    private TeamComponentRightClickListener rightClickListener;
+    @Setter
     private TeamComponentLeftClickListener leftClickListener;
 
     public TeamComponent() throws IOException {
