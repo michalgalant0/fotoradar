@@ -63,6 +63,7 @@ public class ParametersView {
             );
             teamsComponent.setFlag(TeamsComponentFlag.PARAMETERS_VIEW);
             AnchorPane.setBottomAnchor(teamsComponent.scrollPane, 32.0);
+            AnchorPane.setTopAnchor(teamsComponent.scrollPane, 32.0);
             teamsComponent.fillTeamsComponent();
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
