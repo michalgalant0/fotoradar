@@ -5,15 +5,18 @@
 <?import javafx.scene.layout.*?>
 <fx:root
         style="-fx-border-width: 1px; -fx-border-color: green;"
-        prefHeight="383.0" prefWidth="366.0"
+        prefHeight="383.0" prefWidth="300.0"
         xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
         type="javafx.scene.layout.AnchorPane" >
-    <Label layoutY="24.0" prefHeight="16.0" prefWidth="370.0" text="Dodaj/Edytuj zespół" textAlignment="CENTER"
-           AnchorPane.topAnchor="24.0"/>
+    <Label fx:id="teamFormLabel" layoutY="24.0" prefHeight="16.0" text="Dodaj zespół"
+           textAlignment="CENTER" AnchorPane.topAnchor="24.0" AnchorPane.leftAnchor="32.0"/>
     <Label layoutX="24.0" layoutY="64.0" prefHeight="16.0" prefWidth="45.0" text="Nazwa" AnchorPane.leftAnchor="24.0"
            AnchorPane.topAnchor="56.0"/>
     <TextField fx:id="nameTextField" layoutX="24.0" layoutY="80.0" AnchorPane.leftAnchor="24.0"/>
     <Label layoutX="24.0" layoutY="120.0" prefHeight="16.0" prefWidth="45.0" text="Opis" AnchorPane.leftAnchor="24.0"/>
-    <TextArea fx:id="descriptionTextArea" layoutX="24.0" layoutY="144.0" prefHeight="159.0" prefWidth="321.0" AnchorPane.leftAnchor="24.0"
+    <TextArea fx:id="descriptionTextArea" layoutX="24.0" layoutY="144.0" prefHeight="150.0" prefWidth="300.0" AnchorPane.leftAnchor="24.0"
               AnchorPane.rightAnchor="24.0"/>
+    <Button fx:id="clearFormButton" onAction="#clearForm"
+            text="X" visible="false"
+            AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
 </fx:root>

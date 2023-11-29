@@ -20,6 +20,9 @@ public class TeamComponent extends AnchorPane {
     @Setter
     private Team team;
 
+    @Setter
+    private TeamComponentLeftClickListener leftClickListener;
+
     public TeamComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/TeamComponent.fxml"));
         loader.setRoot(this);

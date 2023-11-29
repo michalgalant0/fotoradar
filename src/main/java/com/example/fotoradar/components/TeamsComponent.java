@@ -3,9 +3,11 @@ package com.example.fotoradar.components;
 import com.example.fotoradar.Main;
 import com.example.fotoradar.TeamsComponentFlag;
 import com.example.fotoradar.models.Team;
+import com.example.fotoradar.views.TeamsView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import lombok.Setter;
@@ -14,6 +16,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TeamsComponent extends AnchorPane {
+    @Setter
+    private TeamsView parentView;
     @FXML
     public GridPane teamsContainer;
     @FXML
@@ -54,10 +58,19 @@ public class TeamsComponent extends AnchorPane {
             TeamComponent teamComponent = new TeamComponent();
             teamComponent.setTeam(team);
             teamComponent.fillComponent();
-            teamComponent.setOnMouseClicked(mouseEvent -> {
-                //todo usuwanie na prawym kliku, ?zaladowanie do formularza na lewym?
-                System.out.printf("Zespół %s zostal klikniety%n", team);
-            });
+            if (flag == TeamsComponentFlag.TEAMS_VIEW) {
+                teamComponent.setLeftClickListener(parentView);
+                teamComponent.setOnMouseClicked(mouseEvent -> {
+                    if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                        System.out.println("kliknieto lewym przyciskiem na: " + team);
+                        parentView.onTeamComponentClicked(team);
+                    }
+                    //todo usuwanie na prawym kliku
+                    else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+                        System.out.println("kliknieto prawym przyciskiem na: " + team);
+                    }
+                });
+            }
             //dodanie komponentu
             teamsContainer.add(teamComponent, columnIndex, rowIndex);
             // Przesuwaj się do kolejnej kolumny lub wiersza

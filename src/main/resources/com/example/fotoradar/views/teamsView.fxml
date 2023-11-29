@@ -16,10 +16,9 @@
     <TeamsComponent fx:id="teamsComponent" layoutX="48.0" layoutY="84.0"
                     AnchorPane.topAnchor="84.0" AnchorPane.bottomAnchor="48.0" />
     <TeamFormComponent fx:id="teamFormComponent" AnchorPane.rightAnchor="48.0" layoutY="84.0" >
-        <Button mnemonicParsing="false"
+        <Button fx:id="submitFormButton" mnemonicParsing="false"
                 AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                prefHeight="24.0" prefWidth="200.0" text="DODAJ ZESPÓŁ"
-                onAction="#addTeam" />
+                prefHeight="24.0" prefWidth="100.0" text="ZAPISZ"/>
     </TeamFormComponent>
     <Button mnemonicParsing="false"
             AnchorPane.bottomAnchor="48.0" AnchorPane.rightAnchor="48.0"
