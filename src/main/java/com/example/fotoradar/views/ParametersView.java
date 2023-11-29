@@ -2,6 +2,7 @@ package com.example.fotoradar.views;
 
 import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.TeamsComponentFlag;
 import com.example.fotoradar.components.CollectionFormComponent;
 import com.example.fotoradar.components.TeamsComponent;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
@@ -59,7 +60,8 @@ public class ParametersView {
             teamsComponent.setTeams(
                     new TeamOperations().getAllCollectionTeams(collection.getId())
             );
-            teamsComponent.fillTeamsVBox();
+            teamsComponent.setFlag(TeamsComponentFlag.PARAMETERS_VIEW);
+            teamsComponent.fillTeamsComponent();
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,6 +1,7 @@
 package com.example.fotoradar.views;
 
 import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.TeamsComponentFlag;
 import com.example.fotoradar.components.TeamFormComponent;
 import com.example.fotoradar.components.TeamsComponent;
 import com.example.fotoradar.databaseOperations.TeamOperations;
@@ -45,7 +46,8 @@ public class TeamsView {
         setWindowLabel(parentCollection.getTitle());
         // wypełnienie bloku zespołów danymi z bazy
         teamsComponent.setTeams(teams);
-        teamsComponent.fillTeamsVBox();
+        teamsComponent.setFlag(TeamsComponentFlag.TEAMS_VIEW);
+        teamsComponent.fillTeamsComponent();
     }
 
     private void setWindowLabel(String collectionName) {
@@ -80,7 +82,7 @@ public class TeamsView {
             teams = teamOperations.getAllCollectionTeams(parentCollection.getId());
             // wypełnienie bloku zespołów danymi z bazy
             teamsComponent.setTeams(teams);
-            teamsComponent.fillTeamsVBox();
+            teamsComponent.fillTeamsComponent();
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
