@@ -1,6 +1,6 @@
 package com.example.fotoradar.segmenter;
 
-import com.example.fotoradar.models.Thumbnail;
+import com.example.fotoradar.Palette;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
@@ -121,8 +120,8 @@ public class Segmenter extends Application {
 
         for (Segment segment : segments) {
             List<Double> points = segment.getPoints();
-            gc.setStroke(Color.RED);
-            gc.setLineWidth(2);
+            gc.setStroke(Palette.MAIN.getColor());
+            gc.setLineWidth(3);
             gc.strokeLine(points.get(0), points.get(1), points.get(2), points.get(3));
             gc.strokeLine(points.get(2), points.get(3), points.get(4), points.get(5));
             gc.strokeLine(points.get(4), points.get(5), points.get(6), points.get(7));
@@ -132,7 +131,7 @@ public class Segmenter extends Application {
 
     private void drawSegmentPoints() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.BLUE);
+        gc.setFill(Palette.SECONDARY.getColor());
         for (int i = 0; i < currentSegment.getPoints().size(); i += 2) {
             double x = currentSegment.getPoints().get(i);
             double y = currentSegment.getPoints().get(i + 1);
@@ -142,8 +141,8 @@ public class Segmenter extends Application {
 
     private void drawDynamicLine(double startX, double startY, double endX, double endY) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setStroke(Color.BLUE);
-        gc.setLineWidth(1);
+        gc.setStroke(Palette.SECONDARY.getColor());
+        gc.setLineWidth(2);
         gc.strokeLine(startX, startY, endX, endY);
     }
 

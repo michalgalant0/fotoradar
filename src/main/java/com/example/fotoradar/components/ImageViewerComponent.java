@@ -188,8 +188,8 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
                 polygon.getPoints().addAll(x, y);
             }
 
-            polygon.setStroke(Color.RED);
-            polygon.setStrokeWidth(2);
+            polygon.setStroke(Palette.MAIN.getColor());
+            polygon.setStrokeWidth(3);
             polygon.setFill(Color.TRANSPARENT); // Ustaw wypełnienie na przezroczyste
 
             segmentPane.getChildren().add(polygon);
@@ -214,13 +214,13 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
                     scaleOut.setToY(1.0);
                     scaleOut.play();
                     // koniec animacji
-                    highlightedPolygon.setStroke(Color.RED);
+                    highlightedPolygon.setStroke(Palette.MAIN.getColor());
                     highlightedPolygon.setFill(Color.TRANSPARENT);
                 }
 
                 // Zaznacz bieżący segment
                 scaleIn.play(); // animacja
-                polygon.setStroke(Color.PURPLE);
+                polygon.setStroke(Palette.SECONDARY.getColor());
                 polygon.setFill(Color.rgb(127,50,120,0.2));
                 highlightedPolygon = polygon;
 
