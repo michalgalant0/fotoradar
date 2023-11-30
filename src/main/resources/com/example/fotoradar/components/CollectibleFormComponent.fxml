@@ -10,6 +10,7 @@
 <fx:root
         prefHeight="500.0" prefWidth="400.0"
         type="javafx.scene.layout.AnchorPane"
+        stylesheets="@../style.css"
         xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="titleLabel" layoutX="32.0" layoutY="21.0" text="TYTUŁ" AnchorPane.leftAnchor="32.0" />
     <TextField fx:id="titleTextField" layoutX="32.0" layoutY="45.0" prefHeight="24.0" prefWidth="198.0" AnchorPane.leftAnchor="32.0" />

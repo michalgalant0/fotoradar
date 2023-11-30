@@ -6,8 +6,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0"
+<!--prefHeight="1080.0" prefWidth="1920.0" -->
+<AnchorPane stylesheets="@../style.css" styleClass="background" prefHeight="1080.0" prefWidth="1920.0"
             xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ kolekcja/ obiekt ">
         <font>
@@ -20,19 +20,20 @@
                 prefHeight="24.0" text="ZAPISZ"
                 AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />
     </CollectibleFormComponent>
-    <Button mnemonicParsing="false" onAction="#addSketch"
+    <Button styleClass="button" mnemonicParsing="false" onAction="#addSketch"
             prefHeight="24.0" prefWidth="200.0" text="DODAJ SZKIC"
             AnchorPane.bottomAnchor="176.0" AnchorPane.rightAnchor="48.0" />
-    <Button mnemonicParsing="false" onAction="#addPhoto"
+    <Button styleClass="button" mnemonicParsing="false" onAction="#addPhoto"
             prefHeight="24.0" prefWidth="200.0" text="DODAJ ZDJĘCIE"
             AnchorPane.bottomAnchor="144.0" AnchorPane.rightAnchor="48.0" />
-    <Button mnemonicParsing="false" onAction="#manageSegments"
+    <Button styleClass="button" mnemonicParsing="false" onAction="#manageSegments"
             prefHeight="24.0" prefWidth="200.0" text="ZARZĄDZAJ SEGMENTAMI"
             AnchorPane.bottomAnchor="112.0" AnchorPane.rightAnchor="48.0" />
-    <Button mnemonicParsing="false" onAction="#removeCollectible"
+    <Button styleClass="button" mnemonicParsing="false" onAction="#removeCollectible"
             prefHeight="24.0" prefWidth="200.0" text="USUŃ OBIEKT"
             AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="48.0" />
-    <Button mnemonicParsing="false" onAction="#backToCollection"
+    <Button styleClass="button" mnemonicParsing="false" onAction="#backToCollection"
             prefHeight="24.0" prefWidth="200.0" text="POWRÓT DO KOLEKCJI"
             AnchorPane.bottomAnchor="48.0" AnchorPane.rightAnchor="48.0" />
 </AnchorPane>
+

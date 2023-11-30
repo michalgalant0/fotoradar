@@ -6,9 +6,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="483.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane stylesheets="@../style.css" styleClass="background"
+        prefHeight="483.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="windowLabel" layoutX="232.0" layoutY="14.0" text="Label" />
     <VersionFormComponent fx:id="versionForm" />
-    <Button layoutX="176.0" layoutY="429.0" mnemonicParsing="false" onAction="#saveVersion" text="ZAPISZ" />
-    <Button layoutX="257.0" layoutY="429.0" mnemonicParsing="false" onAction="#cancel" text="ANULUJ" />
+    <Button styleClass="yes-button" layoutX="176.0" layoutY="429.0" mnemonicParsing="false" onAction="#saveVersion" text="ZAPISZ" />
+    <Button styleClass="cancel-button" layoutX="257.0" layoutY="429.0" mnemonicParsing="false" onAction="#cancel" text="ANULUJ" />
 </AnchorPane>

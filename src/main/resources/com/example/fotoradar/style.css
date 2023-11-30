@@ -1,0 +1,151 @@
+.czcionka {
+    -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+
+}
+
+.background{
+    -fx-background: #dddddd;
+    -fx-border-color: #141414;
+    -fx-border-width: 3;
+}
+
+
+
+.button, .yes-button, .no-button, .cancel-button {
+    -fx-font-family: Arial;
+    -fx-background-color: #0078d7;
+    -fx-border-radius: 50%;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-spacing: 10px;
+    -fx-margin: 10px;
+    -fx-end-margin: 10px;
+
+}
+
+
+.button:hover {
+    -fx-background-color: #6b6b6b;
+}
+.yes-button{
+    -fx-background-color: #005000;
+    -fx-border-color: rgba(0, 47, 0, 0.67);
+
+}
+.no-button{
+    -fx-background-color: #790000;
+    -fx-border-color: #3b0000;
+
+
+}
+.cancel-button{
+    -fx-background-color: #545454;
+    -fx-border-color: #252525;
+
+}
+
+
+
+.big-label {
+    -fx-font-size: 30pt;
+    -fx-text-fill: #222;
+
+}
+.text-field {
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 2;
+}
+
+.date-picker {
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 2;
+}
+
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d3d3d3;
+}
+
+.scroll-bar {
+    -fx-background-color: #f4f4f4;
+}
+
+.progress-bar {
+    -fx-accent: #0078d7;
+}
+
+.list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d3d3d3;
+}
+
+.menu-bar {
+    -fx-background-color: #f4f4f4;
+}
+
+.menu-item {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #333;
+}
+
+.status-bar {
+    -fx-background-color: #0078d7;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 10pt;
+}
+
+.window-header {
+    -fx-background-color: #f4f4f4;
+    -fx-text-fill: #333;
+}
+.hboxs{
+    -fx-background-color: #F1F1F1;
+    -fx-border-width: 10;
+}
+.vboxs{
+
+}
+
+.form{
+
+}
+.popup{
+
+}
+
+.collections{
+
+}
+
+.collection{
+    -fx-background-color: #f1f1f1;
+    -fx-border-width: 2px;
+    -fx-border-color: #dddddd;
+}
+.collectible{
+
+}
+.collection-row-component{
+    -fx-background-color: #FFF;
+    -fx-border-width: 1px;
+    -fx-border-color: #505050;
+    -fx-border-radius: 10%;
+    -fx-font-size: 20px;
+}
+.segment{
+
+}
+.version{
+
+}
+.team{
+
+}
+.picture{
+
+}
+.mianature{
+
+}
+

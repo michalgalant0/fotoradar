@@ -4,11 +4,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="129.0" prefWidth="438.0"
+<AnchorPane stylesheets="@../style.css" styleClass="background"
+        prefHeight="129.0" prefWidth="438.0"
             xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <Label layoutX="120.0" layoutY="31.0" text="Czy na pewno chcesz usunąć?" AnchorPane.topAnchor="31.0"/>
-    <Button layoutX="155.0" layoutY="72.0" mnemonicParsing="false" text="USUŃ" AnchorPane.bottomAnchor="33.0"
+    <Button styleClass="no-button" layoutX="155.0" layoutY="72.0" mnemonicParsing="false" text="USUŃ" AnchorPane.bottomAnchor="33.0"
             onAction="#confirmDelete" />
-    <Button layoutX="227.0" layoutY="72.0" mnemonicParsing="false" text="ANULUJ" AnchorPane.bottomAnchor="33.0"
+    <Button styleClass="cancel-button" layoutX="227.0" layoutY="72.0" mnemonicParsing="false" text="ANULUJ" AnchorPane.bottomAnchor="33.0"
             onAction="#cancel" />
 </AnchorPane>

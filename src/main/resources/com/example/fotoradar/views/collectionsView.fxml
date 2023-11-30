@@ -7,17 +7,17 @@
 
 <?import com.example.fotoradar.components.CollectionsComponent?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/"
-            xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane stylesheets="@../style.css" styleClass="background" prefHeight="1080.0" prefWidth="1920.0"
+            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/"
             fx:controller="com.example.fotoradar.views.CollectionsView">
-    <Label layoutX="48.0" layoutY="24.0" text="kolekcje">
+    <Label styleClass="big-label, czcionka" layoutX="48.0" layoutY="24.0" text="Kolekcje">
         <font>
             <Font size="30.0" />
         </font>
     </Label>
     <CollectionsComponent fx:id="collectionsComponent" layoutX="24.0" layoutY="84.0" />
-    <Button  mnemonicParsing="false" onAction="#addCollection"
+    <Button styleClass="button" mnemonicParsing="false" onAction="#addCollection"
              AnchorPane.bottomAnchor="48.0"
              AnchorPane.rightAnchor="48.0"
              prefHeight="24.0" prefWidth="200.0" text="DODAJ KOLEKCJĘ" />
-</AnchorPane>
+</AnchorPane> <!--prefHeight="1080.0" prefWidth="1920.0" -->

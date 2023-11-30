@@ -6,6 +6,7 @@
 
 <fx:root prefHeight="700.0" prefWidth="1000.0"
          type="javafx.scene.layout.AnchorPane"
+         stylesheets="@../style.css"
          xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true"
                 style="-fx-border-width: 1px; -fx-border-color: red;"

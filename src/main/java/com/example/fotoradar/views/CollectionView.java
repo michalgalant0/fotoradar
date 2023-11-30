@@ -11,9 +11,11 @@ import com.example.fotoradar.models.Collection;
 import com.example.fotoradar.windows.CollectibleFormWindow;
 import com.example.fotoradar.windows.ConfirmDeletePopup;
 import com.example.fotoradar.windows.OnWindowClosedListener;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import lombok.Setter;
 
 import java.io.IOException;
@@ -31,6 +33,7 @@ public class CollectionView implements RemoveStructureListener, OnWindowClosedLi
 
     private CollectibleOperations collectibleOperations;
     private ArrayList<Collectible> collectibles;
+    private Stage primaryStage;
 
     public CollectionView() {
         try {
@@ -40,6 +43,9 @@ public class CollectionView implements RemoveStructureListener, OnWindowClosedLi
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 
     public void initialize() throws SQLException, IOException {
@@ -52,7 +58,18 @@ public class CollectionView implements RemoveStructureListener, OnWindowClosedLi
         collectiblesComponent.setCollectionName(collection.getTitle());
         collectiblesComponent.fillCollectiblesHBox();
 
+        if (primaryStage != null) {
+            primaryStage.setMaximized(true);
+        }
+
         DirectoryOperator.getInstance().createStructure(collection);
+
+        Platform.runLater(() -> {
+            Stage stage = (Stage) collectiblesComponent.getScene().getWindow();
+            stage.setMaximized(true);
+            //stage.setFullScreenExitHint(""); // Możesz usunąć wskazówkę wyjścia z pełnoekranu
+            //stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); // Wyłączenie skrótu klawiszowego wyjścia
+        });
     }
 
     private void setWindowLabel(String collectionName) {

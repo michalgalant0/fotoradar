@@ -9,7 +9,10 @@ import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import com.example.fotoradar.windows.CollectionFormWindow;
 import com.example.fotoradar.windows.OnWindowClosedListener;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.input.KeyCombination;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,6 +29,8 @@ public class CollectionsView implements OnWindowClosedListener {
     private ArrayList<Collection> collections;
     private Map<Integer, ArrayList<Collectible>> collectiblesMap;
 
+    private Stage primaryStage;
+
     public CollectionsView() {
         try {
             collectionOperations = new CollectionOperations();
@@ -36,7 +41,9 @@ public class CollectionsView implements OnWindowClosedListener {
             throw new RuntimeException(e);
         }
     }
-
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
     public void initialize() throws SQLException, IOException {
         collections = collectionOperations.getAllCollections();
         collectiblesMap = new HashMap<>();
@@ -48,8 +55,18 @@ public class CollectionsView implements OnWindowClosedListener {
         collectionsComponent.setCollectiblesMap(collectiblesMap);
         collectionsComponent.fillCollectionsHBox();
 
+        //if (primaryStage != null) {
+        //    primaryStage.setMaximized(true);
+        //}
         // utworzenie katalogu KOLEKCJE jesli nie istnieje
         DirectoryOperator.getInstance().createStructure();
+
+        //Platform.runLater(() -> {
+        //    Stage stage = (Stage) collectionsComponent.getScene().getWindow();
+        //    stage.setMaximized(true);
+        //    //stage.setFullScreenExitHint(""); // Możesz usunąć wskazówkę wyjścia z pełnoekranu
+        //    //stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); // Wyłączenie skrótu klawiszowego wyjścia
+        //});
     }
 
     @FXML

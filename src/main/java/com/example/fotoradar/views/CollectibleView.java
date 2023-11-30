@@ -16,10 +16,13 @@ import com.example.fotoradar.models.Thumbnail;
 import com.example.fotoradar.windows.AddPhotosWindow;
 import com.example.fotoradar.windows.ConfirmDeletePopup;
 import com.example.fotoradar.windows.OnWindowClosedListener;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import lombok.Setter;
+
+import com.example.fotoradar.views.WindowManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +32,7 @@ import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.stage.Stage;
 
 public class CollectibleView implements AddPhotoListener, RemoveStructureListener, OnWindowClosedListener {
     @FXML
@@ -47,6 +51,8 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
     private String currentCollectibleThumnailsPath;
     private ThumbnailOperations thumbnailOperations;
     private CollectibleOperations collectibleOperations;
+
+    private Stage primaryStage;
 
     public CollectibleView() {
         try {
@@ -73,8 +79,17 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         fillCollectibleForm();
         // wypelnienie komponentu miniGallery miniaturami
         fillMiniGallery();
-
+        //if (primaryStage != null) {
+        //    primaryStage.setMaximized(true);
+        //}
         DirectoryOperator.getInstance().createStructure(collectible, parentCollection.getTitle());
+        //Platform.runLater(() -> {
+        //    //Stage stage = (Stage) collectionsComponent.getScene().getWindow();
+        //    primaryStage.setMaximized(true);
+        //    //stage.setFullScreenExitHint(""); // Możesz usunąć wskazówkę wyjścia z pełnoekranu
+        //    //stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); // Wyłączenie skrótu klawiszowego wyjścia
+        //});
+        //WindowManager.setFullScreen(primaryStage, true);
     }
 
     private void setParentCollection() throws SQLException {

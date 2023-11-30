@@ -9,6 +9,7 @@
 
 <fx:root prefHeight="687.0" prefWidth="400.0"
          style="-fx-border-width: 1px; -fx-border-color: red;"
+         stylesheets="@../style.css"
          type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="headerLabel" layoutX="24.0" layoutY="14.0" text="Obiekt" AnchorPane.topAnchor="24.0" />

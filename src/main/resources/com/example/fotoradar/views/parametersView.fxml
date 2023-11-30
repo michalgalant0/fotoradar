@@ -6,8 +6,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0"
+<!--prefHeight="1080.0" prefWidth="1920.0" -->
+<AnchorPane stylesheets="@../style.css" styleClass="background" prefHeight="1080.0" prefWidth="1920.0"
             xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ parametry">
         <font>
@@ -15,18 +15,18 @@
         </font>
     </Label>
     <CollectionFormComponent fx:id="collectionFormComponent" layoutX="24.0" layoutY="84.0" prefHeight="500.0">
-        <Button  mnemonicParsing="false" onAction="#saveCollection"
+        <Button styleClass="button" mnemonicParsing="false" onAction="#saveCollection"
                  AnchorPane.bottomAnchor="0.0"
                  AnchorPane.rightAnchor="0.0"
                  prefHeight="24.0" prefWidth="200.0" text="ZAPISZ PARAMETRY" />
     </CollectionFormComponent>
     <TeamsComponent fx:id="teamsComponent" layoutX="500.0" layoutY="84.0" prefHeight="500">
-        <Button  mnemonicParsing="false" onAction="#manageTeams"
+        <Button styleClass="button" mnemonicParsing="false" onAction="#manageTeams"
                  AnchorPane.bottomAnchor="0.0"
                  AnchorPane.rightAnchor="0.0"
                  prefHeight="24.0" prefWidth="200.0" text="ZARZĄDZAJ ZESPOŁAMI" />
     </TeamsComponent>
-    <Button  mnemonicParsing="false" onAction="#backToCollection"
+    <Button styleClass="button" mnemonicParsing="false" onAction="#backToCollection"
              AnchorPane.bottomAnchor="48.0"
              AnchorPane.rightAnchor="48.0"
              prefHeight="24.0" prefWidth="200.0" text="POWRÓT DO KOLEKCJI" />

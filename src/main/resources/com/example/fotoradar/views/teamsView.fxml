@@ -3,7 +3,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/"
+<AnchorPane stylesheets="@../style.css" styleClass="background" prefHeight="1080.0" prefWidth="1920.0"
+             xmlns="http://javafx.com/javafx/"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.fotoradar.views.TeamsView">
 

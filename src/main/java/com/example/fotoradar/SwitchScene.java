@@ -2,6 +2,7 @@ package com.example.fotoradar;
 
 import com.example.fotoradar.windows.OnWindowClosedListener;
 import com.example.fotoradar.windows.Window;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -33,7 +34,7 @@ public class SwitchScene {
         Scene scene = new Scene(fxmlLoader.load());
 
         Stage dialogStage = new Stage();
-        dialogStage.initStyle(StageStyle.UTILITY);
+        dialogStage.initStyle(StageStyle.DECORATED);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.setResizable(false);
         dialogStage.setTitle(title);
@@ -44,6 +45,12 @@ public class SwitchScene {
         // Pobranie kontrolera
         Window controller = fxmlLoader.getController();
         controller.setDialogStage(dialogStage);
+
+        //Platform.runLater(() -> {
+        //    dialogStage.setMaximized(true);
+        //    // Możesz również ustawić stage.setFullScreen(true); jeśli faktycznie chcesz pełen ekran
+        //});
+        //setFullScreen(dialogStage, true);
 
         // Wyświetlenie nowego okna
         dialogStage.show();
@@ -58,7 +65,7 @@ public class SwitchScene {
         Scene scene = new Scene(fxmlLoader.load());
 
         Stage dialogStage = new Stage();
-        dialogStage.initStyle(StageStyle.UTILITY);
+        dialogStage.initStyle(StageStyle.DECORATED);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.setResizable(false);
         dialogStage.setTitle(title);
@@ -68,7 +75,11 @@ public class SwitchScene {
         if (controller instanceof Window) {
             ((Window) controller).setDialogStage(dialogStage);
         }
-
+        //Platform.runLater(() -> {
+        //    dialogStage.setMaximized(true);
+        //    // Możesz również ustawić stage.setFullScreen(true); jeśli faktycznie chcesz pełen ekran
+        //});
+        //setFullScreen(dialogStage, true);
         // Wyświetlenie nowego okna
         dialogStage.show();
 
@@ -82,16 +93,23 @@ public class SwitchScene {
         Scene scene = new Scene(fxmlLoader.load());
 
         Stage dialogStage = new Stage();
-        dialogStage.initStyle(StageStyle.UTILITY);
+        dialogStage.initStyle(StageStyle.DECORATED);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.setResizable(false);
         dialogStage.setTitle(title);
         dialogStage.setScene(scene);
 
         // Jeśli controller implementuje Window, przekaż dialogStage
-        if (controller instanceof Window) {
-            ((Window) controller).setDialogStage(dialogStage);
-        }
+        //if (controller instanceof Window) {
+        //    ((Window) controller).setDialogStage(dialogStage);
+        //}
+        //// Platform.runLater jest używany do maksymalizacji okna po załadowaniu sceny
+        //Platform.runLater(() -> {
+        //    dialogStage.setMaximized(true);
+        //    // Możesz również ustawić stage.setFullScreen(true); jeśli faktycznie chcesz pełen ekran
+        //});
+
+        // Jeśli controller implementuje Window, przekaż dialogStage
 
         // Wyświetlenie nowego okna
         dialogStage.show();
@@ -99,5 +117,10 @@ public class SwitchScene {
         dialogStage.toFront();
         dialogStage.requestFocus();
         dialogStage.setOnCloseRequest(windowEvent -> listener.onWindowClosed());
+    }
+    public static void setFullScreen(Stage stage, boolean fullScreen) {
+        if (stage != null) {
+            stage.setFullScreen(fullScreen);
+        }
     }
 }
