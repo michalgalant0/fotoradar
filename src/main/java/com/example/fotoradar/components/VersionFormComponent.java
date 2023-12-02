@@ -5,7 +5,7 @@ import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.databaseOperations.TeamOperations;
 import com.example.fotoradar.models.Team;
 import com.example.fotoradar.models.Version;
-import com.example.fotoradar.views.VersionView;
+import com.example.fotoradar.windows.OnWindowClosedListener;
 import com.example.fotoradar.windows.TeamFormWindow;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -45,7 +45,7 @@ public class VersionFormComponent extends AnchorPane {
     private int parentCollectionId;
 
     @Setter
-    private VersionView versionView;
+    private OnWindowClosedListener onWindowClosedListener;
 
     public VersionFormComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/VersionFormComponent.fxml"));
@@ -102,7 +102,7 @@ public class VersionFormComponent extends AnchorPane {
         TeamFormWindow teamFormWindow = new TeamFormWindow();
         teamFormWindow.setTeam(teamComboBox.getValue());
         teamFormWindow.setParentCollectionId(parentCollectionId);
-        teamFormWindow.setOnWindowClosedListener(versionView);
+        teamFormWindow.setOnWindowClosedListener(onWindowClosedListener);
         new SwitchScene().displayWindow("TeamFormWindow", "edytuj zespół", teamFormWindow);
     }
 
@@ -111,7 +111,7 @@ public class VersionFormComponent extends AnchorPane {
         System.out.println("dodanie zespołu");
         TeamFormWindow teamFormWindow = new TeamFormWindow();
         teamFormWindow.setParentCollectionId(parentCollectionId);
-        teamFormWindow.setOnWindowClosedListener(versionView);
+        teamFormWindow.setOnWindowClosedListener(onWindowClosedListener);
         new SwitchScene().displayWindow("TeamFormWindow", "dodaj zespół", teamFormWindow);
     }
 }

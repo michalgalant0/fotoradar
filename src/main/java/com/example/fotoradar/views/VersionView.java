@@ -59,7 +59,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
     public void initialize() throws SQLException {
         setWindowLabel();
         versionFormComponent.setParentCollectionId(parentCollectible.getParentCollectionId());
-        versionFormComponent.setVersionView(this);
+        versionFormComponent.setOnWindowClosedListener(this);
         versionFormComponent.fillForm(version);
         System.out.println("VersionView: "+version);
         versionFormComponent.fillTeamComboBox();

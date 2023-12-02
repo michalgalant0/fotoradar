@@ -14,7 +14,7 @@ import lombok.Setter;
 
 import java.sql.SQLException;
 
-public class VersionFormWindow implements Window {
+public class VersionFormWindow implements Window, OnWindowClosedListener {
     @FXML
     public Label windowLabel;
     @FXML
@@ -37,6 +37,13 @@ public class VersionFormWindow implements Window {
         System.out.println("VersionFormWindow.parentSegment: "+parentSegment);
         System.out.println(parentCollectionName);
         System.out.println(parentCollectible);
+        versionForm.setParentCollectionId(parentCollectible.getParentCollectionId());
+        try {
+            versionForm.fillTeamComboBox();
+            versionForm.setOnWindowClosedListener(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         setWindowLabel();
     }
@@ -77,5 +84,14 @@ public class VersionFormWindow implements Window {
     public void cancel(ActionEvent event) {
         System.out.println("anuluj");
         closeWindow(dialogStage);
+    }
+
+    @Override
+    public void onWindowClosed() {
+        try {
+            versionForm.fillTeamComboBox();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
