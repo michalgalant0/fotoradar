@@ -22,18 +22,45 @@ public class TeamFormWindow implements Window {
     @Setter
     private int parentCollectionId;
 
+    @Setter
+    private Team team;
+
+    public TeamFormWindow() {
+    }
+
+    public void initialize() {
+        if (team != null) {
+            teamForm.teamFormLabel.setText("edytuj zespół "+team.getName());
+            teamForm.setTeam(team);
+            teamForm.fillForm();
+        }
+        else {
+            teamForm.teamFormLabel.setText("dodaj nowy zespół");
+        }
+    }
+
     @FXML
     private void saveTeam(ActionEvent event) throws SQLException {
-        System.out.println("zapisz zespol");
+        if (team != null) {
+            System.out.println("aktualizacja isntniejącego zespolu");
 
-        Team teamToAdd = new Team(
-                teamForm.nameTextField.getText(),
-                teamForm.descriptionTextArea.getText(),
-                parentCollectionId
-        );
-        System.out.println("dane z formularza: " + teamToAdd);
+            team.setName(teamForm.nameTextField.getText());
+            team.setDescription(teamForm.descriptionTextArea.getText());
+            System.out.println("dane z formularza: " + team);
 
-        new TeamOperations().addTeam(teamToAdd);
+            new TeamOperations().updateTeam(team);
+        } else {
+            System.out.println("dodanie nowego zespolu");
+
+            Team teamToAdd = new Team(
+                    teamForm.nameTextField.getText(),
+                    teamForm.descriptionTextArea.getText(),
+                    parentCollectionId
+            );
+            System.out.println("dane z formularza: " + teamToAdd);
+
+            new TeamOperations().addTeam(teamToAdd);
+        }
 
         // zamkniecie okienka po wykonanej operacji
         onWindowClosedListener.onWindowClosed();

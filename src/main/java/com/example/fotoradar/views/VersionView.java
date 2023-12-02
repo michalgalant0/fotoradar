@@ -6,6 +6,7 @@ import com.example.fotoradar.RemoveStructureListener;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.MiniGalleryComponent;
 import com.example.fotoradar.components.VersionFormComponent;
+import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.databaseOperations.PhotoOperations;
 import com.example.fotoradar.databaseOperations.VersionOperations;
 import com.example.fotoradar.models.*;
@@ -57,7 +58,10 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
 
     public void initialize() throws SQLException {
         setWindowLabel();
+        versionFormComponent.setParentCollectionId(parentCollectible.getParentCollectionId());
+        versionFormComponent.setVersionView(this);
         versionFormComponent.fillForm(version);
+        System.out.println("VersionView: "+version);
         versionFormComponent.fillTeamComboBox();
         versionPhotosPath = Paths.get(
                 System.getProperty("user.dir"),"KOLEKCJE",
@@ -131,9 +135,12 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
     }
 
     @FXML
-    private void manageTeams() {
+    private void manageTeams(ActionEvent event) throws SQLException, IOException {
         System.out.println("przejscie do zespołów");
-
+        TeamsView teamsView = new TeamsView();
+        teamsView.setParentView(this);
+        teamsView.setParentCollection(new CollectionOperations().getCollectionById(parentCollectible.getParentCollectionId()));
+        new SwitchScene().switchScene(event, "teamsView", teamsView);
     }
 
     @FXML

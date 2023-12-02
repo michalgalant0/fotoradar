@@ -18,6 +18,6 @@
 
     <Label fx:id="teamLabel" layoutX="32.0" layoutY="317.0" text="ZESPÓŁ" AnchorPane.leftAnchor="32.0" />
     <ComboBox fx:id="teamComboBox" layoutX="32.0" layoutY="341.0" prefHeight="24.0" prefWidth="169.0" AnchorPane.leftAnchor="32.0" />
-    <Button layoutX="211.0" layoutY="341.0" mnemonicParsing="false" text="OTWÓRZ ZESPÓŁ" onAction="#editTeam" />
+    <Button layoutX="211.0" layoutY="341.0" mnemonicParsing="false" text="EDYTUJ ZESPÓŁ" onAction="#editTeam" />
     <Button layoutX="352.0" layoutY="341.0" mnemonicParsing="false" text="DODAJ ZESPÓŁ" onAction="#addTeam" />
 </fx:root>

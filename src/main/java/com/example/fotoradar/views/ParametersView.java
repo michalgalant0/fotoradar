@@ -101,6 +101,7 @@ public class ParametersView implements TeamComponentRightClickListener {
         System.out.println("zarządzaj zespołami");
 
         TeamsView teamsView = new TeamsView();
+        teamsView.setParentView(this);
         teamsView.setParentCollection(collection);
 
         new SwitchScene().switchScene(event, "teamsView", teamsView);

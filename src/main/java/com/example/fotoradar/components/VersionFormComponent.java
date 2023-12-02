@@ -1,10 +1,14 @@
 package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
+import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.databaseOperations.TeamOperations;
 import com.example.fotoradar.models.Team;
 import com.example.fotoradar.models.Version;
+import com.example.fotoradar.views.VersionView;
+import com.example.fotoradar.windows.TeamFormWindow;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
@@ -40,6 +44,9 @@ public class VersionFormComponent extends AnchorPane {
     @Setter
     private int parentCollectionId;
 
+    @Setter
+    private VersionView versionView;
+
     public VersionFormComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/VersionFormComponent.fxml"));
         loader.setRoot(this);
@@ -48,7 +55,11 @@ public class VersionFormComponent extends AnchorPane {
         loader.load();
     }
 
-    public void initialize() {}
+    public void initialize() {
+        System.out.println("\n\nVersionFormComponent.initialize:");
+        System.out.println("parentCollectionId "+parentCollectionId);
+        System.out.println(teams);
+    }
 
     public void fillForm(Version version) {
         nameTextField.setText(version.getName());
@@ -58,7 +69,9 @@ public class VersionFormComponent extends AnchorPane {
     }
 
     public void fillTeamComboBox() throws SQLException {
+        System.out.println("VersionFormComponent.fillTeamComboBox parentCollectionId: "+parentCollectionId);
         teams = new TeamOperations().getAllCollectionTeams(parentCollectionId);
+        System.out.println("VersionFormComponent.fillTeamComboBox teams: "+teams);
         teamComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Team team) {
@@ -83,12 +96,22 @@ public class VersionFormComponent extends AnchorPane {
     }
 
     @FXML
-    public void editTeam() {
-        System.out.println("edycja zespołu");
+    public void editTeam(ActionEvent event) throws IOException {
+        System.out.println("edycja zespołu: "+teamComboBox.getValue());
+
+        TeamFormWindow teamFormWindow = new TeamFormWindow();
+        teamFormWindow.setTeam(teamComboBox.getValue());
+        teamFormWindow.setParentCollectionId(parentCollectionId);
+        teamFormWindow.setOnWindowClosedListener(versionView);
+        new SwitchScene().displayWindow("TeamFormWindow", "edytuj zespół", teamFormWindow);
     }
 
     @FXML
-    public void addTeam() {
+    public void addTeam(ActionEvent event) throws IOException {
         System.out.println("dodanie zespołu");
+        TeamFormWindow teamFormWindow = new TeamFormWindow();
+        teamFormWindow.setParentCollectionId(parentCollectionId);
+        teamFormWindow.setOnWindowClosedListener(versionView);
+        new SwitchScene().displayWindow("TeamFormWindow", "dodaj zespół", teamFormWindow);
     }
 }

@@ -28,11 +28,15 @@ public class TeamsView implements TeamComponentLeftClickListener, TeamComponentR
     private TeamFormComponent teamFormComponent;
     @FXML
     private Button submitFormButton;
+    @FXML
+    private Button backToParentButton;
 
     private TeamOperations teamOperations;
 
     @Setter
     private Collection parentCollection;
+    @Setter
+    private Object parentView;
 
     private ArrayList<Team> teams;
 
@@ -56,6 +60,11 @@ public class TeamsView implements TeamComponentLeftClickListener, TeamComponentR
         teamsComponent.setParentView(this);
         teamsComponent.fillTeamsComponent();
         setSubmitButtonAction(Mode.SAVE);
+
+        if (parentView instanceof ParametersView)
+            backToParentButton.setText("POWRÓT DO PARAMETRÓW");
+        else if (parentView instanceof VersionView)
+            backToParentButton.setText("POWRÓT DO WERSJI");
     }
 
     public void setSubmitButtonAction(Mode mode) {
@@ -96,10 +105,11 @@ public class TeamsView implements TeamComponentLeftClickListener, TeamComponentR
     }
 
     @FXML
-    private void backToParameters(ActionEvent event) throws IOException {
-        ParametersView parametersView = new ParametersView();
-        parametersView.setCollection(parentCollection);
-        new SwitchScene().switchScene(event, "parametersView", parametersView);
+    private void backToParent(ActionEvent event) throws IOException {
+        if (parentView instanceof ParametersView parametersView)
+            new SwitchScene().switchScene(event, "parametersView", parametersView);
+        else if (parentView instanceof VersionView versionView)
+            new SwitchScene().switchScene(event, "versionView", versionView);
     }
 
     private void refresh() {

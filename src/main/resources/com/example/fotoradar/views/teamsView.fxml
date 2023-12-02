@@ -20,8 +20,8 @@
                 AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
                 prefHeight="24.0" prefWidth="100.0" text="ZAPISZ"/>
     </TeamFormComponent>
-    <Button mnemonicParsing="false"
+    <Button fx:id="backToParentButton" mnemonicParsing="false"
             AnchorPane.bottomAnchor="48.0" AnchorPane.rightAnchor="48.0"
-            prefHeight="24.0" prefWidth="200.0" text="POWRÓT DO PARAMETRÓW"
-            onAction="#backToParameters" />
+            prefHeight="24.0" prefWidth="200.0" text="POWRÓT"
+            onAction="#backToParent" />
 </AnchorPane>
