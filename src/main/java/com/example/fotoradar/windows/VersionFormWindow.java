@@ -30,6 +30,9 @@ public class VersionFormWindow implements Window {
     @Setter
     private Segment parentSegment;
 
+    @Setter
+    private OnWindowClosedListener onWindowClosedListener;
+
     public void initialize() {
         System.out.println("VersionFormWindow.parentSegment: "+parentSegment);
         System.out.println(parentCollectionName);
@@ -66,6 +69,7 @@ public class VersionFormWindow implements Window {
         DirectoryOperator.getInstance().createStructure(versionToAdd, parentCollectionName, parentCollectible.getTitle(), parentSegment.getTitle());
 
         // po wykonaniu operacji zamknij okienko
+        onWindowClosedListener.onWindowClosed();
         closeWindow(dialogStage);
     }
 

@@ -112,6 +112,13 @@ public class SegmentFormComponent extends AnchorPane {
         versionFormWindow.setParentSegment(segment);
         versionFormWindow.setParentCollectionName(parentCollectionName);
         versionFormWindow.setParentCollectible(parentCollectible);
+        versionFormWindow.setOnWindowClosedListener(() -> {
+            try {
+                fillVersionComboBox();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         new SwitchScene().displayWindow("VersionFormWindow", "dodaj wersję", versionFormWindow);
     }
