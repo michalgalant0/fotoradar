@@ -1,9 +1,6 @@
 package com.example.fotoradar.views;
 
-import com.example.fotoradar.AddPhotoListener;
-import com.example.fotoradar.DirectoryOperator;
-import com.example.fotoradar.RemoveStructureListener;
-import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.*;
 import com.example.fotoradar.components.MiniGalleryComponent;
 import com.example.fotoradar.components.VersionFormComponent;
 import com.example.fotoradar.databaseOperations.PhotoOperations;
@@ -53,7 +50,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener {
         versionFormComponent.fillForm(version);
 
         versionPhotosPath = String.format(versionPhotosPath,
-                System.getProperty("user.dir"), parentCollectionName, parentCollectible.getTitle(),
+                Main.getDefPath(), parentCollectionName, parentCollectible.getTitle(),
                 parentSegment.getTitle(), version.getName());
 
         fillMiniGallery();

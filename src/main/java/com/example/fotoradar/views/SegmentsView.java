@@ -51,18 +51,22 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     private Painter painter;
 
     public void initialize() throws SQLException {
+        //"schowanie" formularza segmentFormComponent
+        segmentFormComponent.setVisible(false);
+
         thumbnailOperations = new ThumbnailOperations();
         segmentOperations = new SegmentOperations();
 
         System.out.println("SegmentsView.initialize: " + collectible);
         setWindowLabel(parentCollectionName, collectible.getTitle());
         collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
-                System.getProperty("user.dir"), parentCollectionName, collectible.getTitle());
+                Main.getDefPath(), parentCollectionName, collectible.getTitle());
 
         imageViewerComponent.setForSegmentsView(true);
         ArrayList<ImageModel> imageModels = new ArrayList<>(getThumbnails());
         imageViewerComponent.setImages(imageModels);
         imageViewerComponent.setParentDirectory(collectibleThumbnailsPath);
+        imageViewerComponent.setSegmentFormComponent(segmentFormComponent);
         imageViewerComponent.initialize();
         imageViewerComponent.setSegmentsListener(this);
 

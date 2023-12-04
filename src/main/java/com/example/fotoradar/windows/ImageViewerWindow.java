@@ -1,6 +1,7 @@
 package com.example.fotoradar.windows;
 
 import com.example.fotoradar.components.ImageViewerComponent;
+import com.example.fotoradar.components.SegmentFormComponent;
 import com.example.fotoradar.models.ImageModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -16,6 +17,8 @@ public class ImageViewerWindow implements Window {
     private Label windowLabel;
     @FXML
     private ImageViewerComponent imageViewer;
+    @FXML
+    public SegmentFormComponent segmentFormComponent;
     @Setter
     private Stage dialogStage;
 
@@ -27,6 +30,9 @@ public class ImageViewerWindow implements Window {
     private int currentImageIndex;
     @Setter
     private ArrayList<ImageModel> images;
+
+
+
 
     public void initialize() throws SQLException {
         windowLabel.setText(parentDirectory+'\n'+currentImage.toString()+'\n'+currentImage.getUrl());

@@ -48,7 +48,7 @@ public class CollectionRowComponent extends AnchorPane {
 
     public void setThumbnailPath(String collectionName) throws SQLException {
         thumbnailPath = String.format(thumbnailPath,
-                System.getProperty("user.dir"), collectionName, collectible.getTitle(),
+                Main.getDefPath(), collectionName, collectible.getTitle(),
                 new ThumbnailOperations().getAllThumbnails(collectible.getId()).get(0).getFileName());
     }
 

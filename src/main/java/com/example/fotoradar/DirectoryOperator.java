@@ -8,7 +8,7 @@ import com.example.fotoradar.models.Version;
 import java.io.File;
 
 public class DirectoryOperator {
-    private final String currentDir = System.getProperty("user.dir");
+    private final String currentDir = Main.getDefPath();
 
     // dla kolekcji (wszystkich)
     public void createStructure() {

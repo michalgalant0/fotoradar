@@ -33,6 +33,8 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
     private ImageView imageView;
     @FXML
     private Pane segmentPane;
+    @FXML
+    public SegmentFormComponent segmentFormComponent;
 
     @Setter
     private String parentDirectory;
@@ -52,6 +54,10 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
 
     @Setter
     private SegmentsListener segmentsListener;
+
+    public void setSegmentFormComponent(SegmentFormComponent segmentFormComponent) {
+        this.segmentFormComponent = segmentFormComponent;
+    }
 
     public ImageViewerComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/ImageViewerComponent.fxml"));
@@ -193,6 +199,8 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
 
             polygon.setOnMouseClicked(event -> {
                 System.out.println("Kliknięto segment: " + segment);
+                //pokazanie formularza
+                segmentFormComponent.setVisible(true);
 
                 // Odznacz poprzedni zaznaczony segment
                 if (highlightedPolygon != null) {

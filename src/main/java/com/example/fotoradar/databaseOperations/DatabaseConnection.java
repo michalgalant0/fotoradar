@@ -1,5 +1,6 @@
 package com.example.fotoradar.databaseOperations;
 
+import com.example.fotoradar.Main;
 import lombok.Getter;
 
 import java.io.File;

@@ -1,9 +1,6 @@
 package com.example.fotoradar.views;
 
-import com.example.fotoradar.AddPhotoListener;
-import com.example.fotoradar.DirectoryOperator;
-import com.example.fotoradar.RemoveStructureListener;
-import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.*;
 import com.example.fotoradar.components.CollectibleFormComponent;
 import com.example.fotoradar.components.MiniGalleryComponent;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
@@ -64,7 +61,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
 
         // ustawienie katalogu miniatur dla bieżącego obiektu
         collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
-                System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle());
+                Main.getDefPath(), parentCollection.getTitle(), collectible.getTitle());
 
         new DirectoryOperator().createStructure(collectible, parentCollection.getTitle());
     }
@@ -164,7 +161,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
     private void fillMiniGallery() throws SQLException {
         miniGalleryComponent.setParentDirectory(
                 String.format(collectibleThumbnailsPath,
-                        System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle()));
+                        Main.getDefPath(), parentCollection.getTitle(), collectible.getTitle()));
         // konwersja listy thumbnails na imagemodels
         ArrayList<Thumbnail> thumbnails = thumbnailOperations.getAllThumbnails(collectible.getId());
         ArrayList<ImageModel> imageModels = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.example.fotoradar.windows;
 
+import com.example.fotoradar.Main;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Thumbnail;
 import com.example.fotoradar.databaseOperations.ThumbnailOperations;
@@ -70,7 +71,7 @@ public class SaveSketchWindow implements Window{
         if (fileNameText != null && !fileNameText.isEmpty()) {
             // Tworzenie ścieżki pliku
             filePathString = Paths.get(
-                    System.getProperty("user.dir"), "KOLEKCJE",
+                    Main.getDefPath(), "KOLEKCJE",
                     parentCollectionName, "OBIEKTY", collectible.getTitle(), "MINIATURY", fileNameText).toString();
 
             String filePath = filePathString + ".png"; // Dodanie rozszerzenia .png do nazwy pliku
