@@ -2,9 +2,11 @@ package com.example.fotoradar.components;
 
 import com.example.fotoradar.Main;
 import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.databaseOperations.StatusManager;
 import com.example.fotoradar.databaseOperations.VersionOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Segment;
+import com.example.fotoradar.models.Status;
 import com.example.fotoradar.models.Version;
 import com.example.fotoradar.views.VersionView;
 import com.example.fotoradar.windows.VersionFormWindow;
@@ -43,7 +45,7 @@ public class SegmentFormComponent extends AnchorPane {
     @FXML
     public ComboBox<Version> versionComboBox;
     @FXML
-    public ComboBox statusComboBox;
+    public ComboBox<Status> statusComboBox;
 
     private Segment segment;
     @Setter
@@ -52,6 +54,7 @@ public class SegmentFormComponent extends AnchorPane {
     private Collectible parentCollectible;
 
     private ArrayList<Version> versions;
+    private ArrayList<Status> statuses;
 
     public SegmentFormComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/SegmentFormComponent.fxml"));
@@ -62,6 +65,32 @@ public class SegmentFormComponent extends AnchorPane {
     }
 
     public void initialize() {
+        fillStatusComboBox();
+    }
+
+    private void fillStatusComboBox() {
+        statuses = StatusManager.getInstance().getStatuses();
+        statusComboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Status status) {
+                return status != null ? status.getName() : "";
+            }
+            @Override
+            public Status fromString(String string) {
+                return findStatusByName(string);
+            }
+        });
+
+        statusComboBox.setItems(FXCollections.observableArrayList(statuses));
+    }
+
+    private Status findStatusByName(String name) {
+        for (Status status : statuses) {
+            if (status.getName().equals(name)) {
+                return status;
+            }
+        }
+        return null; // Możesz obsłużyć przypadek, gdy wersja nie zostanie znaleziona
     }
 
     public void fillVersionComboBox() throws SQLException {
@@ -135,7 +164,6 @@ public class SegmentFormComponent extends AnchorPane {
         String description = segment.getDescription() == null ? "wprowadź opis segmentu" : segment.getDescription();
         descriptionTextArea.setText(description);
         versionComboBox.setValue(null);
-        statusComboBox.setValue("status do pobrania");
     }
 
     public void setSegment(Segment segment) {

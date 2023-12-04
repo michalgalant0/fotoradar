@@ -1,6 +1,7 @@
 package com.example.fotoradar.databaseOperations;
 
 import com.example.fotoradar.models.Collectible;
+import com.example.fotoradar.models.Status;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,8 +29,10 @@ public class CollectibleOperations {
                     String startDate = resultSet.getString("start_date");
                     String finishDate = resultSet.getString("finish_date");
                     String description = resultSet.getString("description");
+                    int statusId = resultSet.getInt("status_id");
+                    Status status = StatusManager.getInstance().getStatuses().get(statusId);
 
-                    Collectible collectible = new Collectible(id, title, startDate, finishDate, description, parentCollectionId);
+                    Collectible collectible = new Collectible(id, title, startDate, finishDate, description, status, parentCollectionId);
                     collectibles.add(collectible);
                 }
             }
@@ -49,10 +52,12 @@ public class CollectibleOperations {
                     String startDate = resultSet.getString("start_date");
                     String finishDate = resultSet.getString("finish_date");
                     String description = resultSet.getString("description");
+                    int statusId = resultSet.getInt("status_id");
+                    Status status = StatusManager.getInstance().getStatuses().get(statusId);
                     int parentCollectionId = resultSet.getInt("collection_id");
 
 
-                    return new Collectible(id, title, startDate, finishDate, description, parentCollectionId);
+                    return new Collectible(id, title, startDate, finishDate, description, status, parentCollectionId);
                 }
             }
         }
@@ -61,13 +66,14 @@ public class CollectibleOperations {
 
     // Dodawanie obiektu do bazy
     public boolean addCollectible(Collectible collectible) throws SQLException {
-        String query = "INSERT INTO Collectible (title, start_date, finish_date, description, collection_id) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Collectible (title, start_date, finish_date, description, status_id, collection_id) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, collectible.getTitle());
             preparedStatement.setString(2, collectible.getStartDate());
             preparedStatement.setString(3, collectible.getFinishDate());
             preparedStatement.setString(4, collectible.getDescription());
-            preparedStatement.setInt(5, collectible.getParentCollectionId());
+            preparedStatement.setInt(5, collectible.getStatus().getId()-1);
+            preparedStatement.setInt(6, collectible.getParentCollectionId());
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
@@ -86,15 +92,16 @@ public class CollectibleOperations {
 
     // Aktualizacja istniejącego obiektu w bazie
     public boolean updateCollectible(Collectible collectible) throws SQLException {
-        String query = "UPDATE Collectible SET title=?, start_date=?, finish_date=?, description=? WHERE collectible_id=? AND collection_id=?";
+        String query = "UPDATE Collectible SET title=?, start_date=?, finish_date=?, description=?, status_id=? WHERE collectible_id=? AND collection_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, collectible.getTitle());
             preparedStatement.setString(2, collectible.getStartDate());
             preparedStatement.setString(3, collectible.getFinishDate());
             preparedStatement.setString(4, collectible.getDescription());
+            preparedStatement.setInt(5, collectible.getStatus().getId());
 
-            preparedStatement.setInt(5, collectible.getId());
-            preparedStatement.setInt(6, collectible.getParentCollectionId());
+            preparedStatement.setInt(6, collectible.getId());
+            preparedStatement.setInt(7, collectible.getParentCollectionId());
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;

@@ -90,7 +90,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         collectibleFormComponent.setStartDatePicker(collectible.getStartDate());
         collectibleFormComponent.setFinishDatePicker(collectible.getFinishDate());
         collectibleFormComponent.setDescriptionTextArea(collectible.getDescription());
-        collectibleFormComponent.setStatusComboBox("do pobrania");
+        collectibleFormComponent.setStatusComboBox(collectible.getStatus());
     }
 
     @FXML

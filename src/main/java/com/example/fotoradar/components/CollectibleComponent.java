@@ -59,8 +59,7 @@ public class CollectibleComponent extends AnchorPane {
         startDateTextField.setText(collectible.getStartDate());
         finishDateTextField.setText(collectible.getFinishDate());
         descriptionTextArea.setText(collectible.getDescription());
-        // todo pobranie statusu z bazy
-        statusTextField.setText("do pobrania");
+        statusTextField.setText(collectible.getStatus().getName());
     }
 
 

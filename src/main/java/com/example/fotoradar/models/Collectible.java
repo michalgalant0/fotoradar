@@ -11,15 +11,17 @@ public class Collectible {
     private String startDate;
     private String finishDate;
     private String description;
+    private Status status;
     private int parentCollectionId;
 
     // konstruktor na potrzeby tworzenia obiektu kolekcji bez id
     // (etap przejściowy przy dodawaniu kolekcji do bazy)
-    public Collectible(String title, String startDate, String finishDate, String description, int parentCollectionId) {
+    public Collectible(String title, String startDate, String finishDate, String description, Status status, int parentCollectionId) {
         this.setTitle(title);
         this.setStartDate(startDate);
         this.setFinishDate(finishDate);
         this.setDescription(description);
+        this.setStatus(status);
         this.setParentCollectionId(parentCollectionId);
     }
 }

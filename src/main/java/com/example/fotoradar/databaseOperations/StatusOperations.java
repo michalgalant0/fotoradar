@@ -7,28 +7,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 public class StatusOperations {
-    private final Connection connection;
+    private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
-    public StatusOperations(Connection connection) {
-        this.connection = connection;
+    public StatusOperations() throws SQLException {
     }
 
-    // todo do usunięcia - dodać statusy na sztywno w bazie
-    public void addStatusValues() throws SQLException {
-        String[] statusValues = {"notStarted", "started", "notEnded", "ended"};
-        for (String status : statusValues) {
-            String query = "INSERT INTO Status (name) VALUES (?)";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                preparedStatement.setString(1, status);
-                preparedStatement.executeUpdate();
-            }
-        }
-    }
-
-    public List<Status> getAllStatuses() throws SQLException {
-        List<Status> statuses = new ArrayList<>();
+    public ArrayList<Status> getAllStatuses() throws SQLException {
+        ArrayList<Status> statuses = new ArrayList<>();
         String query = "SELECT * FROM Status";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -43,20 +29,4 @@ public class StatusOperations {
         }
         return statuses;
     }
-
-    public Status getStatusById(int id) throws SQLException {
-        String query = "SELECT * FROM Status WHERE status_id=?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, id);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    String name = resultSet.getString("name");
-
-                    return new Status(id, name);
-                }
-            }
-        }
-        return null;
-    }
-
 }

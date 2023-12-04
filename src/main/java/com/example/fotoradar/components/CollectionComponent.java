@@ -51,7 +51,7 @@ public class CollectionComponent extends AnchorPane {
             CollectionRowComponent collectionRow = new CollectionRowComponent();
             collectionRow.setCollectible(collectible);
             collectionRow.setNameLabel(collectible.getTitle());
-            collectionRow.setStatusLabel("DO POBRANIA");
+            collectionRow.setStatusLabel(collectible.getStatus().getName().toUpperCase());
             collectionRow.setThumbnailPath(collection.getTitle());
 
             collectiblesContainer.getChildren().add(collectionRow);

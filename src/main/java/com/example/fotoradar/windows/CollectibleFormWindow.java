@@ -46,6 +46,7 @@ public class CollectibleFormWindow implements Window {
                 collectibleForm.startDatePicker.getValue().toString(),
                 collectibleForm.finishDatePicker.getValue().toString(),
                 collectibleForm.descriptionTextArea.getText(),
+                collectibleForm.statusComboBox.getValue(),
                 parentCollection.getId()
         );
 
