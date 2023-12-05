@@ -12,7 +12,7 @@ public class Segment {
     private String finishDate;
     private String description;
     private String coords;
-    private int statusId;
+    private Status status;
     private int parentCollectibleId;
     private int thumbnailId;
 

@@ -112,7 +112,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         currentSegment.setStartDate(String.valueOf(segmentFormComponent.startDatePicker.getValue()));
         currentSegment.setFinishDate(String.valueOf(segmentFormComponent.finishDatePicker.getValue()));
         currentSegment.setDescription(segmentFormComponent.descriptionTextArea.getText());
-        currentSegment.setStatusId(1); // test
+        currentSegment.setStatus(segmentFormComponent.statusComboBox.getValue()); // test
 
         // aktualizacja danych w bazie
         segmentOperations.updateSegment(segmentToUpdate);

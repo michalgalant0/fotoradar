@@ -164,6 +164,9 @@ public class SegmentFormComponent extends AnchorPane {
         String description = segment.getDescription() == null ? "wprowadź opis segmentu" : segment.getDescription();
         descriptionTextArea.setText(description);
         versionComboBox.setValue(null);
+        Status tmp = new Status();
+        tmp.setName("DO POBRANIA");
+        statusComboBox.setValue(segment.getStatus() == null ? tmp : segment.getStatus());
     }
 
     public void setSegment(Segment segment) {
