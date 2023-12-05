@@ -88,7 +88,6 @@ public class CollectibleFormComponent extends AnchorPane {
         descriptionTextArea.setText(collectibleDescription);
     }
     public void setStatusComboBox(Status status) {
-        // todo poprawic
         statusComboBox.setValue(status);
     }
 }

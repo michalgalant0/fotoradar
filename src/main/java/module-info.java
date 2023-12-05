@@ -8,6 +8,7 @@ module com.example.fotoradar {
     requires lombok;
     requires java.sql;
     requires org.apache.pdfbox;
+    requires java.desktop;
 
     opens com.example.fotoradar to javafx.fxml;
     exports com.example.fotoradar;

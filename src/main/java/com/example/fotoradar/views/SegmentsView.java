@@ -21,11 +21,10 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Setter;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -198,22 +197,41 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     @Override
     public void onAddingPhotosFinished(List<File> selectedFiles) throws IOException, SQLException {
         // wyswietlenie listy zdjec w konsoli
-        System.out.println("SegmentsView.onAddingPhotosFinished: selectedFilesFromAddPhotosWindow "+selectedFiles);
+        System.out.println("SegmentsView.onAddingPhotosFinished: selectedFilesFromAddPhotosWindow " + selectedFiles);
+
         for (File file : selectedFiles) {
-            // przekopiowanie wybranych plikow do utworzonej struktury aplikacji
-            String destinationFilePath = collectibleThumbnailsPath+file.getName();
-            // kopiowanie dla potrzeb testowych - domyślnie przenoszenie
-            Files.copy(
-                    file.toPath(), Path.of(destinationFilePath),
-                    StandardCopyOption.REPLACE_EXISTING
-            );
-            // dodanie miniatur do bazy
-            thumbnailOperations.addThumbnail(
-                    new Thumbnail(file.getName(), collectible.getId())
-            );
+            // Wczytaj oryginalne zdjęcie
+            BufferedImage originalImage = ImageIO.read(file);
+
+            // Oblicz proporcje skalowania
+            double scaleFactor = 1.0;
+            int targetWidth = 800;
+            int targetHeight = 800;
+
+            if (originalImage.getWidth() > originalImage.getHeight()) {
+                scaleFactor = (double) targetWidth / originalImage.getWidth();
+            } else {
+                scaleFactor = (double) targetHeight / originalImage.getHeight();
+            }
+
+            // Przeskaluj obraz
+            int scaledWidth = (int) (originalImage.getWidth() * scaleFactor);
+            int scaledHeight = (int) (originalImage.getHeight() * scaleFactor);
+            java.awt.Image scaledImage = originalImage.getScaledInstance(scaledWidth, scaledHeight, java.awt.Image.SCALE_SMOOTH);
+            BufferedImage scaledBufferedImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
+            scaledBufferedImage.getGraphics().drawImage(scaledImage, 0, 0, null);
+
+            // Utwórz ścieżkę docelową
+            String destinationFilePath = collectibleThumbnailsPath + file.getName();
+
+            // Zapisz przeskalowany obraz do pliku
+            ImageIO.write(scaledBufferedImage, "jpg", new File(destinationFilePath));
+
+            // Dodaj miniaturę do bazy
+            thumbnailOperations.addThumbnail(new Thumbnail(file.getName(), collectible.getId()));
         }
 
-        //odswiezenie widoku
+        // Odśwież widok
         refresh();
     }
 
