@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SegmentsView implements SegmenterListener, AddPhotoListener, SegmentsListener, RemoveStructureListener, OnWindowClosedListener {
     @FXML
@@ -170,10 +171,25 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         segmenter = new Segmenter();
         // przekazanie bieżącego zdjęcia do segmentera
         passCurrentImageToSegmenter();
+        // przekazanie gotowej do wyświetlenia listy segmentów do segmentera
+        segmenter.setSegmentsToShow(getSegmenterSegmentsForCurrentThumbnail());
 
         segmenter.setSegmenterListener(this);
         Stage stage = new Stage();
         segmenter.start(stage);
+    }
+
+    private ArrayList<Segmenter.Segment> getSegmenterSegmentsForCurrentThumbnail() {
+        ArrayList<Segmenter.Segment> segmenterSegments = new ArrayList<>();
+
+        ArrayList<Segment> segmentsToConvert = segments.stream()
+                .filter(segment -> segment.getThumbnailId() == imageViewerComponent.getCurrentThumbnail().getId())
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        for(Segment segment : segmentsToConvert)
+            segmenterSegments.add(segment.toSegmenterSegment());
+
+        return segmenterSegments;
     }
 
     @Override

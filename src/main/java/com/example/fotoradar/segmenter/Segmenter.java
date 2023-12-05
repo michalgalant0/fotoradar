@@ -22,6 +22,8 @@ public class Segmenter extends Application {
     private Stage primaryStage;
     @Getter
     private ArrayList<Segment> segments = new ArrayList<>();
+    @Setter
+    private ArrayList<Segment> segmentsToShow;
     private Segment currentSegment;
     private Canvas canvas;
     private double previousX;
@@ -47,16 +49,22 @@ public class Segmenter extends Application {
 
         canvas = new Canvas(Math.min(800, currentImage.getWidth()), Math.min(800, currentImage.getHeight()));
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.drawImage(currentImage, 0, 0, canvas.getWidth(), canvas.getHeight());
+        double offsetX = (canvas.getWidth() - currentImage.getWidth()) / 2;
+        double offsetY = (canvas.getHeight() - currentImage.getHeight()) / 2;
+        gc.drawImage(currentImage, offsetX, offsetY);
+
+        // narysowanie wczesniejszych segmentow
+        if (!segmentsToShow.isEmpty())
+            redrawCanvas();
 
         canvas.setOnMouseClicked(event -> {
             if (currentSegment == null) {
                 currentSegment = new Segment();
-                currentSegment.addPoint(event.getX(), event.getY());
+                currentSegment.addPoint(event.getX() - offsetX, event.getY() - offsetY);
                 previousX = event.getX();
                 previousY = event.getY();
             } else if (currentSegment.getPoints().size() < 8) {
-                currentSegment.addPoint(event.getX(), event.getY());
+                currentSegment.addPoint(event.getX() - offsetX, event.getY() - offsetY);
                 previousX = event.getX();
                 previousY = event.getY();
             }
@@ -67,17 +75,17 @@ public class Segmenter extends Application {
                 printSegments();
                 redrawCanvas();
             } else {
-                drawSegmentPoints(); // Dodaj rysowanie punktów segmentu w trakcie rysowania
+                drawSegmentPoints();
             }
         });
 
         canvas.setOnMouseMoved(event -> {
             if (currentSegment != null && !currentSegment.getPoints().isEmpty()) {
-                double currentX = event.getX();
-                double currentY = event.getY();
+                double currentX = event.getX() - offsetX;
+                double currentY = event.getY() - offsetY;
                 redrawCanvas();
                 drawSegmentPoints();
-                drawDynamicLine(previousX, previousY, currentX, currentY);
+                drawDynamicLine(previousX - offsetX, previousY - offsetY, currentX, currentY);
             }
         });
 
@@ -118,15 +126,22 @@ public class Segmenter extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.drawImage(currentImage, 0, 0, canvas.getWidth(), canvas.getHeight());
 
-        for (Segment segment : segments) {
-            List<Double> points = segment.getPoints();
-            gc.setStroke(Palette.MAIN.getColor());
-            gc.setLineWidth(3);
-            gc.strokeLine(points.get(0), points.get(1), points.get(2), points.get(3));
-            gc.strokeLine(points.get(2), points.get(3), points.get(4), points.get(5));
-            gc.strokeLine(points.get(4), points.get(5), points.get(6), points.get(7));
-            gc.strokeLine(points.get(6), points.get(7), points.get(0), points.get(1));
-        }
+        for (Segment segment : segments)
+            drawSegment(gc, segment);
+
+        // narysowanie wczesniej istniejacych segmentow
+        for (Segment segment : segmentsToShow)
+            drawSegment(gc, segment);
+    }
+
+    private void drawSegment(GraphicsContext gc, Segment segment) {
+        List<Double> points = segment.getPoints();
+        gc.setStroke(Palette.MAIN.getColor());
+        gc.setLineWidth(3);
+        gc.strokeLine(points.get(0), points.get(1), points.get(2), points.get(3));
+        gc.strokeLine(points.get(2), points.get(3), points.get(4), points.get(5));
+        gc.strokeLine(points.get(4), points.get(5), points.get(6), points.get(7));
+        gc.strokeLine(points.get(6), points.get(7), points.get(0), points.get(1));
     }
 
     private void drawSegmentPoints() {
