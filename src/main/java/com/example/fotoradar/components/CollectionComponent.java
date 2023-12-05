@@ -8,6 +8,7 @@ import com.example.fotoradar.views.CollectionView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -47,14 +48,27 @@ public class CollectionComponent extends AnchorPane {
     }
 
     public void fillCollectionVBox() throws IOException, SQLException {
-        for (Collectible collectible : collectibles) {
-            CollectionRowComponent collectionRow = new CollectionRowComponent();
-            collectionRow.setCollectible(collectible);
-            collectionRow.setNameLabel(collectible.getTitle());
-            collectionRow.setStatusLabel(collectible.getStatus().getName().toUpperCase());
-            collectionRow.setThumbnailPath(collection.getTitle());
+        if (collectibles == null || collectibles.isEmpty()) {
+            Label infoLabel = new Label("NIE MA ŻADNEGO OBIEKTU");
+            infoLabel.setStyle("""
+                    -fx-font-size: 16;
+                    -fx-text-fill: grey;
+                    -fx-alignment: center;
+                    """);
+            collectiblesContainer.setAlignment(Pos.CENTER);
+            collectiblesContainer.getChildren().add(infoLabel);
+        }
+        else {
+            collectiblesContainer.setAlignment(Pos.TOP_LEFT);
+            for (Collectible collectible : collectibles) {
+                CollectionRowComponent collectionRow = new CollectionRowComponent();
+                collectionRow.setCollectible(collectible);
+                collectionRow.setNameLabel(collectible.getTitle());
+                collectionRow.setStatusLabel(collectible.getStatus().getName().toUpperCase());
+                collectionRow.setThumbnailPath(collection.getTitle());
 
-            collectiblesContainer.getChildren().add(collectionRow);
+                collectiblesContainer.getChildren().add(collectionRow);
+            }
         }
     }
 

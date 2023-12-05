@@ -4,6 +4,8 @@ import com.example.fotoradar.Main;
 import com.example.fotoradar.models.Collectible;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import lombok.Setter;
@@ -32,19 +34,33 @@ public class CollectiblesComponent extends AnchorPane {
 
     public void fillCollectiblesHBox() throws IOException, SQLException {
         collectiblesContainer.getChildren().clear();
-        for (Collectible collectible : collectibles) {
-            // utworzenie komponentu obiektu
-            CollectibleComponent collectibleComponent =
-                    new CollectibleComponent();
-            System.out.println("CollectiblesComponent.fillCollectiblesHBox: "+collectible);
-            // ustawienie listy obiektów kolekcji
-            collectibleComponent.setCollectible(collectible);
-            // wypełnienie komponentu
-            collectibleComponent.setThumbnailPath(collectionName);
-            collectibleComponent.setObjectThumbnailImageView();
-            collectibleComponent.fillComponent();
-            // dodanie komponentu do listy
-            collectiblesContainer.getChildren().add(collectibleComponent);
+
+        if (collectibles == null || collectibles.isEmpty()) {
+            Label infoLabel = new Label("NIE MA ŻADNEGO OBIEKTU");
+            infoLabel.setStyle("""
+                    -fx-font-size: 20;
+                    -fx-text-fill: grey;
+                    -fx-alignment: center;
+                    """);
+            collectiblesContainer.setAlignment(Pos.CENTER);
+            collectiblesContainer.getChildren().add(infoLabel);
+        }
+        else {
+            collectiblesContainer.setAlignment(Pos.TOP_LEFT);
+            for (Collectible collectible : collectibles) {
+                // utworzenie komponentu obiektu
+                CollectibleComponent collectibleComponent =
+                        new CollectibleComponent();
+                System.out.println("CollectiblesComponent.fillCollectiblesHBox: " + collectible);
+                // ustawienie listy obiektów kolekcji
+                collectibleComponent.setCollectible(collectible);
+                // wypełnienie komponentu
+                collectibleComponent.setThumbnailPath(collectionName);
+                collectibleComponent.setObjectThumbnailImageView();
+                collectibleComponent.fillComponent();
+                // dodanie komponentu do listy
+                collectiblesContainer.getChildren().add(collectibleComponent);
+            }
         }
     }
 }

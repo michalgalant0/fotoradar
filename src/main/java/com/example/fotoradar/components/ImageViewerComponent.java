@@ -13,10 +13,13 @@ import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.util.Duration;
@@ -34,6 +37,8 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
     private ImageView imageView;
     @FXML
     private Pane segmentPane;
+    @FXML
+    private StackPane mainPane;
 
     @Setter
     private String parentDirectory;
@@ -104,7 +109,11 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
     }
 
     private void showImage(int index) throws SQLException {
+        mainPane.getChildren().clear();
         if (!images.isEmpty() && currentImageIndex >= 0 && currentImageIndex < images.size()) {
+            mainPane.getChildren().add(imageView);
+            mainPane.getChildren().add(segmentPane);
+
             currentImageIndex = index;
             ImageModel imageModel = images.get(currentImageIndex);
             String imagePath = Paths.get(parentDirectory, imageModel.getFileName()).toString();
@@ -155,6 +164,15 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            Label infoLabel = new Label("NIE MA ŻADNEGO ZDJĘCIA");
+            infoLabel.setStyle("""
+                    -fx-font-size: 20;
+                    -fx-text-fill: grey;
+                    -fx-alignment: center;
+                    """);
+            mainPane.setAlignment(Pos.CENTER);
+            mainPane.getChildren().add(infoLabel);
         }
     }
 

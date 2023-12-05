@@ -8,7 +8,9 @@ import com.example.fotoradar.views.ParametersView;
 import com.example.fotoradar.views.TeamsView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
@@ -43,6 +45,7 @@ public class TeamsComponent extends AnchorPane {
     }
 
     public void fillTeamsComponent() throws IOException {
+        teamsContainer.getChildren().clear();
         System.err.println("TeamsComponent.flag "+flag);
         if (flag == TeamsComponentFlag.TEAMS_VIEW)
             MAX_COLUMNS = 4;
@@ -52,7 +55,22 @@ public class TeamsComponent extends AnchorPane {
         // szerokości komponentów TeamComponent + odstępy między nimi z marginesami + margines prawy
         teamsContainer.setPrefWidth(MAX_COLUMNS*326.0+(MAX_COLUMNS+2)*20.0);
 
-        teamsContainer.getChildren().clear();
+        if (teams == null || teams.isEmpty()) {
+            Label infoLabel = new Label("NIE MA ŻADNEGO ZESPOŁU");
+            infoLabel.setStyle("""
+                    -fx-font-size: 20;
+                    -fx-text-fill: grey;
+                    -fx-alignment: center;
+                    """);
+            teamsContainer.setAlignment(Pos.CENTER);
+            teamsContainer.getChildren().add(infoLabel);
+        } else {
+            fillComponent();
+        }
+    }
+
+    private void fillComponent() throws IOException {
+        teamsContainer.setAlignment(Pos.TOP_LEFT);
         System.out.println(teams);
         int columnIndex = 0;
         int rowIndex = 0;

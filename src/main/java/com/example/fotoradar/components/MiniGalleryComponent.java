@@ -11,7 +11,9 @@ import com.example.fotoradar.windows.OnWindowClosedListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -48,26 +50,41 @@ public class MiniGalleryComponent extends AnchorPane {
     public void initialize() {
     }
 
+    // todo poprawic bo sie layout zdjec popsul
     public void fillComponent() {
         photosContainer.getChildren().clear();
-        System.out.println(parentDirectory);
-        System.out.println(images);
 
-        final int MAX_COLUMNS = 3;
-        int columnIndex = 0;
-        int rowIndex = 0;
+        if (images == null || images.isEmpty()) {
+            Label infoLabel = new Label("NIE MA ŻADNEGO ZDJĘCIA");
+            infoLabel.setStyle("""
+                    -fx-font-size: 20;
+                    -fx-text-fill: grey;
+                    -fx-alignment: center;
+                    """);
+            photosContainer.setAlignment(Pos.CENTER);
+            photosContainer.getChildren().add(infoLabel);
+        }
+        else {
+            photosContainer.setAlignment(Pos.TOP_LEFT);
+            System.out.println(parentDirectory);
+            System.out.println(images);
 
-        for (int i=0; i< images.size(); i++) {
-            ImageModel imageModel = images.get(i);
-            System.out.println("MiniGallery.fillComponent: thumbnail name: "+imageModel.getFileName());
-            ImageView imageView = createThumbnailImageView(imageModel.getFileName(), i);
-            photosContainer.add(imageView, columnIndex, rowIndex);
+            final int MAX_COLUMNS = 3;
+            int columnIndex = 0;
+            int rowIndex = 0;
 
-            // Przesuwaj się do kolejnej kolumny lub wiersza
-            columnIndex++;
-            if (columnIndex >= MAX_COLUMNS) {
-                columnIndex = 0;
-                rowIndex++;
+            for (int i = 0; i < images.size(); i++) {
+                ImageModel imageModel = images.get(i);
+                System.out.println("MiniGallery.fillComponent: thumbnail name: " + imageModel.getFileName());
+                ImageView imageView = createThumbnailImageView(imageModel.getFileName(), i);
+                photosContainer.add(imageView, columnIndex, rowIndex);
+
+                // Przesuwaj się do kolejnej kolumny lub wiersza
+                columnIndex++;
+                if (columnIndex >= MAX_COLUMNS) {
+                    columnIndex = 0;
+                    rowIndex++;
+                }
             }
         }
     }
