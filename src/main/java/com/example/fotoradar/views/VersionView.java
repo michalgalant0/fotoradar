@@ -213,7 +213,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
 
     private void refresh() throws SQLException {
         setWindowLabel();
-        versionFormComponent.fillForm(version); //todo dodać pobieranie wersji na odświeżeniu dla danego segmentu, żeby nie musieć klikać dwa razy
+        versionFormComponent.fillForm(version);
         versionFormComponent.fillTeamComboBox();
         versionPhotosPath = Paths.get(
                 System.getProperty("user.dir"),"KOLEKCJE",

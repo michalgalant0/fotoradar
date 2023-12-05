@@ -66,6 +66,11 @@ public class SegmentFormComponent extends AnchorPane {
 
     public void initialize() {
         fillStatusComboBox();
+
+        // wartosc domyslna - zacheta
+        Status tmpStatus = new Status();
+        tmpStatus.setName("wybierz status");
+        statusComboBox.setValue(tmpStatus);
     }
 
     private void fillStatusComboBox() {
@@ -141,13 +146,7 @@ public class SegmentFormComponent extends AnchorPane {
         versionFormWindow.setParentSegment(segment);
         versionFormWindow.setParentCollectionName(parentCollectionName);
         versionFormWindow.setParentCollectible(parentCollectible);
-        versionFormWindow.setOnWindowClosedListener(() -> {
-            try {
-                fillVersionComboBox();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        versionFormWindow.setOnWindowClosedListener(this::loadVersions);
 
         new SwitchScene().displayWindow("VersionFormWindow", "dodaj wersję", versionFormWindow);
     }
@@ -163,14 +162,25 @@ public class SegmentFormComponent extends AnchorPane {
         finishDatePicker.setValue(LocalDate.parse(finishDate));
         String description = segment.getDescription() == null ? "wprowadź opis segmentu" : segment.getDescription();
         descriptionTextArea.setText(description);
-        versionComboBox.setValue(null);
-        Status tmp = new Status();
-        tmp.setName("DO POBRANIA");
-        statusComboBox.setValue(segment.getStatus() == null ? tmp : segment.getStatus());
+        try {
+            fillVersionComboBox();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void setSegment(Segment segment) {
         this.segment = segment;
         fillForm();
+
+        loadVersions();
+    }
+
+    private void loadVersions() {
+        try {
+            fillVersionComboBox();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

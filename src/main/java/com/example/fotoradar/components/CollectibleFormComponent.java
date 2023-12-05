@@ -44,6 +44,11 @@ public class CollectibleFormComponent extends AnchorPane {
 
     public void initialize() {
         fillStatusComboBox();
+
+        // wartosc domyslna - zacheta
+        Status tmpStatus = new Status();
+        tmpStatus.setName("wybierz status");
+        statusComboBox.setValue(tmpStatus);
     }
 
     private void fillStatusComboBox() {

@@ -61,8 +61,7 @@ public class VersionFormWindow implements Window, OnWindowClosedListener {
                 versionForm.startDatePicker.getValue().toString(),
                 versionForm.finishDatePicker.getValue().toString(),
                 versionForm.descriptionTextArea.getText(),
-                // todo dodac przekazywanie id zespolu
-                1,
+                versionForm.teamComboBox.getValue().getId(),
                 parentSegment.getId()
         );
 
