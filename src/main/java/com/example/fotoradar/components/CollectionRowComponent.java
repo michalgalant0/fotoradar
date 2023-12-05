@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import lombok.Setter;
 
 import java.io.IOException;
@@ -17,6 +18,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CollectionRowComponent extends AnchorPane {
+    @FXML
+    private StackPane imageContainer;
     @FXML
     public ImageView objectThumbnailImageView;
     @FXML
@@ -38,6 +41,13 @@ public class CollectionRowComponent extends AnchorPane {
     }
 
     public void initialize() {
+        // Set the alignment to center the image within the StackPane
+        StackPane.setAlignment(objectThumbnailImageView, javafx.geometry.Pos.CENTER);
+
+        // Set properties for adjusting the size to fit the ImageView
+        objectThumbnailImageView.setPreserveRatio(true);
+        objectThumbnailImageView.setFitWidth(imageContainer.getPrefWidth());  // Adjust the width as needed
+        objectThumbnailImageView.setFitHeight(imageContainer.getPrefHeight()); // Adjust the height as needed
     }
 
     public void setNameLabel(String name) {
@@ -61,7 +71,7 @@ public class CollectionRowComponent extends AnchorPane {
     }
 
     public void setObjectThumbnailImageView() {
-        Image image = new Image("file://"+thumbnailPath);
+        Image image = new Image("file://" + thumbnailPath);
         objectThumbnailImageView.setImage(image);
     }
 }

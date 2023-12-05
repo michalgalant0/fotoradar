@@ -10,6 +10,8 @@ import com.example.fotoradar.windows.ImageViewerWindow;
 import com.example.fotoradar.windows.OnWindowClosedListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -74,9 +76,11 @@ public class MiniGalleryComponent extends AnchorPane {
         ImageView imageView = new ImageView();
         imageView.setFitWidth(200);
         imageView.setFitHeight(200);
+        imageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
+
         String filePath = Paths.get(parentDirectory, thumbnailName).toString();
-        System.out.println("miniGallery.createThumbnailImageView: filePath "+filePath);
-        Image image = new Image("file://"+filePath);
+        System.out.println("miniGallery.createThumbnailImageView: filePath " + filePath);
+        Image image = new Image("file://" + filePath);
         imageView.setImage(image);
 
         imageView.setOnMouseClicked(event -> {
@@ -93,6 +97,10 @@ public class MiniGalleryComponent extends AnchorPane {
                 System.out.println("Kliknięto prawym przyciskiem myszy na miniaturze obrazu: " + thumbnailName);
             }
         });
+
+        // Set alignment of the ImageView within the GridPane cell
+        GridPane.setHalignment(imageView, HPos.CENTER);
+        GridPane.setValignment(imageView, VPos.CENTER);
 
         return imageView;
     }
