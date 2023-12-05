@@ -37,14 +37,19 @@ public class SettingsWindow implements Window{
         cancel();
     }
     @FXML
-    private void SaveSettings(){saveSettings();}
+    private void SaveSettings() throws UnsupportedEncodingException {saveSettings();}
     @FXML
     private void ChangeDirectory() throws UnsupportedEncodingException {
         changeDirectory();
+        // Po wyborze nowej ścieżki, sprawdź czy ścieżka została zmieniona, aby aktywować przycisk "ZASTOSUJ"
+        if (newPathDecoded != null && !newPathDecoded.isEmpty()) {
+            SaveSettingsButton.setDisable(false); // Aktywuj przycisk "ZASTOSUJ"
+        }
     }
 
     public void initialize(){
         pathLabel.setText(readDefaultPathFromProperties("properties", "defaultPath"));
+        SaveSettingsButton.setDisable(true);
     }
 
     private String readDefaultPathFromProperties(String fileName, String key) {
@@ -82,22 +87,11 @@ public class SettingsWindow implements Window{
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select Directory");
         File selectedDirectory = directoryChooser.showDialog(stage);
+        newPath = selectedDirectory.getAbsolutePath();
+        newPathDecoded = URLDecoder.decode(newPath, "UTF-8");
+        pathLabel.setText(newPathDecoded);
 
-        if (selectedDirectory != null) {
-            newPath = selectedDirectory.getAbsolutePath();
-            newPathDecoded = URLDecoder.decode(newPath, "UTF-8");
 
-            String oldPath = readDefaultPathFromProperties("properties", "defaultPath");
-
-            if (oldPath != null) {
-                // Update the displayed path label
-                pathLabel.setText(newPathDecoded);
-
-                // Move the folders if they exist
-                moveFolder(oldPath, newPathDecoded, "KOLEKCJE");
-                moveFolder(oldPath, newPathDecoded, "RAPORTY");
-            }
-        }
     }
 
     private void moveFolder(String oldPath, String newPath, String folderName) {
@@ -147,11 +141,25 @@ public class SettingsWindow implements Window{
     }
 
 
-    private void saveSettings() {
+    private void saveSettings() throws UnsupportedEncodingException {
+        if (newPathDecoded != null) {
+
+            String oldPath = readDefaultPathFromProperties("properties", "defaultPath");
+
+            if (oldPath != null) {
+                // Update the displayed path label
+                pathLabel.setText(newPathDecoded);
+
+                // Move the folders if they exist
+                moveFolder(oldPath, newPathDecoded, "KOLEKCJE");
+                moveFolder(oldPath, newPathDecoded, "RAPORTY");
+            }
+        }
         // Ustaw nową ścieżkę jako domyślną
         updatePropertiesFile("properties", "defaultPath", newPathDecoded);
         Main.setDefPath(readDefaultPathFromProperties("properties", "defaultPath"));
-        closeWindow(dialogStage);
+        SaveSettingsButton.setDisable(true);
+        //closeWindow(dialogStage);
     }
 
     private void cancel() {
