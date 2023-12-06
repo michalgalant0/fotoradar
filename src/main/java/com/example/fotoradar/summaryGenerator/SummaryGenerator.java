@@ -37,7 +37,7 @@ public class SummaryGenerator {
         document = new PDDocument();
         page = new PDPage(PDRectangle.A4);
         try {
-            font = PDType0Font.load(document, getClass().getResourceAsStream("/fonts/Roboto-Regular.ttf"));
+            font = PDType0Font.load(document, getClass().getResourceAsStream("/fonts/Helvetica.ttf"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

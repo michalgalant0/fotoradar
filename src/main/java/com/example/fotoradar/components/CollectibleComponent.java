@@ -67,15 +67,12 @@ public class CollectibleComponent extends AnchorPane {
         ArrayList<Thumbnail> allThumbnails = new ThumbnailOperations().getAllThumbnails(collectible.getId());
         if (!allThumbnails.isEmpty()) {
             thumbnailPath = String.format(thumbnailPath,
-                    System.getProperty("user.dir"), collectionName, collectible.getTitle(),
+                    Main.getDefPath(), collectionName, collectible.getTitle(),
                     allThumbnails.get(0).getFileName());
             setObjectThumbnailImageView();
         }
         else
             imageView.setImage(null);
-        thumbnailPath = String.format(thumbnailPath,
-                Main.getDefPath(), collectionName, collectible.getTitle(),
-                new ThumbnailOperations().getAllThumbnails(collectible.getId()).get(0).getFileName());
     }
 
     public void setObjectThumbnailImageView() {

@@ -1,9 +1,9 @@
 package com.example.fotoradar.windows;
 
 import com.example.fotoradar.Main;
+import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Thumbnail;
-import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

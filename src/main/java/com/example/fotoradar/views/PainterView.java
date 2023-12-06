@@ -295,7 +295,7 @@ public class PainterView implements Initializable {
     private void save() throws IOException, SQLException {
 
         SaveSketchWindow saveSketchWindow = new SaveSketchWindow(TheCanvas);
-        saveSketchWindow.setParentCollection(parentCollection);
+        saveSketchWindow.setParentCollectionName(parentCollection.getTitle());
         saveSketchWindow.setCollectible(collectible);
         new SwitchScene().displayWindow("SaveSketchWindow", "Zapisz szkic", saveSketchWindow);
 
@@ -389,7 +389,7 @@ public class PainterView implements Initializable {
     @FXML
     private void setSave(ActionEvent e) throws IOException, SQLException {
         SaveSketchWindow saveSketchWindow = new SaveSketchWindow(TheCanvas);
-        saveSketchWindow.setParentCollection(parentCollection);
+        saveSketchWindow.setParentCollectionName(parentCollection.getTitle());
         saveSketchWindow.setCollectible(collectible);
         new SwitchScene().displayWindow("SaveSketchWindow", "Zapisz szkic", saveSketchWindow);
 

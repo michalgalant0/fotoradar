@@ -1,6 +1,5 @@
 package com.example.fotoradar.databaseOperations;
 
-import com.example.fotoradar.Main;
 import lombok.Getter;
 
 import java.io.File;
@@ -18,6 +17,9 @@ import java.sql.Statement;
  */
 @Getter
 public class DatabaseConnection {
+    //todo jak to jest z bazą
+    //  - jest w resources i ładujemy ją zawsze bezpośrednio z aplikacji
+    //  - czy przerzucamy razem z katalogami, albo wymagamy, żeby zawsze była "obok" aplikacji
     private static final String DATABASE_FILE_PATH = System.getProperty("user.dir") + File.separator + "fotoradar.db";
     private static final String CONNECTION_STRING = "jdbc:sqlite:" + DATABASE_FILE_PATH;
 

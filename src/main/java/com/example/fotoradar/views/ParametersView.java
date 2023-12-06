@@ -1,6 +1,7 @@
 package com.example.fotoradar.views;
 
 import com.example.fotoradar.DirectoryOperator;
+import com.example.fotoradar.Main;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.TeamsComponentFlag;
 import com.example.fotoradar.components.CollectionFormComponent;
@@ -43,7 +44,7 @@ public class ParametersView implements TeamComponentRightClickListener {
         setWindowLabel(collection.getTitle());
         fillFormComponent();
         fillTeamsComponent();
-        collectionPath = String.format(collectionPath, System.getProperty("user.dir"), collection.getTitle());
+        collectionPath = String.format(collectionPath, Main.getDefPath(), collection.getTitle());
     }
 
     public void setWindowLabel(String collectionName) {
@@ -130,7 +131,7 @@ public class ParametersView implements TeamComponentRightClickListener {
         setWindowLabel(collection.getTitle());
         fillFormComponent();
         fillTeamsComponent();
-        collectionPath = String.format(collectionPath, System.getProperty("user.dir"), collection.getTitle());
+        collectionPath = String.format(collectionPath, Main.getDefPath(), collection.getTitle());
     }
 
     @Override

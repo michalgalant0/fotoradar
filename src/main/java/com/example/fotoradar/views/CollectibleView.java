@@ -65,7 +65,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         setParentCollection();
         // ustawienie katalogu miniatur dla bieżącego obiektu
         currentCollectibleThumnailsPath = String.format(collectibleThumbnailsPathTmp,
-                System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle());
+                Main.getDefPath(), parentCollection.getTitle(), collectible.getTitle());
         // ustawienie nagłówka okna
         setWindowLabel(parentCollection.getTitle(), collectible.getTitle());
         // wypełnienie komponentu z formularzem
@@ -73,9 +73,6 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         // wypelnienie komponentu miniGallery miniaturami
         fillMiniGallery();
 
-        // ustawienie katalogu miniatur dla bieżącego obiektu
-        collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
-                Main.getDefPath(), parentCollection.getTitle(), collectible.getTitle());
 
         DirectoryOperator.getInstance().createStructure(collectible, parentCollection.getTitle());
     }
@@ -99,12 +96,13 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
     @FXML
     private void saveCollectible(ActionEvent event) throws SQLException {
         String oldPath = String.format("%s/KOLEKCJE/%s/OBIEKTY/%s",
-                System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle());
+                Main.getDefPath(), parentCollection.getTitle(), collectible.getTitle());
 
         collectible.setTitle(collectibleFormComponent.titleTextField.getText());
         collectible.setStartDate(collectibleFormComponent.startDatePicker.getValue().toString());
         collectible.setFinishDate(collectibleFormComponent.finishDatePicker.getValue().toString());
         collectible.setDescription(collectibleFormComponent.descriptionTextArea.getText());
+        collectible.setStatus(collectibleFormComponent.statusComboBox.getValue());
 
         // update obiektu do bazy
         collectibleOperations.updateCollectible(collectible);
@@ -274,7 +272,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         setWindowLabel(parentCollection.getTitle(), collectible.getTitle());
         // ustawienie katalogu miniatur dla bieżącego obiektu
         currentCollectibleThumnailsPath = String.format(collectibleThumbnailsPathTmp,
-                System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle());
+                Main.getDefPath(), parentCollection.getTitle(), collectible.getTitle());
 
         // wypełnienie komponentu z formularzem
         fillCollectibleForm();

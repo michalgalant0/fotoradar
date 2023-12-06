@@ -5,7 +5,10 @@ import com.example.fotoradar.components.ImageViewerComponent;
 import com.example.fotoradar.components.SegmentFormComponent;
 import com.example.fotoradar.databaseOperations.SegmentOperations;
 import com.example.fotoradar.databaseOperations.ThumbnailOperations;
-import com.example.fotoradar.models.*;
+import com.example.fotoradar.models.Collectible;
+import com.example.fotoradar.models.ImageModel;
+import com.example.fotoradar.models.Segment;
+import com.example.fotoradar.models.Thumbnail;
 import com.example.fotoradar.painter.Painter;
 import com.example.fotoradar.segmenter.Segmenter;
 import com.example.fotoradar.segmenter.SegmenterListener;
@@ -18,7 +21,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Setter;
-import lombok.With;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -112,7 +114,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         System.out.println("zapis segmentu");
         Segment segmentToUpdate = currentSegment;
         String oldPath = String.format("%s/KOLEKCJE/%s/OBIEKTY/%s/SEGMENTY/%s",
-                System.getProperty("user.dir"), parentCollectionName, collectible.getTitle(), currentSegment.getTitle());
+                Main.getDefPath(), parentCollectionName, collectible.getTitle(), currentSegment.getTitle());
 
         // pobranie nowych danych z formularza
         currentSegment.setTitle(segmentFormComponent.nameTextField.getText());
@@ -319,7 +321,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     private void refresh() throws SQLException {
         setWindowLabel(parentCollectionName, collectible.getTitle());
         collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
-                System.getProperty("user.dir"), parentCollectionName, collectible.getTitle());
+                Main.getDefPath(), parentCollectionName, collectible.getTitle());
 
         imageViewerComponent.setImageViewerFlag(ImageViewerFlag.SEGMENTS);
         ArrayList<ImageModel> imageModels = new ArrayList<>(getThumbnails());

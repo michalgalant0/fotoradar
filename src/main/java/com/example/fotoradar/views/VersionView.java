@@ -213,7 +213,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
         versionFormComponent.fillForm(version);
         versionFormComponent.fillTeamComboBox();
         versionPhotosPath = Paths.get(
-                System.getProperty("user.dir"),"KOLEKCJE",
+                Main.getDefPath(),"KOLEKCJE",
                 parentCollectionName, "OBIEKTY", parentCollectible.getTitle(),
                 "SEGMENTY", parentSegment.getTitle(), "WERSJE", version.getName()
         ).toString();
