@@ -30,11 +30,11 @@ public class Main extends Application {
         launch();
     }
 
-    private static String createPropertiesFile(String fileName, String key, String value) {
+    private static String createPropertiesFile(String value) {
         Properties properties = new Properties();
 
-        try (FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
-            properties.setProperty(key, "" + value + "");
+        try (FileOutputStream fileOutputStream = new FileOutputStream("properties")) {
+            properties.setProperty("defaultPath", value);
             Main.setDefPath(value);
             properties.store(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8), "Default Path");
             System.out.println("Properties file created successfully.");
@@ -42,14 +42,14 @@ public class Main extends Application {
             ex.printStackTrace();
             System.err.println("Error creating properties file: " + ex.getMessage());
         }
-        return readDefaultPathFromProperties("properties", "defaultPath");
+        return readDefaultPathFromProperties();
     }
 
-    private static String readDefaultPathFromProperties(String fileName, String key) {
+    private static String readDefaultPathFromProperties() {
         Properties properties = new Properties();
-        try (FileInputStream fileInputStream = new FileInputStream(fileName)) {
+        try (FileInputStream fileInputStream = new FileInputStream("properties")) {
             properties.load(new InputStreamReader(fileInputStream, StandardCharsets.UTF_8));
-            return properties.getProperty(key);
+            return properties.getProperty("defaultPath");
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -59,7 +59,7 @@ public class Main extends Application {
         File propertiesFile = new File("properties");
 
         if (propertiesFile.isFile()) {
-            String defaultPath = readDefaultPathFromProperties("properties", "defaultPath");
+            String defaultPath = readDefaultPathFromProperties();
 
             if (defaultPath != null) {
                 setDefPath(defaultPath);
@@ -67,7 +67,7 @@ public class Main extends Application {
             }
         }
         // Jeśli plik nie istnieje
-        setDefPath(createPropertiesFile("properties", "defaultPath", System.getProperty("user.dir")));
+        setDefPath(createPropertiesFile(System.getProperty("user.dir")));
         //startowa scieżka gdy uruchamiamy aplikacje po raz pierwszy
         System.out.println(getDefPath());
     }
