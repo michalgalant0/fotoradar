@@ -20,4 +20,8 @@
              AnchorPane.bottomAnchor="48.0"
              AnchorPane.rightAnchor="48.0"
              prefHeight="24.0" prefWidth="200.0" text="DODAJ KOLEKCJĘ" />
+    <Button  mnemonicParsing="false" onAction="#openSettings"
+             AnchorPane.topAnchor="48.0"
+             AnchorPane.rightAnchor="48.0"
+             prefHeight="24.0" prefWidth="200.0" text="USTAWIENIA" />
 </AnchorPane>

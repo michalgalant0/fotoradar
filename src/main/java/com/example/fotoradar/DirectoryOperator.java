@@ -6,7 +6,7 @@ import java.io.File;
 
 public class DirectoryOperator {
     private static DirectoryOperator instance;
-    private final String currentDir = System.getProperty("user.dir");
+    private final String currentDir = Main.getDefPath();
 
     public static synchronized DirectoryOperator getInstance() {
         if (instance == null)

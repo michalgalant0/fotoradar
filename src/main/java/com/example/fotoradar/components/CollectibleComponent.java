@@ -73,6 +73,9 @@ public class CollectibleComponent extends AnchorPane {
         }
         else
             imageView.setImage(null);
+        thumbnailPath = String.format(thumbnailPath,
+                Main.getDefPath(), collectionName, collectible.getTitle(),
+                new ThumbnailOperations().getAllThumbnails(collectible.getId()).get(0).getFileName());
     }
 
     public void setObjectThumbnailImageView() {

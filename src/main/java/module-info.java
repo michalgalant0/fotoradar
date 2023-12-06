@@ -9,8 +9,10 @@ module com.example.fotoradar {
     requires java.sql;
     requires org.apache.pdfbox;
     requires java.desktop;
+    requires java.desktop;
+    requires javafx.swing;
 
-    opens com.example.fotoradar to javafx.fxml;
+    opens com.example.fotoradar.painter to javafx.fxml;
     exports com.example.fotoradar;
     exports com.example.fotoradar.databaseOperations;
     opens com.example.fotoradar.databaseOperations to javafx.fxml;

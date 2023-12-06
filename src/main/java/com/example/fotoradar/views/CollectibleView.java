@@ -1,9 +1,6 @@
 package com.example.fotoradar.views;
 
-import com.example.fotoradar.AddPhotoListener;
-import com.example.fotoradar.DirectoryOperator;
-import com.example.fotoradar.RemoveStructureListener;
-import com.example.fotoradar.SwitchScene;
+import com.example.fotoradar.*;
 import com.example.fotoradar.components.CollectibleFormComponent;
 import com.example.fotoradar.components.MiniGalleryComponent;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
@@ -13,12 +10,14 @@ import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import com.example.fotoradar.models.ImageModel;
 import com.example.fotoradar.models.Thumbnail;
+import com.example.fotoradar.painter.Painter;
 import com.example.fotoradar.windows.AddPhotosWindow;
 import com.example.fotoradar.windows.ConfirmDeletePopup;
 import com.example.fotoradar.windows.OnWindowClosedListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import lombok.Setter;
 
 import javax.imageio.ImageIO;
@@ -41,6 +40,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
     private Collectible collectible;
     @Setter
     private Collection parentCollection;
+    private Painter painter;
 
     private String collectibleThumbnailsPathTmp = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/";
     private String currentCollectibleThumnailsPath;
@@ -72,6 +72,10 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         fillCollectibleForm();
         // wypelnienie komponentu miniGallery miniaturami
         fillMiniGallery();
+
+        // ustawienie katalogu miniatur dla bieżącego obiektu
+        collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
+                Main.getDefPath(), parentCollection.getTitle(), collectible.getTitle());
 
         DirectoryOperator.getInstance().createStructure(collectible, parentCollection.getTitle());
     }
@@ -117,9 +121,14 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
     }
 
     @FXML
-    private void addSketch(ActionEvent event) {
+    private void addSketch(ActionEvent event) throws Exception {
         System.out.println("dodawanie szkicu");
         // otwarcie modułu do szkicowania
+        painter = new Painter();
+        painter.setParentCollectionName(parentCollection.getTitle());
+        painter.setCollectible(collectible);
+        Stage stage = new Stage();
+        painter.start(stage);
     }
 
     @FXML
@@ -180,7 +189,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         miniGalleryComponent.setOnWindowClosedListener(this);
         miniGalleryComponent.setParentDirectory(
                 String.format(currentCollectibleThumnailsPath,
-                        System.getProperty("user.dir"), parentCollection.getTitle(), collectible.getTitle()));
+                        Main.getDefPath(), parentCollection.getTitle(), collectible.getTitle()));
         // konwersja listy thumbnails na imagemodels
         ArrayList<Thumbnail> thumbnails = thumbnailOperations.getAllThumbnails(collectible.getId());
         ArrayList<ImageModel> imageModels = new ArrayList<>();

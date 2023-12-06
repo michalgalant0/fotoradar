@@ -9,6 +9,7 @@ import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.models.Collection;
 import com.example.fotoradar.windows.CollectionFormWindow;
 import com.example.fotoradar.windows.OnWindowClosedListener;
+import com.example.fotoradar.windows.SettingsWindow;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
@@ -85,5 +86,12 @@ public class CollectionsView implements OnWindowClosedListener {
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    private void openSettings() throws IOException{
+        System.out.println("wejscie w ustawienia");
+        SettingsWindow settingsWindow = new SettingsWindow();
+        new SwitchScene().displayWindow("settingsWindow", "USTAWIENIA", settingsWindow);
     }
 }

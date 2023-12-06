@@ -5,10 +5,8 @@ import com.example.fotoradar.components.ImageViewerComponent;
 import com.example.fotoradar.components.SegmentFormComponent;
 import com.example.fotoradar.databaseOperations.SegmentOperations;
 import com.example.fotoradar.databaseOperations.ThumbnailOperations;
-import com.example.fotoradar.models.Collectible;
-import com.example.fotoradar.models.ImageModel;
-import com.example.fotoradar.models.Segment;
-import com.example.fotoradar.models.Thumbnail;
+import com.example.fotoradar.models.*;
+import com.example.fotoradar.painter.Painter;
 import com.example.fotoradar.segmenter.Segmenter;
 import com.example.fotoradar.segmenter.SegmenterListener;
 import com.example.fotoradar.windows.AddPhotosWindow;
@@ -20,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Setter;
+import lombok.With;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -50,6 +49,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     private String collectibleThumbnailsPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/";
     private ThumbnailOperations thumbnailOperations;
     private SegmentOperations segmentOperations;
+    private Painter painter;
 
     private int lastIndex;
 
@@ -66,15 +66,22 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     }
 
     public void initialize() throws SQLException {
+        //"schowanie" formularza segmentFormComponent
+        segmentFormComponent.setVisible(false);
+
+        thumbnailOperations = new ThumbnailOperations();
+        segmentOperations = new SegmentOperations();
+
         System.out.println("SegmentsView.initialize: " + collectible);
         setWindowLabel(parentCollectionName, collectible.getTitle());
         collectibleThumbnailsPath = String.format(collectibleThumbnailsPath,
-                System.getProperty("user.dir"), parentCollectionName, collectible.getTitle());
+                Main.getDefPath(), parentCollectionName, collectible.getTitle());
 
         imageViewerComponent.setImageViewerFlag(ImageViewerFlag.SEGMENTS);
         ArrayList<ImageModel> imageModels = new ArrayList<>(getThumbnails());
         imageViewerComponent.setImages(imageModels);
         imageViewerComponent.setParentDirectory(collectibleThumbnailsPath);
+        imageViewerComponent.setSegmentFormComponent(segmentFormComponent);
         imageViewerComponent.initialize();
         imageViewerComponent.setSegmentsListener(this);
 
@@ -142,8 +149,13 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     }
 
     @FXML
-    private void addSketch() {
+    private void addSketch() throws Exception {
         System.out.println("dodanie szkicu");
+        painter = new Painter();
+        painter.setParentCollectionName(parentCollectionName);
+        painter.setCollectible(collectible);
+        Stage stage = new Stage();
+        painter.start(stage);
     }
 
     @FXML
@@ -328,6 +340,4 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
             throw new RuntimeException(e);
         }
     }
-
-    //todo dodac odswiezanie na dodaniu wersji i zaladowac pierwszą jako default
 }
