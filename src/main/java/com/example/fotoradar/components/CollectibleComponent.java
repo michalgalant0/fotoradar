@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import lombok.Setter;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class CollectibleComponent extends AnchorPane {
     @Setter
     private Collectible collectible;
 
-    private String thumbnailPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/%s";
+    private String thumbnailPath = Paths.get("%s","KOLEKCJE","%s","OBIEKTY","%s","MINIATURY","%s").toString();
 
     public CollectibleComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectibleComponent.fxml"));

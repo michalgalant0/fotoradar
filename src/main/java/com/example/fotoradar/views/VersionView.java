@@ -42,7 +42,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
     @Setter
     private Version version;
 
-    private String versionPhotosPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/SEGMENTY/%s/WERSJE/%s";
+    private String versionPhotosPath = Paths.get("%s","KOLEKCJE","%s","OBIEKTY","%s","SEGMENTY","%s","WERSJE","%s").toString();
     private PhotoOperations photoOperations;
 
     public VersionView() {

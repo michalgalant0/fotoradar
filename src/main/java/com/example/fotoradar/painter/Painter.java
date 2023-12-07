@@ -4,6 +4,7 @@ import com.example.fotoradar.Main;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import com.example.fotoradar.models.Collectible;
+import com.example.fotoradar.windows.OnWindowClosedListener;
 import com.example.fotoradar.windows.SaveSketchWindow;
 import com.example.fotoradar.windows.Window;
 import javafx.application.Application;
@@ -31,7 +32,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 
 
-public class Painter extends Application {
+public class Painter extends Application implements OnWindowClosedListener {
 
     private GraphicsContext gcB, gcF, gcI;
     private Stage primaryStage;
@@ -43,6 +44,9 @@ public class Painter extends Application {
     double startX, startY, lastX, lastY, oldX, oldY;
 
     double hg;
+
+    @Setter
+    private OnWindowClosedListener onWindowClosedListener;
 
     //>>>>>>>>>>>>>>>>>>>>>>>FXML Variables<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @FXML
@@ -95,6 +99,7 @@ public class Painter extends Application {
         Painter painterView = new Painter();
         painterView.setParentCollectionName(parentCollectionName);
         painterView.setCollectible(collectible);
+        painterView.setOnWindowClosedListener(onWindowClosedListener);
         fxmlLoader.setController(painterView);
 
         Scene scene = new Scene(fxmlLoader.load());
@@ -342,6 +347,7 @@ public class Painter extends Application {
         SaveSketchWindow saveSketchWindow = new SaveSketchWindow(TheCanvas);
         saveSketchWindow.setCollectible(collectible);
         saveSketchWindow.setParentCollectionName(parentCollectionName);
+        saveSketchWindow.setOnWindowClosedListener(onWindowClosedListener);
         new SwitchScene().displayWindow("SaveSketchWindow", "Zapisz szkic", saveSketchWindow);
     }
     ///////////////////////////////////////////////////////////////////////
@@ -400,5 +406,10 @@ public class Painter extends Application {
     @FXML
     private void setOpen(ActionEvent e) {
         open();
+    }
+
+    @Override
+    public void onWindowClosed() {
+
     }
 }

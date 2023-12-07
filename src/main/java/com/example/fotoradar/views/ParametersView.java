@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import lombok.Setter;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -37,7 +38,7 @@ public class ParametersView implements TeamComponentRightClickListener {
 
     private ArrayList<Team> teams;
 
-    private String collectionPath = "%s/KOLEKCJE/%s";
+    private String collectionPath = Paths.get("%s","KOLEKCJE","%s").toString();
 
     public void initialize() {
         System.out.println("ParametersView.initialize: "+collection);

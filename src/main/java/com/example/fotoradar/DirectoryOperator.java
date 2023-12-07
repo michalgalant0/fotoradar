@@ -3,6 +3,7 @@ package com.example.fotoradar;
 import com.example.fotoradar.models.*;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 public class DirectoryOperator {
     private static DirectoryOperator instance;
@@ -26,7 +27,7 @@ public class DirectoryOperator {
 
     // dla kolekcji
     public void createStructure(Collection collection) {
-        String currentCollectionsDir = currentDir+"/KOLEKCJE";
+        String currentCollectionsDir = Paths.get(currentDir,"KOLEKCJE").toString();
         File collectionDirectory = new File(currentCollectionsDir, collection.getTitle());
         File collectiblesDirectory = new File(collectionDirectory, "OBIEKTY");
 
@@ -38,14 +39,13 @@ public class DirectoryOperator {
     }
 
     public void removeStructure(Collection collection) {
-        String currentCollectionsDir = currentDir+"/KOLEKCJE/"+collection.getTitle();
+        String currentCollectionsDir = Paths.get(currentDir, "KOLEKCJE",collection.getTitle()).toString();
         removeStructure(currentCollectionsDir);
     }
 
     // dla obiektu
     public void createStructure(Collectible collectible, String parentCollectionName) {
-        String currentCollectiblesDir =
-                String.format("%s/KOLEKCJE/%s/OBIEKTY", currentDir, parentCollectionName);
+        String currentCollectiblesDir = Paths.get(currentDir, "KOLEKCJE", parentCollectionName, "OBIEKTY").toString();
         File collectibleDirectory = new File(currentCollectiblesDir, collectible.getTitle());
         File thumbnailsDir = new File(collectibleDirectory, "MINIATURY");
         File segmentsDir = new File(collectibleDirectory, "SEGMENTY");
@@ -65,16 +65,13 @@ public class DirectoryOperator {
     }
 
     public void removeStructure(Collectible collectible, String parentCollectionName) {
-        String currentCollectiblesDir =
-                String.format("%s/KOLEKCJE/%s/OBIEKTY/%s", currentDir, parentCollectionName, collectible.getTitle());
+        String currentCollectiblesDir = Paths.get(currentDir, "KOLEKCJE", parentCollectionName, "OBIEKTY", collectible.getTitle()).toString();
         removeStructure(currentCollectiblesDir);
     }
 
     // dla segmentu
     public void createStructure(Segment segment, String parentCollectionName, String parentCollectibleName) {
-        String currentSegmentsDir =
-                String.format("%s/KOLEKCJE/%s/OBIEKTY/%s/SEGMENTY",
-                        currentDir, parentCollectionName, parentCollectibleName);
+        String currentSegmentsDir = Paths.get(currentDir, "KOLEKCJE", parentCollectionName, "OBIEKTY", parentCollectibleName, "SEGMENTY").toString();
         File segmentDirectory = new File(currentSegmentsDir, segment.getTitle());
         File versionsDir = new File(segmentDirectory, "WERSJE");
 
@@ -92,17 +89,13 @@ public class DirectoryOperator {
     }
 
     public void removeStructure(Segment segment, String parentCollectionName, String parentCollectibleName) {
-        String currentSegmentsDir =
-                String.format("%s/KOLEKCJE/%s/OBIEKTY/%s/SEGMENTY/%s",
-                        currentDir, parentCollectionName, parentCollectibleName, segment.getTitle());
+        String currentSegmentsDir = Paths.get(currentDir, "KOLEKCJE", parentCollectionName, "OBIEKTY", parentCollectibleName, "SEGMENTY", segment.getTitle()).toString();
         removeStructure(currentSegmentsDir);
     }
 
     // dla wersji
     public void createStructure(Version version, String parentCollectionName, String parentCollectibleName, String parentSegmentName) {
-        String currentVersionsDir =
-                String.format("%s/KOLEKCJE/%s/OBIEKTY/%s/SEGMENTY/%s/WERSJE",
-                        currentDir, parentCollectionName, parentCollectibleName, parentSegmentName);
+        String currentVersionsDir = Paths.get(currentDir, "KOLEKCJE", parentCollectionName, "OBIEKTY", parentCollectibleName, "SEGMENTY", parentSegmentName, "WERJSE").toString();
         File versionDirectory = new File(currentVersionsDir, version.getName());
         createDirectory(versionDirectory,
                 String.format("/%s/OBIEKTY/%s/SEGMENTY/%s/WERSJE/%s",
@@ -111,9 +104,8 @@ public class DirectoryOperator {
     }
 
     public void removeStructure(Version version, String parentCollectionName, String parentCollectibleName, String parentSegmentName) {
-        String currentVersionsDir =
-                String.format("%s/KOLEKCJE/%s/OBIEKTY/%s/SEGMENTY/%s/WERSJE/%s",
-                        currentDir, parentCollectionName, parentCollectibleName, parentSegmentName, version.getName());
+        String currentVersionsDir = Paths.get(currentDir, "KOLEKCJE", parentCollectionName, "OBIEKTY", parentCollectibleName, "SEGMENTY", parentSegmentName, "WERJSE", version.getName()).toString();
+
         removeStructure(currentVersionsDir);
     }
 

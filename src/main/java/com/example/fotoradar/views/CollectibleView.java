@@ -24,6 +24,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
     private Collection parentCollection;
     private Painter painter;
 
-    private String collectibleThumbnailsPathTmp = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/";
+    private String collectibleThumbnailsPathTmp = Paths.get("%s","KOLEKCJE","%s","OBIEKTY","%s","MINIATURY").toString();
     private String currentCollectibleThumnailsPath;
     private ThumbnailOperations thumbnailOperations;
     private CollectibleOperations collectibleOperations;
@@ -95,7 +96,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
 
     @FXML
     private void saveCollectible(ActionEvent event) throws SQLException {
-        String oldPath = String.format("%s/KOLEKCJE/%s/OBIEKTY/%s",
+        String oldPath = String.format(Paths.get("%s","KOLEKCJE","%s","OBIEKTY","%s").toString(),
                 Main.getDefPath(), parentCollection.getTitle(), collectible.getTitle());
 
         collectible.setTitle(collectibleFormComponent.titleTextField.getText());
@@ -122,9 +123,10 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
     private void addSketch(ActionEvent event) throws Exception {
         System.out.println("dodawanie szkicu");
         // otwarcie modułu do szkicowania
-        painter = new Painter();
+        Painter painter = new Painter();
         painter.setParentCollectionName(parentCollection.getTitle());
         painter.setCollectible(collectible);
+        painter.setOnWindowClosedListener(this);
         Stage stage = new Stage();
         painter.start(stage);
     }
@@ -230,7 +232,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
             scaledBufferedImage.getGraphics().drawImage(scaledImage, 0, 0, null);
 
             // Utwórz ścieżkę docelową
-            String destinationFilePath = currentCollectibleThumnailsPath + file.getName();
+            String destinationFilePath = Paths.get(currentCollectibleThumnailsPath, file.getName()).toString();
 
             // Zapisz przeskalowany obraz do pliku
             ImageIO.write(scaledBufferedImage, "jpg", new File(destinationFilePath));

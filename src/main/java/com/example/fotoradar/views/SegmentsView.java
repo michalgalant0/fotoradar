@@ -26,6 +26,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     private Segment currentSegment;
 
     private Segmenter segmenter;
-    private String collectibleThumbnailsPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/";
+    private String collectibleThumbnailsPath = Paths.get("%s","KOLEKCJE","%s","OBIEKTY","%s","MINIATURY").toString();
     private ThumbnailOperations thumbnailOperations;
     private SegmentOperations segmentOperations;
     private Painter painter;
@@ -113,7 +114,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     private void saveSegment() throws SQLException {
         System.out.println("zapis segmentu");
         Segment segmentToUpdate = currentSegment;
-        String oldPath = String.format("%s/KOLEKCJE/%s/OBIEKTY/%s/SEGMENTY/%s",
+        String oldPath = String.format(Paths.get("%s","KOLEKCJE","%s","OBIEKTY","%s","SEGMENTY","%s").toString(),
                 Main.getDefPath(), parentCollectionName, collectible.getTitle(), currentSegment.getTitle());
 
         // pobranie nowych danych z formularza
@@ -153,9 +154,10 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
     @FXML
     private void addSketch() throws Exception {
         System.out.println("dodanie szkicu");
-        painter = new Painter();
+        Painter painter = new Painter();
         painter.setParentCollectionName(parentCollectionName);
         painter.setCollectible(collectible);
+        painter.setOnWindowClosedListener(this);
         Stage stage = new Stage();
         painter.start(stage);
     }

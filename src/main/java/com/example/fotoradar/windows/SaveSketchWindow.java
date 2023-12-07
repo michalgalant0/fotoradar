@@ -45,6 +45,9 @@ public class SaveSketchWindow implements Window{
 
     private final Canvas TheCanvas;
 
+    @Setter
+    private OnWindowClosedListener onWindowClosedListener;
+
 
 
     public SaveSketchWindow(Canvas TheCanvas) throws SQLException {
@@ -87,6 +90,7 @@ public class SaveSketchWindow implements Window{
                 thumbnailOperations.addThumbnail(
                         new Thumbnail(fileNameText+".png", collectible.getId())
                 );
+                onWindowClosedListener.onWindowClosed();
                 closeWindow(dialogStage);
             } catch (IOException ex) {
                 System.out.println("Error!");

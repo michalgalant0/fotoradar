@@ -14,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import lombok.Setter;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class CollectionRowComponent extends AnchorPane {
     @Setter
     private Collectible collectible;
 
-    private String thumbnailPath = "%s/KOLEKCJE/%s/OBIEKTY/%s/MINIATURY/%s";
+    private String thumbnailPath = Paths.get("%s","KOLEKCJE","%s","OBIEKTY","%s","MINIATURY","%s").toString();
 
     public CollectionRowComponent() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("components/CollectionRowComponent.fxml"));
@@ -64,6 +65,7 @@ public class CollectionRowComponent extends AnchorPane {
             thumbnailPath = String.format(thumbnailPath,
                     Main.getDefPath(), collectionName, collectible.getTitle(),
                     allThumbnails.get(0).getFileName());
+            System.out.println(thumbnailPath);
             setObjectThumbnailImageView();
         }
         else
@@ -71,7 +73,7 @@ public class CollectionRowComponent extends AnchorPane {
     }
 
     public void setObjectThumbnailImageView() {
-        Image image = new Image("file://" + thumbnailPath);
+        Image image = new Image("file:" + thumbnailPath);
         objectThumbnailImageView.setImage(image);
     }
 }
