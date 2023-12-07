@@ -95,10 +95,11 @@ public class CollectibleOperations {
         String query = "UPDATE Collectible SET title=?, start_date=?, finish_date=?, description=?, status_id=? WHERE collectible_id=? AND collection_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, collectible.getTitle());
+            // todo do sprawdzenia - prawdopodobnie daty się nie aktualizują
             preparedStatement.setString(2, collectible.getStartDate());
             preparedStatement.setString(3, collectible.getFinishDate());
             preparedStatement.setString(4, collectible.getDescription());
-            preparedStatement.setInt(5, collectible.getStatus().getId());
+            preparedStatement.setInt(5, collectible.getStatus().getId()-1);
 
             preparedStatement.setInt(6, collectible.getId());
             preparedStatement.setInt(7, collectible.getParentCollectionId());
