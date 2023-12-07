@@ -97,7 +97,7 @@ public class MiniGalleryComponent extends AnchorPane {
 
         String filePath = Paths.get(parentDirectory, thumbnailName).toString();
         System.out.println("miniGallery.createThumbnailImageView: filePath " + filePath);
-        Image image = new Image("file://" + filePath);
+        Image image = new Image("file:" + filePath);
         imageView.setImage(image);
 
         imageView.setOnMouseClicked(event -> {

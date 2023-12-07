@@ -77,7 +77,7 @@ public class CollectibleComponent extends AnchorPane {
     }
 
     public void setObjectThumbnailImageView() {
-        Image image = new Image("file://"+thumbnailPath);
+        Image image = new Image("file:"+thumbnailPath);
         imageView.setImage(image);
     }
 
