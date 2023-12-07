@@ -6,28 +6,26 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0"
+<AnchorPane stylesheets="@../style.css" styleClass="background"
             xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/">
-        <font>
-            <Font size="30.0" />
-        </font>
+    <Label fx:id="windowLabel" styleClass="big-label" layoutX="48.0" layoutY="24.0" text="kolekcje/">
+
     </Label>
     <CollectiblesComponent fx:id="collectiblesComponent" layoutX="24.0" layoutY="84.0" />
     <Button  mnemonicParsing="false" onAction="#goToParameters"
              AnchorPane.bottomAnchor="144.0"
              AnchorPane.rightAnchor="48.0"
-             prefHeight="24.0" prefWidth="200.0" text="PARAMETRY KOLEKCJI" />
+             text="PARAMETRY KOLEKCJI" />
     <Button  mnemonicParsing="false" onAction="#addCollectible"
              AnchorPane.bottomAnchor="112.0"
              AnchorPane.rightAnchor="48.0"
-             prefHeight="24.0" prefWidth="200.0" text="DODAJ OBIEKT" />
+              text="DODAJ OBIEKT" />
     <Button  mnemonicParsing="false" onAction="#removeCollection"
              AnchorPane.bottomAnchor="80.0"
              AnchorPane.rightAnchor="48.0"
-             prefHeight="24.0" prefWidth="200.0" text="USUŃ KOLEKCJĘ" />
+              text="USUŃ KOLEKCJĘ" />
     <Button  mnemonicParsing="false" onAction="#backToCollections"
              AnchorPane.bottomAnchor="48.0"
              AnchorPane.rightAnchor="48.0"
-             prefHeight="24.0" prefWidth="200.0" text="POWRÓT DO KOLEKCJI" />
+              text="POWRÓT DO KOLEKCJI" />
 </AnchorPane>

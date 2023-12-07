@@ -8,7 +8,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<fx:root prefHeight="452.0" prefWidth="500.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root stylesheets="@../style.css"
+        prefHeight="452.0" prefWidth="500.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="numberLabel" layoutX="32.0" layoutY="21.0" text="NUMER" AnchorPane.leftAnchor="32.0" />
     <TextField fx:id="numberTextField" layoutX="32.0" layoutY="45.0" prefHeight="24.0" prefWidth="74.0" AnchorPane.leftAnchor="32.0" />
     <Label fx:id="nameLabel" layoutX="122.0" layoutY="21.0" text="NAZWA SEGMENTU" />

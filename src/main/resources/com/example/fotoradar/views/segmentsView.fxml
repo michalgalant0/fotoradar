@@ -7,33 +7,30 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0"
+<AnchorPane stylesheets="@../style.css" styleClass="background"
             xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ kolekcja/ obiekt/ segmenty">
-        <font>
-            <Font size="30.0" />
-        </font>
+    <Label fx:id="windowLabel" styleClass="big-label" layoutX="48.0" layoutY="24.0" text="kolekcje/ kolekcja/ obiekt/ segmenty">
     </Label>
     <ImageViewerComponent fx:id="imageViewerComponent" layoutY="84.0" AnchorPane.leftAnchor="48.0"/>
     <SegmentFormComponent fx:id="segmentFormComponent" layoutY="84.0" prefHeight="500.0"
                           AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="84.0">
         <Button mnemonicParsing="false" onAction="#saveSegment"
-                prefHeight="24.0" prefWidth="200.0" text="ZAPISZ SEGMENT"
+                 text="ZAPISZ SEGMENT"
                 AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="208.0" />
         <Button mnemonicParsing="false" onAction="#deleteSegment"
-                prefHeight="24.0" prefWidth="200.0" text="USUŃ SEGMENT"
+                 text="USUŃ SEGMENT"
                 AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />
     </SegmentFormComponent>
     <Button mnemonicParsing="false" onAction="#addSketch"
-            prefHeight="24.0" prefWidth="200.0" text="DODAJ SZKIC"
+            text="DODAJ SZKIC"
             AnchorPane.bottomAnchor="144.0" AnchorPane.rightAnchor="48.0" />
     <Button mnemonicParsing="false" onAction="#addPhoto"
-            prefHeight="24.0" prefWidth="200.0" text="DODAJ ZDJĘCIE"
+            text="DODAJ ZDJĘCIE"
             AnchorPane.bottomAnchor="112.0" AnchorPane.rightAnchor="48.0" />
     <Button mnemonicParsing="false" onAction="#addSegments"
-            prefHeight="24.0" prefWidth="200.0" text="UTWÓRZ SEGMENTY"
+            text="UTWÓRZ SEGMENTY"
             AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="48.0" />
     <Button mnemonicParsing="false" onAction="#backToCollectible"
-            prefHeight="24.0" prefWidth="200.0" text="POWRÓT DO OBIEKTU"
+            text="POWRÓT DO OBIEKTU"
             AnchorPane.bottomAnchor="48.0" AnchorPane.rightAnchor="48.0" />
 </AnchorPane>

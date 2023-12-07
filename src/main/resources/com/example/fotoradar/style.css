@@ -1,0 +1,362 @@
+.root {
+    -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    -fx-font-size: 14;
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 3;
+}
+.background{
+    -fx-pref-height: 1080;
+    -fx-pref-width: 1920;
+    /*-fx-fill-width: true;
+    -fx-fill-height: true;*/
+    -fx-padding: 10;
+    -fx-background-color: #f0f0f0;
+}
+
+.label {
+    -fx-text-fill: #333;
+    -fx-font-size: 14;
+    -fx-spacing: 10;
+    -fx-padding: 1;
+}
+.big-label{
+    -fx-text-fill: #333;
+    -fx-font-size: 14;
+    -fx-spacing: 10;
+    -fx-padding: 1;
+    -fx-font-size: 30;
+    -fx-background-color: #f0f0f0
+}
+.path-label{
+    -fx-pref-height: 30;
+    -fx-pref-width: 620;
+    -fx-font-size: 20;
+    -fx-font-style: italic;
+}
+
+.text-field, .text-area, .combo-box-base {
+    -fx-pref-width: 300;
+    -fx-pref-height: 24;
+    -fx-font-size: 14;
+    -fx-border-radius: 7;
+    -fx-background-color: #fff;
+    -fx-border-color: #f1f1f1;
+}
+
+.text-area {
+    -fx-pref-height: 100px;
+}
+.scroll-bar{
+    -fx-background-color: transparent;
+    -fx-pref-width: 3px;
+}
+
+
+#scrollPane{
+    -fx-fit-to-height: true;
+    -fx-fit-to-width: true;
+    -fx-border-color: #f0f0f0;
+    -fx-border-width: 2px;
+}
+
+
+
+.button {
+    -fx-background-color: #2196F3;
+    -fx-border-radius: 20.0;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-min-width: 50;
+    -fx-pref-height: 24;
+    -fx-pref-width: 200;
+    -fx-cursor: hand;
+    -fx-spacing: 10;
+    -fx-margin: 10 0 10 0;
+
+}
+
+.go-to-button{
+    -fx-pref-width: 220;
+    -fx-border-radius: 20;
+}
+
+.yes-button{
+    -fx-background-color: #005000;
+    /* -fx-border-color: #002F00AA;*/
+    -fx-pref-width: 100;
+    -fx-content-display: center;
+    -fx-alignment: center;
+    -fx-border-color: transparent;
+}
+.yes-button:pressed {
+    -fx-background-color:#002F00AA;
+}
+.no-button{
+    -fx-background-color: #790000;
+    /* -fx-border-color: #3b0000;*/
+    -fx-pref-width: 100;
+    -fx-content-display: center;
+    -fx-alignment: center;
+    -fx-border-color: transparent;
+}
+.no-button:pressed{
+    -fx-background-color:#3b0000;
+}
+.cancel-button{
+    -fx-background-color: #545454;
+    -fx-border-color: transparent;
+    /* -fx-border-color: #252525;*/
+    -fx-pref-width:100;
+    -fx-content-display: center;
+}
+.cancel-button:pressed{
+    -fx-background-color: #252525;
+}
+
+/* Styl dla przycisków nawigacyjnych */
+.previousButton, #nextButton {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+}
+
+.previousButton:hover, .nextButton:hover {
+    -fx-background-color: #1E88E5;
+}
+
+.con-del-button{
+    -fx-padding: 3;
+    -fx-content-display: center;
+    -fx-spacing: even;
+    -fx-border-color: transparent;
+}
+
+.date-picker {
+    -fx-pref-width: 200;
+    -fx-pref-height: 35;
+}
+.con-del-label{
+    -fx-content-display: center;
+}
+
+
+.scroll-pane {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #f1f1f1;
+    -fx-pref-height: 600px;
+    -fx-pref-width: 400px;
+    -fx-spacing: 10px;
+}
+
+/* Styl dla kontenerów z obramowaniem */
+.bordered-pane {
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 2px;
+    -fx-background-color: #ffffff;
+    -fx-padding: 10px;
+}
+
+/* Styl dla nagłówka */
+.header-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+/* Styl dla segmentów/kolekcji */
+.segment-pane {
+    -fx-padding: 20px;
+    -fx-alignment: top-center;
+}
+
+/* Styl dla obrazów */
+.image-view {
+    -fx-fit-to-width: true;
+    -fx-preserve-ratio: true;
+    -fx-pref-width: 800px;
+    -fx-pref-height: 600px;
+}
+
+
+.collection-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-padding: 20px;
+    -fx-spacing: 10px; /* Jeśli używasz VBox lub HBox */
+    -fx-pref-width: 400;
+    -fx-pref-height: 690;
+}
+.collection-row{
+    -fx-background-color: #fff;
+    -fx-border-color: #989797;
+    /*-fx-max-height: -infinity;
+    -fx-max-width: -infinity;
+    -fx-min-width: -infinity;
+    -fx-min-height: -infinity;
+    -fx-pref-width: 100;
+    -fx-pref-height: 100;*/
+
+}
+
+.collection-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 0 0 10px 0;
+}
+
+.collectible-box {
+    -fx-background-color: #fff;
+    -fx-padding: 10px;
+    -fx-margin: 0 0 10px 0;
+}
+
+.collectible-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #666666;
+}
+
+.collectible-status {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666666;
+}
+
+#collectiblesContainer{
+    -fx-spacing: 10;
+    -fx-pref-height: 80%;
+}
+#collectibleFormComponent{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #f1f1f1;
+    -fx-padding: 3;
+    -fx-pref-width: 400;
+    -fx-pref-height: 400;
+}
+#collectibleComponentImage{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #f1f1f1;
+    -fx-pref-height: 217;
+    -fx-pref-width: 400;
+}
+#collectibleComponentForm{
+    -fx-background-color: #ffffff;
+    -fx-border-width: 1px;
+    -fx-border-color: #f1f1f1;
+    -fx-padding: 2;
+    -fx-pref-height: 287;
+    -fx-pref-width: 400;
+
+}
+
+/* Styl dla ustawień / ikon w prawym górnym rogu */
+.settings-button {
+    /*-fx-graphic: setting.jpg;*/
+    -fx-background-color: transparent;
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+}
+
+.status{
+    -fx-text-fill: grey;
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+
+}
+
+.imageContainer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 1px;
+    -fx-padding: 20px;
+}
+
+
+
+/* Styl dla prawej części z formularzem i informacjami */
+.infoContainer {
+    -fx-padding: 20px;
+}
+
+/* Styl dla kontenera z formularzem */
+.formContainer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 1px;
+}
+
+.ImageViewerComponent {
+    -fx-padding: 10px;
+    -fx-background-color: #fff;
+    -fx-border-color: #f1f1f1;
+}
+
+.SegmentFormComponent {
+    -fx-padding: 10 px;
+    -fx-background-color: #fff;
+    -fx-border-color: #f1f1f1;
+}
+
+/* Styl dla kontenera z listami zespołów */
+.teamsContainer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 1px;
+}
+
+/* Styl dla kontenera z paskiem postępu i informacjami */
+.progressContainer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 1px;
+}
+.progress-bar{
+    -fx-border-color: #3f3f3f;
+
+}
+
+
+.teams{
+    -fx-background-color: #ffffff;
+    -fx-padding: 15px;
+    -fx-border-color: #919191;
+    -fx-pref-height: 400;
+    -fx-pref-width: 600;
+
+}
+.team{
+    -fx-padding: 5px;
+    -fx-spacing: 10px;
+    -fx-background-color: #fff;
+    -fx-border-color: #fff;
+}
+.team-textarea{
+    -fx-background-color: #fff;
+    -fx-border-color: #fff;
+}
+
+.segment-numer{
+    -fx-pref-width: 50.0;
+}
+.segment-text-field{
+    -fx-pref-height: 24;
+    -fx-pref-width: 120px;
+}
+.segment-text-field-label{
+    -fx-pref-height: 24;
+    -fx-pref-width: 240;
+}
+
+#miniGallery{
+    -fx-pref-height: 400;
+    -fx-pref-width: 700;
+    -fx-border-color: #f0f0f0;
+}
+#photosContainer {
+    -fx-hgap: 20;
+    -fx-vgap: 20;
+    -fx-pref-height: 700;
+    -fx-pref-width: 700;
+}

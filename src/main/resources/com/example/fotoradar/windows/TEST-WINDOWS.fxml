@@ -5,7 +5,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="396.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane stylesheets="@../style.css"
+        prefHeight="396.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.fotoradar.windows.TESTWINDOWS">
     <Label layoutX="106.0" layoutY="33.0" text="okienka"/>
     <Button layoutX="62.0" layoutY="93.0" mnemonicParsing="false" text="formularz kolekcji"

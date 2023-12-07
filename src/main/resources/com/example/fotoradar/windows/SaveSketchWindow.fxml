@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="130.0" prefWidth="300.0"
+<AnchorPane stylesheets="@../style.css"
+        prefHeight="130.0" prefWidth="300.0"
             xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="windowTitle" layoutX="30.0" layoutY="14.0" prefHeight="25.0" prefWidth="241.0" text="Wpisz nazwę pliku (bez rozszerzenia):" AnchorPane.topAnchor="14.0">
       <font>

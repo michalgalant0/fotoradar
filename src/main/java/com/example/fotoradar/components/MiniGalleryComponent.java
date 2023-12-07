@@ -69,7 +69,7 @@ public class MiniGalleryComponent extends AnchorPane {
             System.out.println(parentDirectory);
             System.out.println(images);
 
-            final int MAX_COLUMNS = 3;
+            final int MAX_COLUMNS = 4;
             int columnIndex = 0;
             int rowIndex = 0;
 

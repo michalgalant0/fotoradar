@@ -4,7 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
-<fx:root
+<fx:root stylesheets="@../style.css"
          type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true"

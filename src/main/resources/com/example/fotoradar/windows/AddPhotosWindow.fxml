@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="112.0" prefWidth="300.0"
-            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="112.0" prefWidth="300.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
 <!--            fx:controller="com.example.fotoradar.windows.AddPhotosWindow">-->
-   <Button layoutX="83.0" layoutY="29.0" mnemonicParsing="false" onAction="#pickFiles" prefHeight="24.0" text="WCZYTAJ ZDJĘCIA" AnchorPane.topAnchor="32.0" />
+   <Button contentDisplay="CENTER" layoutX="50.0" layoutY="42.0" mnemonicParsing="false" onAction="#pickFiles" prefHeight="24.0" text="WCZYTAJ ZDJĘCIA" AnchorPane.topAnchor="42.0" />
    <Label layoutX="24.0" layoutY="72.0" managed="false" text="wczytane pliki:" visible="false" AnchorPane.leftAnchor="24.0" />
    <TextArea fx:id="fileNamesContainer" editable="false" layoutX="24.0" layoutY="96.0" managed="false" prefHeight="176.0" visible="false" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" />
    <Label fx:id="counterLabel" layoutX="24.0" layoutY="280.0" managed="false" text="ilość wczytanych plików: ?" visible="false" AnchorPane.leftAnchor="24.0" />
-   <Button fx:id="addPhotoButton" layoutX="82.0" layoutY="129.0" mnemonicParsing="false" onAction="#addPhotos" text="DODAJ" visible="false" AnchorPane.bottomAnchor="24.0" />
-   <Button fx:id="cancelButton" layoutX="159.0" layoutY="129.0" mnemonicParsing="false" onAction="#cancel" text="ANULUJ" visible="false" AnchorPane.bottomAnchor="24.0" />
+   <Button fx:id="addPhotoButton" layoutX="82.0" layoutY="129.0" mnemonicParsing="false" onAction="#addPhotos" styleClass="yes-button" text="DODAJ" visible="false" AnchorPane.bottomAnchor="24.0" />
+   <Button fx:id="cancelButton" layoutX="159.0" layoutY="129.0" mnemonicParsing="false" onAction="#cancel" styleClass="cancel-button" text="ANULUJ" visible="false" AnchorPane.bottomAnchor="24.0" />
 </AnchorPane>

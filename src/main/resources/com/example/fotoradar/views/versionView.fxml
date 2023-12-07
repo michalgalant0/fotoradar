@@ -9,13 +9,11 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/"
+<AnchorPane stylesheets="@../style.css" styleClass="background"
+            xmlns="http://javafx.com/javafx/"
             xmlns:fx="http://javafx.com/fxml/1">
 
-    <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ kolekcja/ obiekt / segment / wersja">
-        <font>
-            <Font size="30.0" />
-        </font>
+    <Label fx:id="windowLabel" styleClass="big-label" layoutX="48.0" layoutY="24.0" text="kolekcje/ kolekcja/ obiekt / segment / wersja">
     </Label>
     <MiniGalleryComponent fx:id="miniGalleryComponent" layoutY="84.0" AnchorPane.leftAnchor="48.0"/>
     <VersionFormComponent fx:id="versionFormComponent" layoutY="84.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="84.0">
@@ -24,15 +22,15 @@
                 AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />
     </VersionFormComponent>
     <Button mnemonicParsing="false" onAction="#addPhotos"
-            prefHeight="24.0" prefWidth="200.0" text="DODAJ ZDJĘCIA"
+            text="DODAJ ZDJĘCIA"
             AnchorPane.bottomAnchor="144.0" AnchorPane.rightAnchor="48.0" />
     <Button mnemonicParsing="false" onAction="#manageTeams"
-            prefHeight="24.0" prefWidth="200.0" text="ZARZĄDZAJ ZESPOŁAMI"
+            text="ZARZĄDZAJ ZESPOŁAMI"
             AnchorPane.bottomAnchor="112.0" AnchorPane.rightAnchor="48.0" />
     <Button mnemonicParsing="false" onAction="#removeVersion"
-            prefHeight="24.0" prefWidth="200.0" text="USUŃ WERSJE"
+            text="USUŃ WERSJE"
             AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="48.0" />
     <Button mnemonicParsing="false" onAction="#backToSegments"
-            prefHeight="24.0" prefWidth="200.0" text="POWRÓT DO SEGMENTÓW"
+            text="POWRÓT DO SEGMENTÓW"
             AnchorPane.bottomAnchor="48.0" AnchorPane.rightAnchor="48.0" />
 </AnchorPane>

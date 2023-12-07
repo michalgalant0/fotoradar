@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="450.0" prefWidth="700.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="172.0" text="Katalog aplikacji:">
-         <font>
-            <Font size="20.0" />
-         </font>
+      <Label layoutX="14.0" layoutY="14.0" styleClass="big-label" text="Katalog aplikacji:">
       </Label>
-      <Label fx:id="pathLabel" layoutX="14.0" layoutY="44.0" prefHeight="30.0" prefWidth="620.0">
-         <font>
-            <Font size="20.0" />
-         </font></Label>
-      <Button fx:id="CancelButton" layoutX="601.0" layoutY="406.0" mnemonicParsing="false" onAction="#Cancel" prefHeight="30.0" prefWidth="85.0" text="ANULUJ" />
-      <Button fx:id="SaveSettingsButton" layoutX="499.0" layoutY="406.0" mnemonicParsing="false" onAction="#SaveSettings" prefHeight="30.0" prefWidth="85.0" text="ZASTOSUJ" />
-      <Button fx:id="ChangeDirectoryButton" layoutX="525.0" layoutY="355.0" mnemonicParsing="false" onAction="#ChangeDirectory" prefHeight="36.0" prefWidth="140.0" text="ZMIEŃ KATALOG" />
+      <Label fx:id="pathLabel" layoutX="14.0" layoutY="62.0" styleClass="path-label">
+      </Label>
+      <Button fx:id="CancelButton" layoutX="601.0" layoutY="406.0" mnemonicParsing="false" onAction="#Cancel" styleClass="cancel-button" text="ANULUJ" />
+      <Button fx:id="SaveSettingsButton" layoutX="499.0" layoutY="406.0" mnemonicParsing="false" onAction="#SaveSettings" styleClass="yes-button" text="ZASTOSUJ" />
+      <Button fx:id="ChangeDirectoryButton" layoutX="501.0" layoutY="368.0" mnemonicParsing="false" onAction="#ChangeDirectory" text="ZMIEŃ KATALOG" />
    </children>
 </AnchorPane>

@@ -2,7 +2,8 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<fx:root prefHeight="452.0" prefWidth="500.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root stylesheets="@../style.css"
+         prefHeight="452.0" prefWidth="500.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="nameLabel" layoutX="32.0" layoutY="21.0" text="NAZWA" AnchorPane.leftAnchor="32.0" />
     <TextField fx:id="nameTextField" layoutX="32.0" layoutY="45.0" prefHeight="24.0" prefWidth="198.0" AnchorPane.leftAnchor="32.0" />
 
@@ -18,6 +19,6 @@
 
     <Label fx:id="teamLabel" layoutX="32.0" layoutY="317.0" text="ZESPÓŁ" AnchorPane.leftAnchor="32.0" />
     <ComboBox fx:id="teamComboBox" layoutX="32.0" layoutY="341.0" prefHeight="24.0" prefWidth="169.0" AnchorPane.leftAnchor="32.0" />
-    <Button layoutX="211.0" layoutY="341.0" mnemonicParsing="false" text="EDYTUJ ZESPÓŁ" onAction="#editTeam" />
-    <Button layoutX="352.0" layoutY="341.0" mnemonicParsing="false" text="DODAJ ZESPÓŁ" onAction="#addTeam" />
+    <Button styleClass="button" layoutX="211.0" layoutY="341.0" mnemonicParsing="false" text="EDYTUJ ZESPÓŁ" onAction="#editTeam" />
+    <Button styleClass="button" layoutX="352.0" layoutY="341.0" mnemonicParsing="false" text="DODAJ ZESPÓŁ" onAction="#addTeam" />
 </fx:root>
