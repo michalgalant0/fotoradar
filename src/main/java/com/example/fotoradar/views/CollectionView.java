@@ -55,7 +55,8 @@ public class CollectionView implements RemoveStructureListener, OnWindowClosedLi
         collectiblesComponent.setCollectionName(collection.getTitle());
         collectiblesComponent.fillCollectiblesHBox();
 
-        fillIndicator(50, 50);
+        double[] indicatorData = new CollectionOperations().fetchProgressAndSizeInfo(collection.getId());
+        fillIndicator(indicatorData[0], indicatorData[1]);
 
         DirectoryOperator.getInstance().createStructure(collection);
     }

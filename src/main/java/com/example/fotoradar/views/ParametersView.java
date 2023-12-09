@@ -50,7 +50,13 @@ public class ParametersView implements TeamComponentRightClickListener {
         fillTeamsComponent();
         collectionPath = String.format(collectionPath, Main.getDefPath(), collection.getTitle());
 
-        fillIndicator(50, 50);
+        double[] indicatorData;
+        try {
+            indicatorData = new CollectionOperations().fetchProgressAndSizeInfo(collection.getId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        fillIndicator(indicatorData[0], indicatorData[1]);
     }
 
     public void setWindowLabel(String collectionName) {

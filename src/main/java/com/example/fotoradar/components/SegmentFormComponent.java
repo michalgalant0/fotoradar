@@ -162,6 +162,8 @@ public class SegmentFormComponent extends AnchorPane {
         finishDatePicker.setValue(LocalDate.parse(finishDate));
         String description = segment.getDescription() == null ? "wprowadź opis segmentu" : segment.getDescription();
         descriptionTextArea.setText(description);
+        System.out.println("\nSegmentFormComponent.fillForm segment.getStatus "+segment.getStatus());
+        statusComboBox.setValue(segment.getStatus());
         try {
             fillVersionComboBox();
         } catch (SQLException e) {
