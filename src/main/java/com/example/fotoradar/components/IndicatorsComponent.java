@@ -26,11 +26,10 @@ public class IndicatorsComponent extends VBox {
     }
 
     public void initialize() {
-        System.out.println("chuj");
+
     }
 
     public void setProgress(double value) {
-//        progressLabel.setText(String.format("%.2f%%", value));
         progressBar.setProgress(value / 100.0);
     }
 

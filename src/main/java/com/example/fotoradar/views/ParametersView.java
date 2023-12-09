@@ -5,6 +5,7 @@ import com.example.fotoradar.Main;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.TeamsComponentFlag;
 import com.example.fotoradar.components.CollectionFormComponent;
+import com.example.fotoradar.components.IndicatorsComponent;
 import com.example.fotoradar.components.TeamComponentRightClickListener;
 import com.example.fotoradar.components.TeamsComponent;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
@@ -32,6 +33,8 @@ public class ParametersView implements TeamComponentRightClickListener {
     public TeamsComponent teamsComponent;
     @FXML
     public Label windowLabel;
+    @FXML
+    public IndicatorsComponent indicatorsComponent;
 
     @Setter
     private Collection collection;
@@ -46,6 +49,8 @@ public class ParametersView implements TeamComponentRightClickListener {
         fillFormComponent();
         fillTeamsComponent();
         collectionPath = String.format(collectionPath, Main.getDefPath(), collection.getTitle());
+
+        fillIndicator(50, 50);
     }
 
     public void setWindowLabel(String collectionName) {
@@ -138,5 +143,11 @@ public class ParametersView implements TeamComponentRightClickListener {
     @Override
     public void onDeletePerformed() {
         refresh();
+    }
+
+    public void fillIndicator(double progressValue, double sizeValue) {
+        indicatorsComponent.setProgress(progressValue);
+        indicatorsComponent.setSize(sizeValue);
+        indicatorsComponent.addWaveAnimation();
     }
 }
