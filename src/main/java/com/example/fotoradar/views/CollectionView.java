@@ -4,6 +4,7 @@ import com.example.fotoradar.DirectoryOperator;
 import com.example.fotoradar.RemoveStructureListener;
 import com.example.fotoradar.SwitchScene;
 import com.example.fotoradar.components.CollectiblesComponent;
+import com.example.fotoradar.components.IndicatorsComponent;
 import com.example.fotoradar.databaseOperations.CollectibleOperations;
 import com.example.fotoradar.databaseOperations.CollectionOperations;
 import com.example.fotoradar.models.Collectible;
@@ -25,6 +26,8 @@ public class CollectionView implements RemoveStructureListener, OnWindowClosedLi
     private Label windowLabel;
     @FXML
     private CollectiblesComponent collectiblesComponent;
+    @FXML
+    private IndicatorsComponent indicatorsComponent;
 
     @Setter
     private Collection collection;
@@ -51,6 +54,8 @@ public class CollectionView implements RemoveStructureListener, OnWindowClosedLi
         collectiblesComponent.setCollectibles(collectibles);
         collectiblesComponent.setCollectionName(collection.getTitle());
         collectiblesComponent.fillCollectiblesHBox();
+
+        fillIndicator(50, 50);
 
         DirectoryOperator.getInstance().createStructure(collection);
     }
@@ -146,5 +151,11 @@ public class CollectionView implements RemoveStructureListener, OnWindowClosedLi
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void fillIndicator(double progressValue, double sizeValue) {
+        indicatorsComponent.setProgress(progressValue);
+        indicatorsComponent.setSize(sizeValue);
+        indicatorsComponent.addWaveAnimation();
     }
 }
