@@ -154,6 +154,5 @@ public class ParametersView implements TeamComponentRightClickListener {
     public void fillIndicator(double progressValue, double sizeValue) {
         indicatorsComponent.setProgress(progressValue);
         indicatorsComponent.setSize(sizeValue);
-        indicatorsComponent.addWaveAnimation();
     }
 }
