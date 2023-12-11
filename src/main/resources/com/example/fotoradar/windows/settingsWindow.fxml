@@ -3,14 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="450.0" prefWidth="700.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="304.0" prefWidth="414.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="14.0" layoutY="14.0" styleClass="big-label" text="Katalog aplikacji:">
       </Label>
       <Label fx:id="pathLabel" layoutX="14.0" layoutY="62.0" styleClass="path-label">
       </Label>
-      <Button fx:id="CancelButton" layoutX="601.0" layoutY="406.0" mnemonicParsing="false" onAction="#Cancel" styleClass="cancel-button" text="ANULUJ" />
-      <Button fx:id="SaveSettingsButton" layoutX="499.0" layoutY="406.0" mnemonicParsing="false" onAction="#SaveSettings" styleClass="yes-button" text="ZASTOSUJ" />
-      <Button fx:id="ChangeDirectoryButton" layoutX="501.0" layoutY="368.0" mnemonicParsing="false" onAction="#ChangeDirectory" text="ZMIEŃ KATALOG" />
+      <Button fx:id="CancelButton" layoutX="484.0" layoutY="224.0" mnemonicParsing="false" onAction="#Cancel" styleClass="cancel-button" text="ANULUJ" />
+      <Button fx:id="SaveSettingsButton" layoutX="384.0" layoutY="224.0" mnemonicParsing="false" onAction="#SaveSettings" styleClass="yes-button" text="ZASTOSUJ" />
+      <Button fx:id="ChangeDirectoryButton" layoutX="384.0" layoutY="185.0" mnemonicParsing="false" onAction="#ChangeDirectory" text="ZMIEŃ KATALOG" />
    </children>
 </AnchorPane>

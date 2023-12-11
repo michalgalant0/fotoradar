@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<fx:root stylesheets="@../style.css"
-        prefHeight="830.0" prefWidth="796.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root prefHeight="865.0" prefWidth="972.0" stylesheets="@../style.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <HBox alignment="CENTER" prefHeight="800.0" spacing="20">
-        <Button styleClass="previousButton" onAction="#showPreviousImage" text="&lt;" />
-        <StackPane fx:id="mainPane" prefWidth="800.0">
+        <Button onAction="#showPreviousImage" styleClass="previousNextButton" text="&lt;" />
+        <StackPane fx:id="mainPane" prefWidth="800.0" style=" -fx-border-width: 3px; -fx-border-color: #d1d1d1">
             <ImageView fx:id="imageView" fitHeight="800.0" fitWidth="800.0" StackPane.alignment="CENTER" />
             <Pane fx:id="segmentPane" StackPane.alignment="CENTER" />
         </StackPane>
-        <Button styleClass="nextButton" onAction="#showNextImage" text="&gt;" />
+        <Button onAction="#showNextImage" styleClass="previousNextButton" text="&gt;" />
     </HBox>
-   <Button layoutX="393.0" mnemonicParsing="false" styleClass="no-button" onAction="#deleteCurrentPhoto" text="USUŃ ZDJĘCIE"
-           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="393.0" AnchorPane.rightAnchor="393.0" />
+   <Button layoutX="396.0" layoutY="820.0" mnemonicParsing="false" onAction="#deleteCurrentPhoto" styleClass="no-button" text="USUŃ ZDJĘCIE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="396.0" AnchorPane.rightAnchor="396.0" />
 </fx:root>

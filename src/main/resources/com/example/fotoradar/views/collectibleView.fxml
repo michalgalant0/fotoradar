@@ -13,7 +13,7 @@
 
     </Label>
     <MiniGalleryComponent fx:id="miniGalleryComponent" layoutY="84.0" AnchorPane.leftAnchor="48.0"/>
-    <CollectibleFormComponent fx:id="collectibleFormComponent" layoutY="84.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="84.0">
+    <CollectibleFormComponent fx:id="collectibleFormComponent" prefHeight="450.0" prefWidth="300" layoutY="100.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="100.0">
         <Button mnemonicParsing="false" onAction="#saveCollectible"
                 prefHeight="24.0" text="ZAPISZ"
                 AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />

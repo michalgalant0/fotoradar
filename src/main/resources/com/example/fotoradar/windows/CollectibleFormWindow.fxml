@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane stylesheets="@../style.css"
-        prefHeight="580.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+        maxHeight="500.0" maxWidth="300" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
         <Label fx:id="windowLabel" layoutX="182.0" layoutY="14.0" text="Label"
                alignment="CENTER" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0"/>
         <CollectibleFormComponent fx:id="collectibleForm" layoutY="30.0" />
-        <Button layoutX="127.0" layoutY="510.0" mnemonicParsing="false" text="ZAPISZ" onAction="#saveCollectible" />
-        <Button layoutX="208.0" layoutY="510.0" mnemonicParsing="false" text="ANULUJ" onAction="#cancel" />
+        <Button styleClass="yes-button" layoutX="500.0" layoutY="480.0" mnemonicParsing="false" text="ZAPISZ" onAction="#saveCollectible" />
+        <Button styleClass="cancel-button" layoutX="208.0" layoutY="480.0" mnemonicParsing="false" text="ANULUJ" onAction="#cancel" />
 </AnchorPane>

@@ -1,12 +1,13 @@
 .root {
     -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
-    -fx-font-size: 14;
+    -fx-font-size: 15;
     -fx-background-color: #f0f0f0;
     -fx-padding: 3;
 }
 .background{
-    -fx-pref-height: 1080;
-    -fx-pref-width: 1920;
+    -fx-pref-height: 1050;
+    -fx-pref-width: 1850;
+
     /*-fx-fill-width: true;
     -fx-fill-height: true;*/
     -fx-padding: 10;
@@ -35,29 +36,31 @@
 }
 
 .text-field, .text-area, .combo-box-base {
-    -fx-pref-width: 300;
-    -fx-pref-height: 24;
+    /*-fx-min-width: 75;*/
+    /*-fx-pref-width: 200;*/
+    /*-fx-pref-height: 24;*/
     -fx-font-size: 14;
     -fx-border-radius: 7;
     -fx-background-color: #fff;
     -fx-border-color: #f1f1f1;
 }
+.text-field{
+    -fx-min-width: 75;
+    -fx-pref-width: 200;
+    -fx-pref-height: 24;
+}
 
+#fileName{
+    -fx-pref-width: 270;
+}
 .text-area {
-    -fx-pref-height: 100px;
+    /*-fx-pref-height: 120px;*/
 }
 .scroll-bar{
     -fx-background-color: transparent;
-    -fx-pref-width: 3px;
+    -fx-pref-width: 3;
 }
 
-
-#scrollPane{
-    -fx-fit-to-height: true;
-    -fx-fit-to-width: true;
-    -fx-border-color: #f0f0f0;
-    -fx-border-width: 2px;
-}
 
 
 
@@ -69,6 +72,7 @@
     -fx-min-width: 50;
     -fx-pref-height: 24;
     -fx-pref-width: 200;
+    -fx-fill-width: content;
     -fx-cursor: hand;
     -fx-spacing: 10;
     -fx-margin: 10 0 10 0;
@@ -83,6 +87,7 @@
 .yes-button{
     -fx-background-color: #005000;
     /* -fx-border-color: #002F00AA;*/
+    -fx-font-size: 15;
     -fx-pref-width: 100;
     -fx-content-display: center;
     -fx-alignment: center;
@@ -94,6 +99,7 @@
 .no-button{
     -fx-background-color: #790000;
     /* -fx-border-color: #3b0000;*/
+    -fx-font-size: 15;
     -fx-pref-width: 100;
     -fx-content-display: center;
     -fx-alignment: center;
@@ -106,6 +112,7 @@
     -fx-background-color: #545454;
     -fx-border-color: transparent;
     /* -fx-border-color: #252525;*/
+    -fx-font-size: 15;
     -fx-pref-width:100;
     -fx-content-display: center;
 }
@@ -114,12 +121,21 @@
 }
 
 /* Styl dla przycisków nawigacyjnych */
-.previousButton, #nextButton {
+.previousNextButton {
     -fx-background-color: #2196F3;
     -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
-    -fx-pref-width: 40px;
-    -fx-pref-height: 40px;
+    -fx-font-size: 30;
+    -fx-pref-width: 60px;
+    -fx-pref-height: 60px;
+}
+.painterButton {
+    -fx-background-color: #41aaff;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+    -fx-pref-width: 78;
+    -fx-pref-height: 25;
 }
 
 .previousButton:hover, .nextButton:hover {
@@ -134,8 +150,11 @@
 }
 
 .date-picker {
-    -fx-pref-width: 200;
+    -fx-pref-width: 150;
     -fx-pref-height: 35;
+    -fx-font-size: 14;
+    -fx-background-color: #fff;
+    -fx-border-color: #e1e1e1;
 }
 .con-del-label{
     -fx-content-display: center;
@@ -184,10 +203,10 @@
     -fx-background-color: #ffffff;
     -fx-border-color: #cccccc;
     -fx-border-width: 1px;
-    -fx-padding: 20px;
+    -fx-padding: 10px;
     -fx-spacing: 10px; /* Jeśli używasz VBox lub HBox */
-    -fx-pref-width: 400;
-    -fx-pref-height: 690;
+    /*-fx-pref-width: 550;
+    -fx-pref-height: 800;*/
 }
 .collection-row{
     -fx-background-color: #fff;
@@ -226,14 +245,13 @@
 
 #collectiblesContainer{
     -fx-spacing: 10;
-    -fx-pref-height: 80%;
+
 }
 #collectibleFormComponent{
     -fx-background-color: #ffffff;
     -fx-border-color: #f1f1f1;
     -fx-padding: 3;
-    -fx-pref-width: 400;
-    -fx-pref-height: 400;
+
 }
 #collectibleComponentImage{
     -fx-background-color: #ffffff;
@@ -332,10 +350,6 @@
     -fx-background-color: #fff;
     -fx-border-color: #fff;
 }
-.team-textarea{
-    -fx-background-color: #fff;
-    -fx-border-color: #fff;
-}
 
 .segment-numer{
     -fx-pref-width: 50.0;
@@ -360,3 +374,4 @@
     -fx-pref-height: 700;
     -fx-pref-width: 700;
 }
+

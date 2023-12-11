@@ -20,8 +20,9 @@ public class Main extends Application {
         // main view
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/collectionsView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("fotoradar");
+        stage.setTitle("Fotoradar");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     }
 

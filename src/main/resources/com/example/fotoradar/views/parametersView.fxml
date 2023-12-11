@@ -9,19 +9,20 @@
             xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="windowLabel" styleClass="big-label" layoutX="48.0" layoutY="24.0" text="kolekcje/ parametry">
     </Label>
-    <CollectionFormComponent fx:id="collectionFormComponent" layoutX="24.0" layoutY="84.0" prefHeight="500.0">
+    <CollectionFormComponent fx:id="collectionFormComponent" style="-fx-border-width: 2; -fx-border-color: #e7e7e7; -fx-background-color: white"
+                             layoutX="24.0" layoutY="84.0" prefHeight="500.0">
         <Button  mnemonicParsing="false" onAction="#saveCollection"
                  AnchorPane.bottomAnchor="0.0"
                  AnchorPane.rightAnchor="0.0"
                  prefHeight="24.0" prefWidth="200.0" text="ZAPISZ PARAMETRY" />
     </CollectionFormComponent>
-    <TeamsComponent fx:id="teamsComponent" layoutX="500.0" layoutY="84.0" prefHeight="700.0"
-                    style="-fx-border-width: 1px; -fx-border-color: blue;">
-        <Label text="zespoły" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="24.0" />
+    <TeamsComponent fx:id="teamsComponent"  layoutX="470.0" layoutY="84.0" prefHeight="900.0" prefWidth="1100"
+                    style="-fx-border-width: 2; -fx-border-color: #c7c7c7; -fx-background-color: white">
+        <Label text="Zespoły" style="-fx-font-size: 20" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="24.0" />
         <Button  mnemonicParsing="false" onAction="#manageTeams"
-                 AnchorPane.bottomAnchor="0.0"
-                 AnchorPane.rightAnchor="0.0"
-                 prefHeight="24.0" prefWidth="200.0" text="ZARZĄDZAJ ZESPOŁAMI" />
+                 AnchorPane.bottomAnchor="5.0"
+                 AnchorPane.rightAnchor="5.0"
+                  text="ZARZĄDZAJ ZESPOŁAMI" />
     </TeamsComponent>
     <Button mnemonicParsing="false" onAction="#createReport"
             prefHeight="24.0" prefWidth="200.0" text="WYGENERUJ RAPORT"

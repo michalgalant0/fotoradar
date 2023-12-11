@@ -2,14 +2,14 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<fx:root stylesheets="@../style.css"
-         prefHeight="452.0" prefWidth="500.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root prefHeight="452.0" prefWidth="500.0" stylesheets="@../style.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="nameLabel" layoutX="32.0" layoutY="21.0" text="NAZWA" AnchorPane.leftAnchor="32.0" />
     <TextField fx:id="nameTextField" layoutX="32.0" layoutY="45.0" prefHeight="24.0" prefWidth="198.0" AnchorPane.leftAnchor="32.0" />
 
     <Label fx:id="startDateTimeLabel" layoutX="32.0" layoutY="85.0" text="DATA I GODZINA ROZPOCZĘCIA" AnchorPane.leftAnchor="32.0" />
     <DatePicker fx:id="startDatePicker" layoutX="32.0" layoutY="109.0" prefHeight="24.0" prefWidth="137.0" AnchorPane.leftAnchor="32.0" />
-    <TextField fx:id="startTimeTextField" layoutX="169.0" layoutY="109.0" prefHeight="24.0" prefWidth="74.0" />
+    <TextField fx:id="startTimeTextField" layoutX="169.0" layoutY="109.0" prefHeight="30.0" prefWidth="87.0" />
     <Label fx:id="finishDateTimeLabel" layoutX="259.0" layoutY="85.0" text="DATA I GODZINA ZAKOŃCZENIA" />
     <DatePicker fx:id="finishDatePicker" layoutX="259.0" layoutY="109.0" prefHeight="24.0" prefWidth="137.0" />
     <TextField fx:id="finishTimeTextField" layoutX="394.0" layoutY="109.0" prefHeight="24.0" prefWidth="74.0" />
@@ -19,6 +19,6 @@
 
     <Label fx:id="teamLabel" layoutX="32.0" layoutY="317.0" text="ZESPÓŁ" AnchorPane.leftAnchor="32.0" />
     <ComboBox fx:id="teamComboBox" layoutX="32.0" layoutY="341.0" prefHeight="24.0" prefWidth="169.0" AnchorPane.leftAnchor="32.0" />
-    <Button styleClass="button" layoutX="211.0" layoutY="341.0" mnemonicParsing="false" text="EDYTUJ ZESPÓŁ" onAction="#editTeam" />
-    <Button styleClass="button" layoutX="352.0" layoutY="341.0" mnemonicParsing="false" text="DODAJ ZESPÓŁ" onAction="#addTeam" />
+    <Button layoutX="211.0" layoutY="341.0" mnemonicParsing="false" onAction="#editTeam" styleClass="button" text="EDYTUJ ZESPÓŁ" />
+    <Button layoutX="352.0" layoutY="341.0" mnemonicParsing="false" onAction="#addTeam" styleClass="button" text="DODAJ ZESPÓŁ" />
 </fx:root>

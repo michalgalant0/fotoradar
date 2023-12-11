@@ -16,11 +16,13 @@
     <TextField fx:id="nameTextField" layoutX="122.0" layoutY="45.0" prefHeight="24.0" prefWidth="198.0" />
 
     <Label fx:id="startDateTimeLabel" layoutX="32.0" layoutY="85.0" text="DATA I GODZINA ROZPOCZĘCIA" AnchorPane.leftAnchor="32.0" />
-    <DatePicker fx:id="startDatePicker" layoutX="32.0" layoutY="109.0" prefHeight="24.0" prefWidth="137.0" AnchorPane.leftAnchor="32.0" />
-    <TextField fx:id="startTimeTextField" layoutX="169.0" layoutY="109.0" prefHeight="24.0" prefWidth="74.0" />
+    <DatePicker fx:id="startDatePicker" layoutX="32.0" layoutY="109.0" prefHeight="24.0" prefWidth="137.0" styleClass="date-picker" AnchorPane.leftAnchor="32.0" />
+    <TextField fx:id="startTimeTextField" layoutX="169.0" layoutY="109.0" prefHeight="24.0" prefWidth="74.0" styleClass="date-picker" />
+    <!--<DateTimePicker fx:id="startDateTime" layoutY="109.0" prefHeight="24" AnchorPane.leftAnchor="32.0"/>-->
     <Label fx:id="finishDateTimeLabel" layoutX="259.0" layoutY="85.0" text="DATA I GODZINA ZAKOŃCZENIA" />
-    <DatePicker fx:id="finishDatePicker" layoutX="259.0" layoutY="109.0" prefHeight="24.0" prefWidth="137.0" />
-    <TextField fx:id="finishTimeTextField" layoutX="394.0" layoutY="109.0" prefHeight="24.0" prefWidth="74.0" />
+    <DatePicker fx:id="finishDatePicker" layoutX="259.0" layoutY="109.0" prefHeight="24.0" prefWidth="137.0" styleClass="date-picker"/>
+    <TextField fx:id="finishTimeTextField" layoutX="394.0" layoutY="109.0" prefHeight="24.0" prefWidth="74.0" styleClass="date-picker"/>
+    <!--<DateTimePicker fx:id="finishDateTime" layoutY="109.0" prefHeight="24" AnchorPane.leftAnchor="32.0"/>-->
 
     <Label fx:id="descriptionLabel" layoutX="32.0" layoutY="149.0" text="OPIS" AnchorPane.leftAnchor="32.0" />
     <TextArea fx:id="descriptionTextArea" layoutX="32.0" layoutY="173.0" prefHeight="128.0" prefWidth="436.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" />

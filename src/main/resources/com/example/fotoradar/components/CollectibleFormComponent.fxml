@@ -3,16 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root prefHeight="700.0" prefWidth="400.0" stylesheets="@../style.css" type="javafx.scene.layout.AnchorPane"
-         xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="475.0" prefWidth="300"  stylesheets="@../style.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="titleLabel" layoutX="38.0" layoutY="25.0" text="TYTUŁ" AnchorPane.leftAnchor="38.0" />
-    <TextField fx:id="titleTextField" layoutX="32.0" layoutY="45.0" prefHeight="24.0" prefWidth="198.0" AnchorPane.leftAnchor="32.0" />
+    <TextField fx:id="titleTextField" layoutX="38.0" layoutY="45.0" prefHeight="30.0" prefWidth="220.0" AnchorPane.leftAnchor="38.0" />
     <Label fx:id="startDateLabel" layoutX="37.0" layoutY="89.0" text="DATA ROZPOCZĘCIA" AnchorPane.leftAnchor="37.0" />
-    <DatePicker fx:id="startDatePicker" layoutX="32.0" layoutY="109.0" AnchorPane.leftAnchor="32.0" />
+    <DatePicker fx:id="startDatePicker" layoutX="38.0" layoutY="109.0" AnchorPane.leftAnchor="38.0" />
     <Label fx:id="finishDateLabel" layoutX="39.0" layoutY="153.0" text="DATA ZAKOŃCZENIA" AnchorPane.leftAnchor="39.0" />
-    <DatePicker fx:id="finishDatePicker" layoutX="32.0" layoutY="173.0" AnchorPane.leftAnchor="32.0" />
+    <DatePicker fx:id="finishDatePicker" layoutX="41.0" layoutY="173.0" prefWidth="214.0" AnchorPane.leftAnchor="41.0" />
     <Label fx:id="descriptionLabel" layoutX="40.0" layoutY="217.0" text="OPIS" AnchorPane.leftAnchor="40.0" />
-    <TextArea fx:id="descriptionTextArea" layoutX="35.0" layoutY="237.0" prefHeight="130.0" prefWidth="330.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="53.0" />
+    <TextArea fx:id="descriptionTextArea" layoutX="39.0" layoutY="237.0" prefHeight="97.0" prefWidth="229.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="38.0" />
     <Label fx:id="statusLabel" layoutX="42.0" layoutY="354.0" text="STATUS" AnchorPane.leftAnchor="42.0" />
-    <ComboBox fx:id="statusComboBox" layoutX="38.0" layoutY="374.0" prefHeight="24.0" prefWidth="198.0" AnchorPane.leftAnchor="38.0" />
+    <ComboBox fx:id="statusComboBox" layoutX="40.0" layoutY="374.0" prefHeight="30.0" prefWidth="220.0" AnchorPane.leftAnchor="40.0" />
 </fx:root>

@@ -14,15 +14,15 @@
     <children>
         <ToolBar orientation="VERTICAL" prefHeight="800.0" prefWidth="120.0">
             <items>
-                <Button fx:id="rectButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#setRectangleAsCurrentShape" prefHeight="25.0" prefWidth="78.0" text="Prostokąt" />
-                <Button fx:id="lineButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#setLineAsCurrentShape" prefHeight="25.0" prefWidth="78.0" text="Linia" />
-                <Button fx:id="ovlButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#setOvalAsCurrentShape" prefHeight="25.0" prefWidth="78.0" text="Owal" />
-                <Button fx:id="pencButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#setFreeDesign" prefHeight="25.0" prefWidth="78.0" text="Pędzel" />
-                <Button fx:id="eraser" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#setErase" prefHeight="25.0" prefWidth="78.0" text="Gumka" />
-            <Button fx:id="clean" mnemonicParsing="false" onAction="#clearCanvas" prefHeight="25.0" prefWidth="78.0" text="Wyczyść" />
-                <Button fx:id="open" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setOpen" prefHeight="25.0" prefWidth="78.0" text="Dodaj tło" />
-            <Button fx:id="clearImg" mnemonicParsing="false" onAction="#clearImg" prefHeight="25.0" prefWidth="78.0" text="Usuń tło" />
-                <Button fx:id="save" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setSave" prefHeight="25.0" prefWidth="78.0" text="Zapisz szkic" />
+                <Button fx:id="rectButton" styleClass="painterButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#setRectangleAsCurrentShape" prefHeight="25.0" prefWidth="78.0" text="Prostokąt" />
+                <Button fx:id="lineButton" styleClass="painterButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#setLineAsCurrentShape" prefHeight="25.0" prefWidth="78.0" text="Linia" />
+                <Button fx:id="ovlButton" styleClass="painterButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#setOvalAsCurrentShape" prefHeight="25.0" prefWidth="78.0" text="Owal" />
+                <Button fx:id="pencButton" styleClass="painterButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#setFreeDesign" prefHeight="25.0" prefWidth="78.0" text="Pędzel" />
+                <Button fx:id="eraser" styleClass="painterButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#setErase" prefHeight="25.0" prefWidth="78.0" text="Gumka" />
+            <Button fx:id="clean" styleClass="painterButton" mnemonicParsing="false" onAction="#clearCanvas" prefHeight="25.0" prefWidth="78.0" text="Wyczyść" />
+                <Button fx:id="open" styleClass="painterButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setOpen" prefHeight="25.0" prefWidth="78.0" text="Dodaj tło" />
+            <Button fx:id="clearImg" styleClass="painterButton" mnemonicParsing="false" onAction="#clearImg" prefHeight="25.0" prefWidth="78.0" text="Usuń tło" />
+                <Button fx:id="save" styleClass="painterButton"  contentDisplay="CENTER" mnemonicParsing="false" onAction="#setSave" prefHeight="25.0" prefWidth="78.0" text="Zapisz szkic" />
                 <ColorPicker fx:id="colorPick" prefHeight="25.0" prefWidth="78.0" />
                 <RadioButton fx:id="strokeRB" mnemonicParsing="false" prefHeight="17.0" prefWidth="78.0" selected="true" text="Linia">
                     <toggleGroup>

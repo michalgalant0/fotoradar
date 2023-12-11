@@ -3,13 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root prefHeight="551.0" prefWidth="920.0" styleClass="background" stylesheets="@../style.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="439.0" prefWidth="383.0" styleClass="" stylesheets="@../style.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="titleLabel" layoutX="32.0" layoutY="21.0" text="TYTUŁ" AnchorPane.leftAnchor="32.0" />
-    <TextField fx:id="titleTextField" layoutX="32.0" layoutY="45.0" prefHeight="24.0" prefWidth="198.0" AnchorPane.leftAnchor="32.0" />
+    <TextField fx:id="titleTextField" layoutX="38.0" layoutY="45.0" prefHeight="30.0" prefWidth="300.0" AnchorPane.leftAnchor="35.0" />
     <Label fx:id="startDateLabel" layoutX="32.0" layoutY="85.0" text="DATA ROZPOCZĘCIA" AnchorPane.leftAnchor="32.0" />
-    <DatePicker fx:id="startDatePicker" layoutX="32.0" layoutY="109.0" AnchorPane.leftAnchor="32.0" />
+    <DatePicker fx:id="startDatePicker" layoutX="38.0" layoutY="105.0" prefWidth="200.0" AnchorPane.leftAnchor="38.0" />
     <Label fx:id="finishDateLabel" layoutX="32.0" layoutY="149.0" text="DATA ZAKOŃCZENIA" AnchorPane.leftAnchor="32.0" />
-    <DatePicker fx:id="finishDatePicker" layoutX="32.0" layoutY="173.0" AnchorPane.leftAnchor="32.0" />
+    <DatePicker fx:id="finishDatePicker" layoutX="38.0" layoutY="173.0" prefWidth="156.0" AnchorPane.leftAnchor="35.0" />
     <Label fx:id="descriptionLabel" layoutX="32.0" layoutY="213.0" text="OPIS" AnchorPane.leftAnchor="32.0" />
-    <TextArea fx:id="descriptionTextArea" layoutX="42.0" layoutY="233.0" prefHeight="173.0" prefWidth="322.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="1086.0" />
+    <TextArea fx:id="descriptionTextArea" layoutX="35.0" layoutY="233.0" prefHeight="139.0" prefWidth="294.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="60.0" />
 </fx:root>

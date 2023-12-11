@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<fx:root stylesheets="@../style.css"
-        maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="132.0" prefWidth="350.0" styleClass="collection-row"
-         type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="nameLabel" layoutX="133.0" layoutY="48.0" text="nazwa obiektu">
+<?import javafx.scene.text.*?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="132.0" prefWidth="400.0" styleClass="collection-row" stylesheets="@../style.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="nameLabel" layoutX="133.0" layoutY="48.0" style="-fx-font-size: 20;" text="nazwa obiektu">
         <font>
-            <Font size="15.0" />
+            <Font size="22.0" />
         </font>
     </Label>
-    <StackPane fx:id="imageContainer"
-               maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0"
-               styleClass="collection-row"
-               AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0">
+    <StackPane fx:id="imageContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" styleClass="collection-row" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0">
         <ImageView fx:id="objectThumbnailImageView" preserveRatio="true" />
     </StackPane>
-    <Label fx:id="statusLabel" styleClass="status" layoutX="310.0" layoutY="111.0" text="STATUS" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0">
+    <Label fx:id="statusLabel" layoutX="310.0" layoutY="111.0" style="-fx-font-size: 15;" styleClass="status" text="STATUS" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0">
         <font>
-            <Font size="10.0" />
+            <Font size="15.0" />
         </font>
     </Label>
 </fx:root>

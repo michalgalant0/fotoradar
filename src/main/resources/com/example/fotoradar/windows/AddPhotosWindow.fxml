@@ -9,6 +9,6 @@
    <Label layoutX="24.0" layoutY="72.0" managed="false" text="wczytane pliki:" visible="false" AnchorPane.leftAnchor="24.0" />
    <TextArea fx:id="fileNamesContainer" editable="false" layoutX="24.0" layoutY="96.0" managed="false" prefHeight="176.0" visible="false" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" />
    <Label fx:id="counterLabel" layoutX="24.0" layoutY="280.0" managed="false" text="ilość wczytanych plików: ?" visible="false" AnchorPane.leftAnchor="24.0" />
-   <Button fx:id="addPhotoButton" layoutX="82.0" layoutY="129.0" mnemonicParsing="false" onAction="#addPhotos" styleClass="yes-button" text="DODAJ" visible="false" AnchorPane.bottomAnchor="24.0" />
+   <Button fx:id="addPhotoButton" layoutX="50.0" layoutY="129.0" mnemonicParsing="false" onAction="#addPhotos" styleClass="yes-button" text="DODAJ" visible="false" AnchorPane.bottomAnchor="24.0" />
    <Button fx:id="cancelButton" layoutX="159.0" layoutY="129.0" mnemonicParsing="false" onAction="#cancel" styleClass="cancel-button" text="ANULUJ" visible="false" AnchorPane.bottomAnchor="24.0" />
 </AnchorPane>

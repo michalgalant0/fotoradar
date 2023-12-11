@@ -17,7 +17,9 @@ public class SwitchScene {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/" + viewName + ".fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+         
         stage.setScene(scene);
+         
     }
 
     public void switchScene(ActionEvent event, String viewName, Object controller) throws IOException {
@@ -25,7 +27,10 @@ public class SwitchScene {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/" + viewName + ".fxml"));
         fxmlLoader.setController(controller); // Ustawienie kontrolera widoku
         Scene scene = new Scene(fxmlLoader.load());
+         
         stage.setScene(scene);
+         
+        
     }
 
     public void displayWindow(String windowName, String title) throws IOException {
@@ -44,10 +49,10 @@ public class SwitchScene {
         // Pobranie kontrolera
         Window controller = fxmlLoader.getController();
         controller.setDialogStage(dialogStage);
-
+         
         // Wyświetlenie nowego okna
         dialogStage.show();
-
+         
         dialogStage.toFront();
         dialogStage.requestFocus();
     }
@@ -68,10 +73,10 @@ public class SwitchScene {
         if (controller instanceof Window) {
             ((Window) controller).setDialogStage(dialogStage);
         }
-
+         
         // Wyświetlenie nowego okna
         dialogStage.show();
-
+         
         dialogStage.toFront();
         dialogStage.requestFocus();
     }
@@ -92,10 +97,10 @@ public class SwitchScene {
         if (controller instanceof Window) {
             ((Window) controller).setDialogStage(dialogStage);
         }
-
+         
         // Wyświetlenie nowego okna
         dialogStage.show();
-
+         
         dialogStage.toFront();
         dialogStage.requestFocus();
         dialogStage.setOnCloseRequest(windowEvent -> listener.onWindowClosed());

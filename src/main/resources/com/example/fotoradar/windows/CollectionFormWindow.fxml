@@ -5,10 +5,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane stylesheets="@../style.css"
-        prefHeight="510.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
-    <Label layoutY="14.0" text="Dodaj kolekcję"
+        prefHeight="520.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+    <Label layoutY="14.0" text="Dodaj kolekcję" style="-fx-font-size: 20"
            alignment="CENTER" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0"/>
-    <CollectionFormComponent fx:id="collectionForm" layoutY="30.0" />
-    <Button layoutX="127.0" layoutY="468.0" mnemonicParsing="false" text="ZAPISZ" onAction="#saveCollection" />
-    <Button layoutX="208.0" layoutY="468.0" mnemonicParsing="false" text="ANULUJ" onAction="#cancel" />
+    <CollectionFormComponent fx:id="collectionForm" layoutY="30.0"  />
+    <Button styleClass="yes-button" layoutX="77.0" layoutY="408.0" mnemonicParsing="false" text="ZAPISZ" onAction="#saveCollection" />
+    <Button styleClass="cancel-button" layoutX="200.0" layoutY="408.0" mnemonicParsing="false" text="ANULUJ" onAction="#cancel" />
 </AnchorPane>

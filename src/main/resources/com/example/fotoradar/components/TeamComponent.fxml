@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<fx:root stylesheets="@../style.css"
-        style="-fx-border-width: 1px; -fx-border-color: pink;" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="nameLabel" styleClass="big-label" layoutX="14.0" layoutY="14.0" text="nazwa zespolu" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="8.0" />
+
+<fx:root prefHeight="217.0" prefWidth="333.0" style="-fx-border-width: 3; -fx-border-color: #c7c7c7;" stylesheets="@../style.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="nameLabel" layoutX="14.0" layoutY="14.0" style="-fx-font-size: 20" text="nazwa zespolu" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="8.0" />
     <TextArea fx:id="descriptionTextArea" editable="false" layoutX="24.0" layoutY="56.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="293.0" wrapText="true" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="32.0" />
 </fx:root>
