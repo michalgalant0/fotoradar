@@ -4,7 +4,7 @@ target/
 !**/src/test/**/target/
 
 properties
-fotoradar.db
+src/main/resources/fotoradar.db
 /KOLEKCJE
 /RAPORTY
 
