@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -20,7 +22,7 @@ public class DatabaseConnection {
     //todo jak to jest z bazą
     //  - jest w resources i ładujemy ją zawsze bezpośrednio z aplikacji
     //  - czy przerzucamy razem z katalogami, albo wymagamy, żeby zawsze była "obok" aplikacji
-    private static final String DATABASE_FILE_PATH = System.getProperty("user.dir") + File.separator + "fotoradar.db";
+    private static final String DATABASE_FILE_PATH = Paths.get(System.getProperty("user.dir"),"src", "main", "resources")+ File.separator + "fotoradar.db";
     private static final String CONNECTION_STRING = "jdbc:sqlite:" + DATABASE_FILE_PATH;
 
     private Connection connection;
@@ -44,13 +46,21 @@ public class DatabaseConnection {
         try (Connection connection = DriverManager.getConnection(CONNECTION_STRING);
              Statement statement = connection.createStatement()) {
 
-            String sqlContent = new String(Files.readAllBytes(Paths.get("fotoradar_database.sql")));
-            System.out.println("Executing SQL script...");
-            //System.out.println(sqlContent);
-            statement.executeUpdate(sqlContent);
-            //System.out.println("SQL script executed successfully!");
+            // Ładowanie pliku z zasobów projektu
+            ClassLoader classLoader = getClass().getClassLoader();
+            InputStream inputStream = classLoader.getResourceAsStream("fotoradar_database.sql");
+
+            if (inputStream != null) {
+                String sqlContent = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+                System.out.println("Executing SQL script...");
+                statement.executeUpdate(sqlContent);
+                System.out.println("SQL script executed successfully!");
+            } else {
+                System.out.println("Nie można znaleźć pliku SQL w zasobach projektu.");
+            }
         }
     }
+
 
 
     public void connect() throws SQLException {
