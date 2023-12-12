@@ -124,18 +124,29 @@ public class CollectionOperations {
         double[] result = new double[2];
 
         // Obliczanie postępu w skanowaniu kolekcji
-        String progressQuery = "SELECT COUNT(*) AS completedSegments, " +
-                "(SELECT COUNT(*) FROM SEGMENT WHERE collectible_id IN " +
-                "(SELECT collectible_id FROM COLLECTIBLE WHERE collection_id = ?)) AS totalSegments " +
-                "FROM SEGMENT " +
-                "WHERE status_id = 3";
+        String progressQuery = """
+                WITH CompletedSegments AS (
+                    SELECT COUNT(*) AS completed_segments
+                    FROM SEGMENT\s
+                    WHERE status_id = 3\s
+                      AND collectible_id IN (SELECT collectible_id FROM COLLECTIBLE WHERE collection_id = ?)
+                ),
+                AllSegments AS (
+                    SELECT COUNT(*) AS all_segments
+                    FROM SEGMENT\s
+                    WHERE collectible_id IN (SELECT collectible_id FROM COLLECTIBLE WHERE collection_id = ?)
+                )
+                SELECT completed_segments, all_segments
+                FROM CompletedSegments, AllSegments;
+                """;
         try (PreparedStatement progressStatement = connection.prepareStatement(progressQuery)) {
             progressStatement.setInt(1, collectionId);
+            progressStatement.setInt(2, collectionId);
             ResultSet progressResultSet = progressStatement.executeQuery();
 
             if (progressResultSet.next()) {
-                int completedSegments = progressResultSet.getInt("completedSegments");
-                int totalSegments = progressResultSet.getInt("totalSegments");
+                int completedSegments = progressResultSet.getInt(1);
+                int totalSegments = progressResultSet.getInt(2);
 
                 if (totalSegments > 0) {
                     result[0] = ((double) completedSegments / totalSegments) * 100.0;

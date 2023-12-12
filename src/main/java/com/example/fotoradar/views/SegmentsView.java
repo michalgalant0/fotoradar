@@ -277,6 +277,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
             Segment segmentToAdd = new Segment(String.format(tmpName, lastIndex+=1), segment.toString(), collectible.getId(), segmentedThumbnailId);
             // dodanie do bazy
             segmentOperations.addSegment(segmentToAdd);
+            System.out.println("onSegmentationFinished segmentToAdd "+segmentToAdd);
             // utworzenie katalogow
             DirectoryOperator.getInstance().createStructure(segmentToAdd, parentCollectionName, collectible.getTitle());
         }

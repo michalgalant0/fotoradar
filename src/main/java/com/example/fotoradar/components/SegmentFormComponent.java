@@ -69,11 +69,6 @@ public class SegmentFormComponent extends AnchorPane {
 
     public void initialize() {
         fillStatusComboBox();
-
-        // wartosc domyslna - zacheta
-        Status tmpStatus = new Status();
-        tmpStatus.setName("wybierz status");
-        statusComboBox.setValue(tmpStatus);
     }
 
     private void fillStatusComboBox() {
@@ -170,7 +165,7 @@ public class SegmentFormComponent extends AnchorPane {
             // Wstawienie komunikatu w miejscu pola tytułu
             titleTextField.setPromptText("Pole tytułu nie może być puste!");
             return;
-        }else{
+        } else {
             // Jeśli tytuł nie jest pusty, przywróć domyślny styl pola tekstowego
             TextField titleTextField = nameTextField;
             titleTextField.setStyle(""); // Usunięcie dodanego stylu (reset do domyślnego)
@@ -204,6 +199,14 @@ public class SegmentFormComponent extends AnchorPane {
         } else {
             descriptionTextArea.setText(null);
         }
+
+        if (segment.getStatus() == null) {
+            // wartosc domyslna - zacheta
+            Status tmpStatus = new Status();
+            tmpStatus.setName("wybierz status");
+            statusComboBox.setValue(tmpStatus);
+        } else
+            statusComboBox.setValue(segment.getStatus());
 
         try {
             fillVersionComboBox();
