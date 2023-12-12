@@ -70,7 +70,5 @@ public class Main extends Application {
         }
         // Jeśli plik nie istnieje
         setDefPath(createPropertiesFile(System.getProperty("user.dir")));
-        //startowa scieżka gdy uruchamiamy aplikacje po raz pierwszy
-        System.out.println(getDefPath());
     }
 }

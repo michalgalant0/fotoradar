@@ -28,7 +28,7 @@ CREATE TABLE COLLECTIBLE (
 -- Tworzenie tabeli SEGMENT
 CREATE TABLE SEGMENT (
     segment_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title VARCHAR(100),
+    title VARCHAR(100) NOT NULL,
     start_datetime DATETIME,
     finish_datetime DATETIME,
     description TEXT,
@@ -67,7 +67,6 @@ CREATE TABLE VERSION (
 CREATE TABLE PHOTO (
     photo_id INTEGER PRIMARY KEY AUTOINCREMENT,
     file_name VARCHAR(100) NOT NULL,
-    localisation_geo VARCHAR(100),
     file_size FLOAT,
     version_id INTEGER NOT NULL,
     FOREIGN KEY (version_id) REFERENCES VERSION(version_id)
