@@ -1,31 +1,46 @@
 package com.example.fotoradar.windows;
 
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class LoadingWindow {
     private Stage stage;
     private Label loadingLabel;
+    private ProgressBar progressBar;
     private AnimationThread animationThread;
 
     public LoadingWindow() {
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setAlwaysOnTop(true);
 
         loadingLabel = new Label("Ładowanie zdjęć");
-        animationThread = new AnimationThread();
+        progressBar = new ProgressBar(0.0);
 
-        StackPane layout = new StackPane(loadingLabel);
-        Scene scene = new Scene(layout, 350, 100);
+        VBox vbox = new VBox(16);
+        vbox.getChildren().addAll(loadingLabel, progressBar);
+        vbox.setAlignment(Pos.CENTER);
+
+        StackPane layout = new StackPane(vbox);
+        layout.setPadding(new javafx.geometry.Insets(20, 20, 20, 20)); // Dodaj odstęp od góry, prawej, dołu i lewej
+
+        Scene scene = new Scene(layout, 250, 100);
         stage.setScene(scene);
+
+        animationThread = new AnimationThread();
     }
 
     public void showLoading() {
         stage.show();
+        stage.toFront();
+        stage.requestFocus();
         animationThread.start();
     }
 
@@ -35,8 +50,9 @@ public class LoadingWindow {
         stage.close();
     }
 
-    public void updateLoading(String message) {
+    public void updateLoading(String message, double progress) {
         loadingLabel.setText(message);
+        progressBar.setProgress(progress);
     }
 
     private class AnimationThread extends Thread {

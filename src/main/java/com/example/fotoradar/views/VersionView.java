@@ -232,14 +232,22 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
 
         executorService = Executors.newFixedThreadPool(availableProcessors);
         loadingWindow = new LoadingWindow();
-
         loadingWindow.showLoading();
 
         executorService.submit(() -> {
             try {
-                for (File file : selectedFiles) {
+                int totalFiles = selectedFiles.size();
+                for (int i = 0; i < totalFiles; i++) {
+                    File file = selectedFiles.get(i);
                     scaleAndSaveTmpPhoto(file);
                     savePhoto(file);
+
+                    // Aktualizuj postęp ładowania
+                    double progress = (i + 1) / (double) totalFiles;
+                    int finalI = i;
+                    Platform.runLater(() ->
+                            loadingWindow.updateLoading("Przetwarzanie pliku " + (finalI + 1) + "/" + totalFiles, progress)
+                    );
                 }
 
                 // Po zakończeniu wszystkich zadań na wątku roboczym, aktualizuj interfejs użytkownika na wątku JavaFX
@@ -286,8 +294,6 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
 
         // Zapisz przeskalowany obraz do pliku
         ImageIO.write(scaledBufferedImage, "jpg", new File(destinationFilePath));
-
-        Platform.runLater(() -> loadingWindow.updateLoading("Skalowanie pliku: " + file.getName()));
     }
 
     private void savePhoto(File file) throws IOException, SQLException {
@@ -298,14 +304,12 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
                 file.toPath(), Path.of(destinationFilePath),
                 StandardCopyOption.REPLACE_EXISTING
         );
-        Platform.runLater(() -> loadingWindow.updateLoading("Kopiowanie zdjęcia: " + file.getName()));
 
         float fileSize = (float) file.length() / (1024 * 1024);
         // dodanie zdjęć do bazy
         photoOperations.addPhoto(
                 new Photo(file.getName(), version.getId(), fileSize)
         );
-        Platform.runLater(() -> loadingWindow.updateLoading("Zapisywanie zdjęcia: " + file.getName()));
     }
 
     @Override
