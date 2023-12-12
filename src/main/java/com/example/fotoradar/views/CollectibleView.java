@@ -251,7 +251,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
             BufferedImage originalImage = ImageIO.read(file);
 
             // Oblicz proporcje skalowania
-            double scaleFactor = 1.0;
+            double scaleFactor;
             int targetWidth = 800;
             int targetHeight = 800;
 

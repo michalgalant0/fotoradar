@@ -17,6 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import lombok.Setter;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -74,7 +76,8 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
 
     private void fillMiniGallery() throws SQLException {
         miniGalleryComponent.setOnWindowClosedListener(this);
-        miniGalleryComponent.setParentDirectory(String.format(versionPhotosPath));
+        String scaledPhotosPath = Paths.get(versionPhotosPath, ".tmp").toString();
+        miniGalleryComponent.setParentDirectory(String.format(scaledPhotosPath));
         // konwersja listy photos na imagemodels
         ArrayList<Photo> photos = photoOperations.getAllPhotos(version.getId());
         ArrayList<ImageModel> imageModels = new ArrayList<>();
@@ -221,8 +224,37 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
         // wyswietlenie listy zdjec w konsoli
         System.out.println("VersionView.onAddingPhotosFinished: selectedFilesFromAddPhotosWindow "+selectedFiles);
         for (File file : selectedFiles) {
+            // UTWORZENIE I ZAPISANIE ZMNIEJSZONYCH MINIATUR
+            // Wczytaj oryginalne zdjęcie
+            BufferedImage originalImage = ImageIO.read(file);
+
+            // Oblicz proporcje skalowania
+            double scaleFactor;
+            int targetWidth = 300;
+            int targetHeight = 300;
+
+            if (originalImage.getWidth() > originalImage.getHeight()) {
+                scaleFactor = (double) targetWidth / originalImage.getWidth();
+            } else {
+                scaleFactor = (double) targetHeight / originalImage.getHeight();
+            }
+
+            // Przeskaluj obraz
+            int scaledWidth = (int) (originalImage.getWidth() * scaleFactor);
+            int scaledHeight = (int) (originalImage.getHeight() * scaleFactor);
+            java.awt.Image scaledImage = originalImage.getScaledInstance(scaledWidth, scaledHeight, java.awt.Image.SCALE_SMOOTH);
+            BufferedImage scaledBufferedImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
+            scaledBufferedImage.getGraphics().drawImage(scaledImage, 0, 0, null);
+
+            // Utwórz ścieżkę docelową
+            String destinationFilePath = Paths.get(versionPhotosPath, ".tmp", file.getName()).toString();
+
+            // Zapisz przeskalowany obraz do pliku
+            ImageIO.write(scaledBufferedImage, "jpg", new File(destinationFilePath));
+
+            // OPERACJE NA ORYGINALNYCH PLIKACH
             // przekopiowanie wybranych plikow do utworzonej struktury aplikacji
-            String destinationFilePath = Paths.get(versionPhotosPath, file.getName()).toString();
+            destinationFilePath = Paths.get(versionPhotosPath, file.getName()).toString();
             // kopiowanie dla potrzeb testowych - domyślnie przenoszenie
             Files.copy(
                     file.toPath(), Path.of(destinationFilePath),

@@ -101,6 +101,9 @@ public class DirectoryOperator {
                 String.format("/%s/OBIEKTY/%s/SEGMENTY/%s/WERSJE/%s",
                         parentCollectionName, parentCollectibleName, parentSegmentName, version.getName())
         );
+
+        File versionTmpDirectory = new File(Paths.get(currentVersionsDir, version.getName()).toString(), ".tmp");
+        createDirectory(versionTmpDirectory, "katalog dla zmniejszonych dla wersji");
     }
 
     public void removeStructure(Version version, String parentCollectionName, String parentCollectibleName, String parentSegmentName) {
@@ -110,8 +113,12 @@ public class DirectoryOperator {
     }
 
     public void removeStructure(Photo photo, String parentDirectory) {
-        String photoToRemovePath = parentDirectory + photo.getFileName();
+        // usuniecie podstawowego zdjęcia
+        String photoToRemovePath = Paths.get(parentDirectory, photo.getFileName()).toString();
         removeStructure(photoToRemovePath);
+        // usunięcie miniaturki zdjęcia z katalogu .tmp
+        String tmpPhotoToRemovePath = Paths.get(parentDirectory, ".tmp", photo.getFileName()).toString();
+        removeStructure(tmpPhotoToRemovePath);
     }
 
     public void removeStructure(Thumbnail thumbnail, String parentDirectory) {

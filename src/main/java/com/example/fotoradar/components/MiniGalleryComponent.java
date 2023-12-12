@@ -22,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import lombok.Setter;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -124,7 +125,7 @@ public class MiniGalleryComponent extends AnchorPane {
 
     private ImageViewerWindow getImageViewerWindow(int index, Image image) {
         ImageViewerWindow imageViewerWindow = new ImageViewerWindow();
-        imageViewerWindow.setParentDirectory(parentDirectory);
+        imageViewerWindow.setParentDirectory(removeTmpFromPath(parentDirectory));
         imageViewerWindow.setImages(images);
         imageViewerWindow.setCurrentImage(image);
         imageViewerWindow.setCurrentImageIndex(index);
@@ -135,5 +136,20 @@ public class MiniGalleryComponent extends AnchorPane {
         else if (onWindowClosedListener instanceof VersionView)
             imageViewerWindow.setImageViewerFlag(ImageViewerFlag.VERSION);
         return imageViewerWindow;
+    }
+
+    private String removeTmpFromPath(String path) {
+        if (path.contains(".tmp")) {
+            // Sprawdź, czy ścieżka zawiera ".tmp"
+            int tmpIndex = path.indexOf(".tmp");
+            if (tmpIndex != -1) {
+                // Usuń ".tmp" i separator ścieżki po nim
+                path = path.substring(0, tmpIndex) + path.substring(tmpIndex + 4);
+                if (path.charAt(tmpIndex - 1) == File.separator.charAt(0)) {
+                    path = path.substring(0, tmpIndex - 1) + path.substring(tmpIndex);
+                }
+            }
+        }
+        return path;
     }
 }
