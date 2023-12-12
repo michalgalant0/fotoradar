@@ -42,10 +42,10 @@ public class AddPhotosWindow implements Window {
         System.out.println("lista dodanych zdjęć:");
         System.out.println(selectedFiles);
 
-        addPhotoListener.onAddingPhotosFinished(selectedFiles);
-
-        onWindowClosedListener.onWindowClosed();
         closeWindow(dialogStage);
+
+        addPhotoListener.onAddingPhotosFinished(selectedFiles);
+        onWindowClosedListener.onWindowClosed();
     }
 
     @FXML

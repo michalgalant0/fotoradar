@@ -9,7 +9,9 @@ import com.example.fotoradar.databaseOperations.VersionOperations;
 import com.example.fotoradar.models.*;
 import com.example.fotoradar.windows.AddPhotosWindow;
 import com.example.fotoradar.windows.ConfirmDeletePopup;
+import com.example.fotoradar.windows.LoadingWindow;
 import com.example.fotoradar.windows.OnWindowClosedListener;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -32,6 +34,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class VersionView implements AddPhotoListener, RemoveStructureListener, OnWindowClosedListener {
     @FXML
@@ -52,6 +56,10 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
 
     private String versionPhotosPath = Paths.get("%s","KOLEKCJE","%s","OBIEKTY","%s","SEGMENTY","%s","WERSJE","%s").toString();
     private PhotoOperations photoOperations;
+
+    private ExecutorService executorService;
+    private LoadingWindow loadingWindow;
+
 
     public VersionView() {
         try {
@@ -117,8 +125,6 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
         return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
-
-
     @FXML
     private void saveVersion() throws SQLException {
         String oldPath = versionPhotosPath;
@@ -166,8 +172,6 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
         setVersion(version);
         refresh();
     }
-
-
 
     @FXML
     private void addPhotos(ActionEvent event) throws IOException {
@@ -221,52 +225,87 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
 
     @Override
     public void onAddingPhotosFinished(List<File> selectedFiles) throws IOException, SQLException {
-        // wyswietlenie listy zdjec w konsoli
-        System.out.println("VersionView.onAddingPhotosFinished: selectedFilesFromAddPhotosWindow "+selectedFiles);
-        for (File file : selectedFiles) {
-            // UTWORZENIE I ZAPISANIE ZMNIEJSZONYCH MINIATUR
-            // Wczytaj oryginalne zdjęcie
-            BufferedImage originalImage = ImageIO.read(file);
+        System.out.println("VersionView.onAddingPhotosFinished: selectedFilesFromAddPhotosWindow " + selectedFiles);
 
-            // Oblicz proporcje skalowania
-            double scaleFactor;
-            int targetWidth = 300;
-            int targetHeight = 300;
+        int availableProcessors = Runtime.getRuntime().availableProcessors();
+        System.out.println("Dostępne wątki: " + availableProcessors);
 
-            if (originalImage.getWidth() > originalImage.getHeight()) {
-                scaleFactor = (double) targetWidth / originalImage.getWidth();
-            } else {
-                scaleFactor = (double) targetHeight / originalImage.getHeight();
+        executorService = Executors.newFixedThreadPool(availableProcessors);
+        loadingWindow = new LoadingWindow();
+
+        loadingWindow.showLoading();
+
+        executorService.submit(() -> {
+            try {
+                for (File file : selectedFiles) {
+                    scaleAndSaveTmpPhoto(file);
+                    savePhoto(file);
+                }
+
+                // Po zakończeniu wszystkich zadań na wątku roboczym, aktualizuj interfejs użytkownika na wątku JavaFX
+                Platform.runLater(() -> {
+                    loadingWindow.hideLoading();
+                    try {
+                        refresh();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        });
 
-            // Przeskaluj obraz
-            int scaledWidth = (int) (originalImage.getWidth() * scaleFactor);
-            int scaledHeight = (int) (originalImage.getHeight() * scaleFactor);
-            java.awt.Image scaledImage = originalImage.getScaledInstance(scaledWidth, scaledHeight, java.awt.Image.SCALE_SMOOTH);
-            BufferedImage scaledBufferedImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
-            scaledBufferedImage.getGraphics().drawImage(scaledImage, 0, 0, null);
+        executorService.shutdown();
+    }
 
-            // Utwórz ścieżkę docelową
-            String destinationFilePath = Paths.get(versionPhotosPath, ".tmp", file.getName()).toString();
+    private void scaleAndSaveTmpPhoto(File file) throws IOException {
+        // Wczytaj oryginalne zdjęcie
+        BufferedImage originalImage = ImageIO.read(file);
 
-            // Zapisz przeskalowany obraz do pliku
-            ImageIO.write(scaledBufferedImage, "jpg", new File(destinationFilePath));
+        // Oblicz proporcje skalowania
+        double scaleFactor;
+        int targetWidth = 300;
+        int targetHeight = 300;
 
-            // OPERACJE NA ORYGINALNYCH PLIKACH
-            // przekopiowanie wybranych plikow do utworzonej struktury aplikacji
-            destinationFilePath = Paths.get(versionPhotosPath, file.getName()).toString();
-            // kopiowanie dla potrzeb testowych - domyślnie przenoszenie
-            Files.copy(
-                    file.toPath(), Path.of(destinationFilePath),
-                    StandardCopyOption.REPLACE_EXISTING
-            );
-            float fileSize = (float) file.length() /(1024*1024);
-            // dodanie zdjęć do bazy
-            photoOperations.addPhoto(
-                    new Photo(file.getName(), version.getId(), fileSize)
-            );
+        if (originalImage.getWidth() > originalImage.getHeight()) {
+            scaleFactor = (double) targetWidth / originalImage.getWidth();
+        } else {
+            scaleFactor = (double) targetHeight / originalImage.getHeight();
         }
-        refresh();
+
+        // Przeskaluj obraz
+        int scaledWidth = (int) (originalImage.getWidth() * scaleFactor);
+        int scaledHeight = (int) (originalImage.getHeight() * scaleFactor);
+        java.awt.Image scaledImage = originalImage.getScaledInstance(scaledWidth, scaledHeight, java.awt.Image.SCALE_SMOOTH);
+        BufferedImage scaledBufferedImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
+        scaledBufferedImage.getGraphics().drawImage(scaledImage, 0, 0, null);
+
+        // Utwórz ścieżkę docelową
+        String destinationFilePath = Paths.get(versionPhotosPath, ".tmp", file.getName()).toString();
+
+        // Zapisz przeskalowany obraz do pliku
+        ImageIO.write(scaledBufferedImage, "jpg", new File(destinationFilePath));
+
+        Platform.runLater(() -> loadingWindow.updateLoading("Skalowanie pliku: " + file.getName()));
+    }
+
+    private void savePhoto(File file) throws IOException, SQLException {
+        // przekopiowanie wybranych plikow do utworzonej struktury aplikacji
+        String destinationFilePath = Paths.get(versionPhotosPath, file.getName()).toString();
+        // kopiowanie dla potrzeb testowych - domyślnie przenoszenie
+        Files.copy(
+                file.toPath(), Path.of(destinationFilePath),
+                StandardCopyOption.REPLACE_EXISTING
+        );
+        Platform.runLater(() -> loadingWindow.updateLoading("Kopiowanie zdjęcia: " + file.getName()));
+
+        float fileSize = (float) file.length() / (1024 * 1024);
+        // dodanie zdjęć do bazy
+        photoOperations.addPhoto(
+                new Photo(file.getName(), version.getId(), fileSize)
+        );
+        Platform.runLater(() -> loadingWindow.updateLoading("Zapisywanie zdjęcia: " + file.getName()));
     }
 
     @Override
