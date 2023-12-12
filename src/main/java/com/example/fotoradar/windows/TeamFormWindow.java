@@ -5,6 +5,7 @@ import com.example.fotoradar.databaseOperations.TeamOperations;
 import com.example.fotoradar.models.Team;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Setter;
 
@@ -41,22 +42,34 @@ public class TeamFormWindow implements Window {
 
     @FXML
     private void saveTeam(ActionEvent event) throws SQLException {
-        if (team != null) {
-            System.out.println("aktualizacja isntniejącego zespolu");
+        String name = teamForm.nameTextField.getText();
+        // Przykład sprawdzenia i wyświetlenia komunikatu w miejscu pola tytułu
+        if (name.isEmpty()) {
+            // Pobranie wcześniej utworzonego pola tekstowego do wprowadzania tytułu
+            TextField titleTextField = teamForm.nameTextField;
 
-            team.setName(teamForm.nameTextField.getText());
-            team.setDescription(teamForm.descriptionTextArea.getText());
+            // Ustawienie czerwonej ramki lub tła dla pola tytułu jako wskazanie błędu
+            titleTextField.setStyle("-fx-border-color: red;"); // Możesz dostosować to według potrzeb
+
+            // Wstawienie komunikatu w miejscu pola tytułu
+            titleTextField.setPromptText("Pole nazwy nie może być puste!");
+            return;
+        }
+
+        String description = teamForm.descriptionTextArea.getText();
+
+        if (team != null) {
+            System.out.println("aktualizacja istniejącego zespołu");
+
+            team.setName(name);
+            team.setDescription(description != null && !description.isEmpty() ? description : null);
             System.out.println("dane z formularza: " + team);
 
             new TeamOperations().updateTeam(team);
         } else {
-            System.out.println("dodanie nowego zespolu");
+            System.out.println("dodanie nowego zespołu");
 
-            Team teamToAdd = new Team(
-                    teamForm.nameTextField.getText(),
-                    teamForm.descriptionTextArea.getText(),
-                    parentCollectionId
-            );
+            Team teamToAdd = new Team(name, description.isEmpty() ? null : description, parentCollectionId);
             System.out.println("dane z formularza: " + teamToAdd);
 
             new TeamOperations().addTeam(teamToAdd);

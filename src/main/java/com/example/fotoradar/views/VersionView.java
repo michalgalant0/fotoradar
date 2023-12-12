@@ -12,7 +12,9 @@ import com.example.fotoradar.windows.ConfirmDeletePopup;
 import com.example.fotoradar.windows.OnWindowClosedListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import lombok.Setter;
 
 import java.io.File;
@@ -22,6 +24,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,11 +66,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
         versionFormComponent.fillForm(version);
         System.out.println("VersionView: "+version);
         versionFormComponent.fillTeamComboBox();
-        versionPhotosPath = Paths.get(
-                Main.getDefPath(), "KOLEKCJE",
-                parentCollectionName, "OBIEKTY", parentCollectible.getTitle(),
-                "SEGMENTY", parentSegment.getTitle(), "WERSJE", version.getName()
-        ).toString();
+        versionPhotosPath = String.format(versionPhotosPath, Main.getDefPath(), parentCollectionName, parentCollectible.getTitle(), parentSegment.getTitle(), version.getName());
         fillMiniGallery();
 
         DirectoryOperator.getInstance().createStructure(version, parentCollectionName, parentCollectible.getTitle(), parentSegment.getTitle());
@@ -94,26 +96,75 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
         );
     }
 
+    private String mergeTimeIntoDatePicker(DatePicker datePicker, TextField timeTextField) {
+        String timeText = timeTextField.getText();
+
+        if (datePicker == null || datePicker.getValue() == null) {
+            return null;
+        }
+
+        LocalDate date = datePicker.getValue();
+
+        if (timeText == null || timeText.isEmpty()) {
+            return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
+
+        LocalTime time = LocalTime.parse(timeText, DateTimeFormatter.ofPattern("HH:mm"));
+        LocalDateTime dateTime = date.atTime(time);
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
+
+
+
     @FXML
     private void saveVersion() throws SQLException {
         String oldPath = versionPhotosPath;
-        version.setName(versionFormComponent.nameTextField.getText());
-        version.setStartDate(versionFormComponent.startDatePicker.getValue().toString());
-        version.setFinishDate(versionFormComponent.finishDatePicker.getValue().toString());
-        version.setDescription(versionFormComponent.descriptionTextArea.getText());
 
-        // update obiektu do bazy
+        String title = versionFormComponent.nameTextField.getText();
+        // Przykład sprawdzenia i wyświetlenia komunikatu w miejscu pola tytułu
+        if (title.isEmpty()) {
+            // Pobranie wcześniej utworzonego pola tekstowego do wprowadzania tytułu
+            TextField titleTextField = versionFormComponent.nameTextField;
+
+            // Ustawienie czerwonej ramki lub tła dla pola tytułu jako wskazanie błędu
+            titleTextField.setStyle("-fx-border-color: red;"); // Możesz dostosować to według potrzeb
+
+            // Wstawienie komunikatu w miejscu pola tytułu
+            titleTextField.setPromptText("Pole nazwy nie może być puste!");
+            return;
+        }
+        else{
+            // Jeśli tytuł nie jest pusty, przywróć domyślny styl pola tekstowego
+            TextField titleTextField = versionFormComponent.nameTextField;
+            titleTextField.setStyle(""); // Usunięcie dodanego stylu (reset do domyślnego)
+
+            // Możesz także usunąć komunikat, jeśli taki został wyświetlony
+            titleTextField.setPromptText(""); // Usunięcie wyświetlonego komunikatu
+        }
+        version.setName(title);
+
+        // Ustawienie wartości dla startDate i finishDate
+        version.setStartDate(mergeTimeIntoDatePicker(versionFormComponent.startDatePicker, versionFormComponent.startTimeTextField));
+        version.setFinishDate(mergeTimeIntoDatePicker(versionFormComponent.finishDatePicker, versionFormComponent.finishTimeTextField));
+
+        // Ustawienie wartości dla description
+        String description = versionFormComponent.descriptionTextArea.getText();
+        version.setDescription(description != null && !description.isEmpty() ? description : null);
+
+        // Update obiektu do bazy
         VersionOperations versionOperations = new VersionOperations();
         versionOperations.updateVersion(version);
-        System.out.println("zapis wersji");
+        System.out.println("Zapis wersji");
 
-        // aktualizacja katalogow
+        // Aktualizacja katalogów
         String newName = version.getName();
         DirectoryOperator.getInstance().updateDirectoryName(oldPath, newName);
 
         setVersion(version);
         refresh();
     }
+
+
 
     @FXML
     private void addPhotos(ActionEvent event) throws IOException {

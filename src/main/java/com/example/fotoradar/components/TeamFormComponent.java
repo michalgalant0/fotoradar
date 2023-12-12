@@ -40,8 +40,14 @@ public class TeamFormComponent extends AnchorPane {
 
     public void fillForm() {
         nameTextField.setText(team.getName());
-        descriptionTextArea.setText(team.getDescription());
+
+        if (team.getDescription() != null) {
+            descriptionTextArea.setText(team.getDescription());
+        } else {
+            descriptionTextArea.setText(null);
+        }
     }
+
 
     @FXML
     public void clearForm() {

@@ -80,18 +80,29 @@ public class CollectibleFormComponent extends AnchorPane {
         titleTextField.setText(collectibleTitle);
     }
     public void setStartDatePicker(String startDate) {
-        // todo String to Date
-        startDate = "2019-02-04"; //todo test
-        startDatePicker.setValue(LocalDate.parse(startDate));
+        if (startDate != null && !startDate.isEmpty()) {
+            startDatePicker.setValue(LocalDate.parse(startDate));
+        } else {
+            startDatePicker.setValue(null);
+        }
     }
+
     public void setFinishDatePicker(String finishDate) {
-        // todo String to Date
-        finishDate = "2018-05-05"; //todo test
-        finishDatePicker.setValue(LocalDate.parse(finishDate));
+        if (finishDate != null && !finishDate.isEmpty()) {
+            finishDatePicker.setValue(LocalDate.parse(finishDate));
+        } else {
+            finishDatePicker.setValue(null);
+        }
     }
+
     public void setDescriptionTextArea(String collectibleDescription) {
-        descriptionTextArea.setText(collectibleDescription);
+        if (collectibleDescription != null) {
+            descriptionTextArea.setText(collectibleDescription);
+        } else {
+            descriptionTextArea.setText(null);
+        }
     }
+
     public void setStatusComboBox(Status status) {
         statusComboBox.setValue(status);
     }

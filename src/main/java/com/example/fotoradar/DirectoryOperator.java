@@ -95,7 +95,7 @@ public class DirectoryOperator {
 
     // dla wersji
     public void createStructure(Version version, String parentCollectionName, String parentCollectibleName, String parentSegmentName) {
-        String currentVersionsDir = Paths.get(currentDir, "KOLEKCJE", parentCollectionName, "OBIEKTY", parentCollectibleName, "SEGMENTY", parentSegmentName, "WERJSE").toString();
+        String currentVersionsDir = Paths.get(currentDir, "KOLEKCJE", parentCollectionName, "OBIEKTY", parentCollectibleName, "SEGMENTY", parentSegmentName, "WERSJE").toString();
         File versionDirectory = new File(currentVersionsDir, version.getName());
         createDirectory(versionDirectory,
                 String.format("/%s/OBIEKTY/%s/SEGMENTY/%s/WERSJE/%s",
@@ -104,7 +104,7 @@ public class DirectoryOperator {
     }
 
     public void removeStructure(Version version, String parentCollectionName, String parentCollectibleName, String parentSegmentName) {
-        String currentVersionsDir = Paths.get(currentDir, "KOLEKCJE", parentCollectionName, "OBIEKTY", parentCollectibleName, "SEGMENTY", parentSegmentName, "WERJSE", version.getName()).toString();
+        String currentVersionsDir = Paths.get(currentDir, "KOLEKCJE", parentCollectionName, "OBIEKTY", parentCollectibleName, "SEGMENTY", parentSegmentName, "WERSJE", version.getName()).toString();
 
         removeStructure(currentVersionsDir);
     }

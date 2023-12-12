@@ -8,6 +8,7 @@ import com.example.fotoradar.models.Collection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Setter;
 
@@ -39,13 +40,34 @@ public class CollectibleFormWindow implements Window {
     public void saveCollectible(ActionEvent event) throws SQLException {
         System.out.println("zapisz obiekt");
 
-        System.out.println("CollectibleFormWindow.saveCollectible: parentCollection: "+parentCollection);
+        String title = collectibleForm.titleTextField.getText();
+
+        // Przykład sprawdzenia i wyświetlenia komunikatu w miejscu pola tytułu
+        if (title.isEmpty()) {
+            // Pobranie wcześniej utworzonego pola tekstowego do wprowadzania tytułu
+            TextField titleTextField = collectibleForm.titleTextField;
+
+            // Ustawienie czerwonej ramki lub tła dla pola tytułu jako wskazanie błędu
+            titleTextField.setStyle("-fx-border-color: red;"); // Możesz dostosować to według potrzeb
+
+            // Wstawienie komunikatu w miejscu pola tytułu
+            titleTextField.setPromptText("Pole tytułu nie może być puste!");
+            return;
+        }
+
+        String startDate = collectibleForm.startDatePicker.getValue() != null ?
+                collectibleForm.startDatePicker.getValue().toString() : null;
+
+        String finishDate = collectibleForm.finishDatePicker.getValue() != null ?
+                collectibleForm.finishDatePicker.getValue().toString() : null;
+
+        String description = collectibleForm.descriptionTextArea.getText() ;
 
         Collectible collectibleToAdd = new Collectible(
-                collectibleForm.titleTextField.getText(),
-                collectibleForm.startDatePicker.getValue().toString(),
-                collectibleForm.finishDatePicker.getValue().toString(),
-                collectibleForm.descriptionTextArea.getText(),
+                title,
+                startDate,
+                finishDate,
+                description != null && !description.isEmpty() ? description : null,
                 collectibleForm.statusComboBox.getValue(),
                 parentCollection.getId()
         );
@@ -63,6 +85,7 @@ public class CollectibleFormWindow implements Window {
         onWindowClosedListener.onWindowClosed();
         closeWindow(dialogStage);
     }
+
 
     @FXML
     public void cancel(ActionEvent event) {

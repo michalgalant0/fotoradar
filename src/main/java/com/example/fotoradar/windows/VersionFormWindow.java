@@ -8,11 +8,17 @@ import com.example.fotoradar.models.Segment;
 import com.example.fotoradar.models.Version;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Setter;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class VersionFormWindow implements Window, OnWindowClosedListener {
     @FXML
@@ -51,15 +57,51 @@ public class VersionFormWindow implements Window, OnWindowClosedListener {
     private void setWindowLabel() {
         windowLabel.setText(String.format("Dodaj wersję do segmentu %s", parentSegment.getTitle()));
     }
+    private String mergeTimeIntoDatePicker(DatePicker datePicker, TextField timeTextField) {
+        String timeText = timeTextField.getText();
+
+        if (datePicker == null || datePicker.getValue() == null) {
+            return null;
+        }
+
+        LocalDate date = datePicker.getValue();
+
+        if (timeText == null || timeText.isEmpty()) {
+            return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
+
+        LocalTime time = LocalTime.parse(timeText, DateTimeFormatter.ofPattern("HH:mm"));
+        LocalDateTime dateTime = date.atTime(time);
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
+
 
     @FXML
     public void saveVersion(ActionEvent event) throws SQLException {
         System.out.println("zapisz wersję");
 
+        String title = versionForm.nameTextField.getText();
+
+        // Przykład sprawdzenia i wyświetlenia komunikatu w miejscu pola tytułu
+        if (title.isEmpty()) {
+            // Pobranie wcześniej utworzonego pola tekstowego do wprowadzania tytułu
+            TextField titleTextField = versionForm.nameTextField;
+
+            // Ustawienie czerwonej ramki lub tła dla pola tytułu jako wskazanie błędu
+            titleTextField.setStyle("-fx-border-color: red;"); // Możesz dostosować to według potrzeb
+
+            // Wstawienie komunikatu w miejscu pola tytułu
+            titleTextField.setPromptText("Pole nazwy nie może być puste!");
+            return;
+        }
+
+        String startTime = mergeTimeIntoDatePicker(versionForm.startDatePicker, versionForm.startTimeTextField);
+        String finishTime = mergeTimeIntoDatePicker(versionForm.finishDatePicker, versionForm.finishTimeTextField);
+
         Version versionToAdd = new Version(
-                versionForm.nameTextField.getText(),
-                versionForm.startDatePicker.getValue().toString(),
-                versionForm.finishDatePicker.getValue().toString(),
+                title,
+                startTime,
+                finishTime,
                 versionForm.descriptionTextArea.getText(),
                 versionForm.teamComboBox.getValue().getId(),
                 parentSegment.getId()

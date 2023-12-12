@@ -17,6 +17,7 @@ import com.example.fotoradar.windows.OnWindowClosedListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Setter;
 
@@ -26,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,36 +90,71 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
 
     private void fillCollectibleForm() {
         collectibleFormComponent.setTitleTextField(collectible.getTitle());
-        collectibleFormComponent.setStartDatePicker(collectible.getStartDate());
-        collectibleFormComponent.setFinishDatePicker(collectible.getFinishDate());
-        collectibleFormComponent.setDescriptionTextArea(collectible.getDescription());
+
+        String startDate = collectible.getStartDate();
+        collectibleFormComponent.setStartDatePicker(startDate != null ? startDate : null);
+
+        String finishDate = collectible.getFinishDate();
+        collectibleFormComponent.setFinishDatePicker(finishDate != null ? finishDate : null);
+
+        String description = collectible.getDescription();
+        collectibleFormComponent.setDescriptionTextArea(description != null ? description : null);
+
         collectibleFormComponent.setStatusComboBox(collectible.getStatus());
     }
+
 
     @FXML
     private void saveCollectible(ActionEvent event) throws SQLException {
         String oldPath = String.format(Paths.get("%s","KOLEKCJE","%s","OBIEKTY","%s").toString(),
                 Main.getDefPath(), parentCollection.getTitle(), collectible.getTitle());
 
-        collectible.setTitle(collectibleFormComponent.titleTextField.getText());
-        collectible.setStartDate(collectibleFormComponent.startDatePicker.getValue().toString());
-        collectible.setFinishDate(collectibleFormComponent.finishDatePicker.getValue().toString());
+        String title = collectibleFormComponent.titleTextField.getText();
+        // Przykład sprawdzenia i wyświetlenia komunikatu w miejscu pola tytułu
+        if (title.isEmpty()) {
+            // Pobranie wcześniej utworzonego pola tekstowego do wprowadzania tytułu
+            TextField titleTextField = collectibleFormComponent.titleTextField;
+
+            // Ustawienie czerwonej ramki lub tła dla pola tytułu jako wskazanie błędu
+            titleTextField.setStyle("-fx-border-color: red;"); // Możesz dostosować to według potrzeb
+
+            // Wstawienie komunikatu w miejscu pola tytułu
+            titleTextField.setPromptText("Pole tytułu nie może być puste!");
+            return;
+        }
+        else{
+            // Jeśli tytuł nie jest pusty, przywróć domyślny styl pola tekstowego
+            TextField titleTextField = collectibleFormComponent.titleTextField;
+            titleTextField.setStyle(""); // Usunięcie dodanego stylu (reset do domyślnego)
+
+            // Możesz także usunąć komunikat, jeśli taki został wyświetlony
+            titleTextField.setPromptText(""); // Usunięcie wyświetlonego komunikatu
+        }
+        collectible.setTitle(title);
+
+        LocalDate startDateValue = collectibleFormComponent.startDatePicker.getValue();
+        collectible.setStartDate(startDateValue != null ? startDateValue.toString() : null);
+
+        LocalDate finishDateValue = collectibleFormComponent.finishDatePicker.getValue();
+        collectible.setFinishDate(finishDateValue != null ? finishDateValue.toString() : null);
+
         collectible.setDescription(collectibleFormComponent.descriptionTextArea.getText());
         collectible.setStatus(collectibleFormComponent.statusComboBox.getValue());
 
-        // update obiektu do bazy
+        // Update obiektu do bazy
         collectibleOperations.updateCollectible(collectible);
 
-        // aktualizacja nazwy katalogu
+        // Aktualizacja nazwy katalogu
         String newName = collectible.getTitle();
         System.err.println(oldPath);
         System.err.println(newName);
         DirectoryOperator.getInstance().updateDirectoryName(oldPath, newName);
 
-        System.out.println("zapis obiektu");
-        // pozostaje na tym samym widoku
+        System.out.println("Zapis obiektu");
+        // Pozostaje na tym samym widoku
         refresh();
     }
+
 
     @FXML
     private void addSketch(ActionEvent event) throws Exception {
@@ -277,7 +314,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
                 Main.getDefPath(), parentCollection.getTitle(), collectible.getTitle());
 
         // wypełnienie komponentu z formularzem
-        fillCollectibleForm();
+        //fillCollectibleForm();
         // wypelnienie komponentu miniGallery miniaturami
         fillMiniGallery();
     }

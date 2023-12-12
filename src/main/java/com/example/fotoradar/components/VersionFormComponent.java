@@ -11,10 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import lombok.Setter;
@@ -22,6 +19,10 @@ import lombok.Setter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class VersionFormComponent extends AnchorPane {
@@ -63,10 +64,48 @@ public class VersionFormComponent extends AnchorPane {
 
     public void fillForm(Version version) {
         nameTextField.setText(version.getName());
-        startDatePicker.setValue(LocalDate.parse(version.getStartDate()));
-        finishDatePicker.setValue(LocalDate.parse(version.getFinishDate()));
-        descriptionTextArea.setText(version.getDescription());
+
+        // Ustawienie wartości dla startDatePicker
+        String startDate = version.getStartDate();
+        if (startDate != null && !startDate.isEmpty()) {
+            startDatePicker.setValue(LocalDate.parse(startDate.substring(0, 10)));
+        } else {
+            startDatePicker.setValue(null);
+        }
+        startTimeTextField.setText(extractTimeFromDate(version.getStartDate())); // Extracting time part
+
+        // Ustawienie wartości dla finishDatePicker
+        String finishDate = version.getFinishDate();
+        if (finishDate != null && !finishDate.isEmpty()) {
+            finishDatePicker.setValue(LocalDate.parse(finishDate.substring(0, 10)));
+        } else {
+            finishDatePicker.setValue(null);
+        }
+        finishTimeTextField.setText(extractTimeFromDate(version.getFinishDate())); // Extracting time part
+
+        // Ustawienie wartości dla descriptionTextArea
+        String description = version.getDescription();
+        if (description != null && !description.isEmpty()) {
+            descriptionTextArea.setText(description);
+        } else {
+            descriptionTextArea.setText(null);
+        }
     }
+
+    private String extractTimeFromDate(String dateTime) {
+        if (dateTime != null && !dateTime.isEmpty()) {
+            try {
+                LocalDateTime dateTimeValue = LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                return dateTimeValue.format(DateTimeFormatter.ofPattern("HH:mm"));
+            } catch (DateTimeParseException e) {
+                // Obsługa przypadku, gdy nie można sparsować czasu (brak godziny)
+                LocalDate dateValue = LocalDate.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                return ""; // Zwrócenie pustego ciągu znaków dla samej daty
+            }
+        }
+        return null; // Zwrócenie wartości null, jeśli przekazany ciąg znaków jest pusty
+    }
+
 
     public void fillTeamComboBox() throws SQLException {
         System.out.println("VersionFormComponent.fillTeamComboBox parentCollectionId: "+parentCollectionId);

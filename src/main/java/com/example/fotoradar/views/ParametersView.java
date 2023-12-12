@@ -15,6 +15,7 @@ import com.example.fotoradar.summaryGenerator.SummaryGenerator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import lombok.Setter;
 
@@ -54,10 +55,26 @@ public class ParametersView implements TeamComponentRightClickListener {
 
     public void fillFormComponent() {
         collectionFormComponent.titleTextField.setText(collection.getTitle());
-        collectionFormComponent.startDatePicker.setValue(LocalDate.parse(collection.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        collectionFormComponent.finishDatePicker.setValue(LocalDate.parse(collection.getFinishDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        collectionFormComponent.descriptionTextArea.setText(collection.getDescription());
+
+        if (collection.getStartDate() != null) {
+            collectionFormComponent.startDatePicker.setValue(LocalDate.parse(collection.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        } else {
+            collectionFormComponent.startDatePicker.setValue(null);
+        }
+
+        if (collection.getFinishDate() != null) {
+            collectionFormComponent.finishDatePicker.setValue(LocalDate.parse(collection.getFinishDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        } else {
+            collectionFormComponent.finishDatePicker.setValue(null);
+        }
+
+        if (collection.getDescription() != null) {
+            collectionFormComponent.descriptionTextArea.setText(collection.getDescription());
+        } else {
+            collectionFormComponent.descriptionTextArea.setText(null);
+        }
     }
+
 
     public void fillTeamsComponent() {
         try {
@@ -79,9 +96,36 @@ public class ParametersView implements TeamComponentRightClickListener {
         System.out.println("zapisz kolekcje");
         String oldPath = collectionPath;
 
-        collection.setTitle(collectionFormComponent.titleTextField.getText());
-        collection.setStartDate(collectionFormComponent.startDatePicker.getValue().toString());
-        collection.setFinishDate(collectionFormComponent.finishDatePicker.getValue().toString());
+        String title = collectionFormComponent.titleTextField.getText();
+        // Przykład sprawdzenia i wyświetlenia komunikatu w miejscu pola tytułu
+        if (title.isEmpty()) {
+            // Pobranie wcześniej utworzonego pola tekstowego do wprowadzania tytułu
+            TextField titleTextField = collectionFormComponent.titleTextField;
+
+            // Ustawienie czerwonej ramki lub tła dla pola tytułu jako wskazanie błędu
+            titleTextField.setStyle("-fx-border-color: red;"); // Możesz dostosować to według potrzeb
+
+            // Wstawienie komunikatu w miejscu pola tytułu
+            titleTextField.setPromptText("Pole tytułu nie może być puste!");
+            return;
+        }
+        else{
+            // Jeśli tytuł nie jest pusty, przywróć domyślny styl pola tekstowego
+            TextField titleTextField = collectionFormComponent.titleTextField;
+            titleTextField.setStyle(""); // Usunięcie dodanego stylu (reset do domyślnego)
+
+            // Możesz także usunąć komunikat, jeśli taki został wyświetlony
+            titleTextField.setPromptText(""); // Usunięcie wyświetlonego komunikatu
+        }
+        collection.setTitle(title);
+
+
+        LocalDate startDateValue = collectionFormComponent.startDatePicker.getValue();
+        collection.setStartDate(startDateValue != null ? startDateValue.toString() : null);
+
+        LocalDate finishDateValue = collectionFormComponent.finishDatePicker.getValue();
+        collection.setFinishDate(finishDateValue != null ? finishDateValue.toString() : null);
+
         collection.setDescription(collectionFormComponent.descriptionTextArea.getText());
 
         // update kolekcji do bazy

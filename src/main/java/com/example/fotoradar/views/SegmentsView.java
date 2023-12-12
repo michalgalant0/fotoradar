@@ -17,7 +17,9 @@ import com.example.fotoradar.windows.ConfirmDeletePopup;
 import com.example.fotoradar.windows.OnWindowClosedListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Setter;
@@ -28,6 +30,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -110,6 +116,24 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         );
     }
 
+    private String mergeTimeIntoDatePicker(DatePicker datePicker, TextField timeTextField) {
+        String timeText = timeTextField.getText();
+
+        if (datePicker == null || datePicker.getValue() == null) {
+            return null;
+        }
+
+        LocalDate date = datePicker.getValue();
+
+        if (timeText == null) {
+            return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
+
+        LocalTime time = LocalTime.parse(timeText, DateTimeFormatter.ofPattern("HH:mm"));
+        LocalDateTime dateTime = date.atTime(time);
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
+
     @FXML
     private void saveSegment() throws SQLException {
         System.out.println("zapis segmentu");
@@ -117,22 +141,57 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         String oldPath = String.format(Paths.get("%s","KOLEKCJE","%s","OBIEKTY","%s","SEGMENTY","%s").toString(),
                 Main.getDefPath(), parentCollectionName, collectible.getTitle(), currentSegment.getTitle());
 
-        // pobranie nowych danych z formularza
-        currentSegment.setTitle(segmentFormComponent.nameTextField.getText());
-        currentSegment.setStartDate(String.valueOf(segmentFormComponent.startDatePicker.getValue()));
-        currentSegment.setFinishDate(String.valueOf(segmentFormComponent.finishDatePicker.getValue()));
-        currentSegment.setDescription(segmentFormComponent.descriptionTextArea.getText());
-        currentSegment.setStatus(segmentFormComponent.statusComboBox.getValue()); // test
+        String startTime = mergeTimeIntoDatePicker(segmentFormComponent.startDatePicker, segmentFormComponent.startTimeTextField);
+        String finishTime = mergeTimeIntoDatePicker(segmentFormComponent.finishDatePicker, segmentFormComponent.finishTimeTextField);
 
-        // aktualizacja danych w bazie
+        // Pobranie wartości z formularza
+        String title = segmentFormComponent.nameTextField.getText();
+        // Przykład sprawdzenia i wyświetlenia komunikatu w miejscu pola tytułu
+        if (title.isEmpty()) {
+            // Pobranie wcześniej utworzonego pola tekstowego do wprowadzania tytułu
+            TextField titleTextField = segmentFormComponent.nameTextField;
+
+            // Ustawienie czerwonej ramki lub tła dla pola tytułu jako wskazanie błędu
+            titleTextField.setStyle("-fx-border-color: red;"); // Możesz dostosować to według potrzeb
+
+            // Wstawienie komunikatu w miejscu pola tytułu
+            titleTextField.setPromptText("Pole nazwy nie może być puste!");
+            return;
+        }
+        else{
+            // Jeśli tytuł nie jest pusty, przywróć domyślny styl pola tekstowego
+            TextField titleTextField = segmentFormComponent.nameTextField;
+            titleTextField.setStyle(""); // Usunięcie dodanego stylu (reset do domyślnego)
+
+            // Możesz także usunąć komunikat, jeśli taki został wyświetlony
+            titleTextField.setPromptText(""); // Usunięcie wyświetlonego komunikatu
+        }
+        String description = segmentFormComponent.descriptionTextArea.getText();
+
+        // Sprawdzenie, czy pola nie są puste i ustawienie na null, jeśli są
+        String startDate = startTime != null && !startTime.isEmpty() ? startTime : null;
+        String finishDate = finishTime != null && !finishTime.isEmpty() ? finishTime : null;
+        String segmentDescription = description != null && !description.isEmpty() ? description : null;
+
+        // Aktualizacja danych segmentu
+        segmentToUpdate.setTitle(title);
+        segmentToUpdate.setStartDate(startDate);
+        segmentToUpdate.setFinishDate(finishDate);
+        segmentToUpdate.setDescription(segmentDescription);
+        segmentToUpdate.setStatus(segmentFormComponent.statusComboBox.getValue());
+
+        // Aktualizacja danych w bazie
         segmentOperations.updateSegment(segmentToUpdate);
-        // aktualizacja nazwy katalogu
-        String newName = currentSegment.getTitle();
+
+        // Aktualizacja nazwy katalogu
+        String newName = segmentToUpdate.getTitle();
         if (new File(oldPath).exists())
             DirectoryOperator.getInstance().updateDirectoryName(oldPath, newName);
         else
             DirectoryOperator.getInstance().createStructure(segmentToUpdate, parentCollectionName, collectible.getTitle());
+    refreshForm();
     }
+
 
     @FXML
     private void deleteSegment(ActionEvent event) throws IOException {
@@ -334,6 +393,10 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
 
         segments = segmentOperations.getAllSegments(collectible.getId());
         lastIndex = segments.size();
+    }
+
+    private void refreshForm() throws SQLException {
+        segmentFormComponent.fillForm();
     }
 
     @Override

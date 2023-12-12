@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import lombok.Setter;
 
 import java.io.IOException;
@@ -68,14 +69,36 @@ public class TeamsView implements TeamComponentLeftClickListener, TeamComponentR
     }
 
     public void setSubmitButtonAction(Mode mode) {
-        if (mode == Mode.SAVE)
-            submitFormButton.setOnAction(event -> {
-                System.out.println("zapisz zespol");
-                Team teamToAdd = new Team(
-                        teamFormComponent.nameTextField.getText(),
-                        teamFormComponent.descriptionTextArea.getText(),
-                        parentCollection.getId()
-                );
+        submitFormButton.setOnAction(event -> {
+            if (mode == Mode.SAVE) {
+                System.out.println("zapisz zespół");
+                String name = teamFormComponent.nameTextField.getText();
+                String description = teamFormComponent.descriptionTextArea.getText();
+
+                // Przykład sprawdzenia i wyświetlenia komunikatu w miejscu pola tytułu
+                if (name.isEmpty()) {
+                    // Pobranie wcześniej utworzonego pola tekstowego do wprowadzania tytułu
+                    TextField titleTextField = teamFormComponent.nameTextField;
+
+                    // Ustawienie czerwonej ramki lub tła dla pola tytułu jako wskazanie błędu
+                    titleTextField.setStyle("-fx-border-color: red;"); // Możesz dostosować to według potrzeb
+
+                    // Wstawienie komunikatu w miejscu pola tytułu
+                    titleTextField.setPromptText("Pole nazwy nie może być puste!");
+                    return;
+                }
+                else{
+                    // Jeśli tytuł nie jest pusty, przywróć domyślny styl pola tekstowego
+                    TextField titleTextField = teamFormComponent.nameTextField;
+                    titleTextField.setStyle(""); // Usunięcie dodanego stylu (reset do domyślnego)
+
+                    // Możesz także usunąć komunikat, jeśli taki został wyświetlony
+                    titleTextField.setPromptText(""); // Usunięcie wyświetlonego komunikatu
+                }
+
+                // Reszta kodu z zapisem obiektu Team
+                String descriptionValue = !description.isEmpty() ? description : null;
+                Team teamToAdd = new Team(name, descriptionValue, parentCollection.getId());
                 System.out.println("dane z formularza: " + teamToAdd);
                 try {
                     new TeamOperations().addTeam(teamToAdd);
@@ -83,22 +106,48 @@ public class TeamsView implements TeamComponentLeftClickListener, TeamComponentR
                     throw new RuntimeException(e);
                 }
                 refresh();
-            });
-        else if (mode == Mode.UPDATE) {
-            submitFormButton.setOnAction(event -> {
-                System.out.println("aktualizuj zespol o id: "+teamFormComponent.getTeam().getId());
+            } else if (mode == Mode.UPDATE) {
+                System.out.println("aktualizuj zespół o id: " + teamFormComponent.getTeam().getId());
                 Team teamToUpdate = teamFormComponent.getTeam();
-                teamToUpdate.setName(teamFormComponent.nameTextField.getText());
-                teamToUpdate.setDescription(teamFormComponent.descriptionTextArea.getText());
+                String name = teamFormComponent.nameTextField.getText();
+
+                // Przykład sprawdzenia i wyświetlenia komunikatu w miejscu pola tytułu
+                if (name.isEmpty()) {
+                    // Pobranie wcześniej utworzonego pola tekstowego do wprowadzania tytułu
+                    TextField titleTextField = teamFormComponent.nameTextField;
+
+                    // Ustawienie czerwonej ramki lub tła dla pola tytułu jako wskazanie błędu
+                    titleTextField.setStyle("-fx-border-color: red;"); // Możesz dostosować to według potrzeb
+
+                    // Wstawienie komunikatu w miejscu pola tytułu
+                    titleTextField.setPromptText("Pole nazwy nie może być puste!");
+                    return;
+                }
+                else{
+                    // Jeśli tytuł nie jest pusty, przywróć domyślny styl pola tekstowego
+                    TextField titleTextField = teamFormComponent.nameTextField;
+                    titleTextField.setStyle(""); // Usunięcie dodanego stylu (reset do domyślnego)
+
+                    // Możesz także usunąć komunikat, jeśli taki został wyświetlony
+                    titleTextField.setPromptText(""); // Usunięcie wyświetlonego komunikatu
+                }
+
+                String description = teamFormComponent.descriptionTextArea.getText();
+                String descriptionValue = description != null && !description.isEmpty() ? description : null;
+                teamToUpdate.setName(name);
+                teamToUpdate.setDescription(descriptionValue);
+
                 try {
                     new TeamOperations().updateTeam(teamToUpdate);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
                 refresh();
-            });
-        }
+            }
+        });
     }
+
+
 
     private void setWindowLabel(String collectionName) {
         windowLabel.setText("kolekcje/ "+collectionName + "/ zespoły");
