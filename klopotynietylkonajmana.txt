@@ -13,6 +13,7 @@ zeszyt do wypisywania problemow i klopotow potrzebujących większego zastanowie
 11. problem z zapisem szkicu jako pliku graficznego w ustalonej lokalizacji, przekazanie nazw utworzonych kolekcji i obiektów do modułu painter tak by ścieżka była poprawnie tworzona
     niepojęty problem z rozszerzeniem JPG
 12. problem z przenoszeniem folderów wraz z zawartością podczas zmiany lokalizacji aplikacji w ustawieniach
+13. OPTYMALIZACJA - argumenty do JVM (nie dzialaja) -Xms512m -Xmx2048m
 
 SCENARIUSZE TESTÓW
 1. uruchomienie aplikacji na pustej bazie danych i bez katalogow i wykonanie każdej operacji

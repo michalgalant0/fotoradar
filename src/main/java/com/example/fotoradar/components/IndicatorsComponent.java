@@ -41,7 +41,7 @@ public class IndicatorsComponent extends VBox {
         // Animacja paska postępu
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(progressBar.progressProperty(), 0)),
-                new KeyFrame(Duration.seconds(2), new KeyValue(progressBar.progressProperty(), progressBar.getProgress()))
+                new KeyFrame(Duration.seconds(1), new KeyValue(progressBar.progressProperty(), progressBar.getProgress()))
         );
         timeline.play();
     }

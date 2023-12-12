@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Setter;
@@ -13,7 +14,9 @@ import lombok.Setter;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class AddPhotosWindow implements Window {
     @FXML
@@ -54,10 +57,31 @@ public class AddPhotosWindow implements Window {
     @FXML
     public void pickFiles(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.jpeg"));
-        selectedFiles = fileChooser.showOpenMultipleDialog(counterLabel.getScene().getWindow());
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.jpeg", "*.raw")
+        );
 
-        if (selectedFiles != null) {
+        List<File> selectedFilesList = fileChooser.showOpenMultipleDialog(counterLabel.getScene().getWindow());
+
+        if (selectedFilesList != null && !selectedFilesList.isEmpty()) {
+            selectedFiles = selectedFilesList;
+            displaySelectedFiles();
+        }
+    }
+
+    @FXML
+    public void pickFolder(ActionEvent event) {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(counterLabel.getScene().getWindow());
+
+        if (selectedDirectory != null && selectedDirectory.isDirectory()) {
+            // Pobierz wszystkie pliki obrazów w folderze (bez skanowania podfolderów)
+            selectedFiles = Arrays.asList(Objects.requireNonNull(selectedDirectory.listFiles((dir, name) ->
+                    name.trim().toLowerCase().endsWith(".jpg") ||
+                            name.trim().toLowerCase().endsWith(".png") ||
+                            name.trim().toLowerCase().endsWith(".jpeg") ||
+                            name.trim().toLowerCase().endsWith(".raw"))));
+
             displaySelectedFiles();
         }
     }
