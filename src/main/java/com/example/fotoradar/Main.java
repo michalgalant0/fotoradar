@@ -10,11 +10,14 @@ import lombok.Setter;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.Properties;
 
 public class Main extends Application {
     @Getter @Setter
     private static String defPath;
+
+    private static final String PROPERTIES_FILE_NAME = "target/classes/properties";
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -35,9 +38,9 @@ public class Main extends Application {
     private static String createPropertiesFile(String value) {
         Properties properties = new Properties();
 
-        try (FileOutputStream fileOutputStream = new FileOutputStream("properties")) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream(PROPERTIES_FILE_NAME)) {
             properties.setProperty("defaultPath", value);
-            Main.setDefPath(value);
+            setDefPath(value);
             properties.store(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8), "Default Path");
             System.out.println("Properties file created successfully.");
         } catch (IOException ex) {
@@ -49,7 +52,7 @@ public class Main extends Application {
 
     private static String readDefaultPathFromProperties() {
         Properties properties = new Properties();
-        try (FileInputStream fileInputStream = new FileInputStream("properties")) {
+        try (FileInputStream fileInputStream = new FileInputStream(PROPERTIES_FILE_NAME)) {
             properties.load(new InputStreamReader(fileInputStream, StandardCharsets.UTF_8));
             return properties.getProperty("defaultPath");
         } catch (IOException e) {
@@ -57,8 +60,9 @@ public class Main extends Application {
             return null;
         }
     }
+
     private static void initializeDefPath() {
-        File propertiesFile = new File("properties");
+        File propertiesFile = new File(PROPERTIES_FILE_NAME);
 
         if (propertiesFile.isFile()) {
             String defaultPath = readDefaultPathFromProperties();

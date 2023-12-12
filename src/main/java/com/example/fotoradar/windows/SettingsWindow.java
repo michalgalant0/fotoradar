@@ -17,6 +17,7 @@ import java.util.Properties;
 
 
 public class SettingsWindow implements Window{
+    private static final String PROPERTIES_FILE_NAME = "target/classes/properties";
 
     @Setter
     private Stage dialogStage;
@@ -48,7 +49,7 @@ public class SettingsWindow implements Window{
     }
 
     public void initialize(){
-        pathLabel.setText(readDefaultPathFromProperties("properties", "defaultPath"));
+        pathLabel.setText(readDefaultPathFromProperties(PROPERTIES_FILE_NAME, "defaultPath"));
         SaveSettingsButton.setDisable(true);
     }
 
@@ -115,7 +116,7 @@ public class SettingsWindow implements Window{
                         return FileVisitResult.CONTINUE;
                     }
                 });
-                Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
+                Files.walkFileTree(source, new SimpleFileVisitor<>() {
                     @Override
                     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                         Files.delete(file);
@@ -144,7 +145,7 @@ public class SettingsWindow implements Window{
     private void saveSettings() throws UnsupportedEncodingException {
         if (newPathDecoded != null) {
 
-            String oldPath = readDefaultPathFromProperties("properties", "defaultPath");
+            String oldPath = readDefaultPathFromProperties(PROPERTIES_FILE_NAME, "defaultPath");
 
             if (oldPath != null) {
                 // Update the displayed path label
@@ -156,8 +157,8 @@ public class SettingsWindow implements Window{
             }
         }
         // Ustaw nową ścieżkę jako domyślną
-        updatePropertiesFile("properties", "defaultPath", newPathDecoded);
-        Main.setDefPath(readDefaultPathFromProperties("properties", "defaultPath"));
+        updatePropertiesFile(PROPERTIES_FILE_NAME, "defaultPath", newPathDecoded);
+        Main.setDefPath(readDefaultPathFromProperties(PROPERTIES_FILE_NAME, "defaultPath"));
         SaveSettingsButton.setDisable(true);
         //closeWindow(dialogStage);
     }
