@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.example.fotoradar.components.CollectionFormComponent?>
+<?import com.example.fotoradar.components.IndicatorsComponent?>
 <?import com.example.fotoradar.components.TeamsComponent?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -26,6 +27,7 @@
                  AnchorPane.rightAnchor="0.0"
                  prefHeight="24.0" prefWidth="200.0" text="ZARZĄDZAJ ZESPOŁAMI" />
     </TeamsComponent>
+    <IndicatorsComponent fx:id="indicatorsComponent" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="84.0" />
     <Button mnemonicParsing="false" onAction="#createReport"
             prefHeight="24.0" prefWidth="200.0" text="WYGENERUJ RAPORT"
             AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="48.0" />

@@ -53,8 +53,7 @@ public class CollectionsComponent extends AnchorPane {
             collectionsContainer.setAlignment(Pos.BASELINE_LEFT);
             for (Collection collection : collections) {
                 // utworzenie komponentu kolekcja
-                CollectionComponent collectionComponent =
-                        new CollectionComponent();
+                CollectionComponent collectionComponent = new CollectionComponent();
                 // przekazanie kolekcji do komponentu
                 collectionComponent.setCollection(collection);
                 // ustawienie tytułu komponentu

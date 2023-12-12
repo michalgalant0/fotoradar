@@ -1,5 +1,6 @@
 package com.example.fotoradar;
 
+import com.example.fotoradar.databaseOperations.StatusManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,6 +27,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        System.out.println(StatusManager.getInstance().getStatuses());
         initializeDefPath();
         launch();
     }

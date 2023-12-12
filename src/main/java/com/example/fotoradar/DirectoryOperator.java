@@ -124,6 +124,7 @@ public class DirectoryOperator {
      * @param type typ obiektu - dla debugowania
      */
     private void createDirectory(File directoryToCreate, String type) {
+        System.out.println("DirectoryOperator.createDirectory directoryToCreate "+directoryToCreate);
         if (!directoryToCreate.exists()) {
             boolean directoryCreated = directoryToCreate.mkdir();
             System.out.println(

@@ -61,6 +61,7 @@ public class SegmentOperations {
                     String description = resultSet.getString("description");
                     String coords = resultSet.getString("coords");
                     int statusId = resultSet.getInt("status_id");
+                    System.out.printf("SegmentOperations.getAllSegmentsForThumbnail: statusId %d dla segmentu %s\n", statusId, title);
                     Status status = StatusManager.getInstance().getStatuses().get(statusId);
                     int parentCollectibleId = resultSet.getInt("thumbnail_id");
 
@@ -154,7 +155,7 @@ public class SegmentOperations {
             preparedStatement.setString(3, segment.getFinishDate());
             preparedStatement.setString(4, segment.getDescription());
 
-            preparedStatement.setInt(5, segment.getStatus().getId());
+            preparedStatement.setInt(5, segment.getStatus().getId()-1);
             preparedStatement.setInt(6, segment.getId());
 
             System.out.println(preparedStatement);

@@ -25,10 +25,6 @@ import lombok.Setter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class SegmentFormComponent extends AnchorPane {
@@ -155,60 +151,25 @@ public class SegmentFormComponent extends AnchorPane {
         new SwitchScene().displayWindow("VersionFormWindow", "dodaj wersję", versionFormWindow);
     }
 
-    public void fillForm() {
+    private void fillForm() {
+        // testowo
         numberTextField.setText(String.valueOf(segment.getId()));
-
-        String title = segment.getTitle();
+        String title = segment.getTitle() == null ? "wprowadź nazwę segmentu" : segment.getTitle();
         nameTextField.setText(title);
-
-        String startDate = segment.getStartDate();
-        if (startDate != null && !startDate.isEmpty()) {
-            startDatePicker.setValue(LocalDate.parse(startDate.substring(0, 10)));
-            startTimeTextField.setText(extractTimeFromDate(startDate)); // Extracting time part
-        } else {
-            startDatePicker.setValue(null);
-            startTimeTextField.setText(null);
-        }
-
-        String finishDate = segment.getFinishDate();
-        if (finishDate != null && !finishDate.isEmpty()) {
-            finishDatePicker.setValue(LocalDate.parse(finishDate.substring(0, 10)));
-            finishTimeTextField.setText(extractTimeFromDate(finishDate)); // Extracting time part
-        } else {
-            finishDatePicker.setValue(null);
-            finishTimeTextField.setText(null);
-        }
-
-        String description = segment.getDescription();
-        if (description != null && !description.isEmpty()) {
-            descriptionTextArea.setText(description);
-        } else {
-            descriptionTextArea.setText(null);
-        }
-
+        String startDate = segment.getStartDate() == null ? "1900-01-01" : segment.getStartDate();
+        startDatePicker.setValue(LocalDate.parse(startDate));
+        String finishDate = segment.getStartDate() == null ? "1900-01-01" : segment.getStartDate();
+        finishDatePicker.setValue(LocalDate.parse(finishDate));
+        String description = segment.getDescription() == null ? "wprowadź opis segmentu" : segment.getDescription();
+        descriptionTextArea.setText(description);
+        System.out.println("\nSegmentFormComponent.fillForm segment.getStatus "+segment.getStatus());
+        statusComboBox.setValue(segment.getStatus());
         try {
             fillVersionComboBox();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
-
-    private String extractTimeFromDate(String dateTime) {
-        if (dateTime != null && !dateTime.isEmpty()) {
-            try {
-                LocalDateTime dateTimeValue = LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                return dateTimeValue.format(DateTimeFormatter.ofPattern("HH:mm"));
-            } catch (DateTimeParseException e) {
-                // Obsługa przypadku, gdy nie można sparsować czasu (brak godziny)
-                LocalDate dateValue = LocalDate.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                return ""; // Zwrócenie pustego ciągu znaków dla samej daty
-            }
-        }
-        return null; // Zwrócenie wartości null, jeśli przekazany ciąg znaków jest pusty
-    }
-
-
 
     public void setSegment(Segment segment) {
         this.segment = segment;

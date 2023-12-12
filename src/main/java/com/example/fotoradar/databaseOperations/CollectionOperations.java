@@ -119,4 +119,47 @@ public class CollectionOperations {
             return rowsAffected > 0;
         }
     }
+
+    public double[] fetchProgressAndSizeInfo(int collectionId) throws SQLException {
+        double[] result = new double[2];
+
+        // Obliczanie postępu w skanowaniu kolekcji
+        String progressQuery = "SELECT COUNT(*) AS completedSegments, " +
+                "(SELECT COUNT(*) FROM SEGMENT WHERE collectible_id IN " +
+                "(SELECT collectible_id FROM COLLECTIBLE WHERE collection_id = ?)) AS totalSegments " +
+                "FROM SEGMENT " +
+                "WHERE status_id = 3";
+        try (PreparedStatement progressStatement = connection.prepareStatement(progressQuery)) {
+            progressStatement.setInt(1, collectionId);
+            ResultSet progressResultSet = progressStatement.executeQuery();
+
+            if (progressResultSet.next()) {
+                int completedSegments = progressResultSet.getInt("completedSegments");
+                int totalSegments = progressResultSet.getInt("totalSegments");
+
+                if (totalSegments > 0) {
+                    result[0] = ((double) completedSegments / totalSegments) * 100.0;
+                }
+            }
+        }
+
+        // Obliczanie sumy wag zdjęć
+        String sizeQuery = "SELECT SUM(file_size) AS totalSize " +
+                "FROM PHOTO " +
+                "INNER JOIN VERSION ON PHOTO.version_id = VERSION.version_id " +
+                "INNER JOIN SEGMENT ON VERSION.segment_id = SEGMENT.segment_id " +
+                "INNER JOIN COLLECTIBLE ON SEGMENT.collectible_id = COLLECTIBLE.collectible_id " +
+                "WHERE COLLECTIBLE.collection_id = ?";
+        try (PreparedStatement sizeStatement = connection.prepareStatement(sizeQuery)) {
+            sizeStatement.setInt(1, collectionId);
+            ResultSet sizeResultSet = sizeStatement.executeQuery();
+
+            if (sizeResultSet.next()) {
+                double totalSize = sizeResultSet.getDouble("totalSize");
+                result[1] = totalSize;
+            }
+        }
+
+        return result;
+    }
 }

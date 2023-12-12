@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.example.fotoradar.components.CollectiblesComponent?>
-
+<?import com.example.fotoradar.components.IndicatorsComponent?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0"
             xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/">
@@ -14,6 +13,7 @@
         </font>
     </Label>
     <CollectiblesComponent fx:id="collectiblesComponent" layoutX="24.0" layoutY="84.0" />
+    <IndicatorsComponent fx:id="indicatorsComponent" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="84.0" />
     <Button  mnemonicParsing="false" onAction="#goToParameters"
              AnchorPane.bottomAnchor="144.0"
              AnchorPane.rightAnchor="48.0"

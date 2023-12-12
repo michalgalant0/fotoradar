@@ -29,6 +29,7 @@ public class CollectionComponent extends AnchorPane {
 
     @Setter
     private Collection collection;
+    @Setter
     private ArrayList<Collectible> collectibles;
 
     public CollectionComponent() throws IOException {
@@ -41,10 +42,6 @@ public class CollectionComponent extends AnchorPane {
 
     public void setHeaderLabel(String name) {
         headerLabel.setText(name);
-    }
-
-    public void setCollectibles(ArrayList<Collectible> collectibles) {
-        this.collectibles = collectibles;
     }
 
     public void fillCollectionVBox() throws IOException, SQLException {
