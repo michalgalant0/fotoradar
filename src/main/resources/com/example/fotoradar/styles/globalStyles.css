@@ -1,0 +1,16 @@
+/* Global styles */
+
+.root {
+    -fx-background-color: #f0f0f0; /* Lekko szare tło */
+}
+
+.button {
+    -fx-background-color: #00a1f1;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 25; /* Zaokrąglone narożniki */
+}
+
+.button:hover {
+    -fx-background-color: #007FBE; /* Po najechaniu zmiana koloru tła */
+}
