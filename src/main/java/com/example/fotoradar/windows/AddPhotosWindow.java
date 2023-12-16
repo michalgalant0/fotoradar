@@ -16,7 +16,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class AddPhotosWindow implements Window {
     @FXML
@@ -58,7 +60,7 @@ public class AddPhotosWindow implements Window {
     public void pickFiles(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.jpeg", "*.raw")
+                new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.jpeg", "*.raw", "*.JPG", "*.PNG", "*.JPEG", "*.RAW")
         );
 
         List<File> selectedFilesList = fileChooser.showOpenMultipleDialog(counterLabel.getScene().getWindow());
