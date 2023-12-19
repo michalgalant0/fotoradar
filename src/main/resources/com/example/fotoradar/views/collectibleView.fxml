@@ -7,13 +7,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0"
-            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ kolekcja/ obiekt ">
-        <font>
-            <Font size="30.0" />
-        </font>
-    </Label>
+<?import java.net.URL?>
+<AnchorPane xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@../styles/globalStyles.css" />
+        <URL value="@../styles/views/CollectibleViewStyles.css" />
+        <!-- tu będą dodawane szczeŋółowe style dla danego widoku -->
+    </stylesheets>
+
+    <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ kolekcja/ obiekt " styleClass="viewHeader"/>
     <MiniGalleryComponent fx:id="miniGalleryComponent" layoutY="84.0" AnchorPane.leftAnchor="48.0"/>
     <CollectibleFormComponent fx:id="collectibleFormComponent" layoutY="84.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="84.0">
         <Button mnemonicParsing="false" onAction="#saveCollectible"

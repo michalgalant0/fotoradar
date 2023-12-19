@@ -133,7 +133,7 @@ public class SegmentFormComponent extends AnchorPane {
         versionView.setParentSegment(segment);
         versionView.setVersion(versionComboBox.getValue());
 
-        new SwitchScene().switchScene(event, "versionView", versionView);
+        SwitchScene.getInstance().switchScene(event, "versionView", versionView);
     }
 
     @FXML
@@ -146,7 +146,7 @@ public class SegmentFormComponent extends AnchorPane {
         versionFormWindow.setParentCollectible(parentCollectible);
         versionFormWindow.setOnWindowClosedListener(this::loadVersions);
 
-        new SwitchScene().displayWindow("VersionFormWindow", "dodaj wersję", versionFormWindow);
+        SwitchScene.getInstance().displayWindow("VersionFormWindow", "dodaj wersję", versionFormWindow);
     }
 
     public void fillForm() {

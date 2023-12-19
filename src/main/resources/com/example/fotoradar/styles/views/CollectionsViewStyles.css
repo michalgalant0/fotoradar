@@ -1,0 +1,45 @@
+/* CollectionsViewStyles.css */
+
+/* CollectionsComponent */
+CollectionsComponent > #scrollPane, #collectionsContainer {
+    -fx-background-color: #f0f0f0;
+}
+
+/* CollectionComponent */
+CollectionComponent {
+    -fx-background-color: #fff;
+    -fx-border-width: 1;
+    -fx-border-color: rgba(0, 0, 0, 0.26);
+}
+
+#headerLabel {
+    -fx-font-size: 30;
+}
+
+CollectionComponent > #scrollPane, #collectiblesContainer {
+    -fx-background-color: #fff;
+}
+
+#goToCollectionButton {
+    -fx-background-color: #005376;
+}
+
+#goToCollectionButton:hover {
+    -fx-background-color: #00374E;
+}
+
+/* CollectionRowComponent */
+CollectionRowComponent {
+    -fx-background-color: #fff;
+    -fx-border-width: 1;
+    -fx-border-color: rgba(0, 0, 0, 0.26);
+}
+
+#nameLabel {
+    -fx-font-size: 24;
+}
+
+#statusLabel {
+    -fx-font-size: 12;
+    -fx-text-fill: grey;
+}

@@ -5,14 +5,15 @@
 <?import com.example.fotoradar.components.TeamsComponent?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0"
-            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ parametry">
-        <font>
-            <Font size="30.0" />
-        </font>
-    </Label>
+<?import java.net.URL?>
+<AnchorPane xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@../styles/globalStyles.css" />
+        <URL value="@../styles/views/ParametersViewStyles.css" />
+        <!-- tu będą dodawane szczeŋółowe style dla danego widoku -->
+    </stylesheets>
+
+    <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ parametry" styleClass="viewHeader"/>
     <CollectionFormComponent fx:id="collectionFormComponent" layoutX="24.0" layoutY="84.0" prefHeight="500.0">
         <Button  mnemonicParsing="false" onAction="#saveCollection"
                  AnchorPane.bottomAnchor="0.0"

@@ -68,8 +68,13 @@ public class CollectionRowComponent extends AnchorPane {
             System.out.println(thumbnailPath);
             setObjectThumbnailImageView();
         }
-        else
-            objectThumbnailImageView.setImage(null);
+        else {
+            Image noPhoto = new Image(Main.class.getResource("icons/nophoto.png").toExternalForm());
+            double imageContainerHeight = imageContainer.getPrefHeight();
+            objectThumbnailImageView.setImage(noPhoto);
+            objectThumbnailImageView.setFitWidth(50);
+            imageContainer.setMinHeight(imageContainerHeight);
+        }
     }
 
     public void setObjectThumbnailImageView() {

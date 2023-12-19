@@ -181,7 +181,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
         addPhotosWindow.setAddPhotoListener(this);
         addPhotosWindow.setOnWindowClosedListener(this);
 
-        new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj zdjęcia", addPhotosWindow);
+        SwitchScene.getInstance().displayWindow("AddPhotosWindow", "Dodaj zdjęcia", addPhotosWindow);
         try {
             refresh();
         } catch (SQLException e) {
@@ -195,7 +195,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
         TeamsView teamsView = new TeamsView();
         teamsView.setParentView(this);
         teamsView.setParentCollection(new CollectionOperations().getCollectionById(parentCollectible.getParentCollectionId()));
-        new SwitchScene().switchScene(event, "teamsView", teamsView);
+        SwitchScene.getInstance().switchScene(event, "teamsView", teamsView);
     }
 
     @FXML
@@ -211,7 +211,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
         segmentsView.setParentCollectionName(parentCollectionName);
         confirmDeletePopup.setParentView(segmentsView);
 
-        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
+        SwitchScene.getInstance().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
     }
 
     @FXML
@@ -220,7 +220,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
         SegmentsView segmentsView = new SegmentsView();
         segmentsView.setCollectible(parentCollectible);
         segmentsView.setParentCollectionName(parentCollectionName);
-        new SwitchScene().switchScene(event, "segmentsView", segmentsView);
+        SwitchScene.getInstance().switchScene(event, "segmentsView", segmentsView);
     }
 
     @Override
@@ -328,7 +328,7 @@ public class VersionView implements AddPhotoListener, RemoveStructureListener, O
 
         // Spróbuj odświeżyć scenę główną
         try {
-            new SwitchScene().switchScene(event, "segmentsView", view);
+            SwitchScene.getInstance().switchScene(event, "segmentsView", view);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

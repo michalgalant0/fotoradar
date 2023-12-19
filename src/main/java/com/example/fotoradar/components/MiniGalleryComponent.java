@@ -107,7 +107,7 @@ public class MiniGalleryComponent extends AnchorPane {
                 ImageViewerWindow imageViewerWindow = getImageViewerWindow(index, image);
 
                 try {
-                    new SwitchScene().displayWindow("ImageViewerWindow", "przegląd zdjęć", imageViewerWindow, onWindowClosedListener);
+                    SwitchScene.getInstance().displayWindow("ImageViewerWindow", "przegląd zdjęć", imageViewerWindow, onWindowClosedListener);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

@@ -1,16 +1,23 @@
 /* Global styles */
 
 .root {
-    -fx-background-color: #f0f0f0; /* Lekko szare tło */
+    -fx-background-color: #f0f0f0;
 }
 
 .button {
     -fx-background-color: #00a1f1;
+    -fx-pref-height: 40;
+    -fx-pref-width: 220;
+    -fx-font-size: 15;
     -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 25; /* Zaokrąglone narożniki */
+    -fx-background-radius: 50;
 }
 
 .button:hover {
-    -fx-background-color: #007FBE; /* Po najechaniu zmiana koloru tła */
+    -fx-background-color: #007FBE;
+}
+
+/* Label na każdym oknie */
+.viewHeader {
+    -fx-font-size: 40;
 }

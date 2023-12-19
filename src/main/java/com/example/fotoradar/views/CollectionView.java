@@ -75,7 +75,7 @@ public class CollectionView implements RemoveStructureListener, OnWindowClosedLi
         parametersView.setCollection(collection);
 
         // przejście do widoku docelowego
-        new SwitchScene().switchScene(event, "parametersView", parametersView);
+        SwitchScene.getInstance().switchScene(event, "parametersView", parametersView);
     }
     @FXML
     private void addCollectible(ActionEvent event) throws IOException {
@@ -87,7 +87,7 @@ public class CollectionView implements RemoveStructureListener, OnWindowClosedLi
         collectibleFormWindow.setOnWindowClosedListener(this);
 
         // Wywołaj metodę do wyświetlenia okna
-        new SwitchScene().displayWindow("CollectibleFormWindow", "Dodaj obiekt", collectibleFormWindow);
+        SwitchScene.getInstance().displayWindow("CollectibleFormWindow", "Dodaj obiekt", collectibleFormWindow);
         try {
             refresh();
         } catch (SQLException e) {
@@ -104,12 +104,12 @@ public class CollectionView implements RemoveStructureListener, OnWindowClosedLi
         CollectionsView collectionsView = new CollectionsView();
         confirmDeletePopup.setParentView(collectionsView);
 
-        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
+        SwitchScene.getInstance().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
     }
     @FXML
     private void backToCollections(ActionEvent event) throws IOException {
         System.out.println("powrot do kolekcji");
-        new SwitchScene().switchScene(event, "collectionsView");
+        SwitchScene.getInstance().switchScene(event, "collectionsView");
     }
 
     @Override
@@ -129,7 +129,7 @@ public class CollectionView implements RemoveStructureListener, OnWindowClosedLi
 
         // Spróbuj odświeżyć scenę główną
         try {
-            new SwitchScene().switchScene(event, "collectionsView");
+            SwitchScene.getInstance().switchScene(event, "collectionsView");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

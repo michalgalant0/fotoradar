@@ -156,9 +156,9 @@ public class TeamsView implements TeamComponentLeftClickListener, TeamComponentR
     @FXML
     private void backToParent(ActionEvent event) throws IOException {
         if (parentView instanceof ParametersView parametersView)
-            new SwitchScene().switchScene(event, "parametersView", parametersView);
+            SwitchScene.getInstance().switchScene(event, "parametersView", parametersView);
         else if (parentView instanceof VersionView versionView)
-            new SwitchScene().switchScene(event, "versionView", versionView);
+            SwitchScene.getInstance().switchScene(event, "versionView", versionView);
     }
 
     private void refresh() {

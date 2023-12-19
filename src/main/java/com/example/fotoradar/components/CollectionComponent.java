@@ -77,6 +77,6 @@ public class CollectionComponent extends AnchorPane {
         CollectionView collectionView = new CollectionView();
         collectionView.setCollection(collection);
         // zaladowanie nowej sceny z przekazanym kontrolerem
-        new SwitchScene().switchScene(event, "collectionView", collectionView);
+        SwitchScene.getInstance().switchScene(event, "collectionView", collectionView);
     }
 }

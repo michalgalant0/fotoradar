@@ -111,7 +111,7 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
         confirmDeletePopup.setSourceEvent(event);
         confirmDeletePopup.setParentView(event.getSource());
 
-        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
+        SwitchScene.getInstance().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
     }
 
     private void showImage(int index) throws SQLException {

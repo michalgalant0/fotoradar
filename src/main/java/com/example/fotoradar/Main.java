@@ -3,7 +3,9 @@ package com.example.fotoradar;
 import com.example.fotoradar.databaseOperations.StatusManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,17 +18,34 @@ import java.util.Properties;
 public class Main extends Application {
     @Getter @Setter
     private static String defPath;
+    @Getter
+    private static int[] prefResolution;
 
     private static final String PROPERTIES_FILE_NAME = "target/classes/properties";
 
     @Override
     public void start(Stage stage) throws IOException {
+        // ustawienie parametrów stage
+        stage.setTitle("fotoradar");
+        setPrefResolution();
+        stage.setWidth(prefResolution[0]);
+        stage.setHeight(prefResolution[1]);
+        stage.setMaximized(true);
+
         // main view
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/collectionsView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("fotoradar");
+
+        // testowe, zeby mi uruchamialo na drugim monitorze XD
+//        //todo usunac
+//        Screen secondaryScreen = Screen.getScreens().get(1);
+//        Rectangle2D bounds = secondaryScreen.getVisualBounds();
+//        // Ustawienie położenia sceny na drugim monitorze
+//        stage.setX(bounds.getMinX());
+//        stage.setY(bounds.getMinY());
+//        //todo koniec usuniecia
+        
         stage.setScene(scene);
-        stage.setMaximized(true);
         stage.show();
     }
 
@@ -75,5 +94,18 @@ public class Main extends Application {
         }
         // Jeśli plik nie istnieje
         setDefPath(createPropertiesFile(System.getProperty("user.dir")));
+    }
+
+    /**
+     * w zaleznosci od systemu ustawia odpowiednią rozdzielczość
+     * linux - 1920x1080
+     * windows - 1920x1040 (40px to pasek)
+     */
+    private void setPrefResolution() {
+        final int[] preferredResolution = {1920, 1080};
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            preferredResolution[1] = 1040;
+        }
+        prefResolution = preferredResolution;
     }
 }

@@ -59,7 +59,7 @@ public class CollectionsView implements OnWindowClosedListener {
         CollectionFormWindow collectionFormWindow = new CollectionFormWindow();
         collectionFormWindow.setOnWindowClosedListener(this);
 
-        new SwitchScene().displayWindow("CollectionFormWindow", "Dodaj kolekcję", collectionFormWindow);
+        SwitchScene.getInstance().displayWindow("CollectionFormWindow", "Dodaj kolekcję", collectionFormWindow);
         try {
             refresh();
         } catch (SQLException e) {
@@ -92,6 +92,6 @@ public class CollectionsView implements OnWindowClosedListener {
     private void openSettings() throws IOException{
         System.out.println("wejscie w ustawienia");
         SettingsWindow settingsWindow = new SettingsWindow();
-        new SwitchScene().displayWindow("settingsWindow", "USTAWIENIA", settingsWindow);
+        SwitchScene.getInstance().displayWindow("settingsWindow", "USTAWIENIA", settingsWindow);
     }
 }

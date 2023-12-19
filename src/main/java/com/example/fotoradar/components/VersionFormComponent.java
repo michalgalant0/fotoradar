@@ -142,7 +142,7 @@ public class VersionFormComponent extends AnchorPane {
         teamFormWindow.setTeam(teamComboBox.getValue());
         teamFormWindow.setParentCollectionId(parentCollectionId);
         teamFormWindow.setOnWindowClosedListener(onWindowClosedListener);
-        new SwitchScene().displayWindow("TeamFormWindow", "edytuj zespół", teamFormWindow);
+        SwitchScene.getInstance().displayWindow("TeamFormWindow", "edytuj zespół", teamFormWindow);
     }
 
     @FXML
@@ -151,6 +151,6 @@ public class VersionFormComponent extends AnchorPane {
         TeamFormWindow teamFormWindow = new TeamFormWindow();
         teamFormWindow.setParentCollectionId(parentCollectionId);
         teamFormWindow.setOnWindowClosedListener(onWindowClosedListener);
-        new SwitchScene().displayWindow("TeamFormWindow", "dodaj zespół", teamFormWindow);
+        SwitchScene.getInstance().displayWindow("TeamFormWindow", "dodaj zespół", teamFormWindow);
     }
 }

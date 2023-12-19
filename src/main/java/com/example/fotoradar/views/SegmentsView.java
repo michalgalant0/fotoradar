@@ -202,7 +202,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         confirmDeletePopup.setSourceEvent(event);
         confirmDeletePopup.setParentView(this);
 
-        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
+        SwitchScene.getInstance().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
         try {
             refresh();
         } catch (SQLException e) {
@@ -229,7 +229,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         addPhotosWindow.setAddPhotoListener(this);
         addPhotosWindow.setOnWindowClosedListener(this);
 
-        new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj miniatury", addPhotosWindow);
+        SwitchScene.getInstance().displayWindow("AddPhotosWindow", "Dodaj miniatury", addPhotosWindow);
         //odswiezenie widoku
         try {
             refresh();
@@ -354,7 +354,7 @@ public class SegmentsView implements SegmenterListener, AddPhotoListener, Segmen
         System.out.println("powrót do obiektu");
         CollectibleView collectibleView = new CollectibleView();
         collectibleView.setCollectible(collectible);
-        new SwitchScene().switchScene(event, "collectibleView", collectibleView);
+        SwitchScene.getInstance().switchScene(event, "collectibleView", collectibleView);
     }
 
     @Override

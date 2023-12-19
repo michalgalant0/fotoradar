@@ -89,6 +89,6 @@ public class CollectibleComponent extends AnchorPane {
         CollectibleView collectibleView = new CollectibleView();
         collectibleView.setCollectible(collectible);
         // załadowanie nowej sceny z przekazanym kontrolerem
-        new SwitchScene().switchScene(event, "collectibleView", collectibleView);
+        SwitchScene.getInstance().switchScene(event, "collectibleView", collectibleView);
     }
 }

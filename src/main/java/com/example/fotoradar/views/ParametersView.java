@@ -161,7 +161,7 @@ public class ParametersView implements TeamComponentRightClickListener {
         teamsView.setParentView(this);
         teamsView.setParentCollection(collection);
 
-        new SwitchScene().switchScene(event, "teamsView", teamsView);
+        SwitchScene.getInstance().switchScene(event, "teamsView", teamsView);
     }
     @FXML
     private void createReport(ActionEvent event) {
@@ -180,7 +180,7 @@ public class ParametersView implements TeamComponentRightClickListener {
         CollectionView collectionView = new CollectionView();
         collectionView.setCollection(collection);
 
-        new SwitchScene().switchScene(event, "collectionView", collectionView);
+        SwitchScene.getInstance().switchScene(event, "collectionView", collectionView);
     }
 
     private void refresh() {

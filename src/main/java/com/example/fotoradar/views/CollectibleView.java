@@ -176,7 +176,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         addPhotosWindow.setAddPhotoListener(this);
         addPhotosWindow.setOnWindowClosedListener(this);
 
-        new SwitchScene().displayWindow("AddPhotosWindow", "Dodaj miniatury", addPhotosWindow);
+        SwitchScene.getInstance().displayWindow("AddPhotosWindow", "Dodaj miniatury", addPhotosWindow);
         try {
             refresh();
         } catch (SQLException e) {
@@ -194,7 +194,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         segmentsView.setCollectible(collectible);
         segmentsView.setParentCollectionName(parentCollection.getTitle());
 
-        new SwitchScene().switchScene(event, "segmentsView", segmentsView);
+        SwitchScene.getInstance().switchScene(event, "segmentsView", segmentsView);
     }
 
     @FXML
@@ -209,7 +209,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         collectionView.setCollection(parentCollection);
         confirmDeletePopup.setParentView(collectionView);
 
-        new SwitchScene().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
+        SwitchScene.getInstance().displayWindow("ConfirmDeletePopup", "Potwierdź usuwanie", confirmDeletePopup);
     }
 
     @FXML
@@ -219,7 +219,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
         CollectionView collectionView = new CollectionView();
         collectionView.setCollection(parentCollection);
 
-        new SwitchScene().switchScene(event, "collectionView", collectionView);
+        SwitchScene.getInstance().switchScene(event, "collectionView", collectionView);
     }
 
     private void fillMiniGallery() throws SQLException {
@@ -299,7 +299,7 @@ public class CollectibleView implements AddPhotoListener, RemoveStructureListene
 
         // Spróbuj odświeżyć scenę główną
         try {
-            new SwitchScene().switchScene(event, "collectionView", view);
+            SwitchScene.getInstance().switchScene(event, "collectionView", view);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

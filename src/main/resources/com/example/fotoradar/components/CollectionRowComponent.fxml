@@ -3,22 +3,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="132.0" prefWidth="350.0" style="-fx-border-width: 1px; -fx-border-color: black;" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="nameLabel" layoutX="133.0" layoutY="48.0" text="nazwa obiektu">
-        <font>
-            <Font size="15.0" />
-        </font>
-    </Label>
+
+<fx:root
+        type="javafx.scene.layout.AnchorPane"
+        xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
+        prefHeight="128.0" prefWidth="530.0">
+    <Label fx:id="nameLabel" layoutX="148.0" layoutY="32.0" text="nazwa obiektu" />
     <StackPane fx:id="imageContainer"
-               maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0"
-               style="-fx-border-width: 1px; -fx-border-color: blue;"
-               AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0">
+               prefHeight="116.0" prefWidth="116.0"
+               AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="6.0">
         <ImageView fx:id="objectThumbnailImageView" preserveRatio="true" />
     </StackPane>
-    <Label fx:id="statusLabel" layoutX="310.0" layoutY="111.0" style="-fx-text-fill: grey;" text="STATUS" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0">
-        <font>
-            <Font size="10.0" />
-        </font>
-    </Label>
+    <Label fx:id="statusLabel" text="STATUS" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="32.0" />
 </fx:root>

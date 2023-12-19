@@ -348,7 +348,7 @@ public class Painter extends Application implements OnWindowClosedListener {
         saveSketchWindow.setCollectible(collectible);
         saveSketchWindow.setParentCollectionName(parentCollectionName);
         saveSketchWindow.setOnWindowClosedListener(onWindowClosedListener);
-        new SwitchScene().displayWindow("SaveSketchWindow", "Zapisz szkic", saveSketchWindow);
+        SwitchScene.getInstance().displayWindow("SaveSketchWindow", "Zapisz szkic", saveSketchWindow);
     }
     ///////////////////////////////////////////////////////////////////////
 

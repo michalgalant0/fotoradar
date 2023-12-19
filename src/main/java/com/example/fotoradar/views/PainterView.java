@@ -297,7 +297,7 @@ public class PainterView implements Initializable {
         SaveSketchWindow saveSketchWindow = new SaveSketchWindow(TheCanvas);
         saveSketchWindow.setParentCollectionName(parentCollection.getTitle());
         saveSketchWindow.setCollectible(collectible);
-        new SwitchScene().displayWindow("SaveSketchWindow", "Zapisz szkic", saveSketchWindow);
+        SwitchScene.getInstance().displayWindow("SaveSketchWindow", "Zapisz szkic", saveSketchWindow);
 
 //        if (primaryStage == null) {
 //            System.out.println("primaryStage is null");
@@ -391,7 +391,7 @@ public class PainterView implements Initializable {
         SaveSketchWindow saveSketchWindow = new SaveSketchWindow(TheCanvas);
         saveSketchWindow.setParentCollectionName(parentCollection.getTitle());
         saveSketchWindow.setCollectible(collectible);
-        new SwitchScene().displayWindow("SaveSketchWindow", "Zapisz szkic", saveSketchWindow);
+        SwitchScene.getInstance().displayWindow("SaveSketchWindow", "Zapisz szkic", saveSketchWindow);
 
     }
 
