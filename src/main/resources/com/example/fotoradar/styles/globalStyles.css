@@ -17,6 +17,14 @@
     -fx-background-color: #007FBE;
 }
 
+/* domyślny styl dla przycisków DatePicker */
+.date-picker .button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-pref-width: -1;
+    -fx-pref-height: -1;
+}
+
 /* Label na każdym oknie */
 .viewHeader {
     -fx-font-size: 40;

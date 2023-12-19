@@ -92,8 +92,12 @@ public class MiniGalleryComponent extends AnchorPane {
 
     private ImageView createThumbnailImageView(String thumbnailName, int index) {
         ImageView imageView = new ImageView();
-        imageView.setFitWidth(200);
-        imageView.setFitHeight(200);
+        // wymiary imageView obliczone wzorem
+        // (szerokość komponentu - (margines prawy + margines lewy) - (odstępy między zdjęciami)) / liczba kolumn
+        // pobrana              - jeden margines = 24.0            - 2 * 24.0
+        double imgViewSize = (this.getPrefWidth()-48.0-48.0)/3;
+        imageView.setFitWidth(imgViewSize);
+        imageView.setFitHeight(imgViewSize);
         imageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
 
         String filePath = Paths.get(parentDirectory, thumbnailName).toString();

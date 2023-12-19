@@ -40,12 +40,3 @@ CollectibleComponent > AnchorPane{
 #descriptionTextArea, #statusTextField {
     -fx-font-size: 16;
 }
-
-#finishDateTextField{
-}
-
-#descriptionTextArea{
-}
-
-#statusTextField{
-}

@@ -5,36 +5,33 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-
 <?import java.net.URL?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@../styles/globalStyles.css" />
         <URL value="@../styles/views/CollectibleViewStyles.css" />
-        <!-- tu będą dodawane szczeŋółowe style dla danego widoku -->
     </stylesheets>
 
-    <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ kolekcja/ obiekt " styleClass="viewHeader"/>
-    <MiniGalleryComponent fx:id="miniGalleryComponent" layoutY="84.0" AnchorPane.leftAnchor="48.0"/>
-    <CollectibleFormComponent fx:id="collectibleFormComponent" layoutY="84.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="84.0">
+    <Label fx:id="windowLabel" layoutX="128.0" layoutY="64.0"
+           text="kolekcje/ kolekcja/ obiekt " styleClass="viewHeader"/>
+    <MiniGalleryComponent fx:id="miniGalleryComponent" />
+    <CollectibleFormComponent fx:id="collectibleFormComponent" layoutY="84.0"
+                              AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="184.0">
         <Button mnemonicParsing="false" onAction="#saveCollectible"
-                prefHeight="24.0" text="ZAPISZ"
-                AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />
+                text="ZAPISZ"
+                AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="24.0" />
     </CollectibleFormComponent>
-    <Button mnemonicParsing="false" onAction="#addSketch"
-            prefHeight="24.0" prefWidth="200.0" text="DODAJ SZKIC"
-            AnchorPane.bottomAnchor="176.0" AnchorPane.rightAnchor="48.0" />
-    <Button mnemonicParsing="false" onAction="#addPhoto"
-            prefHeight="24.0" prefWidth="200.0" text="DODAJ ZDJĘCIE"
-            AnchorPane.bottomAnchor="144.0" AnchorPane.rightAnchor="48.0" />
-    <Button mnemonicParsing="false" onAction="#manageSegments"
-            prefHeight="24.0" prefWidth="200.0" text="ZARZĄDZAJ SEGMENTAMI"
-            AnchorPane.bottomAnchor="112.0" AnchorPane.rightAnchor="48.0" />
-    <Button mnemonicParsing="false" onAction="#removeCollectible"
-            prefHeight="24.0" prefWidth="200.0" text="USUŃ OBIEKT"
-            AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="48.0" />
-    <Button mnemonicParsing="false" onAction="#backToCollection"
-            prefHeight="24.0" prefWidth="200.0" text="POWRÓT DO KOLEKCJI"
-            AnchorPane.bottomAnchor="48.0" AnchorPane.rightAnchor="48.0" />
+    <VBox spacing="16.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="96.0">
+        <Button mnemonicParsing="false" onAction="#addSketch"
+                text="DODAJ SZKIC"/>
+        <Button mnemonicParsing="false" onAction="#addPhoto"
+                text="DODAJ ZDJĘCIE"/>
+        <Button mnemonicParsing="false" onAction="#manageSegments"
+                text="ZARZĄDZAJ SEGMENTAMI"/>
+        <Button mnemonicParsing="false" onAction="#removeCollectible"
+                text="USUŃ OBIEKT" />
+        <Button mnemonicParsing="false" onAction="#backToCollection"
+                text="POWRÓT DO KOLEKCJI" />
+    </VBox>
 </AnchorPane>

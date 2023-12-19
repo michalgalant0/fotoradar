@@ -23,24 +23,24 @@
       <Label text="DATA ROZPOCZĘCIA"
              AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="16.0" />
       <TextField fx:id="startDateTextField" disable="true" editable="false"
-                 prefHeight="42.0" prefWidth="160.0"
-                 AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="45.0" />
+                 prefHeight="42.0" prefWidth="180.0"
+                 AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="48.0" />
       <Label text="DATA ZAKOŃCZENIA"
              AnchorPane.leftAnchor="256.0" AnchorPane.topAnchor="16.0" />
       <TextField fx:id="finishDateTextField" disable="true" editable="false"
-                  prefHeight="42.0" prefWidth="160.0"
-                  AnchorPane.leftAnchor="256.0" AnchorPane.topAnchor="45.0"/>
+                  prefHeight="42.0" prefWidth="180.0"
+                  AnchorPane.leftAnchor="256.0" AnchorPane.topAnchor="48.0"/>
       <Label text="OPIS"
              AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="100.0"/>
       <TextArea fx:id="descriptionTextArea" disable="true" editable="false"
                 prefHeight="96.0"
                 AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0"
-                  AnchorPane.topAnchor="130.0"/>
+                  AnchorPane.topAnchor="128.0"/>
       <Label text="STATUS"
              AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="240.0"/>
       <TextField fx:id="statusTextField" disable="true" editable="false"
-                 prefHeight="42.0" prefWidth="160.0"
-                 AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="270.0"/>
+                 prefHeight="42.0" prefWidth="180.0"
+                 AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="272.0"/>
    </AnchorPane>
    <Button fx:id="goToCollectibleButton" onAction="#goToCollectible" text="PRZEJDŹ DO OBIEKTU"
            AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="32.0" />

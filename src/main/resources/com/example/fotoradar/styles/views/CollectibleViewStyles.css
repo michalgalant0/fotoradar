@@ -1,0 +1,10 @@
+/* CollectibleViewStyles.css */
+
+#collectibleFormComponent > Button {
+    -fx-pref-width: 100;
+    -fx-background-color: #005376;
+}
+
+#collectibleFormComponent > Button:hover {
+    -fx-background-color: #00374E;
+}

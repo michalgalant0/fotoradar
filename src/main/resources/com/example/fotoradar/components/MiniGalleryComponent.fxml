@@ -3,15 +3,17 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
-<fx:root prefHeight="400.0" prefWidth="700.0"
-         style="-fx-border-width: 1px; -fx-border-color: black;"
+<fx:root prefWidth="1208.0"
          type="javafx.scene.layout.AnchorPane"
-         xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-    <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" style="-fx-border-width: 1px; -fx-border-color: red;"
-                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <GridPane fx:id="photosContainer" hgap="20" prefHeight="700.0" prefWidth="700.0" vgap="20">
+         xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+         AnchorPane.topAnchor="184.0" AnchorPane.leftAnchor="64.0"
+         AnchorPane.bottomAnchor="56.0">
+    <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane fx:id="photosContainer" hgap="24.0" vgap="24.0">
          <padding>
-            <Insets left="20.0" top="20.0" bottom="20.0" />
+            <Insets left="24.0" top="24.0" bottom="24.0" />
          </padding>
         </GridPane>
     </ScrollPane>
