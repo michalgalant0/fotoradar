@@ -69,6 +69,8 @@ public class SegmentFormComponent extends AnchorPane {
 
     public void initialize() {
         fillStatusComboBox();
+        addMaxLengthListener(startTimeTextField);
+        addMaxLengthListener(finishTimeTextField);
     }
 
     private void fillStatusComboBox() {
@@ -243,5 +245,13 @@ public class SegmentFormComponent extends AnchorPane {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void addMaxLengthListener(TextField textField) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null)
+                if (newValue.length() > 5)
+                    textField.setText(oldValue);
+        });
     }
 }

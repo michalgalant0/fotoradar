@@ -19,5 +19,5 @@
     <DatePicker fx:id="finishDatePicker" layoutX="32.0" layoutY="173.0" AnchorPane.leftAnchor="32.0"/>
     <Label fx:id="descriptionLabel" layoutX="32.0" layoutY="213.0" text="OPIS" AnchorPane.leftAnchor="32.0"/>
     <TextArea fx:id="descriptionTextArea" layoutX="32.0" layoutY="237.0" prefHeight="173.0" AnchorPane.leftAnchor="32.0"
-              AnchorPane.rightAnchor="32.0"/>
+              AnchorPane.rightAnchor="32.0" wrapText="true"/>
 </fx:root>

@@ -1,5 +1,9 @@
 /* CollectibleViewStyles.css */
 
+MiniGalleryComponent {
+    -fx-background-color: #fff;
+}
+
 #collectibleFormComponent > Button {
     -fx-pref-width: 100;
     -fx-background-color: #005376;

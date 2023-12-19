@@ -37,7 +37,7 @@
         </HBox>
         <VBox spacing="8.0">
             <Label fx:id="descriptionLabel" text="OPIS"/>
-            <TextArea fx:id="descriptionTextArea"/>
+            <TextArea fx:id="descriptionTextArea" wrapText="true"/>
         </VBox>
         <VBox spacing="8.0">
             <Label fx:id="statusLabel" text="STATUS"/>

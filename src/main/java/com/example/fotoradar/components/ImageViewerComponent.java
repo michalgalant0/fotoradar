@@ -128,8 +128,8 @@ public class ImageViewerComponent extends AnchorPane implements RemoveStructureL
                 Image image = new Image(fileInputStream);
 
                 // Ustal szerokość i wysokość obrazka, aby zmieścił się w kontenerze (max 800x800)
-                double maxWidth = 800;
-                double maxHeight = 800;
+                double maxWidth = mainPane.getPrefWidth();
+                double maxHeight = mainPane.getPrefHeight();
                 double imageWidth = image.getWidth();
                 double imageHeight = image.getHeight();
 

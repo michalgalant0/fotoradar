@@ -1,0 +1,13 @@
+/* SegmentsViewStyles.css */
+
+.formButton {
+    -fx-pref-width: 160;
+}
+
+.deleteButton {
+    -fx-background-color: red;
+}
+
+.deleteButton:hover {
+    -fx-background-color: darkred;
+}

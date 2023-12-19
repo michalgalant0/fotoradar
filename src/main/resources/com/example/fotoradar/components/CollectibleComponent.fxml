@@ -33,7 +33,7 @@
       <Label text="OPIS"
              AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="100.0"/>
       <TextArea fx:id="descriptionTextArea" disable="true" editable="false"
-                prefHeight="96.0"
+                prefHeight="96.0" wrapText="true"
                 AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0"
                   AnchorPane.topAnchor="128.0"/>
       <Label text="STATUS"
