@@ -5,7 +5,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<fx:root
+<fx:root prefHeight="800"
          type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
@@ -13,7 +13,8 @@
         <URL value="@../styles/components/TeamsComponentStyles.css" />
     </stylesheets>
 
-    <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true">
+    <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true"
+        AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0">
         <GridPane fx:id="teamsContainer" hgap="24" vgap="24">
             <padding>
                 <Insets left="24.0" top="24.0" right="24.0" bottom="24.0"/>

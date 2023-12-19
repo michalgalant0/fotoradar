@@ -3,18 +3,24 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <fx:root type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../styles/components/TeamComponentStyles.css"
-            prefWidth="256.0">
-    <Label fx:id="nameLabel" text="nazwa zespolu"
-           AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="8.0" />
-    <TextArea fx:id="descriptionTextArea" editable="false"
-              layoutX="24.0" layoutY="56.0"
-              maxHeight="-Infinity" maxWidth="-Infinity"
-              minHeight="-Infinity" minWidth="-Infinity"
-              prefHeight="148.0" prefWidth="224.0"
-              wrapText="true"
-              AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0"
-              AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="32.0" />
+         prefWidth="264.0">
+    <stylesheets>
+        <URL value="@../styles/components/FormComponentsStyles.css" />
+    </stylesheets>
+
+    <VBox spacing="16.0"
+          AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0"
+          AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="8.0">
+        <Label fx:id="nameLabel" text="nazwa zespolu" />
+        <TextArea fx:id="descriptionTextArea" editable="false"
+                  layoutX="24.0" layoutY="56.0"
+                  maxHeight="-Infinity" maxWidth="-Infinity"
+                  minHeight="-Infinity" minWidth="-Infinity"
+                  prefHeight="148.0" prefWidth="224.0"
+                  wrapText="true" />
+    </VBox>
 </fx:root>

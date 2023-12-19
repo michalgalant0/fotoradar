@@ -1,0 +1,5 @@
+/* TeamFormComponentStyles.css */
+#clearFormButton {
+    -fx-pref-width: -1;
+    -fx-pref-height: -1;
+}

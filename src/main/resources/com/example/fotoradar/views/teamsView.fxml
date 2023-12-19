@@ -5,25 +5,29 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
 <?import java.net.URL?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@../styles/globalStyles.css" />
         <URL value="@../styles/views/TeamsViewStyles.css" />
-        <!-- tu będą dodawane szczeŋółowe style dla danego widoku -->
     </stylesheets>
 
-    <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ kolekcja/ zespoły" styleClass="viewHeader"/>
-    <TeamsComponent fx:id="teamsComponent" layoutX="48.0" layoutY="84.0"
-                    AnchorPane.topAnchor="84.0" AnchorPane.bottomAnchor="48.0" />
-    <TeamFormComponent fx:id="teamFormComponent" AnchorPane.rightAnchor="48.0" layoutY="84.0" >
-        <Button fx:id="submitFormButton" mnemonicParsing="false"
-                AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                prefHeight="24.0" prefWidth="100.0" text="ZAPISZ"/>
+    <Label fx:id="windowLabel" layoutX="128.0" layoutY="64.0"
+           text="kolekcje/ kolekcja/ zespoły" styleClass="viewHeader"/>
+    <AnchorPane
+            AnchorPane.topAnchor="184.0" AnchorPane.leftAnchor="64.0"
+            AnchorPane.bottomAnchor="56.0" >
+        <TeamsComponent fx:id="teamsComponent"/>
+    </AnchorPane>
+
+    <TeamFormComponent fx:id="teamFormComponent"
+                       AnchorPane.topAnchor="184.0" AnchorPane.rightAnchor="96.0">
+        <Button fx:id="submitFormButton" mnemonicParsing="false" text="ZAPISZ"
+            AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="32.0"/>
     </TeamFormComponent>
+
     <Button fx:id="backToParentButton" mnemonicParsing="false"
-            AnchorPane.bottomAnchor="48.0" AnchorPane.rightAnchor="48.0"
-            prefHeight="24.0" prefWidth="200.0" text="POWRÓT"
-            onAction="#backToParent" />
+            AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="96.0"
+            text="POWRÓT" onAction="#backToParent" />
 </AnchorPane>

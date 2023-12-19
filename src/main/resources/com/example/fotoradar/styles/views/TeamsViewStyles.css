@@ -1,0 +1,15 @@
+/* TeamsViewStyles.css */
+TeamsComponent, TeamFormComponent {
+    -fx-background-color: #fff;
+    -fx-border-width: 1;
+    -fx-border-color: rgba(0, 0, 0, 0.26);
+}
+
+#backToParentButton {
+    -fx-pref-width: 240;
+}
+
+#submitFormButton {
+    -fx-pref-width: 100;
+    -fx-pref-height: 32;
+}

@@ -105,6 +105,7 @@ public class TeamsView implements TeamComponentLeftClickListener, TeamComponentR
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+                teamFormComponent.clearForm();
                 refresh();
             } else if (mode == Mode.UPDATE) {
                 System.out.println("aktualizuj zespół o id: " + teamFormComponent.getTeam().getId());
@@ -142,12 +143,11 @@ public class TeamsView implements TeamComponentLeftClickListener, TeamComponentR
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+                teamFormComponent.clearForm();
                 refresh();
             }
         });
     }
-
-
 
     private void setWindowLabel(String collectionName) {
         windowLabel.setText("kolekcje/ "+collectionName + "/ zespoły");
