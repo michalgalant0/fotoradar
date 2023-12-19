@@ -1,0 +1,16 @@
+/* ParametersViewStyles.css */
+CollectionFormComponent, #teamsVBox {
+    -fx-background-color: #fff;
+    -fx-border-width: 1;
+    -fx-border-color: rgba(0, 0, 0, 0.26);
+}
+
+.secondaryButton {
+    -fx-pref-height: 32;
+    -fx-font-size: 14;
+    -fx-background-color: #005376;
+}
+
+.secondaryButton:hover {
+    -fx-background-color: #00374E;
+}

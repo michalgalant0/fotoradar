@@ -6,23 +6,6 @@ CollectibleFormComponent {
     -fx-border-color: rgba(0, 0, 0, 0.26);
 }
 
-Label {
-    -fx-font-size: 16;
-}
-
-TextField, DatePicker, TextArea, ComboBox {
-    -fx-background-radius: 8;
-}
-
-TextField, DatePicker, ComboBox {
-    -fx-pref-width: 180;
-    -fx-min-width: 180;
-    -fx-max-width: 180;
-    -fx-pref-height: 42;
-    -fx-font-size: 16;
-}
-
 TextArea {
     -fx-pref-height: 128;
-    -fx-font-size: 16;
 }

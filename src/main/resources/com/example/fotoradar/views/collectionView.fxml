@@ -16,7 +16,8 @@
     <CollectiblesComponent fx:id="collectiblesComponent"
                AnchorPane.topAnchor="184.0" AnchorPane.leftAnchor="64.0"
                AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="480.0" />
-    <IndicatorsComponent fx:id="indicatorsComponent" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="184.0" />
+    <IndicatorsComponent fx:id="indicatorsComponent"
+                         AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="184.0" />
     <VBox spacing="16.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="96.0">
         <Button  mnemonicParsing="false" onAction="#goToParameters"
                  text="PARAMETRY KOLEKCJI" />

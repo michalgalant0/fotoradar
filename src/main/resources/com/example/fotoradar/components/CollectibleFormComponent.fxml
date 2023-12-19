@@ -16,6 +16,7 @@
     <stylesheets>
         <URL value="@../styles/globalStyles.css" />
         <URL value="@../styles/components/CollectibleFormComponentStyles.css" />
+        <URL value="@../styles/components/FormComponentsStyles.css" />
     </stylesheets>
 
     <VBox spacing="16.0"

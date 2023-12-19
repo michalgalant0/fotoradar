@@ -4,6 +4,10 @@
     -fx-background-color: #f0f0f0;
 }
 
+Label {
+    -fx-font-size: 16;
+}
+
 .button {
     -fx-background-color: #00a1f1;
     -fx-pref-height: 40;

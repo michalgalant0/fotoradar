@@ -16,6 +16,7 @@
          xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@../styles/components/SegmentFormComponentStyles.css" />
+        <URL value="@../styles/components/FormComponentsStyles.css" />
     </stylesheets>
 
     <VBox spacing="16.0"

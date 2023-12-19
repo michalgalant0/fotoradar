@@ -10,30 +10,35 @@
     <stylesheets>
         <URL value="@../styles/globalStyles.css" />
         <URL value="@../styles/views/ParametersViewStyles.css" />
-        <!-- tu będą dodawane szczeŋółowe style dla danego widoku -->
     </stylesheets>
 
-    <Label fx:id="windowLabel" layoutX="48.0" layoutY="24.0" text="kolekcje/ parametry" styleClass="viewHeader"/>
-    <CollectionFormComponent fx:id="collectionFormComponent" layoutX="24.0" layoutY="84.0" prefHeight="500.0">
+    <Label fx:id="windowLabel" layoutX="128.0" layoutY="64.0"
+           text="kolekcje/ parametry" styleClass="viewHeader"/>
+    <CollectionFormComponent fx:id="collectionFormComponent"
+                             AnchorPane.topAnchor="184.0" AnchorPane.leftAnchor="64.0">
         <Button  mnemonicParsing="false" onAction="#saveCollection"
-                 AnchorPane.bottomAnchor="0.0"
-                 AnchorPane.rightAnchor="0.0"
-                 prefHeight="24.0" prefWidth="200.0" text="ZAPISZ PARAMETRY" />
+                 AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="32.0"
+                 text="ZAPISZ PARAMETRY" styleClass="secondaryButton"/>
     </CollectionFormComponent>
-    <TeamsComponent fx:id="teamsComponent" layoutX="500.0" layoutY="84.0" prefHeight="700.0"
-                    style="-fx-border-width: 1px; -fx-border-color: blue;">
-        <Label text="zespoły" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="24.0" />
-        <Button  mnemonicParsing="false" onAction="#manageTeams"
-                 AnchorPane.bottomAnchor="0.0"
-                 AnchorPane.rightAnchor="0.0"
-                 prefHeight="24.0" prefWidth="200.0" text="ZARZĄDZAJ ZESPOŁAMI" />
-    </TeamsComponent>
-    <IndicatorsComponent fx:id="indicatorsComponent" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="84.0" />
-    <Button mnemonicParsing="false" onAction="#createReport"
-            prefHeight="24.0" prefWidth="200.0" text="WYGENERUJ RAPORT"
-            AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="48.0" />
-    <Button  mnemonicParsing="false" onAction="#backToCollection"
-             AnchorPane.bottomAnchor="48.0"
-             AnchorPane.rightAnchor="48.0"
-             prefHeight="24.0" prefWidth="200.0" text="POWRÓT DO KOLEKCJI" />
+
+    <VBox fx:id="teamsVBox"
+          AnchorPane.topAnchor="184.0" AnchorPane.bottomAnchor="56.0"
+          AnchorPane.leftAnchor="528.0">
+        <AnchorPane>
+            <Label text="ZESPOŁY" styleClass="teamsLabel"
+                AnchorPane.topAnchor="24.0" AnchorPane.leftAnchor="32.0"/>
+        </AnchorPane>
+        <TeamsComponent fx:id="teamsComponent" />
+        <AnchorPane>
+            <Button  mnemonicParsing="false" onAction="#manageTeams"
+                     text="ZARZĄDZAJ ZESPOŁAMI" styleClass="secondaryButton"
+                     AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="32.0" />
+        </AnchorPane>
+    </VBox>
+    <IndicatorsComponent fx:id="indicatorsComponent"
+                         AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="184.0" />
+    <VBox spacing="16.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="96.0">
+        <Button mnemonicParsing="false" onAction="#createReport" text="WYGENERUJ RAPORT" />
+        <Button mnemonicParsing="false" onAction="#backToCollection" text="POWRÓT DO KOLEKCJI" />
+    </VBox>
 </AnchorPane>

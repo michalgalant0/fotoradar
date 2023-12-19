@@ -1,0 +1,4 @@
+/* TeamsComponentStyles.css */
+#scrollPane, #teamsContainer {
+    -fx-background-color: #fff;
+}

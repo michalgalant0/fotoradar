@@ -53,7 +53,7 @@ public class TeamsComponent extends AnchorPane {
             MAX_COLUMNS = 3;
 
         // szerokości komponentów TeamComponent + odstępy między nimi z marginesami + margines prawy
-        teamsContainer.setPrefWidth(MAX_COLUMNS*326.0+(MAX_COLUMNS+2)*20.0);
+        teamsContainer.setPrefWidth(MAX_COLUMNS*(new TeamComponent().getPrefWidth())+(MAX_COLUMNS+2)*24.0);
 
         if (teams == null || teams.isEmpty()) {
             Label infoLabel = new Label("NIE MA ŻADNEGO ZESPOŁU");

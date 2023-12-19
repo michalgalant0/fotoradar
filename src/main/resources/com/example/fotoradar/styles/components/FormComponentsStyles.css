@@ -1,0 +1,26 @@
+/* FormComponentStyles.css */
+
+TextField, DatePicker, TextArea, ComboBox {
+    -fx-background-radius: 8;
+}
+
+#titleTextField {
+    -fx-pref-width: 180;
+    -fx-max-width: 180;
+    -fx-min-width: 180;
+}
+
+TextField, DatePicker, ComboBox {
+    -fx-pref-width: 180;
+    -fx-pref-height: 42;
+    -fx-font-size: 16;
+}
+
+TextArea {
+    -fx-pref-height: 104;
+    -fx-font-size: 16;
+}
+
+.timeField {
+    -fx-pref-width: 80;
+}
