@@ -57,7 +57,7 @@
         <HBox spacing="8.0" AnchorPane.leftAnchor="32.0">
             <VBox spacing="8.0">
                 <Label fx:id="versionLabel" text="WERSJA"/>
-                <HBox spacing="16.0" alignment="CENTER">
+                <HBox spacing="8.0" alignment="CENTER">
                     <ComboBox fx:id="versionComboBox"/>
                     <Button mnemonicParsing="false" onAction="#openVersion" text="OTWÓRZ WERSJĘ"
                             styleClass="versionButton"/>

@@ -29,3 +29,12 @@
 .viewHeader {
     -fx-font-size: 40;
 }
+
+/* Przyciski do usuwania */
+.deleteButton {
+    -fx-background-color: #f10000;
+}
+
+.deleteButton:hover {
+    -fx-background-color: #be0000;
+}

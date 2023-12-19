@@ -23,7 +23,7 @@
         <Button  mnemonicParsing="false" onAction="#addCollectible"
                  text="DODAJ OBIEKT" />
         <Button  mnemonicParsing="false" onAction="#removeCollection"
-                 text="USUŃ KOLEKCJĘ" />
+                 text="USUŃ KOLEKCJĘ" styleClass="deleteButton" />
         <Button  mnemonicParsing="false" onAction="#backToCollections"
                  text="POWRÓT DO KOLEKCJI" />
     </VBox>

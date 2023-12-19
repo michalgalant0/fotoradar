@@ -1,0 +1,8 @@
+/* VersionViewStyles.css */
+VBox > .button {
+    -fx-pref-width: 228;
+}
+
+.formButton {
+    -fx-pref-width: 160;
+}

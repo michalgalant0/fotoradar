@@ -7,25 +7,60 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
 
-<fx:root prefHeight="452.0" prefWidth="500.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="nameLabel" layoutX="32.0" layoutY="21.0" text="NAZWA" AnchorPane.leftAnchor="32.0" />
-    <TextField fx:id="nameTextField" layoutX="32.0" layoutY="45.0" prefHeight="24.0" prefWidth="198.0" AnchorPane.leftAnchor="32.0" />
+<fx:root prefWidth="544.0"
+         type="javafx.scene.layout.AnchorPane"
+         xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@../styles/components/VersionFormComponentStyles.css" />
+    </stylesheets>
 
-    <Label fx:id="startDateTimeLabel" layoutX="32.0" layoutY="85.0" text="DATA I GODZINA ROZPOCZĘCIA" AnchorPane.leftAnchor="32.0" />
-    <DatePicker fx:id="startDatePicker" layoutX="32.0" layoutY="109.0" prefHeight="24.0" prefWidth="137.0" AnchorPane.leftAnchor="32.0" />
-    <TextField fx:id="startTimeTextField" layoutX="181.0" layoutY="109.0" prefHeight="26.0" prefWidth="60.0" promptText="GG:mm" />
+    <VBox spacing="16.0"
+          AnchorPane.topAnchor="24.0" AnchorPane.leftAnchor="32.0"
+          AnchorPane.rightAnchor="32.0" AnchorPane.bottomAnchor="72.0">
 
-    <Label fx:id="finishDateTimeLabel" layoutX="259.0" layoutY="85.0" text="DATA I GODZINA ZAKOŃCZENIA" />
-    <DatePicker fx:id="finishDatePicker" layoutX="259.0" layoutY="109.0" prefHeight="24.0" prefWidth="137.0" />
-    <TextField fx:id="finishTimeTextField" layoutX="407.0" layoutY="109.0" prefHeight="26.0" prefWidth="60.0" promptText="GG:mm" />
+        <HBox spacing="8.0">
+            <VBox spacing="8.0" AnchorPane.leftAnchor="32.0">
+                <Label fx:id="nameLabel" text="NAZWA"/>
+                <TextField fx:id="nameTextField"/>
+            </VBox>
+        </HBox>
 
-    <Label fx:id="descriptionLabel" layoutX="32.0" layoutY="149.0" text="OPIS" AnchorPane.leftAnchor="32.0" />
-    <TextArea fx:id="descriptionTextArea" layoutX="32.0" layoutY="173.0" prefHeight="128.0" prefWidth="436.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0"  wrapText="true"/>
+            <VBox spacing="8.0" AnchorPane.leftAnchor="32.0">
+                <Label fx:id="startDateTimeLabel" text="DATA I GODZINA ROZPOCZĘCIA"/>
+                <HBox>
+                    <DatePicker fx:id="startDatePicker"/>
+                    <TextField fx:id="startTimeTextField" promptText="GG:mm" styleClass="timeField" />
+                </HBox>
+            </VBox>
+            <VBox spacing="8.0">
+                <Label fx:id="finishDateTimeLabel" text="DATA I GODZINA ZAKOŃCZENIA"/>
+                <HBox>
+                    <DatePicker fx:id="finishDatePicker"/>
+                    <TextField fx:id="finishTimeTextField" promptText="GG:mm" styleClass="timeField"/>
+                </HBox>
+            </VBox>
 
-    <Label fx:id="teamLabel" layoutX="32.0" layoutY="317.0" text="ZESPÓŁ" AnchorPane.leftAnchor="32.0" />
-    <ComboBox fx:id="teamComboBox" layoutX="32.0" layoutY="341.0" prefHeight="24.0" prefWidth="169.0" AnchorPane.leftAnchor="32.0" />
-    <Button layoutX="211.0" layoutY="341.0" mnemonicParsing="false" onAction="#editTeam" text="EDYTUJ ZESPÓŁ" />
-    <Button layoutX="352.0" layoutY="341.0" mnemonicParsing="false" onAction="#addTeam" text="DODAJ ZESPÓŁ" />
+        <VBox spacing="8.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0">
+            <Label fx:id="descriptionLabel" text="OPIS"/>
+            <TextArea fx:id="descriptionTextArea" wrapText="true"/>
+        </VBox>
 
+        <HBox spacing="8.0" AnchorPane.leftAnchor="32.0">
+            <VBox spacing="8.0">
+                <Label fx:id="teamLabel" text="ZESPÓŁ"/>
+                <HBox spacing="8.0" alignment="CENTER">
+                    <ComboBox fx:id="teamComboBox"/>
+                    <Button mnemonicParsing="false" onAction="#editTeam" text="EDYTUJ ZESPÓŁ"
+                            styleClass="teamButton"/>
+                    <Button mnemonicParsing="false" onAction="#addTeam" text="DODAJ ZESPÓŁ"
+                            styleClass="teamButton"/>
+                </HBox>
+            </VBox>
+        </HBox>
+
+    </VBox>
 </fx:root>

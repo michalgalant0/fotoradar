@@ -30,7 +30,7 @@
         <Button mnemonicParsing="false" onAction="#manageSegments"
                 text="ZARZĄDZAJ SEGMENTAMI"/>
         <Button mnemonicParsing="false" onAction="#removeCollectible"
-                text="USUŃ OBIEKT" />
+                text="USUŃ OBIEKT" styleClass="deleteButton" />
         <Button mnemonicParsing="false" onAction="#backToCollection"
                 text="POWRÓT DO KOLEKCJI" />
     </VBox>
