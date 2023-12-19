@@ -62,6 +62,8 @@ public class CollectionRowComponent extends AnchorPane {
     public void setThumbnailPath(String collectionName) throws SQLException {
         ArrayList<Thumbnail> allThumbnails = new ThumbnailOperations().getAllThumbnails(collectible.getId());
         if (!allThumbnails.isEmpty()) {
+            imageContainer.setMinHeight(116);
+            imageContainer.setMinWidth(116);
             thumbnailPath = String.format(thumbnailPath,
                     Main.getDefPath(), collectionName, collectible.getTitle(),
                     allThumbnails.get(0).getFileName());

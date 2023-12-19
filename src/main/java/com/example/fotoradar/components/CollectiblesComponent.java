@@ -56,7 +56,6 @@ public class CollectiblesComponent extends AnchorPane {
                 collectibleComponent.setCollectible(collectible);
                 // wypełnienie komponentu
                 collectibleComponent.setThumbnailPath(collectionName);
-                collectibleComponent.setObjectThumbnailImageView();
                 collectibleComponent.fillComponent();
                 // dodanie komponentu do listy
                 collectiblesContainer.getChildren().add(collectibleComponent);

@@ -1,0 +1,51 @@
+/* CollectionViewStyles.css */
+
+/* CollectiblesComponent */
+CollectiblesComponent > #scrollPane, #collectiblesContainer {
+    -fx-background-color: #f0f0f0;
+}
+
+/* CollectibleComponent */
+CollectibleComponent,
+CollectibleComponent > StackPane,
+CollectibleComponent > AnchorPane{
+    -fx-background-color: #fff;
+    -fx-border-width: 1;
+    -fx-border-color: rgba(0, 0, 0, 0.26);
+}
+
+#headerLabel {
+    -fx-font-size: 30;
+}
+
+#goToCollectibleButton {
+    -fx-background-color: #005376;
+}
+
+#goToCollectibleButton:hover {
+    -fx-background-color: #00374E;
+}
+
+/* Form */
+#form > Label {
+    -fx-font-size: 16;
+}
+
+#form > TextField,
+#form > TextArea {
+    -fx-background-radius: 8;
+}
+
+#startDateTextField, #finishDateTextField,
+#descriptionTextArea, #statusTextField {
+    -fx-font-size: 16;
+}
+
+#finishDateTextField{
+}
+
+#descriptionTextArea{
+}
+
+#statusTextField{
+}

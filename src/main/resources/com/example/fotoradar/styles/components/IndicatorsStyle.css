@@ -1,0 +1,21 @@
+/* IndicatorsStyle.css */
+IndicatorsComponent {
+    -fx-background-color: #fff;
+    -fx-border-width: 1;
+    -fx-border-color: rgba(0, 0, 0, 0.26);
+}
+
+.label {
+    -fx-font-size: 21;
+}
+
+#progressBar {
+    -fx-accent: lightgreen;
+    -fx-background-radius: 50;
+}
+
+#sizeLabel {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}

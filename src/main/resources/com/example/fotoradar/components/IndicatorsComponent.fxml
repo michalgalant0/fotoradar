@@ -4,19 +4,19 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<fx:root alignment="CENTER" prefHeight="127.0" prefWidth="240.0" spacing="10"
+<?import java.net.URL?>
+
+<fx:root alignment="CENTER" prefHeight="240.0" prefWidth="352.0" spacing="24.0"
          type="javafx.scene.layout.VBox"
-         xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/"
-         style="-fx-border-width: 1px; -fx-border-color: black;">
-     <Label text="Postęp skanowania kolekcji:" />
+         xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/">
+    <stylesheets>
+        <URL value="@../styles/components/IndicatorsStyle.css" />
+    </stylesheets>
+
+     <Label text="postęp skanowania kolekcji" />
      <StackPane>
-         <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="151.0" progress="0" style="-fx-accent: lightgreen;" />
+         <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="151.0" progress="0" />
      </StackPane>
-     <Label text="Miejsce zajęte przez zdjęcia:" />
-     <Label fx:id="sizeLabel" text="0 MB" textAlignment="CENTER">
-      <font>
-         <Font name="System Bold" size="13.0" />
-      </font>
-   </Label>
+     <Label text="miejsce zajęte przez zdjęcia:" />
+     <Label fx:id="sizeLabel" text="0 MB" />
 </fx:root>

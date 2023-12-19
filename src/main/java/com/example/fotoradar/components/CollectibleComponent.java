@@ -72,8 +72,11 @@ public class CollectibleComponent extends AnchorPane {
                     allThumbnails.get(0).getFileName());
             setObjectThumbnailImageView();
         }
-        else
-            imageView.setImage(null);
+        else {
+            Image noPhoto = new Image(Main.class.getResource("icons/nophoto.png").toExternalForm());
+            imageView.setImage(noPhoto);
+            imageView.setFitWidth(50);
+        }
     }
 
     public void setObjectThumbnailImageView() {

@@ -5,30 +5,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@../styles/globalStyles.css" />
         <URL value="@../styles/views/CollectionViewStyles.css" />
-        <!-- tu będą dodawane szczeŋółowe style dla danego widoku -->
     </stylesheets>
 
-    <Label fx:id="windowLabel" text="kolekcje/" styleClass="viewHeader"/>
-    <CollectiblesComponent fx:id="collectiblesComponent" layoutX="24.0" layoutY="84.0" />
-    <IndicatorsComponent fx:id="indicatorsComponent" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="84.0" />
-    <Button  mnemonicParsing="false" onAction="#goToParameters"
-             AnchorPane.bottomAnchor="144.0"
-             AnchorPane.rightAnchor="48.0"
-             prefHeight="24.0" prefWidth="200.0" text="PARAMETRY KOLEKCJI" />
-    <Button  mnemonicParsing="false" onAction="#addCollectible"
-             AnchorPane.bottomAnchor="112.0"
-             AnchorPane.rightAnchor="48.0"
-             prefHeight="24.0" prefWidth="200.0" text="DODAJ OBIEKT" />
-    <Button  mnemonicParsing="false" onAction="#removeCollection"
-             AnchorPane.bottomAnchor="80.0"
-             AnchorPane.rightAnchor="48.0"
-             prefHeight="24.0" prefWidth="200.0" text="USUŃ KOLEKCJĘ" />
-    <Button  mnemonicParsing="false" onAction="#backToCollections"
-             AnchorPane.bottomAnchor="48.0"
-             AnchorPane.rightAnchor="48.0"
-             prefHeight="24.0" prefWidth="200.0" text="POWRÓT DO KOLEKCJI" />
+    <Label fx:id="windowLabel" layoutX="128.0" layoutY="64.0" text="kolekcje/" styleClass="viewHeader"/>
+    <CollectiblesComponent fx:id="collectiblesComponent"
+               AnchorPane.topAnchor="184.0" AnchorPane.leftAnchor="64.0"
+               AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="480.0" />
+    <IndicatorsComponent fx:id="indicatorsComponent" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="184.0" />
+    <VBox spacing="16.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="96.0">
+        <Button  mnemonicParsing="false" onAction="#goToParameters"
+                 text="PARAMETRY KOLEKCJI" />
+        <Button  mnemonicParsing="false" onAction="#addCollectible"
+                 text="DODAJ OBIEKT" />
+        <Button  mnemonicParsing="false" onAction="#removeCollection"
+                 text="USUŃ KOLEKCJĘ" />
+        <Button  mnemonicParsing="false" onAction="#backToCollections"
+                 text="POWRÓT DO KOLEKCJI" />
+    </VBox>
 </AnchorPane>
