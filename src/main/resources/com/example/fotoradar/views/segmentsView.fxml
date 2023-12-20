@@ -13,12 +13,12 @@
         <URL value="@../styles/views/SegmentsViewStyles.css" />
     </stylesheets>
 
-    <Label fx:id="windowLabel" layoutX="128.0" layoutY="64.0" text="kolekcje/ kolekcja/ obiekt/ segmenty" styleClass="viewHeader"/>
+    <Label fx:id="windowLabel" layoutX="128.0" layoutY="40.0" text="kolekcje/ kolekcja/ obiekt/ segmenty" styleClass="viewHeader"/>
     <ImageViewerComponent fx:id="imageViewerComponent"
-                          AnchorPane.topAnchor="184.0" AnchorPane.leftAnchor="64.0"
+                          AnchorPane.topAnchor="144.0" AnchorPane.leftAnchor="64.0"
                           AnchorPane.bottomAnchor="56.0" />
     <SegmentFormComponent fx:id="segmentFormComponent"
-                          AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="184.0">
+                          AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="144.0">
         <HBox spacing="16.0" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="32.0">
             <Button mnemonicParsing="false" onAction="#saveSegment"
                     text="ZAPISZ SEGMENT" styleClass="formButton" />
@@ -26,7 +26,7 @@
                     text="USUŃ SEGMENT" styleClass="formButton, deleteButton" />
         </HBox>
     </SegmentFormComponent>
-    <VBox spacing="16.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="96.0">
+    <VBox spacing="12.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="96.0">
         <Button mnemonicParsing="false" onAction="#addSketch" text="DODAJ SZKIC"/>
         <Button mnemonicParsing="false" onAction="#addPhoto" text="DODAJ ZDJĘCIE"/>
         <Button mnemonicParsing="false" onAction="#addSegments" text="UTWÓRZ SEGMENTY"/>

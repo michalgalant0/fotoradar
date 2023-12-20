@@ -4,7 +4,7 @@ TextField, DatePicker, TextArea, ComboBox {
     -fx-background-radius: 8;
 }
 
-#titleTextField {
+#titleTextField, #nameTextField {
     -fx-pref-width: 224;
     -fx-max-width: 224;
     -fx-min-width: 224;

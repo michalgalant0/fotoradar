@@ -12,17 +12,17 @@
         <URL value="@../styles/views/ParametersViewStyles.css" />
     </stylesheets>
 
-    <Label fx:id="windowLabel" layoutX="128.0" layoutY="64.0"
+    <Label fx:id="windowLabel" layoutX="128.0" layoutY="40.0"
            text="kolekcje/ parametry" styleClass="viewHeader"/>
     <CollectionFormComponent fx:id="collectionFormComponent"
-                             AnchorPane.topAnchor="184.0" AnchorPane.leftAnchor="64.0">
+                             AnchorPane.topAnchor="144.0" AnchorPane.leftAnchor="64.0">
         <Button  mnemonicParsing="false" onAction="#saveCollection"
                  AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="32.0"
                  text="ZAPISZ PARAMETRY" styleClass="secondaryButton"/>
     </CollectionFormComponent>
 
     <VBox fx:id="teamsVBox"
-          AnchorPane.topAnchor="184.0" AnchorPane.bottomAnchor="56.0"
+          AnchorPane.topAnchor="144.0" AnchorPane.bottomAnchor="56.0"
           AnchorPane.leftAnchor="528.0">
         <AnchorPane>
             <Label text="ZESPOŁY" styleClass="teamsLabel"
@@ -36,8 +36,8 @@
         </AnchorPane>
     </VBox>
     <IndicatorsComponent fx:id="indicatorsComponent"
-                         AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="184.0" />
-    <VBox spacing="16.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="96.0">
+                         AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="144.0" />
+    <VBox spacing="12.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="96.0">
         <Button mnemonicParsing="false" onAction="#createReport" text="WYGENERUJ RAPORT" />
         <Button mnemonicParsing="false" onAction="#backToCollection" text="POWRÓT DO KOLEKCJI" />
     </VBox>

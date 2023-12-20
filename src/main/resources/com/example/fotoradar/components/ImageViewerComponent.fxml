@@ -6,7 +6,7 @@
 <?import java.net.URL?>
 
 <?import javafx.geometry.Insets?>
-<fx:root prefWidth="1024.0"
+<fx:root prefWidth="1064.0"
          type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
@@ -19,7 +19,7 @@
             <padding>
                 <Insets top="32.0"/>
             </padding>
-            <StackPane fx:id="mainPane" prefWidth="704.0" prefHeight="704.0">
+            <StackPane fx:id="mainPane" prefWidth="724.0" prefHeight="724.0">
                 <ImageView fx:id="imageView"
                            StackPane.alignment="CENTER" />
                 <Pane fx:id="segmentPane" StackPane.alignment="CENTER" />

@@ -13,16 +13,16 @@
         <URL value="@../styles/views/CollectibleViewStyles.css" />
     </stylesheets>
 
-    <Label fx:id="windowLabel" layoutX="128.0" layoutY="64.0"
+    <Label fx:id="windowLabel" layoutX="128.0" layoutY="40.0"
            text="kolekcje/ kolekcja/ obiekt " styleClass="viewHeader"/>
     <MiniGalleryComponent fx:id="miniGalleryComponent" />
     <CollectibleFormComponent fx:id="collectibleFormComponent" layoutY="84.0"
-                              AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="184.0">
+                              AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="144.0">
         <Button mnemonicParsing="false" onAction="#saveCollectible"
                 text="ZAPISZ"
                 AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="24.0" />
     </CollectibleFormComponent>
-    <VBox spacing="16.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="96.0">
+    <VBox spacing="12.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="96.0">
         <Button mnemonicParsing="false" onAction="#addSketch"
                 text="DODAJ SZKIC"/>
         <Button mnemonicParsing="false" onAction="#addPhoto"

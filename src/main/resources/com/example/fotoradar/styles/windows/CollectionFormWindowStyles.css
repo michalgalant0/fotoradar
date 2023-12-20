@@ -1,4 +1,9 @@
 /* CollectionFormWindowStyles.css */
+
+.root {
+    -fx-background-color: #fff;
+}
+
 Button {
     -fx-min-width: 100;
     -fx-pref-width: 100;

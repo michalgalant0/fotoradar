@@ -13,20 +13,20 @@
         <URL value="@../styles/views/VersionViewStyles.css" />
     </stylesheets>
 
-    <Label fx:id="windowLabel" layoutX="128.0" layoutY="64.0"
+    <Label fx:id="windowLabel" layoutX="128.0" layoutY="40.0"
            text="kolekcje/ kolekcja/ obiekt / segment / wersja" styleClass="viewHeader"/>
 
     <MiniGalleryComponent fx:id="miniGalleryComponent"
-                          AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="184.0"/>
+                          AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="144.0"/>
 
     <VersionFormComponent fx:id="versionFormComponent"
-                          AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="184.0">
+                          AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="144.0">
         <Button mnemonicParsing="false" onAction="#saveVersion"
                 text="ZAPISZ" styleClass="formButton"
                 AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="32.0" />
     </VersionFormComponent>
 
-    <VBox spacing="16.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="96.0">
+    <VBox spacing="12.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="96.0">
         <Button mnemonicParsing="false" onAction="#addPhotos" text="DODAJ ZDJĘCIA"/>
         <Button mnemonicParsing="false" onAction="#manageTeams" text="ZARZĄDZAJ ZESPOŁAMI"/>
         <Button mnemonicParsing="false" onAction="#removeVersion" text="USUŃ WERSJE" styleClass="deleteButton"/>

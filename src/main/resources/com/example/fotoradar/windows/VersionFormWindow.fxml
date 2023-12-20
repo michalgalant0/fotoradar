@@ -6,9 +6,28 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="483.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="windowLabel" layoutX="232.0" layoutY="14.0" text="Label" />
-    <VersionFormComponent fx:id="versionForm" />
-    <Button layoutX="176.0" layoutY="429.0" mnemonicParsing="false" onAction="#saveVersion" text="ZAPISZ" />
-    <Button layoutX="257.0" layoutY="429.0" mnemonicParsing="false" onAction="#cancel" text="ANULUJ" />
+<?import java.net.URL?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefWidth="544.0"
+            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@../styles/globalStyles.css" />
+        <URL value="@../styles/components/FormComponentsStyles.css" />
+        <URL value="@../styles/windows/VersionFormWindowStyles.css" />
+    </stylesheets>
+
+    <VersionFormComponent fx:id="versionForm">
+        <padding>
+            <Insets top="16.0" bottom="16.0" />
+        </padding>
+        <Label fx:id="windowLabel" text="Label" alignment="CENTER"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0"/>
+        <HBox spacing="16.0" alignment="CENTER" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0">
+            <Button mnemonicParsing="false" onAction="#saveVersion" text="ZAPISZ" styleClass="windowButton"/>
+            <Button mnemonicParsing="false" onAction="#cancel" text="ANULUJ" styleClass="windowButton"/>
+        </HBox>
+    </VersionFormComponent>
 </AnchorPane>

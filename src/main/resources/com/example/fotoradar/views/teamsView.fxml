@@ -13,16 +13,16 @@
         <URL value="@../styles/views/TeamsViewStyles.css" />
     </stylesheets>
 
-    <Label fx:id="windowLabel" layoutX="128.0" layoutY="64.0"
+    <Label fx:id="windowLabel" layoutX="128.0" layoutY="40.0"
            text="kolekcje/ kolekcja/ zespoły" styleClass="viewHeader"/>
     <AnchorPane
-            AnchorPane.topAnchor="184.0" AnchorPane.leftAnchor="64.0"
+            AnchorPane.topAnchor="144.0" AnchorPane.leftAnchor="64.0"
             AnchorPane.bottomAnchor="56.0" >
         <TeamsComponent fx:id="teamsComponent"/>
     </AnchorPane>
 
     <TeamFormComponent fx:id="teamFormComponent"
-                       AnchorPane.topAnchor="184.0" AnchorPane.rightAnchor="96.0">
+                       AnchorPane.topAnchor="144.0" AnchorPane.rightAnchor="96.0">
         <Button fx:id="submitFormButton" mnemonicParsing="false" text="ZAPISZ"
             AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="32.0"/>
     </TeamFormComponent>

@@ -13,16 +13,16 @@
         <URL value="@../styles/views/CollectionsViewStyles.css" />
     </stylesheets>
 
-    <Label text="kolekcje" layoutX="128.0" layoutY="64.0" styleClass="viewHeader" />
+    <Label text="kolekcje" layoutX="128.0" layoutY="40.0" styleClass="viewHeader" />
     <CollectionsComponent fx:id="collectionsComponent"
-            AnchorPane.topAnchor="184.0" AnchorPane.leftAnchor="64.0"
+            AnchorPane.topAnchor="144.0" AnchorPane.leftAnchor="64.0"
             AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="450.0" />
     <Button mnemonicParsing="false" onAction="#addCollection"
             AnchorPane.bottomAnchor="56.0"
             AnchorPane.rightAnchor="96.0"
             text="DODAJ KOLEKCJĘ" />
     <Button mnemonicParsing="false" onAction="#openSettings"
-            AnchorPane.topAnchor="72.0"
+            AnchorPane.topAnchor="48.0"
             AnchorPane.rightAnchor="96.0"
             text="USTAWIENIA" />
 </AnchorPane>
