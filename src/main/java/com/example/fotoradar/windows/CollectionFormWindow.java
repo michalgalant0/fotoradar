@@ -44,7 +44,7 @@ public class CollectionFormWindow implements Window {
             titleTextField.setStyle("-fx-border-color: red;"); // Możesz dostosować to według potrzeb
 
             // Wstawienie komunikatu w miejscu pola tytułu
-            titleTextField.setPromptText("Pole tytułu nie może być puste!");
+            titleTextField.setPromptText("Pole nie może być puste!");
             return;
         }
 

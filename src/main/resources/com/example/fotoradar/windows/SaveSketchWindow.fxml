@@ -4,15 +4,24 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="130.0" prefWidth="300.0"
-            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="windowTitle" layoutX="30.0" layoutY="14.0" prefHeight="25.0" prefWidth="241.0" text="Wpisz nazwę pliku (bez rozszerzenia):" AnchorPane.topAnchor="14.0">
-      <font>
-         <Font size="14.0" />
-      </font></Label>
-    <Button fx:id="SaveSketch" layoutX="60.0" layoutY="91.0" mnemonicParsing="false" onAction="#setSaveSketch" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: LIGHTGREEN;" text="ZAPISZ" AnchorPane.bottomAnchor="14.0" />
-   <TextField fx:id="fileName" layoutX="15.0" layoutY="53.0" prefHeight="25.0" prefWidth="270.0" />
-   <Button fx:id="cancelSave" layoutX="180.0" layoutY="91.0" mnemonicParsing="false" onAction="#setCancel" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: #FF3632;" text="ANULUJ" />
+<AnchorPane xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@../styles/globalStyles.css" />
+        <URL value="@../styles/windows/SaveSketchWindowStyles.css" />
+    </stylesheets>
+
+    <VBox spacing="16.0"
+          AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0"
+          AnchorPane.topAnchor="16.0" AnchorPane.bottomAnchor="16.0">
+        <Label fx:id="windowTitle" text="Wpisz nazwę pliku (bez rozszerzenia):" />
+        <TextField fx:id="fileName" />
+        <HBox spacing="16.0" alignment="BASELINE_CENTER">
+            <Button fx:id="SaveSketch" mnemonicParsing="false" onAction="#setSaveSketch" text="ZAPISZ" />
+            <Button fx:id="cancelSave" mnemonicParsing="false" onAction="#setCancel" text="ANULUJ" />
+        </HBox>
+    </VBox>
 </AnchorPane>

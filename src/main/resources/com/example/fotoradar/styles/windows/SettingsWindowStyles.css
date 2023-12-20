@@ -1,0 +1,12 @@
+/* SettingsWindowStyles.css */
+Button {
+    -fx-pref-height: 32;
+}
+
+.funcButton {
+    -fx-pref-width: 100;
+}
+
+.secondaryButton {
+    -fx-pref-width: 160;
+}

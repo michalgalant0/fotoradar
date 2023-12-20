@@ -17,14 +17,3 @@ ImageViewerComponent {
     -fx-background-color: transparent;
     -fx-font-weight: bold;
 }
-
-.deleteButton {
-    -fx-background-color: red;
-    -fx-pref-height: 32;
-    -fx-pref-width: 160;
-    -fx-font-size: 14;
-}
-
-.deleteButton:hover {
-    -fx-background-color: darkred;
-}

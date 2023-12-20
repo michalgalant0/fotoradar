@@ -1,0 +1,13 @@
+/* PainterViewStyles.css */
+
+Button, ColorPicker, RadioButton, Slider {
+    -fx-pref-width: 160;
+    -fx-min-width: 160;
+    -fx-max-width: 160;
+}
+
+ToolBar {
+    -fx-pref-width: 168;
+    -fx-min-width: 168;
+    -fx-max-width: 168;
+}

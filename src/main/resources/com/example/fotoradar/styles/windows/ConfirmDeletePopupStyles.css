@@ -1,0 +1,8 @@
+/* ConfirmDeletePopupStyles.css */
+
+Button {
+    -fx-min-height: 32;
+    -fx-max-height: 32;
+    -fx-min-width: 100;
+    -fx-max-width: 100;
+}

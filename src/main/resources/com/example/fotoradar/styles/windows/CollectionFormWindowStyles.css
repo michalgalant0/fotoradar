@@ -1,0 +1,6 @@
+/* CollectionFormWindowStyles.css */
+Button {
+    -fx-min-width: 100;
+    -fx-pref-width: 100;
+    -fx-max-width: 100;
+}

@@ -21,6 +21,16 @@ Label {
     -fx-background-color: #007FBE;
 }
 
+.secondaryButton {
+    -fx-pref-height: 32;
+    -fx-font-size: 14;
+    -fx-background-color: #005376;
+}
+
+.secondaryButton:hover {
+    -fx-background-color: #00374E;
+}
+
 /* domyślny styl dla przycisków DatePicker */
 .date-picker .button {
     -fx-background-color: transparent;

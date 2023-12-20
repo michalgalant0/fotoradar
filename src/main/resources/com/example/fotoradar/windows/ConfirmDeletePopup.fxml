@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="129.0" prefWidth="438.0"
-            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
-    <Label layoutX="120.0" layoutY="31.0" text="Czy na pewno chcesz usunąć?" AnchorPane.topAnchor="31.0"/>
-    <Button layoutX="155.0" layoutY="72.0" mnemonicParsing="false" text="USUŃ" AnchorPane.bottomAnchor="33.0"
-            onAction="#confirmDelete" />
-    <Button layoutX="227.0" layoutY="72.0" mnemonicParsing="false" text="ANULUJ" AnchorPane.bottomAnchor="33.0"
-            onAction="#cancel" />
+<?import java.net.URL?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@../styles/globalStyles.css" />
+        <URL value="@../styles/windows/ConfirmDeletePopupStyles.css" />
+    </stylesheets>
+
+    <VBox spacing="16.0"
+          AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0"
+          AnchorPane.topAnchor="16.0" AnchorPane.bottomAnchor="16.0">
+        <Label text="Czy na pewno chcesz usunąć?" alignment="BASELINE_CENTER"/>
+        <HBox spacing="16.0" alignment="CENTER">
+            <Button fx:id="deleteButton" mnemonicParsing="false" text="USUŃ"
+                    onAction="#confirmDelete" styleClass="deleteButton" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" text="ANULUJ" onAction="#cancel" />
+        </HBox>
+    </VBox>
 </AnchorPane>

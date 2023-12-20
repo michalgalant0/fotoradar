@@ -6,7 +6,6 @@ import com.example.fotoradar.databaseOperations.ThumbnailOperations;
 import com.example.fotoradar.models.Collectible;
 import com.example.fotoradar.windows.OnWindowClosedListener;
 import com.example.fotoradar.windows.SaveSketchWindow;
-import com.example.fotoradar.windows.Window;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -305,7 +304,8 @@ public class Painter extends Application implements OnWindowClosedListener {
         FileChooser openFile = new FileChooser();
         openFile.setTitle("Open File");
         FileChooser.ExtensionFilter imageFilter =
-                new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png", "*.gif");
+                new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png", "*.gif",
+                        "*.JPG", "*.JPEG", "*.PNG", "*.GIF");
         openFile.getExtensionFilters().add(imageFilter);
         File file = openFile.showOpenDialog(primaryStage);
 

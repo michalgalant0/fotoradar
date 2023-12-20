@@ -1,7 +1,9 @@
 package com.example.fotoradar.segmenter;
 
+import com.example.fotoradar.Main;
 import com.example.fotoradar.Palette;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -103,9 +105,11 @@ public class Segmenter extends Application {
 
         VBox buttonBox = new VBox(segmentButton);
         buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setPadding(new Insets(16, 0, 16, 0));
         root.setBottom(buttonBox);
 
-        Scene scene = new Scene(root, 800, 840);
+        Scene scene = new Scene(root, 800, 864);
+        scene.getStylesheets().add(Main.class.getResource("styles/windows/SegmenterStyle.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
     }

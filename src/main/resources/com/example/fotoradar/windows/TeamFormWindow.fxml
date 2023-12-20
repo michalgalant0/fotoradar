@@ -3,10 +3,20 @@
 <?import com.example.fotoradar.components.TeamFormComponent?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane
-            style="-fx-border-width: 1px; -fx-border-color: pink;"
-            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-    <TeamFormComponent fx:id="teamForm" />
-    <Button layoutX="77.0" AnchorPane.bottomAnchor="24.0" mnemonicParsing="false" text="ZAPISZ" onAction="#saveTeam" />
-    <Button layoutX="158.0" AnchorPane.bottomAnchor="24.0" mnemonicParsing="false" text="ANULUJ" onAction="#cancel" />
+<?import javafx.scene.layout.HBox?>
+<?import java.net.URL?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" >
+    <stylesheets>
+        <URL value="@../styles/globalStyles.css" />
+        <URL value="@../styles/windows/TeamFormWindowStyles.css" />
+    </stylesheets>
+
+        <TeamFormComponent fx:id="teamForm" />
+        <HBox spacing="16.0" alignment="CENTER"
+              AnchorPane.bottomAnchor="16.0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <Button mnemonicParsing="false" text="ZAPISZ" onAction="#saveTeam" />
+            <Button mnemonicParsing="false" text="ANULUJ" onAction="#cancel" />
+        </HBox>
 </AnchorPane>

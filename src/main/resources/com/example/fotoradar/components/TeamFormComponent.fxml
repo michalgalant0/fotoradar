@@ -15,7 +15,7 @@
 
     <VBox spacing="16.0"
           AnchorPane.topAnchor="24.0" AnchorPane.leftAnchor="32.0"
-          AnchorPane.rightAnchor="32.0" AnchorPane.bottomAnchor="96.0">
+          AnchorPane.rightAnchor="32.0" AnchorPane.bottomAnchor="64.0">
         <Label fx:id="teamFormLabel" text="Dodaj zespół" textAlignment="CENTER"/>
 
         <VBox spacing="8.0">

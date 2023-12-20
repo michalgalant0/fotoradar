@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.example.fotoradar.components.ImageViewerComponent?>
-
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="830.0"
-            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="windowLabel" layoutX="381.0" layoutY="14.0"
-           text="Label" AnchorPane.topAnchor="16.0" alignment="CENTER" />
-    <ImageViewerComponent fx:id="imageViewer" layoutY="50.0" />
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@../styles/globalStyles.css" />
+    </stylesheets>
+
+    <ImageViewerComponent fx:id="imageViewer" >
+        <padding>
+            <Insets bottom="16.0"/>
+        </padding>
+    </ImageViewerComponent>
 </AnchorPane>

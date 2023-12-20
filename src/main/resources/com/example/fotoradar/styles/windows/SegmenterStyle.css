@@ -1,0 +1,16 @@
+.root {
+    -fx-background-color: #fff;
+}
+
+.button {
+    -fx-background-color: #00a1f1;
+    -fx-pref-height: 32;
+    -fx-pref-width: 220;
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+    -fx-background-radius: 50;
+}
+
+.button:hover {
+    -fx-background-color: #007FBE;
+}

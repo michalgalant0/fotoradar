@@ -6,10 +6,23 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="580.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
-        <Label fx:id="windowLabel" layoutX="182.0" layoutY="14.0" text="Label"
-               alignment="CENTER" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0"/>
-        <CollectibleFormComponent fx:id="collectibleForm" layoutY="30.0" />
-        <Button layoutX="127.0" layoutY="510.0" mnemonicParsing="false" text="ZAPISZ" onAction="#saveCollectible" />
-        <Button layoutX="208.0" layoutY="510.0" mnemonicParsing="false" text="ANULUJ" onAction="#cancel" />
+<?import java.net.URL?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+        <stylesheets>
+                <URL value="@../styles/globalStyles.css" />
+                <URL value="@../styles/windows/CollectibleFormWindowStyles.css" />
+        </stylesheets>
+
+        <VBox spacing="16.0" alignment="CENTER" AnchorPane.topAnchor="16.0">
+                <Label fx:id="windowLabel" text="Label" />
+                <CollectibleFormComponent fx:id="collectibleForm">
+                        <HBox spacing="16.0" alignment="BASELINE_CENTER"
+                                AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+                                <Button mnemonicParsing="false" text="ZAPISZ" onAction="#saveCollectible" />
+                                <Button mnemonicParsing="false" text="ANULUJ" onAction="#cancel" />
+                        </HBox>
+                </CollectibleFormComponent>
+        </VBox>
 </AnchorPane>

@@ -1,0 +1,11 @@
+/* CollectibleFormWindowStyles.css */
+
+.root {
+    -fx-background-color: #fff;
+}
+
+Button {
+    -fx-pref-height: 32;
+    -fx-min-width: 100;
+    -fx-max-width: 100;
+}
