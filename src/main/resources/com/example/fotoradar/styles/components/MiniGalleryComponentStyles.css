@@ -1,0 +1,4 @@
+/* MiniGalleryComponentStyles.css */
+.root, ScrollPane, GridPane {
+    -fx-background-color: #fff;
+}

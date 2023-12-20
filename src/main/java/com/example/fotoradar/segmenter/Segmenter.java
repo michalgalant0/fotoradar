@@ -46,7 +46,7 @@ public class Segmenter extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        primaryStage.setTitle("Segment Drawer");
+        primaryStage.setTitle("Segmenter");
         BorderPane root = new BorderPane();
 
         canvas = new Canvas(Math.min(800, currentImage.getWidth()), Math.min(800, currentImage.getHeight()));

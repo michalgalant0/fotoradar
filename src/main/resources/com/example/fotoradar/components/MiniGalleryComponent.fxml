@@ -3,11 +3,16 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <fx:root prefWidth="1208.0"
          type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
          AnchorPane.topAnchor="144.0" AnchorPane.leftAnchor="64.0"
          AnchorPane.bottomAnchor="56.0">
+    <stylesheets>
+        <URL value="@../styles/components/MiniGalleryComponentStyles.css" />
+    </stylesheets>
+
     <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true"
                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                 AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
