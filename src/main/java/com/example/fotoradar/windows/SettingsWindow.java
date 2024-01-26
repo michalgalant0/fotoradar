@@ -17,7 +17,7 @@ import java.util.Properties;
 
 
 public class SettingsWindow implements Window{
-    private static final String PROPERTIES_FILE_NAME = "target/classes/properties";
+    private static final String PROPERTIES_FILE_NAME = ".properties";
 
     @Setter
     private Stage dialogStage;
